@@ -4,8 +4,9 @@ import styled from 'styled-components';
 import styles from '../styles/Home.module.css';
 
 const Test = styled.div`
-  color: blue;
   background: green;
+  text-align: center;
+  color: blue;
 `;
 
 export default function Home() {
