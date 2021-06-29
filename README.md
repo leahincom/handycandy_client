@@ -14,6 +14,13 @@
   * ordering rule 
     * [concentric-css](https://rhodesmill.org/brandon/2011/concentric-css/)
 
+## 브랜치 작성법
+1. github project에서 `To Do` 에 태스크 등록
+2. `In Progress`에서 태스크를 `issue`로 전환
+3. 태스크에 설명 부족 시 `issue`에 해당 태스크 자세한 설명 추가
+4. 브랜치는 issue 넘버로 정한다.
+   1. ex) issue-1, issue-100
+
 ## 컴포넌트 작성법
 ### 컴포넌트 이름은 디렉토리명 기본 함수는 index로 한다.
 
