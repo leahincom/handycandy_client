@@ -31,7 +31,7 @@ const initializeStyle = css`
   html,
   body {
     background-color: transparent;
-    font-family: AppleSDGothicNeo, Noto-Sans, Roboto, Helvetica, sans-serif;
+    font-family: Roboto, sans-serif, Helvetica;
     font-size: 16px;
   }
   ol,

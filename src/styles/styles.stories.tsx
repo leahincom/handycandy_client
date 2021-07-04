@@ -78,33 +78,22 @@ export const Colors = () => {
   );
 };
 
-const FontFamilyContainer = styled.div`
-  /* text-align: center; */
-`;
+const FontFamilyContainer = styled.div``;
 
 const MainKor = styled.div`
   margin: 8px;
   line-height: 41px;
   color: #000000;
-  font-family: HCMain;
+  font-family: 'NanumSquareRound', sans-serif;
   font-size: 36px;
   font-weight: 800;
-`;
-
-const MainEng = styled.div`
-  margin: 8px;
-  line-height: 40px;
-  color: #000000;
-  /* font-family: HCMain; */
-  font-size: 36px;
-  /* font-weight: bold; */
 `;
 
 const Roboto = styled.div`
   margin: 8px;
   line-height: 42px;
   color: #000000;
-  /* font-family: Roboto; */
+  font-family: Roboto;
   font-size: 36px;
   font-weight: bold;
 `;
@@ -112,16 +101,16 @@ const Roboto = styled.div`
 export const FontFamily = () => {
   return (
     <FontFamilyContainer>
-      <h3> Main/Kor</h3>
-      <h4>{`font-family: 'NanumSquareRound', sans-serif`}</h4>
+      <h3>Main/Kor</h3>
+      <h4>
+        <pre>{`font-family: 'NanumSquareRound', sans-serif`}</pre>
+      </h4>
       <MainKor>메인폰트는 나눔 스퀘어 라운드 Extrabold </MainKor>
       <br />
-      <h3> Main/Eng {`font-family: 'Gotham', sans-serif`}</h3>
-      <h4>{`font-family: 'Gotham', sans-serif`}</h4>
-      <MainEng>English font is Gotham Bold</MainEng>
-      <br />
       <h3>본문</h3>
-      <h4>{`font-family: Roboto, sans-serif`}</h4>
+      <h4>
+        <pre>font-family: Roboto, sans-serif</pre>
+      </h4>
       <Roboto>한글 기본 폰트는 Roboto</Roboto>
     </FontFamilyContainer>
   );
