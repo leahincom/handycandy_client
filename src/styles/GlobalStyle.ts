@@ -1,13 +1,12 @@
-import { createGlobalStyle, css } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 import colorSystems from './colorSystems';
+import HCMain from './fonts/HCMain/HCMain';
 import initializeStyle from './initializeStyle';
 
-const globalStyles = css`
-  ${initializeStyle}
-  ${colorSystems}
-`;
 const GlobalStyle = createGlobalStyle`
-${globalStyles}
+${initializeStyle};
+${colorSystems};
+${HCMain};
 `;
 
 export default GlobalStyle;
