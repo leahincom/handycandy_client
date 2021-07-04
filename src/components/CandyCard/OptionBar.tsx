@@ -52,7 +52,6 @@ export default function OptionBar({ plannedDate }: OptionBarProps) {
 
   return (
     <OptionBarWrapper>
-      {/* ?? 로 하면 달라지는 이유는 뭘까 */}
       {remainingDate > -1 ? <Dday>D-{remainingDate}</Dday> : ''}
       <Image src={CardMore} alt='' width='23px' height='15px' onClick={handleClick} />
     </OptionBarWrapper>
