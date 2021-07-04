@@ -43,13 +43,14 @@ const ThirdImg = styled(Image)`
 `;
 const CardInfo = styled.div`
   margin-top: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
 `;
 const Category = styled.h1`
   margin-bottom: 7px;
   margin-left: 20px;
   line-height: 28px;
   color: black;
-  font-family: Roboto;
   font-size: 24px;
   font-weight: 700;
   font-style: normal;
@@ -58,7 +59,6 @@ const CandyNum = styled.span`
   margin-left: 20px;
   line-height: 21px;
   color: gray;
-  font-family: Roboto;
   font-size: 18px;
   font-weight: 400;
   font-style: normal;
@@ -66,11 +66,11 @@ const CandyNum = styled.span`
 const Date = styled.span`
   line-height: 21px;
   color: gray;
-  font-family: Roboto;
   font-size: 18px;
   font-weight: 400;
   font-style: normal;
 `;
+
 export interface CategoryCardProps {
   candyImg: string;
   category: string;

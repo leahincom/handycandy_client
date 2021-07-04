@@ -45,6 +45,7 @@ const Container = styled.button<Omit<ButtonProps, 'text'>>`
 `;
 
 const Text = styled.span``;
+
 export interface ButtonProps {
   text: string;
   size: 'sm' | 'md';

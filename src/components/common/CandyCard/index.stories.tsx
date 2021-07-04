@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import CandyCard, { CandyCardProps } from '.';
 
-export default { title: 'components/CandyCard', component: CandyCard } as Meta;
+export default { title: 'components/common/CandyCard', component: CandyCard } as Meta;
 
 const Template: Story<CandyCardProps> = (props) => <CandyCard {...props} />;
 
