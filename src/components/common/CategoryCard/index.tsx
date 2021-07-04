@@ -3,13 +3,13 @@ import Image from 'next/image';
 
 const Container = styled.div`
   display: flex;
-  flex-direction:column;
-  width: 345px;
-  height: 347px;
-  background: #fff;
-  box-shadow: 0px 0px 17px rgba(0, 0, 0, 0.09);
-  border-radius: 13px;
   position: relative;
+  flex-direction:column;
+  border-radius: 13px;
+  box-shadow: 0px 0px 17px rgba(0, 0, 0, 0.09);
+  background: rgba(231, 231, 231, 0.2);
+  width: 336px;
+  height: 347px;
 `;
 const Card=styled.div`
   display:flex;
@@ -25,46 +25,51 @@ const Candy = styled(Image)`
 `;
 const ThreeButton = styled(Image)`
   position: absolute;
-  right:15px;
   top:18px;
+  right:15px;
   cursor: pointer;
 `;
 const FirstImg=styled(Image)`
    width:184px;
-    height:255px;
+    height:254px;
 `;
 const SecondImg=styled(Image)`
-  width:151px;
+  width:152px;
   height:127px;
 `;
 const ThirdImg=styled(Image)`
-  width:151px;
+  width:152px;
   height:127px;
 `;
 const CardInfo=styled.div`
-  /* margin-top:26px; */
+  margin-top:10px;
 `
 const Category=styled.h1`
-    color:black;
-    font-style: normal;
-    font-family: Roboto;
-    font-weight:700;
-    font-size:24px;
     margin-bottom:7px;
+    margin-left:20px;
+    line-height:28px;
+    color:black;
+    font-family: Roboto;
+    font-size:24px;
+    font-weight:700;
+    font-style: normal;
 `;
 const CandyNum=styled.span`
+    margin-left:20px;
+    line-height:21px;
     color:gray;
-    font-style: normal;
     font-family: Roboto;
-    font-weight:400;
     font-size:18px;
+    font-weight:400;
+    font-style: normal;
 `;
 const Date=styled.span`
+    line-height:21px;
     color:gray;
-    font-style: normal;
     font-family: Roboto;
-    font-weight:400;
     font-size:18px;
+    font-weight:400;
+    font-style: normal;
 `
 export interface CategoryCardProps {
   candyImg:string;
