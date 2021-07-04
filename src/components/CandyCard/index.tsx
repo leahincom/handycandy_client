@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Donut } from '../../../public/assets/candy';
 import OptionBar from './OptionBar';
 
 const Container = styled.div`
@@ -56,18 +57,25 @@ const Date = styled.h3`
   font-weight: 400;
 `;
 
+const Candy = styled.img`
+  position: absolute;
+  right: 16px;
+  bottom: 109px;
+  z-index: 100;
+`;
+
 export interface CandyCardProps {
-  image: string;
+  itemImage: string;
   category: string;
   name: string;
   createdDate: number;
   plannedDate?: Date;
 }
 
-export default function TestCard({ image, category, name, createdDate, plannedDate }: CandyCardProps) {
+export default function TestCard({ itemImage, category, name, createdDate, plannedDate }: CandyCardProps) {
   return (
     <Container>
-      <Thumbnail src={image} />
+      <Thumbnail src={itemImage} />
       <OptionBar plannedDate={plannedDate} />
       <Metadata>
         <Category>{category}</Category>
@@ -78,6 +86,7 @@ export default function TestCard({ image, category, name, createdDate, plannedDa
             : `담은지 ${createdDate}일 되었어요.`}
         </Date>
       </Metadata>
+      <Candy src={Donut} />
     </Container>
   );
 }
