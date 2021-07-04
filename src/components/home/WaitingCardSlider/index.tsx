@@ -2,6 +2,8 @@ import React from 'react';
 import Slider from 'react-slick';
 import styled from 'styled-components';
 import WaitingCard from '../WaitingCard';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const Container = styled.div`
   width: 380px;
