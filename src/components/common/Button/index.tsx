@@ -10,7 +10,7 @@ const sizeStyles = css<Pick<ButtonProps, 'size'>>`
       font-weight: 400;
     `}
   ${({ size }) =>
-    size === 'mid' &&
+    size === 'md' &&
     css`
       padding: 16px 65px;
       line-height: 25.78px;
@@ -47,11 +47,11 @@ const Container = styled.button<Omit<ButtonProps, 'text'>>`
 const Text = styled.span``;
 export interface ButtonProps {
   text: string;
-  size: 'sm' | 'mid';
+  size: 'sm' | 'md';
   color: 'peach' | 'gray';
 }
 
-export default function Button({ text, size = 'sm', color = 'gray' }: ButtonProps) {
+export default function Button({ text, size, color }: ButtonProps) {
   return (
     <Container size={size} color={color}>
       <Text>{text}</Text>
