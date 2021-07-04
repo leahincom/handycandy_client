@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import OptionBar from './OptionBar';
 
 const Container = styled.div`
   display: flex;
@@ -67,6 +68,7 @@ export default function TestCard({ image, category, name, createdDate, plannedDa
   return (
     <Container>
       <Thumbnail src={image} />
+      <OptionBar plannedDate={plannedDate} />
       <Metadata>
         <Category>{category}</Category>
         <Name>{name}</Name>
