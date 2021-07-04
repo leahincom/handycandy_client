@@ -1,5 +1,5 @@
 import * as nextImage from 'next/image';
-
+import './storybook.css';
 Object.defineProperty(nextImage, 'default', {
   configurable: true,
   value: (props) => <img {...props} />,

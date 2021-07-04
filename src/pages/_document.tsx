@@ -32,6 +32,11 @@ export default class MyDocument extends Document {
         <Head>
           <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
           <meta charSet='UTF-8' />
+          <link
+            rel='stylesheet'
+            type='text/css'
+            href='https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css'
+          />
           {this.props.styles}
         </Head>
         <body>
