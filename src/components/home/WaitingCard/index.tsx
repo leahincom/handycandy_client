@@ -33,10 +33,8 @@ const BackgroundThumbnail = styled(Image)`
 
 const Candy = styled(Image)`
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 70px;
-  height: 70px;
+  top: 16px;
+  right: 16px;
 `;
 
 const Title = styled.h1`
@@ -68,7 +66,7 @@ const Decs = styled.div`
 `;
 export interface WaitingCardProps {
   thumbnail: string;
-  candy: string;
+  candy: any;
   date: number;
   decs: string;
   title: string;
