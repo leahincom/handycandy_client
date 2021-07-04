@@ -43,7 +43,8 @@ const Title = styled.h1`
   margin-top: 96px;
   margin-bottom: 4px;
   line-height: 36px;
-  font-size: 31px;
+  letter-spacing: -0.3px;
+  font-size: 28px;
   font-weight: 900;
 `;
 
@@ -51,6 +52,9 @@ const UnderLinedTitle = styled.span`
   border-bottom: 1px solid #ffffff;
   padding-bottom: 1px;
   width: fit-content;
+  max-width: 264px;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 const Date = styled.div`
@@ -68,11 +72,10 @@ export interface WaitingCardProps {
   thumbnail: string;
   candy: any;
   date: number;
-  decs: string;
   title: string;
 }
 
-export default function WaitingCard({ candy, title, date, decs, thumbnail }: WaitingCardProps) {
+export default function WaitingCard({ candy, title, date, thumbnail }: WaitingCardProps) {
   return (
     <Container>
       <BackgroundThumbnail src={thumbnail} layout='fill' objectFit='cover' objectPosition='center' />
@@ -82,7 +85,7 @@ export default function WaitingCard({ candy, title, date, decs, thumbnail }: Wai
           <UnderLinedTitle>{title}</UnderLinedTitle>이
         </Title>
         <Date>{date}일째</Date>
-        <Decs>{decs}</Decs>
+        <Decs>캔디함에서 기다리고 있습니다.</Decs>
       </Wrapper>
     </Container>
   );
