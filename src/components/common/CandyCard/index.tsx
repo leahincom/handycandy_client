@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Donut } from '../../../public/assets/candy';
+import { Donut } from '../../../../public/assets/candy';
 import OptionBar from './OptionBar';
 
 const Container = styled.div`

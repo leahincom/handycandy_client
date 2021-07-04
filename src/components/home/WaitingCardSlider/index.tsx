@@ -39,28 +39,24 @@ export default function WaitingCardSlider() {
           thumbnail='https://dummyimage.com/364x278/000/fff'
           candy='https://dummyimage.com/70x70/000/fff'
           date={10}
-          decs='캔디함에서 기다리고 있어요.'
           title='필보이드 핸드크림'
         />
         <WaitingCard
           thumbnail='https://dummyimage.com/364x278/000/fff'
           candy='https://dummyimage.com/70x70/000/fff'
           date={10}
-          decs='캔디함에서 기다리고 있어요.'
           title='필보이드 핸드크림'
         />
         <WaitingCard
           thumbnail='https://dummyimage.com/364x278/000/fff'
           candy='https://dummyimage.com/70x70/000/fff'
           date={10}
-          decs='캔디함에서 기다리고 있어요.'
           title='필보이드 핸드크림'
         />
         <WaitingCard
           thumbnail='https://dummyimage.com/364x278/000/fff'
           candy='https://dummyimage.com/70x70/000/fff'
           date={10}
-          decs='캔디함에서 기다리고 있어요.'
           title='필보이드 핸드크림'
         />
       </Slider>

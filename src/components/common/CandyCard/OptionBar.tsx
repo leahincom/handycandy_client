@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Image from 'next/image';
-import { CardMore } from '../../../public/assets/icons';
+import { CardMore } from '../../../../public/assets/icons';
 
 const OptionBarWrapper = styled.div`
   box-sizing: border-box;

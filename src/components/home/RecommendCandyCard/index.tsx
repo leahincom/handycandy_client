@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 import Image from 'next/image';
-import { plus } from '../../../../public/assets/icons';
+import { Plus } from '../../../../public/assets/icons';
 
 const Container = styled.div`
   display: flex;
+  position: relative;
   align-items: center;
+  border-radius: 15px;
+  box-shadow: 0px 0px 17px rgba(0, 0, 0, 0.09);
+  background: #fff;
   width: 403px;
   height: 99px;
-  background: #fff;
-  box-shadow: 0px 0px 17px rgba(0, 0, 0, 0.09);
-  border-radius: 15px;
-  position: relative;
 `;
 
 const CardDetail = styled.div`
@@ -18,29 +18,29 @@ const CardDetail = styled.div`
 `;
 
 const CardTitle = styled.div`
-  font-style: normal;
   margin-bottom: 4px;
-  font-weight: bold;
-  font-size: 20px;
   line-height: 23px;
   letter-spacing: -0.022em;
   color: #1e1e1e;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: normal;
 `;
 
 const CardContent = styled.div`
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
   line-height: 21px;
   letter-spacing: -0.022em;
   color: #808080;
+  font-size: 18px;
+  font-weight: normal;
+  font-style: normal;
 `;
 
 const CardImage = styled.img`
+  margin-left: 15px;
+  border-radius: 10px;
   width: 74.68px;
   height: 74.68px;
-  border-radius: 10px;
-  margin-left: 15px;
 `;
 
 const AddButton = styled(Image)`
@@ -63,7 +63,7 @@ export default function RecommendCandyCard({ title, content, image }: RecommendC
         <CardTitle>{title}</CardTitle>
         <CardContent>{content}</CardContent>
       </CardDetail>
-      <AddButton src={plus} />
+      <AddButton src={Plus} />
     </Container>
   );
 }

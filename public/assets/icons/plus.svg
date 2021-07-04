@@ -1,4 +1,6 @@
 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="11" cy="11" r="11" fill="#D5D5D5"/>
-<path d="M11.8702 9.99202H16.5246V11.9982H11.8702V17.2717H9.73791V11.9982H5.08353V9.99202H9.73791V5.11983H11.8702V9.99202Z" fill="white"/>
+    <circle cx="11" cy="11" r="11" fill="#D5D5D5" />
+    <path
+        d="M11.8702 9.99202H16.5246V11.9982H11.8702V17.2717H9.73791V11.9982H5.08353V9.99202H9.73791V5.11983H11.8702V9.99202Z"
+        fill="white" />
 </svg>
