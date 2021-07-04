@@ -1,9 +1,5 @@
 import * as nextImage from 'next/image';
 import './storybook.css';
-Object.defineProperty(nextImage, 'default', {
-  configurable: true,
-  value: (props) => <img {...props} />,
-});
 import GlobalStyle from '../src/styles/GlobalStyle';
 
 export const parameters = {
@@ -14,7 +10,12 @@ export const parameters = {
       date: /Date$/,
     },
   },
-};
+}     
+Object.defineProperty(nextImage, 'default', {
+  configurable: true,
+  value: (props) => <img {...props} />,
+});
+
 export const decorators = [
   (Story, context) => (
     <>
