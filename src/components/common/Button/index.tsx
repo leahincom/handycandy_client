@@ -19,15 +19,15 @@ const sizeStyles = css<Pick<ButtonProps, 'size'>>`
     `}
 `;
 
-const colorStyles = css<Pick<ButtonProps, 'color'>>`
-  color: #5a5a5a;
-  ${({ color }) =>
-    color === 'peach' &&
+const colorStyles = css<Pick<ButtonProps, 'color' | 'buttonColor'>>`
+  color: ${({ color }) => (color ? color : '#5a5a5a')};
+  ${({ buttonColor }) =>
+    buttonColor === 'peach' &&
     css`
       background-color: #ffbfbf;
     `}
-  ${({ color }) =>
-    color === 'gray' &&
+  ${({ buttonColor }) =>
+    buttonColor === 'gray' &&
     css`
       background-color: #e9e9e9;
     `}
@@ -47,14 +47,15 @@ const Container = styled.button<Omit<ButtonProps, 'text'>>`
 const Text = styled.span``;
 
 export interface ButtonProps {
+  buttonColor: 'peach' | 'gray';
+  color?: string;
   text: string;
   size: 'sm' | 'md';
-  color: 'peach' | 'gray';
 }
 
-export default function Button({ text, size, color }: ButtonProps) {
+export default function Button({ buttonColor, color, text, size }: ButtonProps) {
   return (
-    <Container size={size} color={color}>
+    <Container buttonColor={buttonColor} color={color} size={size}>
       <Text>{text}</Text>
     </Container>
   );

@@ -7,7 +7,7 @@ const Template: Story<ButtonProps> = (props) => <Button {...props} />;
 
 export const Basic = Template.bind({});
 Basic.args = {
-  color: 'gray',
+  buttonColor: 'gray',
   size: 'sm',
   text: '만들기',
 };
