@@ -19,7 +19,7 @@ const Dialog = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  border: 1px solid #ffffff;
+  border: 2px solid var(--gray-1);
   border-radius: 25px;
   background-color: #ffffff;
   width: 726px;
@@ -118,9 +118,9 @@ export default function DialogManager({ handleDialogState }: DialogManagerProps)
       </Desc>
       <LinkBox placeholder='링크를 입력하세요' />
       <ButtonBar>
-        <Button text='뒤로가기' size='sm' color='gray' />
+        <Button text='뒤로가기' size='sm' buttonColor='gray' color='black' />
         <div style={{ marginLeft: '9px' }} />
-        <Button text='다음' size='sm' color='peach' />
+        <Button text='다음' size='sm' buttonColor='peach' color='black' />
       </ButtonBar>
     </Dialog>
   );
