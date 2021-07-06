@@ -1,6 +1,7 @@
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { makeStyles, TextField } from '@material-ui/core';
-import { Donut } from '../../../public/assets/candy';
+import { Donut, Ball } from '../../../public/assets/candy';
 import Button from '../common/Button';
 import MenuDropdown from './MenuDropdown';
 
@@ -91,27 +92,46 @@ export interface DialogManagerProps {
 }
 
 export default function DialogManager({ handleDialogState }: DialogManagerProps) {
-  const classes = useStyles();
-
   const category = [
     {
       image: Donut,
       name: '행복해지고 싶은 나',
     },
+    {
+      image: Ball,
+      name: '바쁜 일상이 끝난 후의 나',
+    },
   ];
+
+  const [selectedCategory, setSelectedCategory] = useState(0);
+  // const [added, setAdded] = useState(false);
+
+  // useEffect((() => {
+
+  // })(), [added]);
+
+  // const handleAddBtnClick = () => {
+  //   setAdded(!added);
+  // };
+
+  const classes = useStyles();
 
   return (
     <Dialog>
       <Title>캔디 추가하기</Title>
       <Desc>
         <Line style={{ zIndex: 5 }}>
-          <MenuDropdown category={category} />
+          <MenuDropdown
+            category={category}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
           를 위한 <br />
         </Line>
         <div style={{ marginBottom: '17px' }} />
         <Line>
           <form className={classes.root} noValidate autoComplete='off'>
-            <TextField id='standard-basic' />
+            <TextField id='standard-basic' style={{ width: '311px' }} />
           </form>
           캔디를 줄거예요.
         </Line>

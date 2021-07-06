@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -10,7 +10,6 @@ import MenuList from '@material-ui/core/MenuList';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Image from 'next/dist/client/image';
 import { CategoryAdd, ToggleButton } from '../../../public/assets/icons';
-import { borderRadius } from '@material-ui/system';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,9 +28,11 @@ const Icon = styled.img`
 
 export interface MenuDropdownProps {
   category: any;
+  selectedCategory: number;
+  setSelectedCategory: any;
 }
 
-export default function MenuDropdown({ category }: MenuDropdownProps) {
+export default function MenuDropdown({ category, selectedCategory, setSelectedCategory }: MenuDropdownProps) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
@@ -44,6 +45,8 @@ export default function MenuDropdown({ category }: MenuDropdownProps) {
     if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
       return;
     }
+
+    setSelectedCategory(event.target.id);
 
     setOpen(false);
   };
@@ -81,13 +84,21 @@ export default function MenuDropdown({ category }: MenuDropdownProps) {
           lineHeight: '33px',
           letterSpacing: '-0.022em',
           color: '#1E1E1E',
-          width: '308px',
+          width: '100%',
           position: 'relative',
         }}
       >
-        <Icon src={category[0].image} width='35px' />
-        {category[0].name}
-        <Image src={ToggleButton} alt='' style={{ marginLeft: '25px' }} />
+        <Icon src={category[selectedCategory].image} width='35px' />
+        {category[selectedCategory].name}
+        <Image
+          src={ToggleButton}
+          alt=''
+          style={
+            open
+              ? { marginLeft: '25px', transform: 'rotate(180deg)', transition: 'all 0.2s linear' }
+              : { marginLeft: '25px', transition: 'all 0.2s linear' }
+          }
+        />
       </Button>
       <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
         {({ TransitionProps, placement }) => (
@@ -100,13 +111,13 @@ export default function MenuDropdown({ category }: MenuDropdownProps) {
               borderTopLeftRadius: '0',
               borderBottomRightRadius: '25px',
               borderBottomLeftRadius: '25px',
-              width: '308px',
               borderTop: '1px solid #5A5A5A',
+              width: anchorRef.current.offsetWidth,
             }}
           >
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
-                <MenuList autoFocusItem={open} id='menu-list-grow' onKeyDown={handleListKeyDown}>
+                <MenuList autoFocusItem={open} id='menu-list-grow' onKeyDown={handleListKeyDown} style={{ padding: 0 }}>
                   {category.map((el: any, idx: number) => {
                     return (
                       <>
@@ -114,6 +125,7 @@ export default function MenuDropdown({ category }: MenuDropdownProps) {
                         <MenuItem
                           onClick={handleClose}
                           key={idx}
+                          id={idx}
                           style={{
                             fontFamily:
                               '-apple-system, BlinkMacSystemFont, `Segoe UI`, Roboto, Oxygen, Ubuntu, Cantarell, `Open Sans`, `Helvetica Neue`, sans-serif',
@@ -127,6 +139,7 @@ export default function MenuDropdown({ category }: MenuDropdownProps) {
                             paddingBottom: '10px',
                             paddingTop: '10px',
                             justifyContent: 'flex-start',
+                            paddingRight: '25px',
                           }}
                         >
                           <Icon src={el.image} width='35px' style={{ marginLeft: '25px' }} />
@@ -154,6 +167,8 @@ export default function MenuDropdown({ category }: MenuDropdownProps) {
                       padding: 0,
                       paddingBottom: '10px',
                       paddingTop: '10px',
+                      borderBottomRightRadius: '25px',
+                      borderBottomLeftRadius: '25px',
                     }}
                   >
                     <Icon src={CategoryAdd} width='35px' style={{ marginLeft: '25px' }} />
