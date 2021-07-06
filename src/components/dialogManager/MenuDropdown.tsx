@@ -8,6 +8,9 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import Image from 'next/dist/client/image';
+import { CategoryAdd, ToggleButton } from '../../../public/assets/icons';
+import { borderRadius } from '@material-ui/system';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Icon = styled.img`
-  margin-right: 5px;
+  margin-right: 12px;
 `;
 
 export interface MenuDropdownProps {
@@ -78,41 +81,84 @@ export default function MenuDropdown({ category }: MenuDropdownProps) {
           lineHeight: '33px',
           letterSpacing: '-0.022em',
           color: '#1E1E1E',
+          width: '308px',
+          position: 'relative',
         }}
       >
-        <Icon src={category[0].image} width='35px' style={{ marginRight: '12px' }} />
+        <Icon src={category[0].image} width='35px' />
         {category[0].name}
+        <Image src={ToggleButton} alt='' style={{ marginLeft: '25px' }} />
       </Button>
       <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
         {({ TransitionProps, placement }) => (
           <Grow
             {...TransitionProps}
-            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+            style={{
+              transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
+              boxShadow: '0px 7px 8px rgba(0, 0, 0, 0.15)',
+              borderTopRightRadius: '0',
+              borderTopLeftRadius: '0',
+              borderBottomRightRadius: '25px',
+              borderBottomLeftRadius: '25px',
+              width: '308px',
+              borderTop: '1px solid #5A5A5A',
+            }}
           >
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList autoFocusItem={open} id='menu-list-grow' onKeyDown={handleListKeyDown}>
                   {category.map((el: any, idx: number) => {
                     return (
-                      <MenuItem
-                        onClick={handleClose}
-                        key={idx}
-                        style={{
-                          fontFamily:
-                            '-apple-system, BlinkMacSystemFont, `Segoe UI`, Roboto, Oxygen, Ubuntu, Cantarell, `Open Sans`, `Helvetica Neue`, sans-serif',
-                          fontStyle: 'normal',
-                          fontWeight: 'normal',
-                          fontSize: '20px',
-                          lineHeight: '23px',
-                          letterSpacing: '-0.022em',
-                          color: '#1E1E1E',
-                        }}
-                      >
-                        <Icon src={el.image} width='35px' style={{ marginRight: '12px' }} />
-                        {el.name}
-                      </MenuItem>
+                      <>
+                        {/* <div style={{ marginTop: '10px' }} /> */}
+                        <MenuItem
+                          onClick={handleClose}
+                          key={idx}
+                          style={{
+                            fontFamily:
+                              '-apple-system, BlinkMacSystemFont, `Segoe UI`, Roboto, Oxygen, Ubuntu, Cantarell, `Open Sans`, `Helvetica Neue`, sans-serif',
+                            fontStyle: 'normal',
+                            fontWeight: 'normal',
+                            fontSize: '20px',
+                            lineHeight: '23px',
+                            letterSpacing: '-0.022em',
+                            color: '#1E1E1E',
+                            padding: 0,
+                            paddingBottom: '10px',
+                            paddingTop: '10px',
+                            justifyContent: 'flex-start',
+                          }}
+                        >
+                          <Icon src={el.image} width='35px' style={{ marginLeft: '25px' }} />
+                          {el.name}
+                        </MenuItem>
+                      </>
                     );
                   })}
+                  <hr
+                    style={{
+                      border: '1px solid #E9E9E9',
+                    }}
+                  />
+                  <MenuItem
+                    onClick={handleClose}
+                    style={{
+                      fontFamily:
+                        '-apple-system, BlinkMacSystemFont, `Segoe UI`, Roboto, Oxygen, Ubuntu, Cantarell, `Open Sans`, `Helvetica Neue`, sans-serif',
+                      fontStyle: 'normal',
+                      fontWeight: 'normal',
+                      fontSize: '20px',
+                      lineHeight: '23px',
+                      letterSpacing: '-0.022em',
+                      color: '#1E1E1E',
+                      padding: 0,
+                      paddingBottom: '10px',
+                      paddingTop: '10px',
+                    }}
+                  >
+                    <Icon src={CategoryAdd} width='35px' style={{ marginLeft: '25px' }} />
+                    카테고리 추가하기
+                  </MenuItem>
                 </MenuList>
               </ClickAwayListener>
             </Paper>
