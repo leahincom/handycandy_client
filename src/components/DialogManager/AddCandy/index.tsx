@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { makeStyles, TextField } from '@material-ui/core';
 import { Donut, Ball } from '../../../../public/assets/candy';
 import Button from '../../common/Button';
-import CategoryDropdown from './Dropdown/CategoryDropdown';
+import CategoryDropdown from './Dropdown/Category';
 import CandyAdded from './CandyAdded';
 
 const useStyles = makeStyles({

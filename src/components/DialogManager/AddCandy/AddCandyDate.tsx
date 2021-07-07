@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../common/Button';
-import DateDropdown from './Dropdown/DateDropdown';
+import DateDropdown from './Dropdown/Date';
 import AddCandyMessage from './AddCandyMessage';
 
 const Dialog = styled.div`
