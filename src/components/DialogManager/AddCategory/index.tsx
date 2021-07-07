@@ -16,6 +16,7 @@ import {
   X,
 } from '../../../../public/assets/candy/';
 import { Check } from '../../../../public/assets/icons/';
+import CategoryAdded from './CategoryAdded';
 
 const useStyles = makeStyles({
   root: {
@@ -129,7 +130,7 @@ export default function AddCategory({ handleDialogState }: AddCategoryProps) {
     },
   ];
 
-  const [selectedCandy, setSelectedCandy] = useState(null);
+  const [selectedCandy, setSelectedCandy] = useState(-1);
   const [category, setCategory] = useState('행복해지고 싶은 나');
   const [added, setAdded] = useState(false);
 
@@ -158,59 +159,59 @@ export default function AddCategory({ handleDialogState }: AddCategoryProps) {
 
   return (
     <>
-      {/* {!added ? ( */}
-      <Dialog>
-        <Title>캔디 추가하기</Title>
-        <Main>
-          <Instruction>원하는 캔디 아이콘을 선택하세요</Instruction>
-          <CandyBox style={selectedCandy ? { opacity: '0.5' } : { opacity: '1' }}>
-            {candyList.map((el, idx) => {
-              return (
-                <Image
-                  src={el.src}
-                  style={
-                    idx === selectedCandy
-                      ? { margin: '10px', zIndex: '5', opacity: '2' }
-                      : { margin: '10px', zIndex: '5', opacity: '1' }
-                  }
-                  width='52px'
-                  key={idx}
-                  onClick={handleCandyClick}
-                  alt=''
-                />
-              );
-              {
-                /* <Image src={Check} key={idx} ref={checkRef} alt='' />; */
-              }
-            })}
-          </CandyBox>
-        </Main>
-        <Line>
-          <form className={classes.root} noValidate autoComplete='off'>
-            <TextField
-              id='standard-basic'
-              style={{
-                width: '230px',
-                fontFamily: `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+      {added ? (
+        <Dialog>
+          <Title>캔디 추가하기</Title>
+          <Main>
+            <Instruction>원하는 캔디 아이콘을 선택하세요</Instruction>
+            <CandyBox style={selectedCandy ? { opacity: '0.5' } : { opacity: '1' }}>
+              {candyList.map((el, idx) => {
+                return (
+                  <Image
+                    src={el.src}
+                    style={
+                      idx === selectedCandy
+                        ? { margin: '10px', zIndex: '5', opacity: '2' }
+                        : { margin: '10px', zIndex: '5', opacity: '1' }
+                    }
+                    width='52px'
+                    key={idx}
+                    onClick={handleCandyClick}
+                    alt=''
+                  />
+                );
+                {
+                  /* <Image src={Check} key={idx} ref={checkRef} alt='' />; */
+                }
+              })}
+            </CandyBox>
+          </Main>
+          <Line>
+            <form className={classes.root} noValidate autoComplete='off'>
+              <TextField
+                id='standard-basic'
+                style={{
+                  width: '230px',
+                  fontFamily: `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
             'Helvetica Neue', sans-serif`,
-                fontStyle: 'normal',
-                fontWeight: 'bold',
-                fontSize: '28px',
-                lineHeight: '33px',
-                letterSpacing: '-0.022em',
-                color: '#1E1E1E',
-              }}
-              value={category}
-              onChange={handleChange}
-            />
-          </form>
-          를 위한
-        </Line>
-        <Button text='추가하기' size='sm' buttonColor='peach' color='black' onClick={handleAddClick} />
-      </Dialog>
-      {/* ) : (
-        <CategoryAdded category={category} selectedCategory={selectedCategory} category={category} />
-      )} */}
+                  fontStyle: 'normal',
+                  fontWeight: 'bold',
+                  fontSize: '28px',
+                  lineHeight: '33px',
+                  letterSpacing: '-0.022em',
+                  color: '#1E1E1E',
+                }}
+                value={category}
+                onChange={handleChange}
+              />
+            </form>
+            를 위한
+          </Line>
+          <Button text='추가하기' size='sm' buttonColor='peach' color='black' onClick={handleAddClick} />
+        </Dialog>
+      ) : (
+        <CategoryAdded category={category} />
+      )}
     </>
   );
 }
