@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { makeStyles, TextField } from '@material-ui/core';
 import { Donut, Ball } from '../../../public/assets/candy';
 import Button from '../common/Button';
-import MenuDropdown from './MenuDropdown';
+import CategoryDropdown from './CategoryDropdown';
 import CandyAdded from './CandyAdded';
 
 const useStyles = makeStyles({
@@ -126,7 +126,7 @@ export default function DialogManager({ handleDialogState }: DialogManagerProps)
           <Title>캔디 추가하기</Title>
           <Desc>
             <Line style={{ zIndex: 5 }}>
-              <MenuDropdown
+              <CategoryDropdown
                 category={category}
                 selectedCategory={selectedCategory}
                 setSelectedCategory={setSelectedCategory}

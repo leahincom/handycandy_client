@@ -26,13 +26,13 @@ const Icon = styled.img`
   margin-right: 12px;
 `;
 
-export interface MenuDropdownProps {
+export interface CategoryDropdownProps {
   category: any;
   selectedCategory: number;
   setSelectedCategory: any;
 }
 
-export default function MenuDropdown({ category, selectedCategory, setSelectedCategory }: MenuDropdownProps) {
+export default function CategoryDropdown({ category, selectedCategory, setSelectedCategory }: CategoryDropdownProps) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
