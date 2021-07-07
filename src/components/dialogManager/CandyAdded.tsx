@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../common/Button';
+import AddCandyDate from './AddCandyDate';
 
 const Dialog = styled.div`
   display: flex;
@@ -82,29 +83,42 @@ export interface CandyAddedProps {
 }
 
 export default function CandyAdded({ category, selectedCategory, candy }: CandyAddedProps) {
-  const handleCloseClick = () => {};
+  const [detailClicked, setDetailClicked] = useState(false);
 
+  const handleCloseClick = () => {};
   const handleDetailClick = () => {};
 
   return (
-    <Dialog>
-      <CandyAnimation src='https://dummyimage.com/179x179/000/fff' />
-      <Desc style={{ marginTop: '100px' }}>
-        <Line>
-          <Icon src={category[selectedCategory].image} width='54px' />
-          <UnderLine>{category[selectedCategory].name}</UnderLine>
-        </Line>
-        <div style={{ marginBottom: '17px' }} />
-        <Line>
-          <UnderLine style={{ marginRight: '7px' }}>{candy}</UnderLine>
-          캔디가 추가되었어요!
-        </Line>
-      </Desc>
-      <ButtonBar>
-        <Button text='닫기' size='sm' buttonColor='gray' color='black' onClick={handleCloseClick} />
-        <div style={{ margin: '9px' }} />
-        <Button text='디데이와 메시지 정하기' size='sm' buttonColor='peach' color='black' onClick={handleDetailClick} />
-      </ButtonBar>
-    </Dialog>
+    <>
+      {detailClicked ? (
+        <Dialog>
+          <CandyAnimation src='https://dummyimage.com/179x179/000/fff' />
+          <Desc style={{ marginTop: '100px' }}>
+            <Line>
+              <Icon src={category[selectedCategory].image} width='54px' />
+              <UnderLine>{category[selectedCategory].name}</UnderLine>
+            </Line>
+            <div style={{ marginBottom: '17px' }} />
+            <Line>
+              <UnderLine style={{ marginRight: '7px' }}>{candy}</UnderLine>
+              캔디가 추가되었어요!
+            </Line>
+          </Desc>
+          <ButtonBar>
+            <Button text='닫기' size='sm' buttonColor='gray' color='black' onClick={handleCloseClick} />
+            <div style={{ margin: '9px' }} />
+            <Button
+              text='디데이와 메시지 정하기'
+              size='sm'
+              buttonColor='peach'
+              color='black'
+              onClick={handleDetailClick}
+            />
+          </ButtonBar>
+        </Dialog>
+      ) : (
+        <AddCandyDate />
+      )}
+    </>
   );
 }
