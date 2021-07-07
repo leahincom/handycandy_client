@@ -4,6 +4,7 @@ import { makeStyles, TextField } from '@material-ui/core';
 import { Donut, Ball } from '../../../public/assets/candy';
 import Button from '../common/Button';
 import MenuDropdown from './MenuDropdown';
+import CandyAdded from './CandyAdded';
 
 const useStyles = makeStyles({
   root: {
@@ -104,44 +105,55 @@ export default function DialogManager({ handleDialogState }: DialogManagerProps)
   ];
 
   const [selectedCategory, setSelectedCategory] = useState(0);
-  // const [added, setAdded] = useState(false);
+  const [candy, setCandy] = useState('필보이드 핸드크림');
+  const [added, setAdded] = useState(false);
 
-  // useEffect((() => {
+  const handleChange = (e: any) => {
+    e.preventDefault();
+    setCandy(e.target.value);
+  };
 
-  // })(), [added]);
-
-  // const handleAddBtnClick = () => {
-  //   setAdded(!added);
-  // };
+  const handleNextClick = () => {
+    setAdded(true);
+  };
 
   const classes = useStyles();
 
   return (
-    <Dialog>
-      <Title>캔디 추가하기</Title>
-      <Desc>
-        <Line style={{ zIndex: 5 }}>
-          <MenuDropdown
-            category={category}
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-          />
-          를 위한 <br />
-        </Line>
-        <div style={{ marginBottom: '17px' }} />
-        <Line>
-          <form className={classes.root} noValidate autoComplete='off'>
-            <TextField id='standard-basic' style={{ width: '311px' }} />
-          </form>
-          캔디를 줄거예요.
-        </Line>
-      </Desc>
-      <LinkBox placeholder='링크를 입력하세요' />
-      <ButtonBar>
-        <Button text='뒤로가기' size='sm' buttonColor='gray' color='black' />
-        <div style={{ marginLeft: '9px' }} />
-        <Button text='다음' size='sm' buttonColor='peach' color='black' />
-      </ButtonBar>
-    </Dialog>
+    <>
+      {added ? (
+        <Dialog>
+          <Title>캔디 추가하기</Title>
+          <Desc>
+            <Line style={{ zIndex: 5 }}>
+              <MenuDropdown
+                category={category}
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
+              />
+              를 위한 <br />
+            </Line>
+            <div style={{ marginBottom: '17px' }} />
+            <Line>
+              <form className={classes.root} noValidate autoComplete='off'>
+                <TextField
+                  id='standard-basic'
+                  style={{ width: '311px', textAlign: 'center' }}
+                  value={candy}
+                  onChange={handleChange}
+                />
+              </form>
+              캔디를 줄거예요.
+            </Line>
+          </Desc>
+          <LinkBox placeholder='링크를 입력하세요' />
+          <ButtonBar>
+            <Button text='다음' size='sm' buttonColor='peach' color='black' onClick={handleNextClick} />
+          </ButtonBar>
+        </Dialog>
+      ) : (
+        <CandyAdded category={category} selectedCategory={selectedCategory} candy={candy} />
+      )}
+    </>
   );
 }
