@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Button from '../common/Button';
+import Button from '../../common/Button';
 import AddCandyDate from './AddCandyDate';
 
 const Dialog = styled.div`

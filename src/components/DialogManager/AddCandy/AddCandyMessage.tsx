@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Button from '../common/Button';
+import Button from '../../common/Button';
 
 const Dialog = styled.div`
   display: flex;

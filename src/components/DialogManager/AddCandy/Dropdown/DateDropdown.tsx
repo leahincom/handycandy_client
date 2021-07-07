@@ -1,5 +1,4 @@
-import React, { createRef } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -9,7 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Image from 'next/dist/client/image';
-import { ToggleButton } from '../../../../public/assets/icons';
+import { ToggleButton } from '../../../../../public/assets/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -76,7 +75,7 @@ export default function DateDropdown({ dropdownList, basis, setBasis }: DateDrop
           fontFamily:
             '-apple-system, BlinkMacSystemFont, `Segoe UI`, Roboto, Oxygen, Ubuntu, Cantarell, `Open Sans`, `Helvetica Neue`, sans-serif',
           fontStyle: 'normal',
-          fontWeight: '500',
+          fontWeight: 500,
           fontSize: '32px',
           lineHeight: '37px',
           letterSpacing: '-0.022em',

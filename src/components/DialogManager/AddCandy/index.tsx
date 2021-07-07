@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { makeStyles, TextField } from '@material-ui/core';
-import { Donut, Ball } from '../../../public/assets/candy';
-import Button from '../common/Button';
+import { Donut, Ball } from '../../../../public/assets/candy';
+import Button from '../../common/Button';
 import CategoryDropdown from './Dropdown/CategoryDropdown';
 import CandyAdded from './CandyAdded';
 
@@ -88,11 +88,11 @@ const ButtonBar = styled.div`
   align-items: center;
 `;
 
-export interface DialogManagerProps {
+export interface AddCandyProps {
   handleDialogState: () => void;
 }
 
-export default function DialogManager({ handleDialogState }: DialogManagerProps) {
+export default function AddCandy({ handleDialogState }: AddCandyProps) {
   const category = [
     {
       image: Donut,

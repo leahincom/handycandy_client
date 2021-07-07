@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Button from '../common/Button';
+import Button from '../../common/Button';
 import DateDropdown from './Dropdown/DateDropdown';
 import AddCandyMessage from './AddCandyMessage';
 
@@ -64,6 +64,7 @@ const ButtonBar = styled.div`
 export default function AddCandyDate() {
   const [added, setAdded] = useState(false);
 
+  const handleFormerClick = () => {};
   const handleNextClick = () => {
     setAdded(true);
   };

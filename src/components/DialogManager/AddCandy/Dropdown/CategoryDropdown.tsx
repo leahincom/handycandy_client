@@ -1,4 +1,4 @@
-import React, { createRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -9,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Image from 'next/dist/client/image';
-import { CategoryAdd, ToggleButton } from '../../../../public/assets/icons';
+import { CategoryAdd, ToggleButton } from '../../../../../public/assets/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
