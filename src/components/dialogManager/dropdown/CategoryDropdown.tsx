@@ -9,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Image from 'next/dist/client/image';
-import { CategoryAdd, ToggleButton } from '../../../public/assets/icons';
+import { CategoryAdd, ToggleButton } from '../../../../public/assets/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

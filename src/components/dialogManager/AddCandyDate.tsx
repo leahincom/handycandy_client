@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../common/Button';
-import DateDropdown from './DateDropdown';
+import DateDropdown from './Dropdown/DateDropdown';
 
 const Dialog = styled.div`
   display: flex;

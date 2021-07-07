@@ -9,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Image from 'next/dist/client/image';
-import { ToggleButton } from '../../../public/assets/icons';
+import { ToggleButton } from '../../../../public/assets/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -149,6 +149,7 @@ export default function DateDropdown({ dropdownList, basis, setBasis }: DateDrop
                         flex: 'none',
                         order: 0,
                         flexGrow: 0,
+                        borderRadius: '13px',
                       }}
                     >
                       {el}
