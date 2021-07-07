@@ -84,7 +84,9 @@ export default function MenuDropdown({ category, selectedCategory, setSelectedCa
           lineHeight: '33px',
           letterSpacing: '-0.022em',
           color: '#1E1E1E',
-          width: '100%',
+          borderBottomRightRadius: '0',
+          borderBottomLeftRadius: '0',
+          borderBottom: '1px solid #5A5A5A',
           position: 'relative',
         }}
       >
@@ -111,7 +113,6 @@ export default function MenuDropdown({ category, selectedCategory, setSelectedCa
               borderTopLeftRadius: '0',
               borderBottomRightRadius: '25px',
               borderBottomLeftRadius: '25px',
-              borderTop: '1px solid #5A5A5A',
               width: anchorRef.current.offsetWidth,
             }}
           >
