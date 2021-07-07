@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../common/Button';
 import DateDropdown from './Dropdown/DateDropdown';
+import AddCandyMessage from './AddCandyMessage';
 
 const Dialog = styled.div`
   display: flex;
@@ -61,6 +62,12 @@ const ButtonBar = styled.div`
 `;
 
 export default function AddCandyDate() {
+  const [added, setAdded] = useState(false);
+
+  const handleNextClick = () => {
+    setAdded(true);
+  };
+
   const date = new Date();
 
   const [year, setYear] = useState(date.getFullYear());
@@ -101,26 +108,29 @@ export default function AddCandyDate() {
     }
   }
 
-  const handleFormerClick = () => {};
-  const handleNextClick = () => {};
-
   return (
-    <Dialog>
-      <Title>캔디를 받을 날을 정해주세요.</Title>
-      <Desc>
-        <Line style={{ zIndex: 5 }}>
-          <DateDropdown dropdownList={yearList} basis={year} setBasis={setYear} />
-          <DateDropdown dropdownList={monthList} basis={month} setBasis={setMonth} />
-          <DateDropdown dropdownList={dayList} basis={day} setBasis={setDay} />
-        </Line>
-        <div style={{ marginBottom: '17px' }} />
-        <Line>날짜를 설정하면 핸디캔디가 알림을 드릴 거예요.</Line>
-      </Desc>
-      <ButtonBar>
-        <Button text='뒤로가기' size='sm' buttonColor='gray' color='black' onClick={handleFormerClick} />
-        <div style={{ margin: '9px' }} />
-        <Button text='다음' size='sm' buttonColor='peach' color='black' onClick={handleNextClick} />
-      </ButtonBar>
-    </Dialog>
+    <>
+      {added ? (
+        <Dialog>
+          <Title>캔디를 받을 날을 정해주세요.</Title>
+          <Desc>
+            <Line style={{ zIndex: 5 }}>
+              <DateDropdown dropdownList={yearList} basis={year} setBasis={setYear} />
+              <DateDropdown dropdownList={monthList} basis={month} setBasis={setMonth} />
+              <DateDropdown dropdownList={dayList} basis={day} setBasis={setDay} />
+            </Line>
+            <div style={{ marginBottom: '17px' }} />
+            <Line>날짜를 설정하면 핸디캔디가 알림을 드릴 거예요.</Line>
+          </Desc>
+          <ButtonBar>
+            <Button text='뒤로가기' size='sm' buttonColor='gray' color='black' onClick={handleFormerClick} />
+            <div style={{ margin: '9px' }} />
+            <Button text='다음' size='sm' buttonColor='peach' color='black' onClick={handleNextClick} />
+          </ButtonBar>
+        </Dialog>
+      ) : (
+        <AddCandyMessage />
+      )}
+    </>
   );
 }
