@@ -3,9 +3,7 @@ import styled from 'styled-components';
 import Button from '../../common/Button';
 
 const Container = styled.div`
-  padding-top: 77px;
-  padding-left: 241px;
-  height: 100%;
+  padding: 77px 241px 0px 241px;
 `;
 
 const CandyTitle = styled.h1`
@@ -33,7 +31,7 @@ const DiaryArea = styled.textarea`
   border-radius: 20px;
   background-color: var(--bg);
   padding: 36px 34px;
-  width: 1439px;
+  width: 100%;
   height: 278px;
   resize: none;
   line-height: 36.4px;
@@ -54,7 +52,7 @@ const ButtonWrapper = styled.div`
 
 export default function Diary() {
   return (
-    <Container>
+    <Container className='section'>
       <CandyTitle>
         <Highlight>
           오늘 전 <Underlined>귀여운 캔디 이모티콘</Underlined> 했어요.

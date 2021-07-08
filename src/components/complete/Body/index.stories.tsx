@@ -15,7 +15,7 @@ const Template: Story<BodyProps> = (props) => (
   <Wrapper>
     <Banner />
     <Body {...props} />
-    <Emoticon candy='필보이드 핸드크림' />
+    {/* <Emoticon candy='필보이드 핸드크림' /> */}
     <Diary />
   </Wrapper>
 );
@@ -25,5 +25,6 @@ Basic.args = {
   candy: '필보이드 핸드크림',
   desc: '회사생활로 지친 자신',
   date: '2020년 7월 3일',
-  location: '쿠팡',
+  info: '일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십',
+  link: 'https://www.naver.com',
 };

@@ -10,5 +10,6 @@ Basic.args = {
   candy: '필보이드 핸드크림',
   desc: '회사생활로 지친 자신',
   date: '2020년 7월 3일',
-  location: '쿠팡',
+  info: '하나둘삼넷오여섯칠팔아홉공하나둘삼넷오여섯칠팔아홉공',
+  link: 'abcdeabcdeabc',
 };

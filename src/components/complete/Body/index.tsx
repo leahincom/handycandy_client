@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
-import { BottomArrow, HandCream } from '../../../../public/assets/icons';
+import Link from 'next/link';
+import { HandCream, LinkIcon, BottomArrow } from '../../../../public/assets/icons';
 
 const Container = styled.div`
-  padding-top: 77px;
-  padding-left: 241px;
-  height: 100%;
+  position: relative;
+  padding: 77px 241px 0px 241px;
 `;
 
 const CandyTitle = styled.h1`
@@ -29,12 +29,12 @@ const Candy = styled(Image)`
   filter: drop-shadow(0px 0px 17px rgba(0, 0, 0, 0.09));
 `;
 
-const CandyInfoWrapper = styled.div`
+const CandyContentWrapper = styled.div`
   display: flex;
   margin-top: 45px;
 `;
 
-const CandyInfo = styled.div`
+const CandyContent = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 26px;
@@ -45,74 +45,126 @@ interface CandyTextProps {
   weight: 400 | 700;
 }
 
-const CandyText = styled.span<CandyTextProps>`
+const CandyText = styled.div<CandyTextProps>`
   line-height: 36.4px;
   font-family: Roboto;
   font-size: 26px;
   font-weight: ${({ weight }) => weight};
 `;
 
-const CandyLink = styled.div`
-  margin-top: 11px;
-  border-radius: 20px;
-  background-color: var(--gray-2);
-  width: 945px;
-  height: 90px;
+const CandyInfoText = styled(CandyText)`
+  margin-left: 45px;
+  width: 585px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
-const CandyLocation = styled.div`
+const CandyLinkWrapper = styled.div`
+  display: flex;
+  margin-top: 17px;
+`;
+
+const CandyLink = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  margin-left: 97px;
+  border-radius: 30px;
+  background-color: var(--gray-1);
+  cursor: pointer;
+  padding: 12.5px 33px;
+  :hover {
+    background-color: var(--gray-4);
+  }
+`;
+const CandyLinkText = styled.a`
+  margin-left: 15px;
+  cursor: pointer;
+  line-height: 33.6px;
+  color: var(--gray-7);
+  font-family: Roboto;
+  font-size: 24px;
+  font-weight: 700;
+  font-style: normal;
+`;
+
+const CandyInfo = styled.div`
   display: flex;
   margin-top: 57px;
 `;
 
 const CandyDate = styled.div`
   display: flex;
-  margin-top: 11px;
+  margin-top: 52px;
+`;
+
+const SlideButtonWrapper = styled.div`
+  display: flex;
+  position: absolute;
+  bottom: 45px;
+  justify-content: center;
+  width: 100vw;
 `;
 
 const SlideButton = styled(Image)`
-  position: absolute;
-  bottom: 45px;
-  left: 50%;
   cursor: pointer;
-  translate: (-50%);
 `;
-
 export interface BodyProps {
   candy: string;
   date: string;
   desc: string;
-  location: string;
+  link: string;
+  info: string;
+  fullpageApi: any;
+  className?: any;
 }
 
-export default function Body({ candy, desc, date, location }: BodyProps) {
+export default function Body({
+  candy = '필보이드 핸드크림',
+  desc = '회사생활로 지친 자신',
+  date = '2020년 7월 3일',
+  info = '일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십',
+  link = 'https://www.naver.com',
+  fullpageApi,
+}: BodyProps) {
   return (
-    <Container>
+    <Container className='section'>
       <CandyTitle>
         <Underlined>{desc}</Underlined>을 위해
         <br />
         <Underlined style={{ fontWeight: '700' }}>{candy}</Underlined>을 선물할거에요.
       </CandyTitle>
-      <CandyInfoWrapper>
-        <Candy src={HandCream} width='325px' height='325px' layout='fill' />
-        <CandyInfo>
-          <CandyText weight={700}>링크</CandyText>
-          <CandyLink></CandyLink>
-          <CandyLocation>
-            <CandyText weight={700}>캔디 찾는 곳</CandyText>
-            <CandyText weight={400} style={{ marginLeft: '38px' }}>
-              {location}
-            </CandyText>
-          </CandyLocation>
+      <CandyContentWrapper>
+        <Candy src={HandCream} width='325px' height='325px' />
+        <CandyContent>
+          <CandyInfo>
+            <CandyText weight={700}>상세정보</CandyText>
+            <CandyInfoText weight={400}>{info}</CandyInfoText>
+          </CandyInfo>
+
+          <CandyLinkWrapper>
+            <CandyText weight={700}>링크</CandyText>
+            <CandyLink>
+              <Image src={LinkIcon} alt='LinkIcon' />
+              <Link href={link} passHref>
+                <CandyLinkText>{link}</CandyLinkText>
+              </Link>
+            </CandyLink>
+          </CandyLinkWrapper>
+
           <CandyDate>
             <CandyText weight={700}>캔디 준 날</CandyText>
-            <CandyText weight={400} style={{ marginLeft: '62px' }}>
+            <CandyText weight={400} style={{ marginLeft: '39px' }}>
               {date}
             </CandyText>
           </CandyDate>
-        </CandyInfo>
-      </CandyInfoWrapper>
-      <SlideButton src={BottomArrow} />
+        </CandyContent>
+      </CandyContentWrapper>
+      <SlideButtonWrapper>
+        <SlideButton src={BottomArrow} alt='BottomArrow' onClick={() => fullpageApi.moveSectionDown()} />
+      </SlideButtonWrapper>
     </Container>
   );
 }
