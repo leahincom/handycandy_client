@@ -109,7 +109,6 @@ export interface BodyProps {
   link: string;
   info: string;
   fullpageApi: fullpageApi;
-  className?: any;
 }
 
 export default function Body({

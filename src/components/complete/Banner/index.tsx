@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  z-index: 10;
+  z-index: 1;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   background-color: var(--peach);
   width: 100vw;
