@@ -1,11 +1,12 @@
-import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
-import { BottomArrow } from '../../../../public/assets/icons';
+import { fullpageApi } from '@fullpage/react-fullpage';
+
+import DownArrowButton from './DownArrowButton';
 
 const Container = styled.div`
   position: relative;
-  padding: 77px 241px 0px 241px;
+  padding: 368px 241px 0px 241px; ;
 `;
 
 const CandyTitle = styled.h1`
@@ -40,25 +41,9 @@ const EmoticonArea = styled.div`
   height: 246px;
 `;
 
-const Wrap = styled.div`
-  display: flex;
-  position: absolute;
-  bottom: 45px;
-  justify-content: center;
-  width: 100%;
-`;
-
-const SlideButton = styled(Image)`
-  /* position: absolute;
-  bottom: 45px;
-  left: 50%;
-  transform: translateX(-50%); */
-  cursor: pointer;
-`;
-
 export interface EmoticonProps {
   candy: string;
-  fullpageApi: any;
+  fullpageApi: fullpageApi;
 }
 
 export default function Emoticon({ candy = '필보이드 핸드크림', fullpageApi }: EmoticonProps) {
@@ -71,9 +56,7 @@ export default function Emoticon({ candy = '필보이드 핸드크림', fullpage
       </CandyTitle>
       <Desc>오늘의 감정을 이모티콘으로 남겨보세요.</Desc>
       <EmoticonArea />
-      <Wrap>
-        <SlideButton src={BottomArrow} alt='' onClick={() => fullpageApi.moveSectionDown()} />
-      </Wrap>
+      <DownArrowButton onClick={fullpageApi?.moveSectionDown} />
     </Container>
   );
 }

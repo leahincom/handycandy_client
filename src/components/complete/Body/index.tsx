@@ -2,11 +2,13 @@ import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { HandCream, LinkIcon, BottomArrow } from '../../../../public/assets/icons';
+import { fullpageApi } from '@fullpage/react-fullpage';
+import { HandCream, LinkIcon } from '../../../../public/assets/icons';
+import DownArrowButton from './DownArrowButton';
 
 const Container = styled.div`
   position: relative;
-  padding: 77px 241px 0px 241px;
+  padding: 368px 241px 0px 241px;
 `;
 
 const CandyTitle = styled.h1`
@@ -100,24 +102,13 @@ const CandyDate = styled.div`
   margin-top: 52px;
 `;
 
-const SlideButtonWrapper = styled.div`
-  display: flex;
-  position: absolute;
-  bottom: 45px;
-  justify-content: center;
-  width: 100vw;
-`;
-
-const SlideButton = styled(Image)`
-  cursor: pointer;
-`;
 export interface BodyProps {
   candy: string;
   date: string;
   desc: string;
   link: string;
   info: string;
-  fullpageApi: any;
+  fullpageApi: fullpageApi;
   className?: any;
 }
 
@@ -162,9 +153,7 @@ export default function Body({
           </CandyDate>
         </CandyContent>
       </CandyContentWrapper>
-      <SlideButtonWrapper>
-        <SlideButton src={BottomArrow} alt='BottomArrow' onClick={() => fullpageApi.moveSectionDown()} />
-      </SlideButtonWrapper>
+      <DownArrowButton onClick={fullpageApi?.moveSectionDown} />
     </Container>
   );
 }

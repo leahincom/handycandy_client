@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Button from '../../common/Button';
 
 const Container = styled.div`
-  padding: 77px 241px 0px 241px;
+  padding: 368px 241px 0px 241px; ;
 `;
 
 const CandyTitle = styled.h1`

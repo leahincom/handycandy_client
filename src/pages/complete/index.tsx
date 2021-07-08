@@ -6,24 +6,17 @@ import Body, { BodyProps } from '../../components/complete/Body';
 import Banner from '../../components/complete/Banner';
 import Emoticon, { EmoticonProps } from '../../components/complete/Body/Emoticon';
 import Diary from '../../components/complete/Body/Diary';
-import { BottomArrow } from '../../../public/assets/icons';
 
 const Wrapper = styled.div`
-  position: relative;
-  width: 100vw;
-  height: 100vh;
+  /* position: relative; */
+  /* width: 100vw; */
+  /* height: 100vh; */
 `;
 
-const SlideButtonWrapper = styled.div`
-  display: flex;
-  position: absolute;
-  bottom: 45px;
-  justify-content: center;
-  width: 100%;
-`;
-
-const SlideButton = styled(Image)`
-  cursor: pointer;
+const BannerWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
 `;
 
 export interface CompleteProps extends BodyProps, EmoticonProps {}
@@ -31,7 +24,6 @@ export interface CompleteProps extends BodyProps, EmoticonProps {}
 export default function Complete({ candy, date, desc, info, link }: CompleteProps) {
   return (
     <Wrapper>
-      <Banner />
       <ReactFullpage
         verticalCentered={false}
         render={({ fullpageApi }) => {
@@ -47,7 +39,9 @@ export default function Complete({ candy, date, desc, info, link }: CompleteProp
           );
         }}
       />
-      {/* 여기 버튼 넣으면 위치는 잘 오는데, fullpageApi.moveDown() 어쩌구 메소드를 쓰지 못함 */}
+      <BannerWrapper>
+        <Banner />
+      </BannerWrapper>
     </Wrapper>
   );
 }
