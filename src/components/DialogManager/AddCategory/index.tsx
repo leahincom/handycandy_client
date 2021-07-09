@@ -90,6 +90,21 @@ const Line = styled.div`
   font-style: normal;
 `;
 
+const Candy = styled.div`
+  position: relative;
+`;
+
+const CandyIcon = styled.img`
+  margin: 10px;
+`;
+
+const CheckIcon = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
 export interface AddCategoryProps {
   handleDialogState: () => void;
 }
@@ -134,6 +149,8 @@ export default function AddCategory({ handleDialogState }: AddCategoryProps) {
   const [category, setCategory] = useState('행복해지고 싶은 나');
   const [added, setAdded] = useState(false);
 
+  const candyRef = useRef<HTMLDivElement>(null);
+
   const handleChange = (e: any) => {
     e.preventDefault();
     setCategory(e.target.value);
@@ -143,46 +160,47 @@ export default function AddCategory({ handleDialogState }: AddCategoryProps) {
     setAdded(true);
   };
 
-  const checkRef = useRef<HTMLButtonElement>(null);
-
   const handleCandyClick = (e: any) => {
-    console.log(e);
-    setSelectedCandy(e.target.key);
-    // const hiddenStyle: any = checkRef.current?.style.display;
-    // if (hiddenStyle === 'none') {
-    //   checkRef.current?.style.display = 'inline-block';
-    // } else {
-    //   checkRef.current?.style.display = 'none';
+    setSelectedCandy(parseInt(e.target.id));
   };
 
   const classes = useStyles();
 
   return (
     <>
-      {added ? (
+      {!added ? (
         <Dialog>
           <Title>캔디 추가하기</Title>
           <Main>
             <Instruction>원하는 캔디 아이콘을 선택하세요</Instruction>
-            <CandyBox style={selectedCandy ? { opacity: '0.5' } : { opacity: '1' }}>
+            <CandyBox>
               {candyList.map((el, idx) => {
                 return (
-                  <Image
-                    src={el.src}
-                    style={
-                      idx === selectedCandy
-                        ? { margin: '10px', zIndex: '5', opacity: '2' }
-                        : { margin: '10px', zIndex: '5', opacity: '1' }
-                    }
-                    width='52px'
-                    key={idx}
-                    onClick={handleCandyClick}
-                    alt=''
-                  />
+                  <Candy key={idx} id={idx} onClick={handleCandyClick} ref={candyRef}>
+                    <CandyIcon
+                      src={el.src}
+                      style={
+                        selectedCandy < 0
+                          ? { opacity: '1' }
+                          : idx === selectedCandy
+                          ? { opacity: '1' }
+                          : { opacity: '0.5' }
+                      }
+                      id={idx}
+                      width='52px'
+                      alt=''
+                    />
+                    <CheckIcon
+                      src={Check}
+                      style={
+                        selectedCandy > -1 && idx === selectedCandy
+                          ? { visibility: 'visible' }
+                          : { visibility: 'hidden' }
+                      }
+                      alt=''
+                    />
+                  </Candy>
                 );
-                {
-                  /* <Image src={Check} key={idx} ref={checkRef} alt='' />; */
-                }
               })}
             </CandyBox>
           </Main>
