@@ -71,10 +71,10 @@ const ButtonBar = styled.div`
 
 export interface CategoryAddedProps {
   category: any;
+  handleDialogState: () => void;
 }
 
-export default function CategoryAdded({ category }: CategoryAddedProps) {
-  const handleCloseClick = () => {};
+export default function CategoryAdded({ category, handleDialogState }: CategoryAddedProps) {
   const handleCategoryClick = () => {};
 
   return (
@@ -88,7 +88,7 @@ export default function CategoryAdded({ category }: CategoryAddedProps) {
       <ButtonBar>
         <Button text='분류별 캔디 보러가기' size='sm' buttonColor='gray' color='black' onClick={handleCategoryClick} />
         <div style={{ margin: '9px' }} />
-        <Button text='확인' size='sm' buttonColor='peach' color='black' onClick={handleCloseClick} />
+        <Button text='확인' size='sm' buttonColor='peach' color='black' onClick={handleDialogState} />
       </ButtonBar>
     </Dialog>
   );

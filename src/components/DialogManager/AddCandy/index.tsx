@@ -145,7 +145,12 @@ export default function AddCandy({ handleDialogState }: AddCandyProps) {
           <Button text='다음' size='sm' buttonColor='peach' color='black' onClick={handleNextClick} />
         </Dialog>
       ) : (
-        <CandyAdded category={category} selectedCategory={selectedCategory} candy={candy} />
+        <CandyAdded
+          category={category}
+          selectedCategory={selectedCategory}
+          candy={candy}
+          handleDialogState={handleDialogState}
+        />
       )}
     </>
   );

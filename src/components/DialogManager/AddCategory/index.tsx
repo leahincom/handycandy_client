@@ -228,7 +228,7 @@ export default function AddCategory({ handleDialogState }: AddCategoryProps) {
           <Button text='추가하기' size='sm' buttonColor='peach' color='black' onClick={handleAddClick} />
         </Dialog>
       ) : (
-        <CategoryAdded category={category} />
+        <CategoryAdded category={category} handleDialogState={handleDialogState} />
       )}
     </>
   );

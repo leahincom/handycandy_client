@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Button from '../../common/Button';
 import DateDropdown from './Dropdown/Date';
 import AddCandyMessage from './AddCandyMessage';
+import CandyAdded from './CandyAdded';
+import { CandyAddedProps } from './CandyAdded';
 
 const Dialog = styled.div`
   display: flex;
@@ -61,10 +63,13 @@ const ButtonBar = styled.div`
   align-items: center;
 `;
 
-export default function AddCandyDate() {
+export default function AddCandyDate({ category, selectedCategory, candy, handleDialogState }: CandyAddedProps) {
+  const [goBefore, setGoBefore] = useState(false);
   const [added, setAdded] = useState(false);
 
-  const handleFormerClick = () => {};
+  const handleFormerClick = () => {
+    setGoBefore(true);
+  };
   const handleNextClick = () => {
     setAdded(true);
   };
@@ -111,7 +116,7 @@ export default function AddCandyDate() {
 
   return (
     <>
-      {!added ? (
+      {!added && !goBefore ? (
         <Dialog>
           <Title>캔디를 받을 날을 정해주세요.</Title>
           <Desc>
@@ -129,8 +134,22 @@ export default function AddCandyDate() {
             <Button text='다음' size='sm' buttonColor='peach' color='black' onClick={handleNextClick} />
           </ButtonBar>
         </Dialog>
+      ) : added ? (
+        <AddCandyMessage
+          category={category}
+          selectedCategory={selectedCategory}
+          candy={candy}
+          handleDialogState={handleDialogState}
+        />
       ) : (
-        <AddCandyMessage />
+        goBefore && (
+          <CandyAdded
+            category={category}
+            selectedCategory={selectedCategory}
+            candy={candy}
+            handleDialogState={handleDialogState}
+          />
+        )
       )}
     </>
   );

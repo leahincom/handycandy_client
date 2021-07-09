@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../common/Button';
+import AddCandyDate from './AddCandyDate';
+import { CandyAddedProps } from './CandyAdded';
 
 const Dialog = styled.div`
   display: flex;
@@ -80,29 +82,45 @@ const ButtonBar = styled.div`
   align-items: center;
 `;
 
-export default function AddCandyMessage() {
+export default function AddCandyMessage({ category, selectedCategory, candy, handleDialogState }: CandyAddedProps) {
   const [count, setCount] = useState(0);
+  const [goBefore, setGoBefore] = useState(false);
 
   const handleChange = (e) => {
     const script = e.target.value;
     setCount(script.length);
   };
 
-  const handleFormerClick = () => {};
-  const handleEndClick = () => {};
+  const handleFormerClick = () => {
+    setGoBefore(true);
+  };
+  const handleEndClick = () => {
+    // api POST
+  };
 
   return (
-    <Dialog>
-      <Title>캔디를 받을 미래에 남길 메시지</Title>
-      <Desc>
-        <TextBox placeholder='캔디를 받을 나에게 전할 메시지를 남겨주세요' onChange={handleChange} />
-        <CountChar>{count}/100자</CountChar>
-      </Desc>
-      <ButtonBar>
-        <Button text='뒤로가기' size='sm' buttonColor='gray' color='black' onClick={handleFormerClick} />
-        <div style={{ margin: '9px' }} />
-        <Button text='끝내기' size='sm' buttonColor='peach' color='black' onClick={handleEndClick} />
-      </ButtonBar>
-    </Dialog>
+    <>
+      {!goBefore ? (
+        <Dialog>
+          <Title>캔디를 받을 미래에 남길 메시지</Title>
+          <Desc>
+            <TextBox placeholder='캔디를 받을 나에게 전할 메시지를 남겨주세요' onChange={handleChange} />
+            <CountChar>{count}/100자</CountChar>
+          </Desc>
+          <ButtonBar>
+            <Button text='뒤로가기' size='sm' buttonColor='gray' color='black' onClick={handleFormerClick} />
+            <div style={{ margin: '9px' }} />
+            <Button text='끝내기' size='sm' buttonColor='peach' color='black' onClick={handleEndClick} />
+          </ButtonBar>
+        </Dialog>
+      ) : (
+        <AddCandyDate
+          category={category}
+          selectedCategory={selectedCategory}
+          candy={candy}
+          handleDialogState={handleDialogState}
+        />
+      )}
+    </>
   );
 }

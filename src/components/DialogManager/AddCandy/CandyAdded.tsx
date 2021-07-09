@@ -80,13 +80,16 @@ export interface CandyAddedProps {
   category: any;
   selectedCategory: number;
   candy: string;
+  handleDialogState: () => void;
 }
 
-export default function CandyAdded({ category, selectedCategory, candy }: CandyAddedProps) {
+export default function CandyAdded({ category, selectedCategory, candy, handleDialogState }: CandyAddedProps) {
   const [detailClicked, setDetailClicked] = useState(false);
 
   const handleCloseClick = () => {};
-  const handleDetailClick = () => {};
+  const handleDetailClick = () => {
+    setDetailClicked(true);
+  };
 
   return (
     <>
@@ -105,7 +108,7 @@ export default function CandyAdded({ category, selectedCategory, candy }: CandyA
             </Line>
           </Desc>
           <ButtonBar>
-            <Button text='닫기' size='sm' buttonColor='gray' color='black' onClick={handleCloseClick} />
+            <Button text='닫기' size='sm' buttonColor='gray' color='black' onClick={handleDialogState} />
             <div style={{ margin: '9px' }} />
             <Button
               text='디데이와 메시지 정하기'
@@ -117,7 +120,12 @@ export default function CandyAdded({ category, selectedCategory, candy }: CandyA
           </ButtonBar>
         </Dialog>
       ) : (
-        <AddCandyDate />
+        <AddCandyDate
+          category={category}
+          selectedCategory={selectedCategory}
+          candy={candy}
+          handleDialogState={handleDialogState}
+        />
       )}
     </>
   );
