@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import RecommendCandyCard from '../components/home/RecommendCandyCard';
-import CommingCandyCard from '../components/home/CommingCandyCard';
+import ComingCandyCard from '../components/home/ComingCandyCard';
 
 const Container = styled.div`
   display: flex;
@@ -70,11 +70,11 @@ const CandyDesc = styled.div`
   font-size: 18px;
 `;
 
-const CommingCandies = styled.div`
+const ComingCandies = styled.div`
   display: flex;
 `;
 
-const commingCandies = [
+const comingCandies = [
   {
     image: 'https://dummyimage.com/254x260/000/fff',
     category: '고생한 나 자신을 위한',
@@ -138,11 +138,11 @@ export default function Home() {
         <ComingContainer>
           <CandyTitle>다가오는 캔디</CandyTitle>
           <CandyDesc>행복을 안겨줄 캔디들이 곧 도착해요</CandyDesc>
-          <CommingCandies>
-            {commingCandies.length > 0 ? (
-              commingCandies.map((candy, idx) => {
+          <ComingCandies>
+            {comingCandies.length > 0 ? (
+              comingCandies.map((candy, idx) => {
                 return (
-                  <CommingCandyCard
+                  <ComingCandyCard
                     key={idx}
                     itemImage={candy.image}
                     category={candy.category}
@@ -152,13 +152,13 @@ export default function Home() {
                 );
               })
             ) : (
-              <CommingCandyCard
+              <ComingCandyCard
                 itemImage='https://dummyimage.com/188x192/000/fff'
                 category='내 손안의 달콤한 보상'
                 name='캔디를 추가해보세요'
               />
             )}
-          </CommingCandies>
+          </ComingCandies>
         </ComingContainer>
         <SubCandyContainer>
           <RecommendContainer>

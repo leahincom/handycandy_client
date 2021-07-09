@@ -61,14 +61,14 @@ const Candy = styled.img`
   z-index: 100;
 `;
 
-export interface CommingCandyCardProps {
+export interface ComingCandyCardProps {
   itemImage: string;
   category: string;
   name: string;
   plannedDate?: Date;
 }
 
-export default function CommingCard({ itemImage, category, name, plannedDate }: CommingCandyCardProps) {
+export default function ComingCandyCard({ itemImage, category, name, plannedDate }: ComingCandyCardProps) {
   return (
     <Container>
       <Thumbnail src={itemImage} />

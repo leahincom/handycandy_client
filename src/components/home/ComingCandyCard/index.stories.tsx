@@ -1,9 +1,9 @@
 import { Meta, Story } from '@storybook/react';
-import CommingCandyCard, { CommingCandyCardProps } from '.';
+import ComingCandyCard, { ComingCandyCardProps } from '.';
 
-export default { title: 'components/home/CommingCandyCard', component: CommingCandyCard } as Meta;
+export default { title: 'components/home/ComingCandyCard', component: ComingCandyCard } as Meta;
 
-const Template: Story<CommingCandyCardProps> = (props) => <CommingCandyCard {...props} />;
+const Template: Story<ComingCandyCardProps> = (props) => <ComingCandyCard {...props} />;
 
 export const Basic = Template.bind({});
 Basic.args = {
