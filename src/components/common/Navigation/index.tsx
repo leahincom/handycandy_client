@@ -14,6 +14,8 @@ const Container = styled.button`
 
 const TotalBtn = styled.button`
   display: flex;
+  display: flex;
+  align-items: center;
   align-items: center;
   justify-content: center;
   border-radius: 25px;
@@ -21,9 +23,17 @@ const TotalBtn = styled.button`
   cursor: pointer;
   width: 155px;
   height: 48px;
+  text-align: center;
+  line-height: 26px;
+  font-family: Roboto;
+  font-size: 22px;
+  font-weight: 500;
+  font-style: normal;
 `;
 const CategoryBtn = styled.button`
   display: flex;
+  display: flex;
+  align-items: center;
   align-items: center;
   justify-content: center;
   border-radius: 25px;
@@ -31,6 +41,12 @@ const CategoryBtn = styled.button`
   cursor: pointer;
   width: 155px;
   height: 48px;
+  text-align: center;
+  line-height: 26px;
+  font-family: Roboto;
+  font-size: 22px;
+  font-weight: 500;
+  font-style: normal;
 `;
 
 export default function Navigation() {
