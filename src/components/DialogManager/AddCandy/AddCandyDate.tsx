@@ -111,7 +111,7 @@ export default function AddCandyDate() {
 
   return (
     <>
-      {added ? (
+      {!added ? (
         <Dialog>
           <Title>캔디를 받을 날을 정해주세요.</Title>
           <Desc>

@@ -90,7 +90,7 @@ export default function CandyAdded({ category, selectedCategory, candy }: CandyA
 
   return (
     <>
-      {detailClicked ? (
+      {!detailClicked ? (
         <Dialog>
           <CandyAnimation src='https://dummyimage.com/179x179/000/fff' />
           <Desc style={{ marginTop: '100px' }}>

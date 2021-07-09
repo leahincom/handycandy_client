@@ -83,11 +83,6 @@ const LinkBox = styled.input`
   font-style: normal;
 `;
 
-const ButtonBar = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
 export interface AddCandyProps {
   handleDialogState: () => void;
 }
@@ -121,7 +116,7 @@ export default function AddCandy({ handleDialogState }: AddCandyProps) {
 
   return (
     <>
-      {added ? (
+      {!added ? (
         <Dialog>
           <Title>캔디 추가하기</Title>
           <Desc>
@@ -147,9 +142,7 @@ export default function AddCandy({ handleDialogState }: AddCandyProps) {
             </Line>
           </Desc>
           <LinkBox placeholder='링크를 입력하세요' />
-          <ButtonBar>
-            <Button text='다음' size='sm' buttonColor='peach' color='black' onClick={handleNextClick} />
-          </ButtonBar>
+          <Button text='다음' size='sm' buttonColor='peach' color='black' onClick={handleNextClick} />
         </Dialog>
       ) : (
         <CandyAdded category={category} selectedCategory={selectedCategory} candy={candy} />
