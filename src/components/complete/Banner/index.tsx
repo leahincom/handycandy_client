@@ -1,16 +1,17 @@
+import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
+import { CommonBanner } from '../../../../public/assets/banners';
 
-const Container = styled.div`
-  z-index: 1;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  background-color: var(--peach);
-  width: 100vw;
-  height: 286px;
+const Container = styled(Image)`
+  position: relative;
 `;
 
 const Contents = styled.div`
   display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
   flex-direction: column;
   padding: 98px 240px 104px;
 `;
@@ -34,11 +35,12 @@ const Desc = styled.h2`
 
 export default function Banner() {
   return (
-    <Container>
+    <>
+      <Container src={CommonBanner} layout='fixed' />
       <Contents>
         <Title>캔디로 보상완료하기</Title>
         <Desc>나에게 캔디를 주며 일상의 달콤한 순간을 되찾으세요</Desc>
       </Contents>
-    </Container>
+    </>
   );
 }
