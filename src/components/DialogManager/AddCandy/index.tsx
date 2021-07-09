@@ -125,6 +125,7 @@ export default function AddCandy({ handleDialogState }: AddCandyProps) {
                 category={category}
                 selectedCategory={selectedCategory}
                 setSelectedCategory={setSelectedCategory}
+                handleDialogState={handleDialogState}
               />
               를 위한 <br />
             </Line>
