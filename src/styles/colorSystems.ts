@@ -18,6 +18,7 @@ const colorSystems = css`
     --gray-3: #dcdcdc;
     --gray-4: #cfcfcf;
     --gray-5: #c1c1c1;
+    --gray-6: #808080;
     --black: #1e1e1e;
     --white: #ffffff;
 
