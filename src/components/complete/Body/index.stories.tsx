@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 
 const Template: Story<BodyProps> = (props) => (
   <Wrapper>
-    <Banner />
+    {/* <Banner /> */}
     <Body {...props} />
     {/* <Emoticon candy='필보이드 핸드크림' /> */}
     <Diary />
