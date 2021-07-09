@@ -4,3 +4,6 @@ export { default as CardMore } from './CardMore.svg';
 export { default as Arrow } from './Arrow.svg';
 export { default as Line } from './Line.svg';
 export { default as Search } from './Search.svg';
+export { default as Logo } from './Logo.svg';
+export { default as Profile } from './Profile.svg';
+export { default as Ring } from './Ring.svg';
