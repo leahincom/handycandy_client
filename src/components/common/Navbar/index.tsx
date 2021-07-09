@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { Logo, Profile, Ring } from '../../../../public/assets/icons';
@@ -12,18 +13,22 @@ const Container = styled.div`
   height: 106px;
 `;
 
-const Menu = styled.div`
+const Menus = styled.div`
   display: flex;
   flex: 2.4;
   align-items: center;
   justify-content: space-between;
+`;
 
-  & > p {
-    opacity: 0.2;
-    cursor: pointer;
-    color: var(--black);
-    font-size: 1.75rem;
-    font-weight: bold;
+const Menu = styled.div`
+  opacity: 0.2;
+  cursor: pointer;
+  color: var(--black);
+  font-size: 1.75rem;
+  font-weight: bold;
+
+  &.active {
+    opacity: 1;
   }
 `;
 
@@ -33,8 +38,6 @@ const SearchArea = styled.div`
   justify-content: flex-end;
   margin-right: 54px;
 `;
-
-const LogoIcon = styled(Image)``;
 
 const Buttons = styled.div`
   display: flex;
@@ -70,20 +73,29 @@ const AddCandyButton = styled.button`
 `;
 
 export default function Navbar({ placeholder }: SearchBarProps) {
-  const menus = ['캔디 홈', '담은 캔디', '완료한 캔디'];
-
-  const handleMenuClick = () => {};
+  const [menuState, setMenuState] = React.useState({
+    activeMenu: 0,
+    menus: [
+      { id: 0, name: '캔디 홈' },
+      { id: 1, name: '담은 캔디' },
+      { id: 2, name: '완료한 캔디' },
+    ],
+  });
 
   return (
     <Container>
-      <Menu>
-        <LogoIcon src={Logo} alt='' />
-        {menus.map((menu, idx) => (
-          <p key={idx} onClick={handleMenuClick}>
-            {menu}
-          </p>
+      <Menus>
+        <Image src={Logo} alt='' />
+        {menuState.menus.map((menu) => (
+          <Menu
+            key={menu.id}
+            onClick={() => setMenuState({ ...menuState, activeMenu: menu.id })}
+            className={menu.id === menuState.activeMenu ? 'active' : ''}
+          >
+            {menu.name}
+          </Menu>
         ))}
-      </Menu>
+      </Menus>
       <SearchArea>
         <SearchBar placeholder={placeholder} />
       </SearchArea>
