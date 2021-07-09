@@ -12,4 +12,6 @@ Basic.args = {
   date: '2020년 7월 3일',
   info: '하나둘삼넷오여섯칠팔아홉공하나둘삼넷오여섯칠팔아홉공',
   link: 'abcdeabcdeabc',
+  bannerTitle: '캔디로 보상완료하기',
+  bannerDesc: '나에게 캔디를 주며 일상의 달콤한 순간을 남겨보세요',
 };

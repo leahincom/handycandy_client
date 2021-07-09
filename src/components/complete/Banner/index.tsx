@@ -33,13 +33,21 @@ const Desc = styled.h2`
   font-weight: normal;
 `;
 
-export default function Banner() {
+export interface BannerProps {
+  bannerTitle: string;
+  bannerDesc: string;
+}
+
+export default function Banner({
+  bannerTitle = '캔디로 보상 완료하기',
+  bannerDesc = '나에게 캔디를 주며 일상의 달콤한 순간을 남겨보세요',
+}: BannerProps) {
   return (
     <>
       <Container src={CommonBanner} layout='fixed' />
       <Contents>
-        <Title>캔디로 보상완료하기</Title>
-        <Desc>나에게 캔디를 주며 일상의 달콤한 순간을 되찾으세요</Desc>
+        <Title>{bannerTitle}</Title>
+        <Desc>{bannerDesc}</Desc>
       </Contents>
     </>
   );

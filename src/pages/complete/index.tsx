@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import ReactFullpage from '@fullpage/react-fullpage';
 import React from 'react';
 import Body, { BodyProps } from '../../components/complete/Body';
-import Banner from '../../components/complete/Banner';
+import Banner, { BannerProps } from '../../components/complete/Banner';
 import Emoticon, { EmoticonProps } from '../../components/complete/Body/Emoticon';
 import Diary from '../../components/complete/Body/Diary';
 
@@ -12,9 +12,9 @@ const BannerWrapper = styled.div`
   left: 0;
 `;
 
-export interface CompleteProps extends BodyProps, EmoticonProps {}
+export interface CompleteProps extends BodyProps, EmoticonProps, BannerProps {}
 
-export default function Complete({ candy, date, desc, info, link }: CompleteProps) {
+export default function Complete({ candy, date, desc, info, link, bannerTitle, bannerDesc }: CompleteProps) {
   return (
     <>
       <ReactFullpage
@@ -30,7 +30,7 @@ export default function Complete({ candy, date, desc, info, link }: CompleteProp
         }}
       />
       <BannerWrapper>
-        <Banner />
+        <Banner bannerTitle={bannerTitle} bannerDesc={bannerDesc} />
       </BannerWrapper>
     </>
   );
