@@ -15,6 +15,7 @@ const Container = styled.div`
 
 const CardDetail = styled.div`
   margin-left: 16px;
+  width: 240px;
 `;
 
 const CardTitle = styled.div`
@@ -22,6 +23,7 @@ const CardTitle = styled.div`
   line-height: 23px;
   letter-spacing: -0.022em;
   color: #1e1e1e;
+  font-family: Roboto;
   font-size: 20px;
   font-weight: bold;
   font-style: normal;
@@ -31,6 +33,7 @@ const CardContent = styled.div`
   line-height: 21px;
   letter-spacing: -0.022em;
   color: #808080;
+  font-family: Roboto;
   font-size: 18px;
   font-weight: normal;
   font-style: normal;
