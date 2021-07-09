@@ -7,7 +7,7 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Image from 'next/dist/client/image';
+import styled from 'styled-components';
 import { ToggleButton } from '../../../../../public/assets/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -20,6 +20,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
+
+const ToggleIcon = styled.img`
+  position: 'absolute';
+  top: '26px';
+  right: '25px';
+  transition: 'all 0.2s linear';
+`;
 
 export interface DateDropdownProps {
   dropdownList: number[];
@@ -89,21 +96,15 @@ export default function DateDropdown({ dropdownList, basis, setBasis }: DateDrop
         }}
       >
         {basis}
-        <Image
+        <ToggleIcon
           src={ToggleButton}
           alt=''
           width='12px'
           height='6px'
           style={
-            open
-              ? {
-                  position: 'absolute',
-                  top: '26px',
-                  right: '25px',
-                  transform: 'rotate(180deg)',
-                  transition: 'all 0.2s linear',
-                }
-              : { position: 'absolute', top: '26px', right: '25px', transition: 'all 0.2s linear' }
+            open && {
+              transform: 'rotate(180deg)',
+            }
           }
         />
       </Button>
