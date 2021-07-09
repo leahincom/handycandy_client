@@ -8,7 +8,6 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Image from 'next/dist/client/image';
 import { CategoryAdd, ToggleButton } from '../../../../../public/assets/icons';
 import AddCategory from '../../AddCategory';
 
@@ -22,6 +21,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
+
+const ToggleIcon = styled.img<{ open: boolean }>`
+  transform: ${(props) => props.open && 'rotate(180deg)'};
+  transition: 'all 0.2s linear';
+  margin-left: 25px;
+`;
 
 const Icon = styled.img`
   margin-right: 12px;
@@ -49,13 +54,12 @@ export default function CategoryDropdown({
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (event: React.MouseEvent<EventTarget>) => {
+  const handleClose = (id?: number) => (event: React.MouseEvent<EventTarget>) => {
     if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
       return;
     }
 
-    setSelectedCategory(event.target.id);
-
+    setSelectedCategory(id);
     setOpen(false);
   };
 
@@ -106,15 +110,7 @@ export default function CategoryDropdown({
           >
             <Icon src={category[selectedCategory].image} width='35px' />
             {category[selectedCategory].name}
-            <Image
-              src={ToggleButton}
-              alt=''
-              style={
-                open
-                  ? { marginLeft: '25px', transform: 'rotate(180deg)', transition: 'all 0.2s linear' }
-                  : { marginLeft: '25px', transition: 'all 0.2s linear' }
-              }
-            />
+            <ToggleIcon src={ToggleButton} alt='' open={open} />
           </Button>
           <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
             {({ TransitionProps, placement }) => (
@@ -127,11 +123,11 @@ export default function CategoryDropdown({
                   borderTopLeftRadius: '0',
                   borderBottomRightRadius: '25px',
                   borderBottomLeftRadius: '25px',
-                  width: anchorRef.current.offsetWidth,
+                  width: anchorRef.current!.offsetWidth,
                 }}
               >
                 <Paper>
-                  <ClickAwayListener onClickAway={handleClose}>
+                  <ClickAwayListener onClickAway={handleClose()}>
                     <MenuList
                       autoFocusItem={open}
                       id='menu-list-grow'
@@ -143,9 +139,8 @@ export default function CategoryDropdown({
                           <>
                             {/* <div style={{ marginTop: '10px' }} /> */}
                             <MenuItem
-                              onClick={handleClose}
+                              onClick={handleClose(idx)}
                               key={idx}
-                              id={idx}
                               style={{
                                 fontFamily:
                                   '-apple-system, BlinkMacSystemFont, `Segoe UI`, Roboto, Oxygen, Ubuntu, Cantarell, `Open Sans`, `Helvetica Neue`, sans-serif',

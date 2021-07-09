@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import Button from '../../common/Button';
 import DateDropdown from './Dropdown/Date';
 import AddCandyMessage from './AddCandyMessage';
-import CandyAdded from './CandyAdded';
-import { CandyAddedProps } from './CandyAdded';
+import CandyAdded, { CandyAddedProps } from './CandyAdded';
 
 const Dialog = styled.div`
   display: flex;

@@ -86,7 +86,6 @@ export interface CandyAddedProps {
 export default function CandyAdded({ category, selectedCategory, candy, handleDialogState }: CandyAddedProps) {
   const [detailClicked, setDetailClicked] = useState(false);
 
-  const handleCloseClick = () => {};
   const handleDetailClick = () => {
     setDetailClicked(true);
   };

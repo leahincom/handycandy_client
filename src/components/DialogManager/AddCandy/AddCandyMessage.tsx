@@ -86,7 +86,7 @@ export default function AddCandyMessage({ category, selectedCategory, candy, han
   const [count, setCount] = useState(0);
   const [goBefore, setGoBefore] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange: any = (e: React.ChangeEvent<HTMLInputElement>) => {
     const script = e.target.value;
     setCount(script.length);
   };

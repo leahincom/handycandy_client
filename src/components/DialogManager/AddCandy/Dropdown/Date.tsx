@@ -21,10 +21,11 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const ToggleIcon = styled.img`
+const ToggleIcon = styled.img<{ open: boolean }>`
   position: 'absolute';
   top: '26px';
   right: '25px';
+  transform: ${(props) => props.open && 'rotate(180deg)'};
   transition: 'all 0.2s linear';
 `;
 
@@ -43,11 +44,11 @@ export default function DateDropdown({ dropdownList, basis, setBasis }: DateDrop
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (event: React.MouseEvent<EventTarget>) => {
+  const handleClose = (id?: number) => (event: React.MouseEvent<EventTarget>) => {
     if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
       return;
     }
-    setBasis(event.target.id);
+    setBasis(id);
     setOpen(false);
   };
 
@@ -96,17 +97,7 @@ export default function DateDropdown({ dropdownList, basis, setBasis }: DateDrop
         }}
       >
         {basis}
-        <ToggleIcon
-          src={ToggleButton}
-          alt=''
-          width='12px'
-          height='6px'
-          style={
-            open && {
-              transform: 'rotate(180deg)',
-            }
-          }
-        />
+        <ToggleIcon src={ToggleButton} alt='' width='12px' height='6px' open={open} />
       </Button>
       <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
         {({ TransitionProps, placement }) => (
@@ -117,11 +108,11 @@ export default function DateDropdown({ dropdownList, basis, setBasis }: DateDrop
               background: '#FFFFFF',
               boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
               borderRadius: '13px',
-              width: anchorRef.current.offsetWidth,
+              width: anchorRef.current!.offsetWidth,
             }}
           >
             <Paper>
-              <ClickAwayListener onClickAway={handleClose}>
+              <ClickAwayListener onClickAway={handleClose()}>
                 <MenuList
                   autoFocusItem={open}
                   id='menu-list-grow'
@@ -130,9 +121,8 @@ export default function DateDropdown({ dropdownList, basis, setBasis }: DateDrop
                 >
                   {dropdownList.map((el, idx) => (
                     <MenuItem
-                      onClick={handleClose}
+                      onClick={handleClose(el)}
                       key={idx}
-                      id={el}
                       style={{
                         fontFamily:
                           '-apple-system, BlinkMacSystemFont, `Segoe UI`, Roboto, Oxygen, Ubuntu, Cantarell, `Open Sans`, `Helvetica Neue`, sans-serif',

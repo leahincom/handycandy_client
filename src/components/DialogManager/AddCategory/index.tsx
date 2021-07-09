@@ -1,20 +1,8 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { makeStyles, TextField } from '@material-ui/core';
-import Image from 'next/dist/client/image';
 import Button from '../../common/Button';
-import {
-  Donut,
-  Ball,
-  Clover,
-  Double,
-  Flower,
-  Fork,
-  Leaf,
-  Magnet,
-  WaterDrop,
-  X,
-} from '../../../../public/assets/candy/';
+import { Donut, Clover, Flower, Fork, Leaf, Magnet, WaterDrop, X } from '../../../../public/assets/candy/';
 import { Check } from '../../../../public/assets/icons/';
 import CategoryAdded from './CategoryAdded';
 
@@ -94,15 +82,17 @@ const Candy = styled.div`
   position: relative;
 `;
 
-const CandyIcon = styled.img`
+const CandyIcon = styled.img<{ selectedCandy: number; idx: number }>`
+  opacity: ${(props) => (props.selectedCandy < 0 ? 1 : props.idx === props.selectedCandy ? 1 : 0.5)};
   margin: 10px;
 `;
 
-const CheckIcon = styled.img`
+const CheckIcon = styled.img<{ selectedCandy: number; idx: number }>`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  visibility: ${(props) => (props.selectedCandy > -1 && props.idx === props.selectedCandy ? 'visible' : 'hidden')};
 `;
 
 export interface AddCategoryProps {
@@ -160,8 +150,8 @@ export default function AddCategory({ handleDialogState }: AddCategoryProps) {
     setAdded(true);
   };
 
-  const handleCandyClick = (e: any) => {
-    setSelectedCandy(parseInt(e.target.id));
+  const handleCandyClick = (id: number) => (e: React.MouseEvent<EventTarget>) => {
+    setSelectedCandy(id);
   };
 
   const classes = useStyles();
@@ -176,29 +166,9 @@ export default function AddCategory({ handleDialogState }: AddCategoryProps) {
             <CandyBox>
               {candyList.map((el, idx) => {
                 return (
-                  <Candy key={idx} id={idx} onClick={handleCandyClick} ref={candyRef}>
-                    <CandyIcon
-                      src={el.src}
-                      style={
-                        selectedCandy < 0
-                          ? { opacity: '1' }
-                          : idx === selectedCandy
-                          ? { opacity: '1' }
-                          : { opacity: '0.5' }
-                      }
-                      id={idx}
-                      width='52px'
-                      alt=''
-                    />
-                    <CheckIcon
-                      src={Check}
-                      style={
-                        selectedCandy > -1 && idx === selectedCandy
-                          ? { visibility: 'visible' }
-                          : { visibility: 'hidden' }
-                      }
-                      alt=''
-                    />
+                  <Candy key={idx} onClick={handleCandyClick(idx)} ref={candyRef}>
+                    <CandyIcon src={el.src} selectedCandy={selectedCandy} idx={idx} width='52px' alt='' />
+                    <CheckIcon src={Check} selectedCandy={selectedCandy} idx={idx} alt='' />
                   </Candy>
                 );
               })}
