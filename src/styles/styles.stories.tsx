@@ -17,16 +17,7 @@ const pastelColors: string[] = [
   '--yellowgreen',
 ];
 
-const grayColors: string[] = [
-  '--gray-1',
-  '--gray-2',
-  '--gray-3',
-  '--gray-4',
-  '--gray-5',
-  '--gray-6',
-  '--white',
-  '--black',
-];
+const grayColors: string[] = ['--gray-1', '--gray-2', '--gray-3', '--gray-4', '--gray-5', '--white', '--black'];
 
 const uiColors: string[] = ['--bg', '--button-on-bg'];
 

@@ -8,7 +8,7 @@ const SearchBar = styled.div`
   position: relative;
   align-items: center;
   border-radius: 30px;
-  background-color: var(--gray-1);
+  background-color: #f0f2f5;
   padding-left: 29px;
   width: 589px;
   height: 47px;
@@ -19,11 +19,11 @@ const InputField = styled.input`
   justify-content: center;
   margin-left: 13px;
   outline: none;
-  background-color: var(--gray-1);
+  background-color: #f0f2f5;
   width: 420px;
   line-height: 21px;
   letter-spacing: -0.022em;
-  color: var(--gray-6);
+  color: #f0f2f5;
   font-size: 18px;
 `;
 
@@ -33,11 +33,13 @@ const Dropdown = styled.div`
   justify-content: center;
   border-radius: 30px;
   cursor: pointer;
-  width: 140px;
+  width: 134px;
   height: 100%;
   line-height: 150%;
   letter-spacing: -0.022em;
   color: var(--black);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
   font-size: 18px;
 
   &:hover {
@@ -92,8 +94,12 @@ const Option = styled.div`
     height: 100%;
     text-align: left;
     line-height: 21px;
+    line-height: 150%;
     letter-spacing: -0.022em;
     color: var(--black);
+    color: #1e1e1e;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+      'Helvetica Neue', sans-serif;
     font-size: 18px;
   }
 

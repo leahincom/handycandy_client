@@ -23,8 +23,9 @@ const CardTitle = styled.div`
   margin-bottom: 4px;
   line-height: 23px;
   letter-spacing: -0.022em;
-  color: #1e1e1e;
-  font-family: Roboto;
+  color: var(--black);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
   font-size: 20px;
   font-weight: bold;
   font-style: normal;
@@ -34,7 +35,8 @@ const CardContent = styled.div`
   line-height: 21px;
   letter-spacing: -0.022em;
   color: #808080;
-  font-family: Roboto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
   font-size: 18px;
   font-weight: normal;
   font-style: normal;
