@@ -13,6 +13,13 @@ const Container = styled.div`
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.09);
   background: var(--white);
   padding: 35px 14px 28px 33px;
+`;
+
+const InnerContainer = styled.div`
+  width: 448px;
+  height: 677px;
+  overflow: scroll;
+  overflow-x: hidden;
 
   ::-webkit-scrollbar {
     width: 8px;
@@ -28,15 +35,10 @@ const Container = styled.div`
   }
 `;
 
-const InnerContainer = styled.div`
-  width: 448px;
-  height: 677px;
-  overflow: scroll;
-`;
-
 const NoticeTitle = styled.div`
   margin-bottom: 18px;
   line-height: 23px;
+  letter-spacing: -0.022em;
   color: var(--black);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
     'Helvetica Neue', sans-serif;
