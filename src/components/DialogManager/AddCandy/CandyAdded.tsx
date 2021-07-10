@@ -19,15 +19,19 @@ const Dialog = styled.div`
   height: 400px;
 `;
 
-const CandyAnimation = styled.img`
-  position: absolute;
-  top: -55px;
+const MainBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
+
+const CandyAnimation = styled.img``;
 
 const Desc = styled.p`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 21px;
   line-height: 50px;
   letter-spacing: -0.022em;
   color: #1e1e1e;
@@ -53,8 +57,8 @@ const Line = styled.div`
 
 const UnderLine = styled.div`
   border-bottom: 1px solid var(--black);
+  padding: 0 5px;
   line-height: 33px;
-
   letter-spacing: -0.022em;
 
   /* handycandy/black */
@@ -65,10 +69,6 @@ const UnderLine = styled.div`
   font-size: 28px;
   font-weight: bold;
   font-style: normal;
-`;
-
-const Icon = styled.img`
-  margin-right: 12px;
 `;
 
 const ButtonBar = styled.div`
@@ -92,7 +92,7 @@ export default function CandyAdded({ category, selectedCategory, candy, handleDi
 
   return (
     <>
-      {!detailClicked ? (
+      {detailClicked ? (
         <Dialog>
           <CandyAnimation src='https://dummyimage.com/179x179/000/fff' />
           <Desc style={{ marginTop: '100px' }}>

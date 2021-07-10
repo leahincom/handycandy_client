@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { makeStyles, TextField } from '@material-ui/core';
 import { Donut, Ball } from '../../../../public/assets/candy';
+import { DonutAdded, BallAdded } from '../../../../public/assets/candyAdded';
 import Button from '../../common/Button';
 import CategoryDropdown from './Dropdown/Category';
 import CandyAdded from './CandyAdded';
@@ -91,10 +92,12 @@ export default function AddCandy({ handleDialogState }: AddCandyProps) {
   const category = [
     {
       image: Donut,
+      added: DonutAdded,
       name: '행복해지고 싶은 나',
     },
     {
       image: Ball,
+      added: BallAdded,
       name: '바쁜 일상이 끝난 후의 나',
     },
   ];
@@ -116,7 +119,7 @@ export default function AddCandy({ handleDialogState }: AddCandyProps) {
 
   return (
     <>
-      {!added ? (
+      {added ? (
         <Dialog>
           <Title>캔디 추가하기</Title>
           <Desc>
