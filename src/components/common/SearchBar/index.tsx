@@ -21,9 +21,10 @@ const InputField = styled.input`
   outline: none;
   background-color: #f0f2f5;
   width: 420px;
-  line-height: 21px;
   letter-spacing: -0.022em;
-  color: #f0f2f5;
+  color: var(--black);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
   font-size: 18px;
 `;
 
@@ -97,7 +98,6 @@ const Option = styled.div`
     line-height: 150%;
     letter-spacing: -0.022em;
     color: var(--black);
-    color: #1e1e1e;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
       'Helvetica Neue', sans-serif;
     font-size: 18px;
@@ -118,34 +118,42 @@ const LineIcon = styled(Image)`
   margin-right: 7px;
 `;
 
-export interface SearchBarProps {
-  placeholder: string;
-}
-
-export default function Navbar({ placeholder }: SearchBarProps) {
+export default function Navbar() {
   const options = ['모든 캔디', '담은 캔디', '완료한 캔디'];
-  const [selectedValue, setSelectedValue] = useState<string>('모든 캔디');
+  const [selectedType, setSelectedType] = useState<string>('모든 캔디');
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [searchInput, setSearchInput] = useState<string>('');
   const openDropdown = () => {
     setIsOpen((prev) => !prev);
   };
   const selectOption = (e: any): void => {
     setIsOpen((prev) => !prev);
-    setSelectedValue(e.target.value);
+    setSelectedType(e.target.value);
+  };
+
+  const handleInputChange = (e: any) => {
+    setSearchInput(e.target.value);
+  };
+
+  const handleSearch = (e: any) => {
+    e.preventDefault();
+    setSearchInput('');
   };
 
   return (
     <SearchBar>
       <Image src={Search} alt='' />
-      <InputField type='text' placeholder={placeholder} />
+      <form onSubmit={handleSearch}>
+        <InputField type='text' placeholder={selectedType + ' 검색'} value={searchInput} onChange={handleInputChange} />
+      </form>
       <LineIcon src={Line} />
       <Dropdown onClick={openDropdown}>
-        <p>{selectedValue}</p>
+        <p>{selectedType}</p>
         <Options className={`${isOpen ? 'open' : null}`}>
           {options.map((option, idx) => {
             return (
               <Option key={idx} onClick={selectOption}>
-                <input type='button' value={option} />
+                <input type='button' value={option} onClick={selectOption} />
               </Option>
             );
           })}
