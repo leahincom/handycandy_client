@@ -55,7 +55,7 @@ export default function CategoryDropdown({
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (id?: number) => (event: React.MouseEvent<EventTarget>) => {
+  const handleClose = (id: number) => (event: React.MouseEvent<EventTarget>) => {
     if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
       return;
     }
@@ -127,7 +127,7 @@ export default function CategoryDropdown({
                 }}
               >
                 <Paper>
-                  <ClickAwayListener onClickAway={handleClose()}>
+                  <ClickAwayListener onClickAway={handleClose(selectedCategory)}>
                     <MenuList
                       autoFocusItem={open}
                       id='menu-list-grow'

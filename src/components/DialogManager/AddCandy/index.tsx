@@ -79,11 +79,15 @@ const LinkBox = styled.input`
   height: 52px;
   line-height: 23px;
   letter-spacing: -0.022em;
-  color: var(--gray-5);
+  color: var(--black);
   font-family: var(--roboto);
   font-size: 20px;
   font-weight: 500;
   font-style: normal;
+
+  &::placeholder {
+    color: var(--gray-5);
+  }
 
   &:focus {
     outline: none;
@@ -125,7 +129,7 @@ export default function AddCandy({ handleDialogState }: AddCandyProps) {
 
   return (
     <>
-      {added ? (
+      {!added ? (
         <Dialog>
           <Title>캔디 추가하기</Title>
           <Desc>
@@ -155,6 +159,7 @@ export default function AddCandy({ handleDialogState }: AddCandyProps) {
                       lineHeight: '33px',
                       letterSpacing: '-0.022em',
                       color: 'var(--black)',
+                      textAlign: 'center',
                     },
                   }}
                 />

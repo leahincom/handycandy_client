@@ -88,20 +88,19 @@ export default function CandyAdded({ category, selectedCategory, candy, handleDi
 
   return (
     <>
-      {detailClicked ? (
+      {!detailClicked ? (
         <Dialog>
-          <CandyAnimation src='https://dummyimage.com/179x179/000/fff' />
-          <Desc style={{ marginTop: '100px' }}>
-            <Line>
-              <Icon src={selectedItem.image} width='54px' />
+          <MainBox>
+            <CandyAnimation src={selectedItem.added} />
+            <Desc>
               <UnderLine>{selectedItem.name}</UnderLine>
-            </Line>
-            <div style={{ marginBottom: '17px' }} />
-            <Line>
-              <UnderLine style={{ marginRight: '7px' }}>{candy}</UnderLine>
-              캔디가 추가되었어요!
-            </Line>
-          </Desc>
+              <div style={{ marginBottom: '17px' }} />
+              <Line>
+                <UnderLine style={{ marginRight: '7px' }}>{candy}</UnderLine>
+                캔디가 추가되었어요!
+              </Line>
+            </Desc>
+          </MainBox>
           <ButtonBar>
             <Button text='닫기' size='sm' buttonColor='gray' color='black' onClick={handleDialogState} />
             <div style={{ margin: '9px' }} />

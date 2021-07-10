@@ -22,9 +22,9 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const ToggleIcon = styled.img<{ open: boolean }>`
-  position: 'absolute';
-  top: '26px';
-  right: '25px';
+  position: absolute;
+  top: 26px;
+  right: 25px;
   transform: ${(props) => props.open && 'rotate(180deg)'};
   transition: all 0.2s linear;
 `;
@@ -44,7 +44,7 @@ export default function DateDropdown({ dropdownList, basis, setBasis }: DateDrop
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (id?: number) => (event: React.MouseEvent<EventTarget>) => {
+  const handleClose = (id: number) => (event: React.MouseEvent<EventTarget>) => {
     if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
       return;
     }
@@ -80,12 +80,11 @@ export default function DateDropdown({ dropdownList, basis, setBasis }: DateDrop
           background: 'var(--gray-1)',
           borderRadius: '30px',
           position: 'relative',
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, `Segoe UI`, Roboto, Oxygen, Ubuntu, Cantarell, `Open Sans`, `Helvetica Neue`, sans-serif',
+          fontFamily: 'var(--nanum)',
           fontStyle: 'normal',
-          fontWeight: 500,
+          fontWeight: 800,
           fontSize: '32px',
-          lineHeight: '37px',
+          lineHeight: '36px',
           letterSpacing: '-0.022em',
           paddingRight: '25px',
           display: 'flex',
@@ -105,14 +104,14 @@ export default function DateDropdown({ dropdownList, basis, setBasis }: DateDrop
             {...TransitionProps}
             style={{
               transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
-              background: '#FFFFFF',
+              background: 'var(--white)',
               boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
               borderRadius: '13px',
               width: anchorRef.current!.offsetWidth,
             }}
           >
             <Paper>
-              <ClickAwayListener onClickAway={handleClose()}>
+              <ClickAwayListener onClickAway={handleClose(basis)}>
                 <MenuList
                   autoFocusItem={open}
                   id='menu-list-grow'
@@ -131,7 +130,7 @@ export default function DateDropdown({ dropdownList, basis, setBasis }: DateDrop
                         fontSize: '22px',
                         lineHeight: '26px',
                         letterSpacing: '-0.022em',
-                        color: '#1E1E1E',
+                        color: 'var(--black)',
                         padding: '10px 30px',
                         paddingBottom: '10px',
                         paddingTop: '10px',

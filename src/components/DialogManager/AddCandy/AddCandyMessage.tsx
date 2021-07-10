@@ -29,13 +29,12 @@ const Title = styled.h1`
   font-style: normal;
 `;
 
-const Desc = styled.p`
+const Desc = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   line-height: 50px;
   letter-spacing: -0.022em;
-  color: var(--black);
   font-family: var(--roboto);
   font-size: 28px;
   font-weight: normal;
@@ -53,11 +52,19 @@ const TextBox = styled.textarea`
   height: 169px;
   line-height: 150%;
   letter-spacing: -0.022em;
-  color: var(--gray-5);
+  color: var(--black);
   font-family: var(--roboto);
   font-size: 18px;
   font-weight: normal;
   font-style: normal;
+
+  &::placeholder {
+    color: var(--gray-5);
+  }
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const CountChar = styled.p`
@@ -99,7 +106,7 @@ export default function AddCandyMessage({ category, selectedCategory, candy, han
     <>
       {!goBefore ? (
         <Dialog>
-          <Title>캔디를 받을 미래에 남길 메시지</Title>
+          <Title>미래의 캔디데이에 남길 메시지</Title>
           <Desc>
             <TextBox placeholder='캔디를 받을 나에게 전할 메시지를 남겨주세요' onChange={handleChange} />
             <CountChar>{count}/100자</CountChar>

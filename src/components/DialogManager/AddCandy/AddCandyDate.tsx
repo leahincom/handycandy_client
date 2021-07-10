@@ -115,7 +115,7 @@ export default function AddCandyDate({ category, selectedCategory, candy, handle
     <>
       {!added && !goBefore ? (
         <Dialog>
-          <Title>캔디를 받을 날을 정해주세요.</Title>
+          <Title>캔디데이를 정해주세요.</Title>
           <Desc>
             <Line style={{ zIndex: 5 }}>
               <DateDropdown dropdownList={yearList} basis={year} setBasis={setYear} />
