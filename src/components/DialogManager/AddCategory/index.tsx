@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { makeStyles, TextField } from '@material-ui/core';
 import Button from '../../common/Button';
@@ -8,8 +8,13 @@ import CategoryAdded from './CategoryAdded';
 
 const useStyles = makeStyles({
   root: {
+    // eslint-disable-next-line quote-props
     marginRight: '15px',
+    // eslint-disable-next-line quote-props
     paddingBottom: '5px',
+    '& .MuiInput-underline:after': {
+      borderBottomColor: 'var(--black)',
+    },
   },
 });
 
@@ -23,7 +28,7 @@ const Dialog = styled.div`
   justify-content: space-around;
   border: 2px solid var(--gray-1);
   border-radius: 25px;
-  background-color: #ffffff;
+  background-color: var(--white);
   width: 726px;
   height: 400px;
 `;
@@ -31,8 +36,8 @@ const Dialog = styled.div`
 const Title = styled.h1`
   line-height: 23px;
   letter-spacing: -0.022em;
-  color: #1e1e1e;
-  font-family: 'NanumSquareRound', sans-serif;
+  color: var(--black);
+  font-family: var(--nanum);
   font-size: 20px;
   font-weight: 800;
   font-style: normal;
@@ -48,18 +53,17 @@ const CandyBox = styled.div`
   box-sizing: border-box;
   display: flex;
   justify-content: space-around;
-  border: 1px solid #f2f2f2;
+  border: 1px solid var(--gray-1);
   border-radius: 10px;
-  background: #e9e9e9;
+  background: var(--gray-2);
   padding: 10px;
 `;
 
 const Instruction = styled.p`
   line-height: 150%;
   letter-spacing: -0.022em;
-  color: #c1c1c1;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  color: var(--gray-5);
+  font-family: var(--roboto);
   font-size: 18px;
   font-weight: normal;
   font-style: normal;
@@ -70,9 +74,8 @@ const Line = styled.div`
   align-items: center;
   line-height: 33px;
   letter-spacing: -0.022em;
-  color: #1e1e1e;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  color: var(--black);
+  font-family: var(--roboto);
   font-size: 28px;
   font-weight: normal;
   font-style: normal;
@@ -139,14 +142,12 @@ export default function AddCategory({ handleDialogState }: AddCategoryProps) {
   const [category, setCategory] = useState('행복해지고 싶은 나');
   const [added, setAdded] = useState(false);
 
-  const candyRef = useRef<HTMLDivElement>(null);
-
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     e.preventDefault();
     setCategory(e.target.value);
   };
 
-  const handleAddClick = () => {
+  const handleAddClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     setAdded(true);
   };
 
@@ -166,7 +167,7 @@ export default function AddCategory({ handleDialogState }: AddCategoryProps) {
             <CandyBox>
               {candyList.map((el, idx) => {
                 return (
-                  <Candy key={idx} onClick={handleCandyClick(idx)} ref={candyRef}>
+                  <Candy key={idx} onClick={handleCandyClick(idx)}>
                     <CandyIcon src={el.src} selectedCandy={selectedCandy} idx={idx} width='52px' alt='' />
                     <CheckIcon src={Check} selectedCandy={selectedCandy} idx={idx} alt='' />
                   </Candy>
@@ -180,14 +181,17 @@ export default function AddCategory({ handleDialogState }: AddCategoryProps) {
                 id='standard-basic'
                 style={{
                   width: '230px',
-                  fontFamily: `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-            'Helvetica Neue', sans-serif`,
-                  fontStyle: 'normal',
-                  fontWeight: 'bold',
-                  fontSize: '28px',
-                  lineHeight: '33px',
-                  letterSpacing: '-0.022em',
-                  color: '#1E1E1E',
+                }}
+                inputProps={{
+                  style: {
+                    fontFamily: 'var(--roboto)',
+                    fontStyle: 'normal',
+                    fontWeight: 'bold',
+                    fontSize: '28px',
+                    lineHeight: '33px',
+                    letterSpacing: '-0.022em',
+                    color: 'var(--black)',
+                  },
                 }}
                 value={category}
                 onChange={handleChange}

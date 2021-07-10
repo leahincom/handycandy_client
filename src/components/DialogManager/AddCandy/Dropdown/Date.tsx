@@ -26,7 +26,7 @@ const ToggleIcon = styled.img<{ open: boolean }>`
   top: '26px';
   right: '25px';
   transform: ${(props) => props.open && 'rotate(180deg)'};
-  transition: 'all 0.2s linear';
+  transition: all 0.2s linear;
 `;
 
 export interface DateDropdownProps {
@@ -40,7 +40,7 @@ export default function DateDropdown({ dropdownList, basis, setBasis }: DateDrop
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 
-  const handleToggle = () => {
+  const handleToggle = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setOpen((prevOpen) => !prevOpen);
   };
 
@@ -77,7 +77,7 @@ export default function DateDropdown({ dropdownList, basis, setBasis }: DateDrop
         aria-haspopup='true'
         onClick={handleToggle}
         style={{
-          background: '#F2F2F2',
+          background: 'var(--gray-1)',
           borderRadius: '30px',
           position: 'relative',
           fontFamily:
@@ -91,7 +91,7 @@ export default function DateDropdown({ dropdownList, basis, setBasis }: DateDrop
           display: 'flex',
           alignItems: 'center',
           textAlign: 'center',
-          color: '#1E1E1E',
+          color: 'var(--black)',
           width: '155px',
           height: '57px',
         }}

@@ -15,7 +15,7 @@ const Dialog = styled.div`
   justify-content: space-around;
   border: 2px solid var(--gray-1);
   border-radius: 25px;
-  background-color: #ffffff;
+  background-color: var(--white);
   width: 726px;
   height: 400px;
 `;
@@ -23,8 +23,8 @@ const Dialog = styled.div`
 const Title = styled.h1`
   line-height: 23px;
   letter-spacing: -0.022em;
-  color: #1e1e1e;
-  font-family: 'NanumSquareRound';
+  color: var(--black);
+  font-family: var(--nanum);
   font-size: 20px;
   font-weight: 800;
   font-style: normal;
@@ -36,9 +36,8 @@ const Desc = styled.p`
   align-items: center;
   line-height: 50px;
   letter-spacing: -0.022em;
-  color: #1e1e1e;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  color: var(--black);
+  font-family: var(--roboto);
   font-size: 28px;
   font-weight: normal;
   font-style: normal;
@@ -49,9 +48,8 @@ const Line = styled.div`
   align-items: center;
   line-height: 21px;
   letter-spacing: -0.022em;
-  color: #c1c1c1;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  color: var(--gray-5);
+  font-family: var(--roboto);
   font-size: 18px;
   font-weight: normal;
   font-style: normal;
@@ -66,10 +64,10 @@ export default function AddCandyDate({ category, selectedCategory, candy, handle
   const [goBefore, setGoBefore] = useState(false);
   const [added, setAdded] = useState(false);
 
-  const handleFormerClick = () => {
+  const handleFormerClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     setGoBefore(true);
   };
-  const handleNextClick = () => {
+  const handleNextClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     setAdded(true);
   };
 

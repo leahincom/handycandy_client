@@ -13,7 +13,7 @@ const Dialog = styled.div`
   justify-content: space-around;
   border: 2px solid var(--gray-1);
   border-radius: 25px;
-  background-color: #ffffff;
+  background-color: var(--white);
   width: 726px;
   height: 400px;
 `;
@@ -29,9 +29,8 @@ const Desc = styled.p`
   align-items: center;
   line-height: 50px;
   letter-spacing: -0.022em;
-  color: #1e1e1e;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  color: var(--black);
+  font-family: var(--roboto);
   font-size: 28px;
   font-weight: normal;
   font-style: normal;
@@ -44,8 +43,7 @@ const Line = styled.div`
   line-height: 150%;
   letter-spacing: -0.022em;
   color: #808080;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  font-family: var(--roboto);
   font-size: 20px;
   font-weight: normal;
   font-style: normal;
@@ -56,9 +54,8 @@ const UnderLine = styled.div`
   text-align: center;
   line-height: 33px;
   letter-spacing: -0.022em;
-  color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  color: var(--black);
+  font-family: var(--roboto);
   font-size: 28px;
   font-weight: bold;
   font-style: normal;
@@ -75,7 +72,7 @@ export interface CategoryAddedProps {
 }
 
 export default function CategoryAdded({ category, handleDialogState }: CategoryAddedProps) {
-  const handleCategoryClick = () => {};
+  const handleCategoryClick: React.MouseEventHandler<HTMLButtonElement> = () => {};
 
   return (
     <Dialog>

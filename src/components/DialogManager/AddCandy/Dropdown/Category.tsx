@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const ToggleIcon = styled.img<{ open: boolean }>`
   transform: ${(props) => props.open && 'rotate(180deg)'};
-  transition: 'all 0.2s linear';
+  transition: all 0.2s linear;
   margin-left: 25px;
 `;
 
@@ -49,8 +49,9 @@ export default function CategoryDropdown({
   const [open, setOpen] = React.useState(false);
   const [addCategory, setAddCategory] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
+  const selectedItem = useMemo(() => category[selectedCategory], [category, selectedCategory]);
 
-  const handleToggle = () => {
+  const handleToggle = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setOpen((prevOpen) => !prevOpen);
   };
 
@@ -63,7 +64,7 @@ export default function CategoryDropdown({
     setOpen(false);
   };
 
-  const handleAddCategory = () => {
+  const handleAddCategory = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     setAddCategory(true);
   };
 
@@ -94,22 +95,21 @@ export default function CategoryDropdown({
             aria-haspopup='true'
             onClick={handleToggle}
             style={{
-              fontFamily:
-                '-apple-system, BlinkMacSystemFont, `Segoe UI`, Roboto, Oxygen, Ubuntu, Cantarell, `Open Sans`, `Helvetica Neue`, sans-serif',
+              fontFamily: 'var(--roboto)',
               fontStyle: 'normal',
               fontWeight: 'bold',
               fontSize: '28px',
               lineHeight: '33px',
               letterSpacing: '-0.022em',
-              color: '#1E1E1E',
+              color: 'var(--black)',
               borderBottomRightRadius: '0',
               borderBottomLeftRadius: '0',
               borderBottom: '1px solid #5A5A5A',
               position: 'relative',
             }}
           >
-            <Icon src={category[selectedCategory].image} width='35px' />
-            {category[selectedCategory].name}
+            <Icon src={selectedItem.image} width='35px' />
+            {selectedItem.name}
             <ToggleIcon src={ToggleButton} alt='' open={open} />
           </Button>
           <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
@@ -137,19 +137,17 @@ export default function CategoryDropdown({
                       {category.map((el: any, idx: number) => {
                         return (
                           <>
-                            {/* <div style={{ marginTop: '10px' }} /> */}
                             <MenuItem
                               onClick={handleClose(idx)}
                               key={idx}
                               style={{
-                                fontFamily:
-                                  '-apple-system, BlinkMacSystemFont, `Segoe UI`, Roboto, Oxygen, Ubuntu, Cantarell, `Open Sans`, `Helvetica Neue`, sans-serif',
+                                fontFamily: 'var(--roboto)',
                                 fontStyle: 'normal',
                                 fontWeight: 'normal',
                                 fontSize: '20px',
                                 lineHeight: '23px',
                                 letterSpacing: '-0.022em',
-                                color: '#1E1E1E',
+                                color: 'var(--black)',
                                 padding: 0,
                                 paddingBottom: '10px',
                                 paddingTop: '10px',
@@ -165,20 +163,19 @@ export default function CategoryDropdown({
                       })}
                       <hr
                         style={{
-                          border: '1px solid #E9E9E9',
+                          border: '1px solid var(--gray-2)',
                         }}
                       />
                       <MenuItem
                         onClick={handleAddCategory}
                         style={{
-                          fontFamily:
-                            '-apple-system, BlinkMacSystemFont, `Segoe UI`, Roboto, Oxygen, Ubuntu, Cantarell, `Open Sans`, `Helvetica Neue`, sans-serif',
+                          fontFamily: 'var(--roboto)',
                           fontStyle: 'normal',
                           fontWeight: 'normal',
                           fontSize: '20px',
                           lineHeight: '23px',
                           letterSpacing: '-0.022em',
-                          color: '#1E1E1E',
+                          color: 'var(--black)',
                           padding: 0,
                           paddingBottom: '10px',
                           paddingTop: '10px',
