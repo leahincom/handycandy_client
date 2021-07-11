@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Link from 'next/link';
 import { Logo, Mail, Instagram } from '../../../../public/assets/icons/';
 
 const Container = styled.div`
@@ -90,36 +91,17 @@ const ItemBox = styled.div`
   flex-direction: column;
 `;
 
-const Item = styled.button`
+const Item = styled.a`
   display: flex;
-  flex: none;
-  flex-grow: 0;
   align-items: center;
   justify-content: flex-start;
-  order: 0;
   margin: 0 0 10px 0;
-  border: 0px solid transparent;
-  box-shadow: 0px 0px 0px transparent;
-  background: transparent;
-  text-shadow: 0px 0px 0px transparent;
   line-height: 19px;
   color: #5a5a5a;
   font-family: var(--roboto);
   font-size: 16px;
   font-weight: normal;
   font-style: normal;
-
-  &:hover {
-    border: 0px solid transparent;
-    box-shadow: 0px 0px 0px transparent;
-    background: transparent;
-    text-shadow: 0px 0px 0px transparent;
-  }
-
-  &:active {
-    outline: none;
-    border: none;
-  }
 
   &:focus {
     outline: 0;
@@ -144,36 +126,54 @@ export default function Footer() {
       <Menu>
         <Title>캔디 메이커</Title>
         <ItemBox>
-          <Item>팀 핸디캔디</Item>
-          <Item>메이커 소개</Item>
+          <Link href='/' passHref={true}>
+            <Item>팀 핸디캔디</Item>
+          </Link>
+          <Link href='/' passHref={true}>
+            <Item>메이커 소개</Item>
+          </Link>
         </ItemBox>
       </Menu>
       <Menu>
         <Title>핸디캔디 정보</Title>
         <ItemBox>
-          <Item>핸디캔디 정보</Item>
-          <Item>익스텐션</Item>
-          <Item>메일 서비스</Item>
+          <Link href='/' passHref={true}>
+            <Item>핸디캔디 정보</Item>
+          </Link>
+          <Link href='/' passHref={true}>
+            <Item>익스텐션</Item>
+          </Link>
+          <Link href='/' passHref={true}>
+            <Item>메일 서비스</Item>
+          </Link>
         </ItemBox>
       </Menu>
       <Menu>
         <Title>FAQ</Title>
         <ItemBox>
-          <Item>자주 묻는 질문</Item>
-          <Item>오류 제보</Item>
+          <Link href='/' passHref={true}>
+            <Item>자주 묻는 질문</Item>
+          </Link>
+          <Link href='/' passHref={true}>
+            <Item>오류 제보</Item>
+          </Link>
         </ItemBox>
       </Menu>
       <Menu>
         <Title>Contact Us</Title>
         <ItemBox>
-          <Item>
-            <ContactIcon src={Instagram} />
-            handycandy_official
-          </Item>
-          <Item>
-            <ContactIcon src={Mail} />
-            handycandy@gmail.com
-          </Item>
+          <Link href='https://www.instagram.com/handycandy_official/' passHref={true}>
+            <Item>
+              <ContactIcon src={Instagram} />
+              handycandy_official
+            </Item>
+          </Link>
+          <Link href='mailto:handycandy@gmail.com' passHref={true}>
+            <Item>
+              <ContactIcon src={Mail} />
+              handycandy@gmail.com
+            </Item>
+          </Link>
         </ItemBox>
       </Menu>
     </Container>
