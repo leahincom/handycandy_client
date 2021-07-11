@@ -31,6 +31,8 @@ const initializeStyle = css`
   html,
   body {
     background-color: transparent;
+    width: 100%;
+    height: 100%;
     font-family: Roboto, sans-serif, Helvetica;
     font-size: 16px;
   }
