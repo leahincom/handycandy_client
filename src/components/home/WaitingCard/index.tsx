@@ -80,7 +80,7 @@ export default function WaitingCard({ candy, title, date, thumbnail }: WaitingCa
     <Container>
       <BackgroundThumbnail src={thumbnail} layout='fill' objectFit='cover' objectPosition='center' />
       <Wrapper>
-        <Candy src={candy} />
+        <Candy src={candy} width='70px' height='70px' />
         <Title>
           <UnderLinedTitle>{title}</UnderLinedTitle>이
         </Title>
