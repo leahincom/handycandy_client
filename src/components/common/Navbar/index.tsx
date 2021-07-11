@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { Logo, Profile, Ring } from '../../../../public/assets/icons';
 import SearchBar from '../SearchBar';
-import NoticeModal from './NoticeModal';
+import NoticeModal from '../NoticeModal';
 
 const Container = styled.div`
   display: flex;
@@ -72,7 +72,6 @@ const AddCandyButton = styled.button`
   height: 47px;
   text-align: center;
   line-height: 23px;
-  letter-spacing: -0.022em;
   color: var(--peach);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
     'Helvetica Neue', sans-serif;
@@ -94,6 +93,33 @@ export default function Navbar() {
   const openNotice = () => {
     setIsNoticeOpen((prev) => !prev);
   };
+
+  const notices = {
+    notCompleted: [
+      {
+        content: '한강에서 라이딩하기가 1일이 지났습니다. 캔디를 선물해보세요.',
+        date: '7월 16일',
+        candy: 'https://dummyimage.com/35x35/000/fff',
+      },
+    ],
+    completed: [
+      {
+        content: '산타마리아노벨라 엔젤디피렌체 향수를 선물했어요.',
+        date: '7월 16일',
+        candy: 'https://dummyimage.com/35x35/000/fff',
+      },
+      {
+        content: '시원스쿨 프랑스어를 선물했어요.',
+        date: '7월 16일',
+        candy: 'https://dummyimage.com/35x35/000/fff',
+      },
+      {
+        content: '시원스쿨 프랑스어를 선물했어요.',
+        date: '7월 16일',
+        candy: 'https://dummyimage.com/35x35/000/fff',
+      },
+    ],
+  };
   return (
     <Container>
       <Menus>
@@ -114,7 +140,7 @@ export default function Navbar() {
       <Buttons>
         <ProfileIcon src={Profile} />
         <RingIcon src={Ring} onClick={openNotice} />
-        {isNoticeOpen && <NoticeModal />}
+        {isNoticeOpen && <NoticeModal notices={notices} />}
         <AddCandyButton>캔디추가하기</AddCandyButton>
       </Buttons>
     </Container>

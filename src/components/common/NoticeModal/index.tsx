@@ -38,10 +38,8 @@ const InnerContainer = styled.div`
 const NoticeTitle = styled.div`
   margin-bottom: 18px;
   line-height: 23px;
-  letter-spacing: -0.022em;
   color: var(--black);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  font-family: var(--roboto);
   font-size: 20px;
   font-weight: bold;
 `;
@@ -57,7 +55,6 @@ const NoticeContainer = styled.div`
   width: 392px;
   height: 90px;
 `;
-
 const NoticeContent = styled.span`
   margin-left: 19px;
   padding-right: 10px;
@@ -67,7 +64,6 @@ const NoticeContent = styled.span`
     display: flex;
     align-items: center;
     line-height: 130%;
-    letter-spacing: -0.022em;
     color: #5a5a5a;
     font-size: 18px;
   }
@@ -75,60 +71,30 @@ const NoticeContent = styled.span`
   & > p:nth-of-type(2) {
     margin-top: 4px;
     line-height: 16px;
-    letter-spacing: -0.022em;
     color: #c1c1c1;
     font-size: 14px;
   }
 `;
 
-const notices = {
-  notCompleted: [
-    {
-      content: '한강에서 라이딩하기가 1일이 지났습니다. 캔디를 선물해보세요.',
-      date: '7월 16일',
-      candy: 'https://dummyimage.com/35x35/000/fff',
-    },
-    {
-      content: '베라 하프겔런 사기가 4일이 지났습니다. 캔디를 선물해보세요.',
-      date: '7월 16일',
-      candy: 'https://dummyimage.com/35x35/000/fff',
-    },
-  ],
-  completed: [
-    {
-      content: '산타마리아노벨라 엔젤디피렌체 향수를 선물했어요.',
-      date: '7월 16일',
-      candy: 'https://dummyimage.com/35x35/000/fff',
-    },
-    {
-      content: '시원스쿨 프랑스어를 선물했어요.',
-      date: '7월 16일',
-      candy: 'https://dummyimage.com/35x35/000/fff',
-    },
-    {
-      content: '시원스쿨 프랑스어를 선물했어요.',
-      date: '7월 16일',
-      candy: 'https://dummyimage.com/35x35/000/fff',
-    },
-    {
-      content: '시원스쿨 프랑스어를 선물했어요.',
-      date: '7월 16일',
-      candy: 'https://dummyimage.com/35x35/000/fff',
-    },
-    {
-      content: '시원스쿨 프랑스어를 선물했어요.',
-      date: '7월 16일',
-      candy: 'https://dummyimage.com/35x35/000/fff',
-    },
-    {
-      content: '시원스쿨 프랑스어를 선물했어요.',
-      date: '7월 16일',
-      candy: 'https://dummyimage.com/35x35/000/fff',
-    },
-  ],
-};
+export interface NotCompleted {
+  content: string;
+  date: string;
+  candy: string;
+}
 
-const NoticeModal = () => {
+export interface completed {
+  content: string;
+  date: string;
+  candy: string;
+}
+
+export interface NoticeModalProps {
+  notices: {
+    notCompleted: NotCompleted[];
+    completed: completed[];
+  };
+}
+export default function NoticeModal({ notices }: NoticeModalProps) {
   return (
     <Container>
       <InnerContainer>
@@ -156,6 +122,4 @@ const NoticeModal = () => {
       </InnerContainer>
     </Container>
   );
-};
-
-export default NoticeModal;
+}

@@ -23,8 +23,7 @@ const InputField = styled.input`
   width: 420px;
   letter-spacing: -0.022em;
   color: var(--black);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  font-family: var(--roboto);
   font-size: 18px;
 `;
 
@@ -39,8 +38,7 @@ const Dropdown = styled.div`
   line-height: 150%;
   letter-spacing: -0.022em;
   color: var(--black);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  font-family: var(--roboto);
   font-size: 18px;
 
   &:hover {
@@ -98,8 +96,7 @@ const Option = styled.div`
     line-height: 150%;
     letter-spacing: -0.022em;
     color: var(--black);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-      'Helvetica Neue', sans-serif;
+    font-family: var(--roboto);
     font-size: 18px;
   }
 
@@ -131,11 +128,11 @@ export default function Navbar() {
     setSelectedType(e.target.value);
   };
 
-  const handleInputChange = (e: any) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     setSearchInput(e.target.value);
   };
 
-  const handleSearch = (e: any) => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSearchInput('');
   };
