@@ -46,7 +46,7 @@ const Container = styled.button<Omit<ButtonProps, 'text'>>`
 
 const Text = styled.span``;
 
-export interface ButtonProps {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   buttonColor: 'peach' | 'gray';
   color?: string;
   text: string;
