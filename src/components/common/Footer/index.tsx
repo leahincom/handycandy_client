@@ -17,6 +17,7 @@ const LogoBar = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
+  margin-right: 15px;
   height: 100%;
 `;
 
@@ -68,8 +69,9 @@ const Copyright = styled.p`
 const Menu = styled.div`
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   align-items: flex-start;
-  margin: 0;
+  margin: 0 16px 0 0;
   height: 100%;
 `;
 
@@ -139,7 +141,6 @@ export default function Footer() {
         <Button>익스텐션 설치하기</Button>
         <Copyright>Copyright © 2021 All Rights Reserved. SOPT Candy Makers</Copyright>
       </LogoBar>
-      <div style={{ margin: '15px' }} />
       <Menu>
         <Title>캔디 메이커</Title>
         <ItemBox>
