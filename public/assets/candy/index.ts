@@ -1,4 +1,5 @@
 export { default as Donut } from './Donut.svg';
+export { default as DonutSmall } from './DonutSmall.svg';
 export { default as Ball } from './Ball.svg';
 export { default as Clover } from './Clover.svg';
 export { default as Double } from './Double.svg';
