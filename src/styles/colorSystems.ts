@@ -3,6 +3,7 @@ import { css } from 'styled-components';
 const colorSystems = css`
   :root {
     --peach: #ffbfbf;
+    --peach-hover: #f5a9a9;
     --lime: #e6fa94;
     --skyblue: #a4e2fb;
     --orange: #fed9bf;

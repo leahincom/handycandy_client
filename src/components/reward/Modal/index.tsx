@@ -18,7 +18,6 @@ const Background = styled.div<BackgroundProps>`
 `;
 
 const Container = styled.div<BackgroundProps>`
-  box-sizing: border-box;
   display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   position: fixed;
   top: 50%;
@@ -88,7 +87,7 @@ export default function CompleteModal() {
           보다 자신을 아끼고 사랑할 수 있는 사람이 되고 있어요 <br />
           핸디캔디는 항상 곁에 있어요
         </Desc>
-        <ButtonWrap>
+        <ButtonWrap onClick={handleClickToClose}>
           <Button buttonColor='peach' text='확인' size='md' />
         </ButtonWrap>
       </Container>

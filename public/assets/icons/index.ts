@@ -13,3 +13,6 @@ export { default as Check } from './Check.svg';
 export { default as HandCream } from './handcream.svg';
 export { default as LinkIcon } from './link_icon.svg';
 export { default as BottomArrow } from './bottom_arrow.svg';
+export { default as PlusIcon } from './edit_plus_icon.svg';
+export { default as BackArrow } from './back_arrow.svg';
+export { default as EditIcon } from './edit_icon.svg';

@@ -1,67 +1,38 @@
+import styled from 'styled-components';
+import ReactFullpage from '@fullpage/react-fullpage';
 import React from 'react';
-import Reward, { Candy } from '../../components/reward/Contents';
-const candyArr = [
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-];
-export interface RewardPageProps {
-  candyList: Candy[];
-  username: string;
-  candynum: number;
-  date: Date;
-}
 
-export default function RewardPage({
-  candyList = candyArr,
-  username = '오주영',
-  candynum = 13,
-  date = new Date(),
-}: RewardPageProps) {
-  return <Reward candyList={candyList} username={username} candynum={candynum} date={date} />;
+import Body, { BodyProps } from '../../components/complete/Body';
+import Banner, { BannerProps } from '../../components/reward/Banner';
+import Emoticon, { EmoticonProps } from '../../components/complete/Body/Emoticon';
+import Diary from '../../components/complete/Body/Diary';
+
+const BannerWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+export interface CompleteProps extends BodyProps, EmoticonProps, BannerProps {}
+
+export default function Complete({ candy, date, desc, info, link, bannerTitle, bannerDesc }: CompleteProps) {
+  return (
+    <>
+      <ReactFullpage
+        verticalCentered={false}
+        render={({ fullpageApi }) => {
+          return (
+            <ReactFullpage.Wrapper>
+              <Body candy={candy} date={date} desc={desc} info={info} link={link} fullpageApi={fullpageApi} />
+              <Emoticon candy={candy} fullpageApi={fullpageApi} />
+              <Diary />
+            </ReactFullpage.Wrapper>
+          );
+        }}
+      />
+      <BannerWrapper>
+        <Banner bannerTitle={bannerTitle} bannerDesc={bannerDesc} />
+      </BannerWrapper>
+    </>
+  );
 }
