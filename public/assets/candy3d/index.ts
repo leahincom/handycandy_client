@@ -1,0 +1,10 @@
+export { default as Ball } from './Ball.png';
+export { default as Clover } from './Clover.png';
+export { default as Double } from './Double.png';
+export { default as Donut } from './Donut.png';
+export { default as Flower } from './Flower.png';
+export { default as Fork } from './Fork.png';
+export { default as Leaf } from './Leaf.png';
+export { default as Magnet } from './Magnet.png';
+export { default as WaterDrop } from './WaterDrop.png';
+export { default as X } from './X.png';
