@@ -5,21 +5,6 @@ import DateDropdown from './Dropdown/Date';
 import AddCandyMessage from './AddCandyMessage';
 import CandyAdded, { CandyAddedProps } from './CandyAdded';
 
-const Dialog = styled.div`
-  display: flex;
-  /* position: absolute;
-  top: 315px;
-  left: 589px; */
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  border: 2px solid var(--gray-1);
-  border-radius: 25px;
-  background-color: var(--white);
-  width: 726px;
-  height: 400px;
-`;
-
 const Title = styled.h1`
   line-height: 23px;
   letter-spacing: -0.022em;
@@ -60,7 +45,7 @@ const ButtonBar = styled.div`
   align-items: center;
 `;
 
-export default function AddCandyDate({ category, selectedCategory, candy, handleDialogState }: CandyAddedProps) {
+export default function AddCandyDate({ category, selectedCategory, candy }: CandyAddedProps) {
   const [goBefore, setGoBefore] = useState(false);
   const [added, setAdded] = useState(false);
 
@@ -114,7 +99,7 @@ export default function AddCandyDate({ category, selectedCategory, candy, handle
   return (
     <>
       {!added && !goBefore ? (
-        <Dialog>
+        <>
           <Title>캔디데이를 정해주세요.</Title>
           <Desc>
             <Line style={{ zIndex: 5 }}>
@@ -130,23 +115,11 @@ export default function AddCandyDate({ category, selectedCategory, candy, handle
             <div style={{ margin: '9px' }} />
             <Button text='다음' size='sm' buttonColor='peach' color='black' onClick={handleNextClick} />
           </ButtonBar>
-        </Dialog>
+        </>
       ) : added ? (
-        <AddCandyMessage
-          category={category}
-          selectedCategory={selectedCategory}
-          candy={candy}
-          handleDialogState={handleDialogState}
-        />
+        <AddCandyMessage category={category} selectedCategory={selectedCategory} candy={candy} />
       ) : (
-        goBefore && (
-          <CandyAdded
-            category={category}
-            selectedCategory={selectedCategory}
-            candy={candy}
-            handleDialogState={handleDialogState}
-          />
-        )
+        goBefore && <CandyAdded category={category} selectedCategory={selectedCategory} candy={candy} />
       )}
     </>
   );

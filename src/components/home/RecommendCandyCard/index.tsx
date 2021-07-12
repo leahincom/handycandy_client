@@ -1,6 +1,8 @@
 import styled from 'styled-components';
+import { useAtom } from 'jotai';
 import Image from 'next/image';
 import { Plus } from '../../../../public/assets/icons';
+import { openCandyModal } from '../../../states';
 
 const Container = styled.div`
   display: flex;
@@ -62,6 +64,7 @@ export interface RecommendCandyCardProps {
 }
 
 export default function RecommendCandyCard({ title, content, image }: RecommendCandyCardProps) {
+  const [openModal, setOpenModal] = useAtom(openCandyModal);
   return (
     <Container>
       <CardImage src={image} />
@@ -69,7 +72,7 @@ export default function RecommendCandyCard({ title, content, image }: RecommendC
         <CardTitle>{title}</CardTitle>
         <CardContent>{content}</CardContent>
       </CardDetail>
-      <AddButton src={Plus} />
+      <AddButton src={Plus} onClick={() => setOpenModal(true)} />
     </Container>
   );
 }

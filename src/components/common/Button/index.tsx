@@ -1,4 +1,3 @@
-import { MouseEventHandler } from 'react';
 import styled, { css } from 'styled-components';
 
 const sizeStyles = css<Pick<ButtonProps, 'size'>>`
@@ -54,9 +53,9 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   size: 'sm' | 'md';
 }
 
-export default function Button({ buttonColor, color, text, size }: ButtonProps) {
+export default function Button({ buttonColor, color, text, size, ...props }: ButtonProps) {
   return (
-    <Container buttonColor={buttonColor} color={color} size={size}>
+    <Container {...props} buttonColor={buttonColor} color={color} size={size}>
       <Text>{text}</Text>
     </Container>
   );

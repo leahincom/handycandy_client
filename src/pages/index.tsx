@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import DialogManager from '../components/DialogManager';
 import RecommendCandyCard from '../components/home/RecommendCandyCard';
 import WaitingCardSlider from '../components/home/WaitingCardSlider';
 import ComingCandyCard from '../components/home/ComingCandyCard';
@@ -16,8 +17,8 @@ const TitleContainer = styled.div`
   line-height: 135%;
   letter-spacing: -0.022em;
   font-family: 'NanumSquareRound', sans-serif;
-  font-weight: 800;
   font-size: 44px;
+  font-weight: 800;
 
   & > p {
     box-sizing: border-box;
@@ -133,49 +134,52 @@ const userInfo = {
 
 export default function Home() {
   return (
-    <Container>
-      <TitleContainer>
-        두 병 채운 {userInfo.nickname}님, <br />
-        {userInfo.candyPhrase}
-        <p>📢 {userInfo.phrase} </p>
-      </TitleContainer>
-      <div>
-        <ComingContainer>
-          <CandyTitle>다가오는 캔디</CandyTitle>
-          <CandyDesc>행복을 안겨줄 캔디들이 곧 도착해요</CandyDesc>
+    <>
+      <Container>
+        <TitleContainer>
+          두 병 채운 {userInfo.nickname}님, <br />
+          {userInfo.candyPhrase}
+          <p>📢 {userInfo.phrase} </p>
+        </TitleContainer>
+        <div>
+          <ComingContainer>
+            <CandyTitle>다가오는 캔디</CandyTitle>
+            <CandyDesc>행복을 안겨줄 캔디들이 곧 도착해요</CandyDesc>
+            <FlexContainer>
+              {comingCandies.length > 0 ? (
+                comingCandies.map((candy, idx) => {
+                  return (
+                    <ComingCandyCard
+                      key={idx}
+                      itemImage={candy.image}
+                      category={candy.category}
+                      name={candy.name}
+                      plannedDate={candy.plannedDate}
+                    />
+                  );
+                })
+              ) : (
+                <ComingCandyCard itemImage='' category='내 손안의 달콤한 보상' name='캔디를 추가해보세요' />
+              )}
+            </FlexContainer>
+          </ComingContainer>
           <FlexContainer>
-            {comingCandies.length > 0 ? (
-              comingCandies.map((candy, idx) => {
-                return (
-                  <ComingCandyCard
-                    key={idx}
-                    itemImage={candy.image}
-                    category={candy.category}
-                    name={candy.name}
-                    plannedDate={candy.plannedDate}
-                  />
-                );
-              })
-            ) : (
-              <ComingCandyCard itemImage='' category='내 손안의 달콤한 보상' name='캔디를 추가해보세요' />
-            )}
+            <RecommendContainer>
+              <CandyTitle>추천 캔디</CandyTitle>
+              <CandyDesc>핸디캔디 추천으로 새로운 행복을 더해보세요</CandyDesc>
+              {recommendCandies?.map((candy, idx) => {
+                return <RecommendCandyCard key={idx} title={candy.title} content={candy.content} image={candy.image} />;
+              })}
+            </RecommendContainer>
+            <WaitingContainer>
+              <CandyTitle>기다리는 캔디</CandyTitle>
+              <CandyDesc> 담고만 있었던 캔디로 꺼내보세요 </CandyDesc>
+              <WaitingCardSlider />
+            </WaitingContainer>
           </FlexContainer>
-        </ComingContainer>
-        <FlexContainer>
-          <RecommendContainer>
-            <CandyTitle>추천 캔디</CandyTitle>
-            <CandyDesc>핸디캔디 추천으로 새로운 행복을 더해보세요</CandyDesc>
-            {recommendCandies?.map((candy, idx) => {
-              return <RecommendCandyCard key={idx} title={candy.title} content={candy.content} image={candy.image} />;
-            })}
-          </RecommendContainer>
-          <WaitingContainer>
-            <CandyTitle>기다리는 캔디</CandyTitle>
-            <CandyDesc> 담고만 있었던 캔디로 꺼내보세요 </CandyDesc>
-            <WaitingCardSlider />
-          </WaitingContainer>
-        </FlexContainer>
-      </div>
-    </Container>
+        </div>
+      </Container>
+      <DialogManager />
+    </>
   );
 }
