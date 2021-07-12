@@ -6,6 +6,7 @@ export default { title: 'styles' } as Meta;
 
 const pastelColors: string[] = [
   '--peach',
+  '--peach-hover',
   '--lime',
   '--skyblue',
   '--orange',

@@ -6,7 +6,7 @@ import DownArrowButton from './DownArrowButton';
 
 const Container = styled.div`
   position: relative;
-  padding: 368px 241px 0px 241px; ;
+  padding: 368px 241px 0px 241px;
 `;
 
 const CandyTitle = styled.h1`

@@ -1,9 +1,12 @@
+import { useAtom } from 'jotai';
+import { useRouter } from 'next/dist/client/router';
 import React from 'react';
 import styled from 'styled-components';
+import { CompleteModalAtom } from '../../../states';
 import Button from '../../common/Button';
 
 const Container = styled.div`
-  padding: 368px 241px 0px 241px; ;
+  padding: 368px 241px 0px 241px;
 `;
 
 const CandyTitle = styled.h1`
@@ -43,6 +46,7 @@ const DiaryArea = styled.textarea`
     color: var(--gray-5);
   }
 `;
+
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -51,6 +55,13 @@ const ButtonWrapper = styled.div`
 `;
 
 export default function Diary() {
+  const router = useRouter();
+  const [, setIsCompleteModalOpen] = useAtom(CompleteModalAtom);
+  const onClickToComplete = () => {
+    router.push('/complete');
+    setIsCompleteModalOpen(true);
+  };
+
   return (
     <Container className='section'>
       <CandyTitle>
@@ -61,7 +72,7 @@ export default function Diary() {
         행복해진 나의 기록을 더 남겨보세요
       </CandyTitle>
       <DiaryArea placeholder='오늘의 기록을 더 상세히 남겨요!' />
-      <ButtonWrapper>
+      <ButtonWrapper onClick={onClickToComplete}>
         <Button buttonColor='peach' size='md' text='완료하기' />
       </ButtonWrapper>
     </Container>
