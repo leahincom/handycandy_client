@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { Donut } from '../../../../public/assets/candy';
 
 const Container = styled.div`
-  box-sizing: border-box;
   position: relative;
   border-radius: 20px;
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.09);
@@ -14,13 +13,13 @@ const Container = styled.div`
   height: 224px;
 `;
 
-const CandyEmoticon = styled(Image)`
+const CandyEmoticonWrapper = styled.div`
   position: absolute;
   top: -27.06px;
   right: 19.71px;
-  width: 80.35px;
-  height: 80.35px;
 `;
+
+const CandyEmoticon = styled(Image)``;
 
 const CandyImage = styled(Image)`
   border-radius: 80px;
@@ -30,7 +29,7 @@ const Category = styled.div`
   margin-top: 8px;
   max-width: 208px;
   overflow: hidden;
-  /* line-height: 30px; */
+  line-height: 30px;
   white-space: nowrap;
   color: var(--gray-7);
   font-family: Roboto;
@@ -43,7 +42,7 @@ const Title = styled.div`
   margin-top: 4px;
   max-width: 267px;
   overflow: hidden;
-  /* line-height: 33px; */
+  line-height: 33px;
   white-space: nowrap;
   color: var(--black);
   font-family: Roboto;
@@ -54,7 +53,7 @@ const Title = styled.div`
 
 const Date = styled.div`
   margin-top: 16px;
-  /* line-height: 21px; */
+  line-height: 21px;
   color: var(--gray-6);
   font-family: Roboto;
   font-size: 18px;
@@ -76,8 +75,10 @@ export default function CompleteCard({ candy, category, title, date }: CompleteC
 
   return (
     <Container>
-      <CandyEmoticon src={Donut} />
-      <CandyImage src={candy} />
+      <CandyImage src={candy} width='80px' height='80px' />
+      <CandyEmoticonWrapper>
+        <CandyEmoticon src={Donut} width='80px' height='80px' />
+      </CandyEmoticonWrapper>
       <Category>{category}</Category>
       <Title>{title}</Title>
       <Date>{getDateFormat(date)}</Date>

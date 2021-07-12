@@ -1,8 +1,8 @@
 import { Meta, Story } from '@storybook/react';
 import styled from 'styled-components';
-import Banner from '../Banner';
-import Emoticon from './Emoticon';
+import Banner, { BannerProps } from '../../reward/Banner';
 import Diary from './Diary';
+import Emoticon, { EmoticonProps } from './Emoticon';
 import Body, { BodyProps } from '.';
 export default { title: 'components/complete/Body', component: Body } as Meta;
 
@@ -11,11 +11,13 @@ const Wrapper = styled.div`
   height: 100vh;
 `;
 
-const Template: Story<BodyProps> = (props) => (
+interface CompeleteProps extends BodyProps, EmoticonProps, BannerProps {}
+
+const Template: Story<CompeleteProps> = (props) => (
   <Wrapper>
-    {/* <Banner /> */}
+    <Banner {...props} />
     <Body {...props} />
-    {/* <Emoticon candy='필보이드 핸드크림' /> */}
+    <Emoticon {...props} />
     <Diary />
   </Wrapper>
 );
