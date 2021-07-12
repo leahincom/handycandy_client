@@ -26,7 +26,7 @@ const Desc = styled.div`
   font-size: 24px;
 `;
 
-const SignupForm = styled.div`
+const SignupForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,6 +51,35 @@ const InputWrapper = styled.div`
   }
 `;
 
+const BirthWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  outline: none;
+  border: 1px solid var(--gray-5);
+  border-radius: 17px;
+  background: var(--white);
+  width: 684px;
+  height: 82px;
+
+  span {
+    color: var(--gray-5);
+  }
+`;
+
+const BirthInput = styled.input`
+  display: inline;
+  outline: none;
+  max-width: 70px;
+  line-height: 28px;
+  font-family: var(--roboto);
+  font-size: 24px;
+
+  ::placeholder {
+    color: var(--gray-5);
+  }
+`;
+
 const Button = styled.button`
   margin-top: 42px;
   border-radius: 30px;
@@ -64,13 +93,16 @@ const Button = styled.button`
 `;
 
 export default function Signup() {
+  const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
   return (
     <>
       <Navbar />
       <Container>
         <Title>회원가입</Title>
         <Desc>핸디캔디와 함께 해주세요!</Desc>
-        <SignupForm>
+        <SignupForm onSubmit={handleSignup}>
           <InputWrapper>
             <p>아이디</p>
             <InputField type='email' placeholder='example@email.com' />
@@ -81,7 +113,13 @@ export default function Signup() {
           </InputWrapper>
           <InputWrapper>
             <p>생년월일</p>
-            <InputField type='text' placeholder='YYYY / MM / DD' />
+            <BirthWrapper>
+              <BirthInput type='text' maxLength={4} placeholder='YYYY' />
+              <span>/</span>
+              <BirthInput type='text' maxLength={2} placeholder='MM' />
+              <span>/</span>
+              <BirthInput type='text' maxLength={2} placeholder='DD' />
+            </BirthWrapper>
           </InputWrapper>
           <InputWrapper>
             <p>비밀번호</p>
