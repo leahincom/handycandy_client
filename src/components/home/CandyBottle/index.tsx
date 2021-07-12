@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Bodies, Composite, Engine, Render, Runner } from 'matter-js';
 import { random } from 'lodash-es';
@@ -110,7 +110,7 @@ export default function CandyBottle({ candyList }: CandyBottleProps) {
     });
     const world = engine.world;
     const candy_render_list = candyList.map((value) => candyMap[value]);
-    const candy_object_list = candy_render_list.map((value, index) =>
+    const candy_object_list = candy_render_list.map((value) =>
       Bodies.circle(random(-60, 60) + WIDTH / 2, -100 + random(-50, 50), 55, {
         density: 0.0005,
         frictionAir: 0.02,
