@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Image from 'next/image';
-import { DonutSmall } from '../../../../public/assets/candy';
+import { Donut } from '../../../../public/assets/candy';
 import { ComingCandyNull } from '../../../../public/assets/images';
 
 import OptionBar from './OptionBar';
@@ -58,11 +58,13 @@ const Name = styled.h1`
   font-weight: bold;
 `;
 
-const Candy = styled(Image)`
+const Candy = styled.div`
   position: absolute;
   top: 157px;
   right: 12px;
   z-index: 100;
+  width: 44px;
+  height: 44px;
 `;
 
 export interface ComingCandyCardProps {
@@ -81,7 +83,11 @@ export default function ComingCandyCard({ itemImage, category, name, plannedDate
         <Category>{category}</Category>
         <Name>{name}</Name>
       </Metadata>
-      {itemImage === '' ? null : <Candy src={DonutSmall} />}
+      {itemImage === '' ? null : (
+        <Candy>
+          <Image src={Donut} alt='' />
+        </Candy>
+      )}
     </Container>
   );
 }
