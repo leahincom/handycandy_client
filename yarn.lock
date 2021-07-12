@@ -2512,6 +2512,11 @@
   dependencies:
     "@types/react" "*"
 
+"@types/matter-js@^0.17.2":
+  version "0.17.2"
+  resolved "https://registry.yarnpkg.com/@types/matter-js/-/matter-js-0.17.2.tgz#9f85c22760f4732aa7403d7c7ac1b6de46deedfc"
+  integrity sha512-7ThBDSfwVIrvqzuaV9u+t27aXZO36gDxNUMc/Ysb5KpHJ0Nv0/EZbb7/KDEcoL7rQQMO1RGqIIcu8RMGxDlPNg==
+
 "@types/mdast@^3.0.0":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@types/mdast/-/mdast-3.0.3.tgz#2d7d671b1cd1ea3deb306ea75036c2a0407d2deb"
@@ -7732,6 +7737,11 @@ mathml-tag-names@^2.1.3:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/mathml-tag-names/-/mathml-tag-names-2.1.3.tgz#4ddadd67308e780cf16a47685878ee27b736a0a3"
   integrity sha512-APMBEanjybaPzUrfqU0IMU5I0AswKMH7k8OTLs0vvV4KZpExkTkY87nR/zpbuTPj+gARop7aGUbl11pnDfW6xg==
+
+matter-js@^0.17.1:
+  version "0.17.1"
+  resolved "https://registry.yarnpkg.com/matter-js/-/matter-js-0.17.1.tgz#b30ac4c708116258fbcaacd2efd8a94e34a91c7f"
+  integrity sha512-pSquoENJgvSAlQGcA0s5UkmEohGXZaUww2g3B6qG87x0iEcVf+aigMXn5UkFPdnh6w3B+C4vXSLaYqhHwKrOLA==
 
 md5.js@^1.3.4:
   version "1.3.5"
