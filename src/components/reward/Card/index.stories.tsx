@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import CompleteCard, { CompleteCardProps } from '.';
 
-export default { title: 'components/complete/Card', component: CompleteCard } as Meta;
+export default { title: 'components/reward/Card', component: CompleteCard } as Meta;
 
 const Template: Story<CompleteCardProps> = (props) => <CompleteCard {...props} />;
 

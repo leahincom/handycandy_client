@@ -1,7 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import Banner, { BannerProps } from '.';
 
-export default { title: 'components/complete/Banner', component: Banner } as Meta;
+export default { title: 'components/reward/Banner', component: Banner } as Meta;
 
 const Template: Story<BannerProps> = (props) => <Banner {...props} />;
 

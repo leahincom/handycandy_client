@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { fullpageApi } from '@fullpage/react-fullpage';
-import { HandCream, LinkIcon } from '../../../../public/assets/icons';
+import { LinkIcon, HandCream } from '../../../../public/assets/icons';
 import DownArrowButton from './DownArrowButton';
 
 const Container = styled.div`

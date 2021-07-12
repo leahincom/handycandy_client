@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import ReactFullpage from '@fullpage/react-fullpage';
 import React from 'react';
 import Body, { BodyProps } from '../../components/complete/Body';
-import Banner, { BannerProps } from '../../components/complete/Banner';
+import Banner, { BannerProps } from '../../components/reward/Banner';
 import Emoticon, { EmoticonProps } from '../../components/complete/Body/Emoticon';
 import Diary from '../../components/complete/Body/Diary';
 
