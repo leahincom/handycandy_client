@@ -12,3 +12,5 @@ export { default as Instagram } from './Instagram.svg';
 export { default as CategoryAdd } from './CategoryAdd.svg';
 export { default as ToggleButton } from './ToggleButton.svg';
 export { default as Check } from './Check.svg';
+export { default as IdIcon } from './IdIcon.svg';
+export { default as PasswordIcon } from './PasswordIcon.svg';
