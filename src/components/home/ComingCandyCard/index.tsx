@@ -13,8 +13,7 @@ const Container = styled.div`
   margin-right: 16px;
   width: 188px;
   height: 285px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  font-family: var(--roboto);
   filter: drop-shadow(0px 0px 14.3769px rgba(0, 0, 0, 0.09));
 `;
 
@@ -53,14 +52,13 @@ const Name = styled.h1`
   margin: 0;
   line-height: 21px;
   color: var(--black);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  font-family: var(--roboto);
   font-size: 18px;
   font-weight: 700;
   font-weight: bold;
 `;
 
-const Candy = styled.img`
+const Candy = styled(Image)`
   position: absolute;
   top: 157px;
   right: 12px;
