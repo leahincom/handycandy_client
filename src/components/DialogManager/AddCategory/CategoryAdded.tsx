@@ -1,22 +1,10 @@
 import React from 'react';
+import Link from 'next/link';
 import styled from 'styled-components';
-import Button from '../../Button';
-
-const Dialog = styled.div`
-  display: flex;
-  position: absolute;
-  top: 100px;
-  /* top: 315px;
-  left: 589px; */
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  border: 2px solid var(--gray-1);
-  border-radius: 25px;
-  background-color: var(--white);
-  width: 726px;
-  height: 400px;
-`;
+import Image from 'next/dist/client/image';
+import { useAtom } from 'jotai';
+import { openCategoryModal } from '../../../states/';
+import Button from '../../common/Button';
 
 const MainBox = styled.div`
   display: flex;
@@ -24,7 +12,7 @@ const MainBox = styled.div`
   align-items: center;
 `;
 
-const CandyAnimation = styled.img``;
+const CandyAnimation = styled(Image)``;
 
 const Desc = styled.p`
   display: flex;
@@ -75,14 +63,13 @@ export interface CategoryAddedProps {
   category: string;
   candyList: any;
   selectedCandy: number;
-  handleDialogState: () => void;
 }
 
-export default function CategoryAdded({ category, candyList, selectedCandy, handleDialogState }: CategoryAddedProps) {
-  const handleCategoryClick: React.MouseEventHandler<HTMLButtonElement> = () => {};
+export default function CategoryAdded({ category, candyList, selectedCandy }: CategoryAddedProps) {
+  const [openModal, setOpenModal] = useAtom(openCategoryModal);
 
   return (
-    <Dialog>
+    <>
       <MainBox>
         <CandyAnimation src={candyList[selectedCandy].added} />
         <Desc>
@@ -92,10 +79,12 @@ export default function CategoryAdded({ category, candyList, selectedCandy, hand
         </Desc>
       </MainBox>
       <ButtonBar>
-        <Button text='분류별 캔디 보러가기' size='sm' buttonColor='gray' color='black' onClick={handleCategoryClick} />
+        <Link href='/complete' passHref={true}>
+          <Button text='분류별 캔디 보러가기' size='sm' buttonColor='gray' color='black' />
+        </Link>
         <div style={{ margin: '9px' }} />
-        <Button text='확인' size='sm' buttonColor='peach' color='black' onClick={handleDialogState} />
+        <Button text='확인' size='sm' buttonColor='peach' color='black' onClick={() => setOpenModal(false)} />
       </ButtonBar>
-    </Dialog>
+    </>
   );
 }

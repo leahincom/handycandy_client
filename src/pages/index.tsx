@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import DialogManager from '../components/DialogManager';
 import RecommendCandyCard from '../components/home/RecommendCandyCard';
 import WaitingCardSlider from '../components/home/WaitingCardSlider';
 import ComingCandyCard from '../components/home/ComingCandyCard';

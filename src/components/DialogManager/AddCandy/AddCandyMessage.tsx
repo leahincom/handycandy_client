@@ -1,23 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Button from '../../Button';
+import { useAtom } from 'jotai';
+import { openCandyModal } from '../../../states';
+import Button from '../../common/Button';
 import AddCandyDate from './AddCandyDate';
 import { CandyAddedProps } from './CandyAdded';
-
-const Dialog = styled.div`
-  display: flex;
-  /* position: absolute;
-  top: 315px;
-  left: 589px; */
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  border: 2px solid var(--gray-1);
-  border-radius: 25px;
-  background-color: var(--white);
-  width: 726px;
-  height: 400px;
-`;
 
 const Title = styled.h1`
   line-height: 23px;
@@ -86,9 +73,10 @@ const ButtonBar = styled.div`
   align-items: center;
 `;
 
-export default function AddCandyMessage({ category, selectedCategory, candy, handleDialogState }: CandyAddedProps) {
+export default function AddCandyMessage({ category, selectedCategory, candy }: CandyAddedProps) {
   const [count, setCount] = useState(0);
   const [goBefore, setGoBefore] = useState(false);
+  const [openModal, setOpenModal] = useAtom(openCandyModal);
 
   const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     const script = e.target.value;
@@ -99,13 +87,15 @@ export default function AddCandyMessage({ category, selectedCategory, candy, han
     setGoBefore(true);
   };
   const handleEndClick: React.MouseEventHandler<HTMLButtonElement> = () => {
+    setOpenModal(false);
     // api POST
+    alert('캔디 추가가 완료되었습니다.');
   };
 
   return (
     <>
       {!goBefore ? (
-        <Dialog>
+        <>
           <Title>미래의 캔디데이에 남길 메시지</Title>
           <Desc>
             <TextBox placeholder='캔디를 받을 나에게 전할 메시지를 남겨주세요' onChange={handleChange} />
@@ -116,14 +106,9 @@ export default function AddCandyMessage({ category, selectedCategory, candy, han
             <div style={{ margin: '9px' }} />
             <Button text='끝내기' size='sm' buttonColor='peach' color='black' onClick={handleEndClick} />
           </ButtonBar>
-        </Dialog>
+        </>
       ) : (
-        <AddCandyDate
-          category={category}
-          selectedCategory={selectedCategory}
-          candy={candy}
-          handleDialogState={handleDialogState}
-        />
+        <AddCandyDate category={category} selectedCategory={selectedCategory} candy={candy} />
       )}
     </>
   );
