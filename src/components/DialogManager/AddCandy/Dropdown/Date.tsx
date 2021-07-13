@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/dist/client/image';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -21,12 +22,14 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const ToggleIcon = styled.img<{ open: boolean }>`
+const ToggleIcon = styled.div<{ open: boolean }>`
+  display: flex;
   position: absolute;
-  top: 26px;
   right: 25px;
+  align-items: center;
   transform: ${(props) => props.open && 'rotate(180deg)'};
   transition: all 0.2s linear;
+  height: 100%;
 `;
 
 export interface DateDropdownProps {
@@ -96,7 +99,9 @@ export default function DateDropdown({ dropdownList, basis, setBasis }: DateDrop
         }}
       >
         {basis}
-        <ToggleIcon src={ToggleButton} alt='' width='12px' height='6px' open={open} />
+        <ToggleIcon open={open}>
+          <Image src={ToggleButton} alt='' width='12px' height='6px' />
+        </ToggleIcon>
       </Button>
       <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
         {({ TransitionProps, placement }) => (

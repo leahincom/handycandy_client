@@ -1,23 +1,10 @@
 import React, { useState, useMemo } from 'react';
+import Image from 'next/dist/client/image';
 import styled from 'styled-components';
+import { useAtom } from 'jotai';
+import { openCandyModal } from '../../../states/';
 import Button from '../../common/Button';
 import AddCandyDate from './AddCandyDate';
-
-const Dialog = styled.div`
-  display: flex;
-  position: absolute;
-  top: 100px;
-  /* top: 315px;
-  left: 589px; */
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  border: 2px solid var(--gray-1);
-  border-radius: 25px;
-  background-color: var(--white);
-  width: 726px;
-  height: 400px;
-`;
 
 const MainBox = styled.div`
   display: flex;
@@ -25,7 +12,7 @@ const MainBox = styled.div`
   align-items: center;
 `;
 
-const CandyAnimation = styled.img``;
+const CandyAnimation = styled(Image)``;
 
 const Desc = styled.p`
   display: flex;
@@ -74,10 +61,11 @@ export interface CandyAddedProps {
   category: any;
   selectedCategory: number;
   candy: string;
-  handleDialogState: () => void;
 }
 
-export default function CandyAdded({ category, selectedCategory, candy, handleDialogState }: CandyAddedProps) {
+export default function CandyAdded({ category, selectedCategory, candy }: CandyAddedProps) {
+  const [openModal, setOpenModal] = useAtom(openCandyModal);
+
   const [detailClicked, setDetailClicked] = useState(false);
 
   const selectedItem = useMemo(() => category[selectedCategory], [category, selectedCategory]);
@@ -86,10 +74,14 @@ export default function CandyAdded({ category, selectedCategory, candy, handleDi
     setDetailClicked(true);
   };
 
+  const handleCloseClick = () => {
+    setOpenModal(false);
+  };
+
   return (
     <>
       {!detailClicked ? (
-        <Dialog>
+        <>
           <MainBox>
             <CandyAnimation src={selectedItem.added} />
             <Desc>
@@ -102,7 +94,7 @@ export default function CandyAdded({ category, selectedCategory, candy, handleDi
             </Desc>
           </MainBox>
           <ButtonBar>
-            <Button text='닫기' size='sm' buttonColor='gray' color='black' onClick={handleDialogState} />
+            <Button text='닫기' size='sm' buttonColor='gray' color='black' onClick={handleCloseClick} />
             <div style={{ margin: '9px' }} />
             <Button
               text='디데이와 메시지 정하기'
@@ -112,14 +104,9 @@ export default function CandyAdded({ category, selectedCategory, candy, handleDi
               onClick={handleDetailClick}
             />
           </ButtonBar>
-        </Dialog>
+        </>
       ) : (
-        <AddCandyDate
-          category={category}
-          selectedCategory={selectedCategory}
-          candy={candy}
-          handleDialogState={handleDialogState}
-        />
+        <AddCandyDate category={category} selectedCategory={selectedCategory} candy={candy} />
       )}
     </>
   );

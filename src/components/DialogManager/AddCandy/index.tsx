@@ -20,16 +20,19 @@ const useStyles = makeStyles({
 });
 
 const Dialog = styled.div`
+  box-sizing: border-box;
   display: flex;
-  /* position: absolute;
-  top: 315px;
-  left: 589px; */
+  position: absolute;
+  top: 0;
+  left: 0;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin: auto;
   border: 2px solid var(--gray-1);
   border-radius: 25px;
   background-color: var(--white);
+  padding: 40px 0 20px 0;
   width: 726px;
   height: 400px;
 `;
@@ -94,11 +97,7 @@ const LinkBox = styled.input`
   }
 `;
 
-export interface AddCandyProps {
-  handleDialogState: () => void;
-}
-
-export default function AddCandy({ handleDialogState }: AddCandyProps) {
+export default function AddCandy() {
   const category = [
     {
       image: Donut,
@@ -115,22 +114,23 @@ export default function AddCandy({ handleDialogState }: AddCandyProps) {
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [candy, setCandy] = useState('필보이드 핸드크림');
   const [added, setAdded] = useState(false);
+  const [link, setLink] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     e.preventDefault();
-    setCandy(e.target.value);
-  };
-
-  const handleNextClick: React.MouseEventHandler<HTMLButtonElement> = () => {
-    setAdded(true);
+    if (e.target.id === 'standard-basic') {
+      setCandy(e.target.value);
+    } else {
+      setLink(e.target.value);
+    }
   };
 
   const classes = useStyles();
 
   return (
-    <>
+    <Dialog>
       {!added ? (
-        <Dialog>
+        <>
           <Title>캔디 추가하기</Title>
           <Desc>
             <Line style={{ zIndex: 5 }}>
@@ -138,7 +138,6 @@ export default function AddCandy({ handleDialogState }: AddCandyProps) {
                 category={category}
                 selectedCategory={selectedCategory}
                 setSelectedCategory={setSelectedCategory}
-                handleDialogState={handleDialogState}
               />
               를 위한 <br />
             </Line>
@@ -167,17 +166,18 @@ export default function AddCandy({ handleDialogState }: AddCandyProps) {
               캔디를 줄거예요.
             </Line>
           </Desc>
-          <LinkBox placeholder='링크를 입력하세요' />
-          <Button text='다음' size='sm' buttonColor='peach' color='black' onClick={handleNextClick} />
-        </Dialog>
+          <LinkBox placeholder='링크를 입력하세요' value={link} onChange={handleChange} />
+          <Button
+            text='다음'
+            size='sm'
+            buttonColor='peach'
+            color='black'
+            onClick={() => (link ? setAdded(true) : alert('링크를 입력하세요'))}
+          />
+        </>
       ) : (
-        <CandyAdded
-          category={category}
-          selectedCategory={selectedCategory}
-          candy={candy}
-          handleDialogState={handleDialogState}
-        />
+        <CandyAdded category={category} selectedCategory={selectedCategory} candy={candy} />
       )}
-    </>
+    </Dialog>
   );
 }

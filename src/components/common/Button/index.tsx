@@ -72,7 +72,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 export default function Button({ buttonColor, color, text, size, ...props }: ButtonProps) {
   return (
-    <Container buttonColor={buttonColor} color={color} size={size} {...props}>
+    <Container {...props} buttonColor={buttonColor} color={color} size={size}>
       <Text>{text}</Text>
     </Container>
   );
