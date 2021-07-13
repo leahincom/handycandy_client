@@ -2,8 +2,10 @@ import { useAtom } from 'jotai';
 import { useRouter } from 'next/dist/client/router';
 import React from 'react';
 import styled from 'styled-components';
-import { RewardModalAtom } from '../../../states';
+import Image from 'next/image';
+import { CheckedEmoticon, RewardModalAtom } from '../../../states';
 import Button from '../../common/Button';
+import { EmoticonList } from './Emoticon';
 
 const Container = styled.div`
   padding: 368px 241px 0px 241px;
@@ -18,14 +20,19 @@ const CandyTitle = styled.h1`
   font-style: normal;
 `;
 
-const Highlight = styled.span`
+const Highlight = styled.div`
+  display: flex;
+  align-items: flex-end;
   font-weight: 700;
 `;
 
-const Underlined = styled.span<{ style?: any }>`
+const Underlined = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-bottom: 1px solid var(--gray-7);
-  padding-bottom: 1px;
-  width: fit-content;
+  padding-bottom: 8px;
+  width: 173px;
 `;
 
 const DiaryArea = styled.textarea`
@@ -61,12 +68,15 @@ export default function Diary() {
     router.push('/complete');
     setIsCompleteModalOpen(true);
   };
+  const [checkedEmo] = useAtom(CheckedEmoticon);
+  const Emoticon = EmoticonList.find((e) => e.id === checkedEmo)?.emo;
 
   return (
     <Container className='section'>
       <CandyTitle>
         <Highlight>
-          오늘 전 <Underlined>귀여운 캔디 이모티콘</Underlined> 했어요.
+          오늘 전 <Underlined>{Emoticon && <Image src={Emoticon} alt='emoticon' width={65} height={65} />}</Underlined>{' '}
+          했어요.
         </Highlight>
         <br />
         선택한 나의 기분을 자세히 이야기해주세요.

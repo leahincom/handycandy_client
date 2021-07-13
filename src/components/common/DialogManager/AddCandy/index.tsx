@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { makeStyles, TextField } from '@material-ui/core';
-import { Donut, Ball } from '../../../../public/assets/candy';
-import { DonutAdded, BallAdded } from '../../../../public/assets/candyAdded';
-import Button from '../../common/Button';
+import { Donut, Ball } from '../../../../../public/assets/candy';
+import { DonutAdded, BallAdded } from '../../../../../public/assets/candyAdded';
+import Button from '../../Button';
 import CategoryDropdown from './Dropdown/Category';
 import CandyAdded from './CandyAdded';
 

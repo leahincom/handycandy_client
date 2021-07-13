@@ -1,8 +1,21 @@
 import { useAtom } from 'jotai';
 import React from 'react';
 import styled from 'styled-components';
+import Image from 'next/image';
 import { RewardModalAtom } from '../../../states';
 import Button from '../../common/Button';
+import {
+  Ball,
+  Donut,
+  Clover,
+  Double,
+  Flower,
+  Fork,
+  Magnet,
+  WaterDrop,
+  Leaf,
+  X,
+} from '../../../../public/assets/completeCandy';
 
 interface BackgroundProps {
   isOpen: boolean;
@@ -35,13 +48,6 @@ const Container = styled.div<BackgroundProps>`
   padding-bottom: 49px;
   width: 832px;
   height: 476px;
-`;
-
-const ImageArea = styled.div`
-  background-color: var(--peach);
-  width: 482px;
-  height: 149px;
-  text-align: center;
 `;
 
 const Title = styled.h1`
@@ -82,7 +88,7 @@ export default function RewardModal() {
     <>
       <Background isOpen={isOpen} onClick={handleClickToClose} />
       <Container isOpen={isOpen}>
-        <ImageArea />
+        <Image src={Ball} width={173} height={159} alt='candy' />
         <Title>오늘도 캔디를 주었군요!</Title>
         <Desc>
           보다 자신을 아끼고 사랑할 수 있는 사람이 되고 있어요 <br />

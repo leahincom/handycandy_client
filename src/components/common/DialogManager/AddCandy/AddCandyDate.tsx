@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Button from '../../common/Button';
+import Button from '../../Button';
 import DateDropdown from './Dropdown/Date';
 import AddCandyMessage from './AddCandyMessage';
 import CandyAdded, { CandyAddedProps } from './CandyAdded';
