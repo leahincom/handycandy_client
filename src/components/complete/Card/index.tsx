@@ -32,7 +32,7 @@ const Category = styled.div`
   line-height: 30px;
   white-space: nowrap;
   color: var(--gray-7);
-  font-family: Roboto;
+  font-family: var(--roboto);
   font-size: 20px;
   font-weight: 400;
   font-style: normal;
@@ -45,7 +45,7 @@ const Title = styled.div`
   line-height: 33px;
   white-space: nowrap;
   color: var(--black);
-  font-family: Roboto;
+  font-family: var(--roboto);
   font-size: 28px;
   font-weight: 700;
   font-style: normal;
@@ -55,7 +55,7 @@ const Date = styled.div`
   margin-top: 16px;
   line-height: 21px;
   color: var(--gray-6);
-  font-family: Roboto;
+  font-family: var(--roboto);
   font-size: 18px;
   font-weight: 400;
   font-style: normal;

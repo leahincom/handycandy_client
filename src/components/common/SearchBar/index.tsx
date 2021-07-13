@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import Link from 'next/dist/client/link';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useAtom } from 'jotai';
+import { searchToken } from '../../../states';
 import { Search } from '../../../../public/assets/icons';
 
 const SearchBar = styled.div`
@@ -28,22 +32,26 @@ const InputField = styled.input`
 `;
 
 export default function Navbar() {
-  const [searchInput, setSearchInput] = useState<string>('');
+  const [search, setSearch] = useState('');
+  const router = useRouter();
+  const [token, setToken] = useAtom(searchToken);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    setSearchInput(e.target.value);
+    setSearch(e.target.value);
   };
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSearchInput('');
+    setToken(search);
+    router.push('/search');
+    setSearch('');
   };
 
   return (
     <SearchBar>
       <Image src={Search} alt='' />
       <form onSubmit={handleSearch}>
-        <InputField type='text' placeholder='캔디 검색' value={searchInput} onChange={handleInputChange} />
+        <InputField type='text' placeholder='캔디 검색' value={search} onChange={handleInputChange} />
       </form>
     </SearchBar>
   );
