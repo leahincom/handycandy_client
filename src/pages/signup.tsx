@@ -84,12 +84,17 @@ const Button = styled.button`
   margin-top: 42px;
   border-radius: 30px;
   background-color: var(--peach);
+  cursor: pointer;
   width: 204px;
   height: 64px;
   line-height: 32px;
   font-family: var(--roboto);
   font-size: 27px;
   font-weight: 500;
+
+  :hover {
+    background-color: #f5a9a9;
+  }
 `;
 
 export default function Signup() {

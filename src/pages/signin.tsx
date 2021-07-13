@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 import { IdIcon, PasswordIcon } from '../../public/assets/icons';
 import Navbar from '../components/common/Navbar';
 
@@ -79,20 +80,38 @@ const Buttons = styled.div`
   justify-content: space-between;
   margin-top: 42px;
   width: 471px;
-`;
-
-const Button = styled.button`
-  border-radius: 30px;
-  background-color: var(--peach);
-  width: 204px;
-  height: 64px;
   line-height: 32px;
   font-family: var(--roboto);
   font-size: 27px;
   font-weight: 500;
 `;
 
+const SignInButton = styled.button`
+  border-radius: 30px;
+  background-color: var(--peach);
+  cursor: pointer;
+  width: 204px;
+  height: 64px;
+
+  :hover {
+    background-color: #f5a9a9;
+  }
+`;
+
+const SignUpButton = styled.button`
+  border-radius: 30px;
+  background-color: var(--gray-2);
+  cursor: pointer;
+  width: 228px;
+  height: 64px;
+
+  :hover {
+    background-color: var(--gray-3);
+  }
+`;
+
 export default function Login() {
+  const router = useRouter();
   return (
     <>
       <Navbar />
@@ -114,8 +133,8 @@ export default function Login() {
             <div>비밀번호 찾기</div>
           </LoginMenu>
           <Buttons>
-            <Button>로그인</Button>
-            <Button style={{ backgroundColor: 'var(--gray-2)', width: '228px' }}>회원가입</Button>
+            <SignInButton>로그인</SignInButton>
+            <SignUpButton onClick={() => router.push('/signup')}>회원가입</SignUpButton>
           </Buttons>
         </LoginForm>
       </Container>
