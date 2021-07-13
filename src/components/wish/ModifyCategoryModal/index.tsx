@@ -4,6 +4,7 @@ import { Donut, Flower, Magnet, WaterDrop, Double } from '../../../../public/ass
 import Button from '../../common/Button';
 import CategoryDropdown from './CategoryDropdown';
 import ImageContainer from './ImageContainer';
+import DeleteCategoryModal from './DeleteCategoryModal';
 
 interface BackgroundProps {
   isOpen: boolean;
@@ -137,6 +138,7 @@ const categories = [
 
 export default function ModifyCategoryModal() {
   const [isOpen, setIsOpen] = useState(true);
+  const [isDelete, setIsDelete] = useState<boolean>(false);
   const [categoryId, setCategoryId] = useState<number>(0);
   const [categoryName, setCategoryName] = useState<string>(categories[categoryId].name);
 
@@ -144,42 +146,51 @@ export default function ModifyCategoryModal() {
     setIsOpen(false);
   };
 
+  const deleteModalOpen = () => {
+    setIsDelete(true);
+  };
   return (
     <>
-      <Background isOpen={isOpen} />
-      <Container isOpen={isOpen}>
-        <Title>카테고리 수정</Title>
-        <ImageContainer
-          candyImg='https://dummyimage.com/364x278/000/fff'
-          firstImg='https://dummyimage.com/184x255/000/fff'
-          secondImg='https://dummyimage.com/364x278/000/fff'
-          thirdImg='https://dummyimage.com/364x278/000/fff'
-        />
-        <CategoryWrapper>
-          <p>카테고리명</p>
-          <CateogoryInfo>
-            <CategoryDropdown
-              categories={categories}
-              categoryId={categoryId}
-              setCategoryId={setCategoryId}
-              setCategoryName={setCategoryName}
+      {!isDelete ? (
+        <>
+          <Background isOpen={isOpen} />
+          <Container isOpen={isOpen}>
+            <Title>카테고리 수정</Title>
+            <ImageContainer
+              candyImg='https://dummyimage.com/364x278/000/fff'
+              firstImg='https://dummyimage.com/184x255/000/fff'
+              secondImg='https://dummyimage.com/364x278/000/fff'
+              thirdImg='https://dummyimage.com/364x278/000/fff'
             />
-            <span>{categoryName}</span>
-          </CateogoryInfo>
-        </CategoryWrapper>
-        <hr
-          style={{
-            border: '1px solid var(--gray-3)',
-            width: '486px',
-          }}
-        />
-        <DeleteWrapper>
-          <p>작업</p>
-          <DeleteButton>카테고리 삭제</DeleteButton>
-          <p>카테고리와 모든 캔디들은 영구적으로 삭제됩니다.</p>
-        </DeleteWrapper>
-        <Button text='완료' size='sm' buttonColor='peach' color='black' onClick={handleCloseClick} />
-      </Container>
+            <CategoryWrapper>
+              <p>카테고리명</p>
+              <CateogoryInfo>
+                <CategoryDropdown
+                  categories={categories}
+                  categoryId={categoryId}
+                  setCategoryId={setCategoryId}
+                  setCategoryName={setCategoryName}
+                />
+                <span>{categoryName}</span>
+              </CateogoryInfo>
+            </CategoryWrapper>
+            <hr
+              style={{
+                border: '1px solid var(--gray-3)',
+                width: '486px',
+              }}
+            />
+            <DeleteWrapper>
+              <p>작업</p>
+              <DeleteButton onClick={deleteModalOpen}>카테고리 삭제</DeleteButton>
+              <p>카테고리와 모든 캔디들은 영구적으로 삭제됩니다.</p>
+            </DeleteWrapper>
+            <Button text='완료' size='sm' buttonColor='peach' color='black' onClick={handleCloseClick} />
+          </Container>
+        </>
+      ) : (
+        <DeleteCategoryModal candy={categories[categoryId].image} />
+      )}
     </>
   );
 }
