@@ -52,7 +52,7 @@ export default function Emoticon({ candy = '필보이드 핸드크림', fullpage
       <CandyTitle>
         오늘 <Underlined style={{ fontWeight: '700' }}>{candy}</Underlined>을 주며
         <br />
-        기분이 전환됐나요?
+        어떤 기분이셨나요?
       </CandyTitle>
       <Desc>오늘의 감정을 이모티콘으로 남겨보세요.</Desc>
       <EmoticonArea />

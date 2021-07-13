@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/react';
 import styled from 'styled-components';
-import Banner, { BannerProps } from '../../reward/Banner';
+import RewardBanner, { RewardBannerProps } from '../Banner';
 import Diary from './Diary';
 import Emoticon, { EmoticonProps } from './Emoticon';
 import Body, { BodyProps } from '.';
@@ -11,11 +11,11 @@ const Wrapper = styled.div`
   height: 100vh;
 `;
 
-interface CompeleteProps extends BodyProps, EmoticonProps, BannerProps {}
+interface CompeleteProps extends BodyProps, EmoticonProps, RewardBannerProps {}
 
 const Template: Story<CompeleteProps> = (props) => (
   <Wrapper>
-    <Banner {...props} />
+    <RewardBanner {...props} />
     <Body {...props} />
     <Emoticon {...props} />
     <Diary />

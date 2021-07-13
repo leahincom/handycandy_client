@@ -1,9 +1,9 @@
 import { Meta, Story } from '@storybook/react';
-import Banner, { BannerProps } from '.';
+import RewardBanner, { RewardBannerProps } from '.';
 
-export default { title: 'components/reward/Banner', component: Banner } as Meta;
+export default { title: 'components/reward/Banner', component: RewardBanner } as Meta;
 
-const Template: Story<BannerProps> = (props) => <Banner {...props} />;
+const Template: Story<RewardBannerProps> = (props) => <RewardBanner {...props} />;
 
 export const Basic = Template.bind({});
 Basic.args = {

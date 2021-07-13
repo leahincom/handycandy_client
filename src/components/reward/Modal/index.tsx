@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import { useAtom } from 'jotai';
+import React from 'react';
 import styled from 'styled-components';
+import { RewardModalAtom } from '../../../states';
 import Button from '../../common/Button';
 
 interface BackgroundProps {
@@ -71,9 +73,8 @@ const ButtonWrap = styled.div`
   margin-top: 29px;
 `;
 
-export default function CompleteModal() {
-  // TODO: jotai를 통해 전역 state로 바꾸기
-  const [isOpen, setIsOpen] = useState(true);
+export default function RewardModal() {
+  const [isOpen, setIsOpen] = useAtom(RewardModalAtom);
   const handleClickToClose = () => {
     setIsOpen(false);
   };

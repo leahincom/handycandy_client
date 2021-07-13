@@ -2,7 +2,7 @@ import { useAtom } from 'jotai';
 import { useRouter } from 'next/dist/client/router';
 import React from 'react';
 import styled from 'styled-components';
-import { CompleteModalAtom } from '../../../states';
+import { RewardModalAtom } from '../../../states';
 import Button from '../../common/Button';
 
 const Container = styled.div`
@@ -56,7 +56,7 @@ const ButtonWrapper = styled.div`
 
 export default function Diary() {
   const router = useRouter();
-  const [, setIsCompleteModalOpen] = useAtom(CompleteModalAtom);
+  const [, setIsCompleteModalOpen] = useAtom(RewardModalAtom);
   const onClickToComplete = () => {
     router.push('/complete');
     setIsCompleteModalOpen(true);
@@ -69,7 +69,7 @@ export default function Diary() {
           오늘 전 <Underlined>귀여운 캔디 이모티콘</Underlined> 했어요.
         </Highlight>
         <br />
-        행복해진 나의 기록을 더 남겨보세요
+        선택한 나의 기분을 자세히 이야기해주세요.
       </CandyTitle>
       <DiaryArea placeholder='오늘의 기록을 더 상세히 남겨요!' />
       <ButtonWrapper onClick={onClickToComplete}>

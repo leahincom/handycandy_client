@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
-import Banner from '../Banner';
+import Banner from '../../reward/Banner';
 import CompleteCard from '../Card';
 
 const Container = styled.div`
@@ -51,19 +51,19 @@ export interface Candy {
   date: Date;
 }
 
-export interface RewardProps {
+export interface CompleteContentProps {
   candyList: Candy[];
   candynum: number;
   date: Date;
   username: string;
 }
 
-export default function Contents({ candyList, username, candynum, date }: RewardProps) {
+export default function CompleteContent({ candyList, username, candynum, date }: CompleteContentProps) {
   const month = date.getMonth() + 1;
 
   return (
     <Container>
-      <Banner bannerDesc='나에게 캔디를 주며 일상의 달콤한 순간을 남겨보세요' bannerTitle='캔디로 보상완료하기' />
+      <Banner bannerDesc='완료한 캔디' bannerTitle='내가 선물했던 캔디들이 모인 병들을 모아보세요' />
       <CandyArea>
         <TitleWrapper>
           <Title>

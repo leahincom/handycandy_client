@@ -33,15 +33,15 @@ const Desc = styled.h2`
   font-weight: normal;
 `;
 
-export interface BannerProps {
+export interface RewardBannerProps {
   bannerTitle: string;
   bannerDesc: string;
 }
 
-export default function Banner({
+export default function RewardBanner({
   bannerTitle = '캔디로 보상 완료하기',
   bannerDesc = '나에게 캔디를 주며 일상의 달콤한 순간을 남겨보세요',
-}: BannerProps) {
+}: RewardBannerProps) {
   return (
     <>
       <Container src={CommonBanner} layout='fixed' />
