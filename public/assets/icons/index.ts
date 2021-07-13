@@ -13,7 +13,7 @@ export { default as Check } from './Check.svg';
 export { default as IdIcon } from './IdIcon.svg';
 export { default as PasswordIcon } from './PasswordIcon.svg';
 export { default as BottomArrow } from './BottomArrow.svg';
-export { default as HandCream } from './HandCream.svg';
+export { default as HandCream } from './handcream.svg';
 export { default as LinkIcon } from './LinkIcon.svg';
 export { default as PlusIcon } from './EditPlusIcon.svg';
 export { default as BackArrow } from './BackArrow.svg';
