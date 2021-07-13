@@ -6,6 +6,9 @@ import AddCandy from './AddCandy';
 import AddCategory from './AddCategory';
 
 const Outside = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
   opacity: 0.8;
   background: var(--black);
   width: 100%;

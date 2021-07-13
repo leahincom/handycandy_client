@@ -20,13 +20,12 @@ const useStyles = makeStyles({
 });
 
 const Dialog = styled.div`
-  box-sizing: border-box;
   display: flex;
   position: absolute;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  margin: auto;
+  z-index: 100;
   border: 2px solid var(--gray-1);
   border-radius: 25px;
   background-color: var(--white);
