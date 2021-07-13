@@ -7,6 +7,7 @@ const Container = styled.div`
   position: relative;
   flex-direction: column;
   margin: 0;
+  cursor: pointer;
   width: 254px;
   height: 383px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
@@ -65,6 +66,7 @@ const Candy = styled.img`
 `;
 
 export interface CandyCardProps {
+  onClick?: any;
   itemImage: string;
   category: string;
   name: string;
@@ -72,9 +74,9 @@ export interface CandyCardProps {
   plannedDate?: Date;
 }
 
-export default function TestCard({ itemImage, category, name, createdDate, plannedDate }: CandyCardProps) {
+export default function TestCard({ onClick, itemImage, category, name, createdDate, plannedDate }: CandyCardProps) {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <Thumbnail src={itemImage} />
       <OptionBar plannedDate={plannedDate} />
       <Metadata>
