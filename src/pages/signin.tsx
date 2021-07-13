@@ -1,7 +1,6 @@
-import Image from 'next/image';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
-import { IdIcon, PasswordIcon } from '../../public/assets/icons';
 import Navbar from '../components/common/Navbar';
 
 const Container = styled.div`
@@ -26,38 +25,34 @@ const Desc = styled.div`
   font-size: 24px;
 `;
 
-const LoginForm = styled.div`
+const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 186px;
 `;
 
-const LoginInput = styled.div`
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
+const LoginInput = styled.input<{ iconSrc: string }>`
   outline: none;
-  border: none;
+  border: 1px solid var(--gray-1);
   border-radius: 17px;
-  background: var(--gray-1);
-  padding-left: 39px;
-  width: 684px;
+  background-color: var(--gray-1);
+  background-image: url(${(props) => props.iconSrc});
+  background-position: 39px center;
+  background-repeat: no-repeat;
+  padding-left: 109px;
+  width: 575px;
   height: 82px;
+  line-height: 28px;
+  font-family: var(--roboto);
+  font-size: 24px;
 
-  input {
-    margin-left: 46px;
-    outline: none;
-    background-color: var(--gray-1);
-    width: 500px;
-    height: 100%;
-    line-height: 28px;
-    font-family: var(--roboto);
-    font-size: 24px;
+  ::placeholder {
+    color: var(--gray-5);
+  }
 
-    ::placeholder {
-      color: var(--gray-5);
-    }
+  :focus {
+    border: 1px solid var(--gray-6);
   }
 `;
 
@@ -112,28 +107,57 @@ const SignUpButton = styled.button`
 
 export default function Login() {
   const router = useRouter();
+  const [loginInfo, setLoginInfo] = useState({
+    id: '',
+    password: '',
+  });
+
+  const { id, password } = loginInfo;
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setLoginInfo({
+      ...loginInfo,
+      [name]: value,
+    });
+  };
+
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(loginInfo);
+  };
+
   return (
     <>
       <Navbar />
       <Container>
         <Title>로그인</Title>
         <Desc>로그인 후 서비스를 이용해주세요</Desc>
-        <LoginForm>
-          <LoginInput style={{ marginBottom: '34px' }}>
-            <Image src={IdIcon} alt='' />
-            <input placeholder='아이디를 입력해주세요' />
-          </LoginInput>
-          <LoginInput>
-            <Image src={PasswordIcon} alt='' />
-            <input type='password' placeholder='비밀번호를 입력해주세요' />
-          </LoginInput>
+        <LoginForm onSubmit={handleLogin}>
+          <LoginInput
+            name='id'
+            type='text'
+            iconSrc='/assets/icons/IdIcon.svg'
+            style={{ marginBottom: '34px' }}
+            placeholder='아이디를 입력해주세요'
+            value={id}
+            onChange={handleInputChange}
+          />
+          <LoginInput
+            name='password'
+            type='password'
+            iconSrc='/assets/icons/PasswordIcon.svg'
+            placeholder='비밀번호를 입력해주세요'
+            value={password}
+            onChange={handleInputChange}
+          />
           <LoginMenu>
             <div>아이디 찾기</div>
             <span>&nbsp; | &nbsp; </span>
             <div>비밀번호 찾기</div>
           </LoginMenu>
           <Buttons>
-            <SignInButton>로그인</SignInButton>
+            <SignInButton type='submit'>로그인</SignInButton>
             <SignUpButton onClick={() => router.push('/signup')}>회원가입</SignUpButton>
           </Buttons>
         </LoginForm>
