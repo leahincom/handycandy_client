@@ -24,6 +24,8 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+const ButtonStyle = styled(Button)``;
+
 const ToggleIcon = styled.div<{ open: boolean }>`
   display: flex;
   align-items: center;
@@ -106,7 +108,7 @@ export default function CategoryDropdown({ category, selectedCategory, setSelect
               color: 'var(--black)',
               borderBottomRightRadius: '0',
               borderBottomLeftRadius: '0',
-              borderBottom: '1px solid #5A5A5A',
+              borderBottom: '1px solid var(--gray-7)',
               position: 'relative',
             }}
           >

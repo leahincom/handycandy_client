@@ -46,11 +46,12 @@ const Dialog = styled.div`
   box-sizing: border-box;
   display: flex;
   position: absolute;
-  top: 340px;
-  left: 596px;
+  top: 0;
+  left: 0;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  margin: auto;
   border: 2px solid var(--gray-1);
   border-radius: 25px;
   background-color: var(--white);

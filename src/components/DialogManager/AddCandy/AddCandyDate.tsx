@@ -96,31 +96,31 @@ export default function AddCandyDate({ category, selectedCategory, candy }: Cand
     }
   }
 
+  if (added) {
+    return <AddCandyMessage category={category} selectedCategory={selectedCategory} candy={candy} />;
+  }
+
+  if (goBefore) {
+    return <CandyAdded category={category} selectedCategory={selectedCategory} candy={candy} />;
+  }
+
   return (
     <>
-      {!added && !goBefore ? (
-        <>
-          <Title>캔디데이를 정해주세요.</Title>
-          <Desc>
-            <Line style={{ zIndex: 5 }}>
-              <DateDropdown dropdownList={yearList} basis={year} setBasis={setYear} />
-              <DateDropdown dropdownList={monthList} basis={month} setBasis={setMonth} />
-              <DateDropdown dropdownList={dayList} basis={day} setBasis={setDay} />
-            </Line>
-            <div style={{ marginBottom: '17px' }} />
-            <Line>날짜를 설정하면 핸디캔디가 알림을 드릴 거예요.</Line>
-          </Desc>
-          <ButtonBar>
-            <Button text='뒤로가기' size='sm' buttonColor='gray' color='black' onClick={handleFormerClick} />
-            <div style={{ margin: '9px' }} />
-            <Button text='다음' size='sm' buttonColor='peach' color='black' onClick={handleNextClick} />
-          </ButtonBar>
-        </>
-      ) : added ? (
-        <AddCandyMessage category={category} selectedCategory={selectedCategory} candy={candy} />
-      ) : (
-        goBefore && <CandyAdded category={category} selectedCategory={selectedCategory} candy={candy} />
-      )}
+      <Title>캔디데이를 정해주세요.</Title>
+      <Desc>
+        <Line style={{ zIndex: 5 }}>
+          <DateDropdown dropdownList={yearList} basis={year} setBasis={setYear} />
+          <DateDropdown dropdownList={monthList} basis={month} setBasis={setMonth} />
+          <DateDropdown dropdownList={dayList} basis={day} setBasis={setDay} />
+        </Line>
+        <div style={{ marginBottom: '17px' }} />
+        <Line>날짜를 설정하면 핸디캔디가 알림을 드릴 거예요.</Line>
+      </Desc>
+      <ButtonBar>
+        <Button text='뒤로가기' size='sm' buttonColor='gray' color='black' onClick={handleFormerClick} />
+        <div style={{ margin: '9px' }} />
+        <Button text='다음' size='sm' buttonColor='peach' color='black' onClick={handleNextClick} />
+      </ButtonBar>
     </>
   );
 }

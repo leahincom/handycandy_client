@@ -74,6 +74,10 @@ export default function CandyAdded({ category, selectedCategory, candy }: CandyA
     setDetailClicked(true);
   };
 
+  const handleCloseClick = () => {
+    setOpenModal(false);
+  };
+
   return (
     <>
       {!detailClicked ? (
@@ -90,7 +94,7 @@ export default function CandyAdded({ category, selectedCategory, candy }: CandyA
             </Desc>
           </MainBox>
           <ButtonBar>
-            <Button text='닫기' size='sm' buttonColor='gray' color='black' onClick={() => setOpenModal(false)} />
+            <Button text='닫기' size='sm' buttonColor='gray' color='black' onClick={handleCloseClick} />
             <div style={{ margin: '9px' }} />
             <Button
               text='디데이와 메시지 정하기'
