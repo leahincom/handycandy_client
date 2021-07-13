@@ -1,8 +1,11 @@
 import styled from 'styled-components';
+import { useQuery } from 'react-query';
+import DialogManager from '../components/DialogManager';
 import RecommendCandyCard from '../components/home/RecommendCandyCard';
 import WaitingCardSlider from '../components/home/WaitingCardSlider';
 import ComingCandyCard from '../components/home/ComingCandyCard';
 import Navbar from '../components/common/Navbar';
+import { getUpcomingCards } from './api';
 
 const BackgroundContainer = styled.div`
   position: fixed;
@@ -84,37 +87,6 @@ const CandyDesc = styled.div`
   font-size: 18px;
 `;
 
-const comingCandies = [
-  {
-    image: 'https://dummyimage.com/254x260/000/fff',
-    category: '고생한 나 자신을 위한',
-    name: '모베러웍스 티셔츠',
-    createdDate: 15,
-    plannedDate: new Date(),
-  },
-  {
-    image: 'https://dummyimage.com/254x260/000/fff',
-    category: '고생한 나 자신을 위한',
-    name: '모베러웍스 티셔츠',
-    createdDate: 15,
-    plannedDate: new Date(),
-  },
-  {
-    image: 'https://dummyimage.com/254x260/000/fff',
-    category: '고생한 나 자신을 위한',
-    name: '모베러웍스 티셔츠',
-    createdDate: 15,
-    plannedDate: new Date(),
-  },
-  {
-    image: 'https://dummyimage.com/254x260/000/fff',
-    category: '고생한 나 자신을 위한',
-    name: '모베러웍스 티셔츠',
-    createdDate: 15,
-    plannedDate: new Date(),
-  },
-];
-
 const recommendCandies = [
   {
     title: '한강으로 자전거 타러 가기',
@@ -140,6 +112,8 @@ const userInfo = {
 };
 
 export default function Home() {
+  const { error, data } = useQuery(['upcoming'], () => getUpcomingCards());
+
   return (
     <>
       <BackgroundContainer>
@@ -155,8 +129,8 @@ export default function Home() {
               <CandyTitle>다가오는 캔디</CandyTitle>
               <CandyDesc>행복을 안겨줄 캔디들이 곧 도착해요</CandyDesc>
               <FlexContainer>
-                {comingCandies.length > 0 ? (
-                  comingCandies.map((candy, idx) => {
+                {data ? (
+                  data.map((candy: any, idx: number) => {
                     return (
                       <ComingCandyCard
                         key={idx}
