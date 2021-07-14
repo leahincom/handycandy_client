@@ -7,6 +7,8 @@ import { AddIcon, WishedBackground } from '../../../../public/assets/icons';
 
 import Navigation from '../../../components/common/Navigation';
 import CategoryCard, { CategoryCardProps } from '../../../components/common/CategoryCard';
+import Navbar from '../../../components/common/Navbar';
+import Footer from '../../../components/common/Footer';
 const Container = styled.div`
   width: 1920px;
   height: 2286px;
@@ -76,61 +78,65 @@ const Header = styled.div`
 export default function CategoryCandy() {
   const router = useRouter();
   return (
-    <Container>
-      <TopContainer>
-        <TopTitle>담은 캔디</TopTitle>
-        <TopSubTitle>나만의 캔디들을 마음껏 담아보세요</TopSubTitle>
-      </TopContainer>
-      <BodyContainer>
-        <Header>
-          <div className='empty'></div>
-          <Navigation tab={1} />
-          <AddButton src={AddIcon} />
-        </Header>
+    <>
+      <Navbar />
+      <Container>
+        <TopContainer>
+          <TopTitle>담은 캔디</TopTitle>
+          <TopSubTitle>나만의 캔디들을 마음껏 담아보세요</TopSubTitle>
+        </TopContainer>
+        <BodyContainer>
+          <Header>
+            <div className='empty'></div>
+            <Navigation tab={1} />
+            <AddButton src={AddIcon} />
+          </Header>
 
-        <CandyContainer>
-          <CategoryCard
-            candyImg='https://dummyimage.com/72x72/000/fff'
-            category='고생한 나를 위한 캔디'
-            candynum={20}
-            date='3'
-            firstImg='https://dummyimage.com/184x255/000/fff'
-            secondImg='https://dummyimage.com/151x127/000/fff'
-            thirdImg='https://dummyimage.com/151x127/000/fff'
-            onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
-          />
-          <CategoryCard
-            candyImg='https://dummyimage.com/72x72/000/fff'
-            category='고생한 나를 위한 캔디'
-            candynum={20}
-            date='3'
-            firstImg='https://dummyimage.com/184x255/000/fff'
-            secondImg='https://dummyimage.com/151x127/000/fff'
-            thirdImg='https://dummyimage.com/151x127/000/fff'
-            onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
-          />
-          <CategoryCard
-            candyImg='https://dummyimage.com/72x72/000/fff'
-            category='고생한 나를 위한 캔디'
-            candynum={20}
-            date='3'
-            firstImg='https://dummyimage.com/184x255/000/fff'
-            secondImg='https://dummyimage.com/151x127/000/fff'
-            thirdImg='https://dummyimage.com/151x127/000/fff'
-            onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
-          />
-          <CategoryCard
-            candyImg='https://dummyimage.com/72x72/000/fff'
-            category='고생한 나를 위한 캔디'
-            candynum={20}
-            date='3'
-            firstImg='https://dummyimage.com/184x255/000/fff'
-            secondImg='https://dummyimage.com/151x127/000/fff'
-            thirdImg='https://dummyimage.com/151x127/000/fff'
-            onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
-          />
-        </CandyContainer>
-      </BodyContainer>
-    </Container>
+          <CandyContainer>
+            <CategoryCard
+              candyImg='https://dummyimage.com/72x72/000/fff'
+              category='고생한 나를 위한 캔디'
+              candynum={20}
+              date='3'
+              firstImg='https://dummyimage.com/184x255/000/fff'
+              secondImg='https://dummyimage.com/151x127/000/fff'
+              thirdImg='https://dummyimage.com/151x127/000/fff'
+              onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
+            />
+            <CategoryCard
+              candyImg='https://dummyimage.com/72x72/000/fff'
+              category='고생한 나를 위한 캔디'
+              candynum={20}
+              date='3'
+              firstImg='https://dummyimage.com/184x255/000/fff'
+              secondImg='https://dummyimage.com/151x127/000/fff'
+              thirdImg='https://dummyimage.com/151x127/000/fff'
+              onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
+            />
+            <CategoryCard
+              candyImg='https://dummyimage.com/72x72/000/fff'
+              category='고생한 나를 위한 캔디'
+              candynum={20}
+              date='3'
+              firstImg='https://dummyimage.com/184x255/000/fff'
+              secondImg='https://dummyimage.com/151x127/000/fff'
+              thirdImg='https://dummyimage.com/151x127/000/fff'
+              onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
+            />
+            <CategoryCard
+              candyImg='https://dummyimage.com/72x72/000/fff'
+              category='고생한 나를 위한 캔디'
+              candynum={20}
+              date='3'
+              firstImg='https://dummyimage.com/184x255/000/fff'
+              secondImg='https://dummyimage.com/151x127/000/fff'
+              thirdImg='https://dummyimage.com/151x127/000/fff'
+              onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
+            />
+          </CandyContainer>
+        </BodyContainer>
+      </Container>
+      <Footer />
+    </>
   );
 }
