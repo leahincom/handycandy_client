@@ -15,7 +15,6 @@ export { default as PasswordIcon } from './PasswordIcon.svg';
 export { default as BottomArrow } from './BottomArrow.svg';
 export { default as HandCream } from './handcream.svg';
 export { default as LinkIcon } from './LinkIcon.svg';
-export { default as BottomArrow } from './BottomArrow.svg';
 export { default as PlusIcon } from './edit_plus_icon.svg';
 export { default as BackArrow } from './back_arrow.svg';
 export { default as EditIcon } from './edit_icon.svg';
