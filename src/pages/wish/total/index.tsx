@@ -11,7 +11,7 @@ const Container = styled.div`
   height: 2286px;
 `;
 const TopContainer = styled.div`
-  margin-bottom: 42px;
+  margin-bottom: 40px;
   background: url('/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fpublic%2Fassets%2Ficons%2FWishedBackground.d57609740f3e21029f9fec81c477a5f5.svg&w=3840&q=75');
   width: 1920px;
   height: 276px;
@@ -20,6 +20,7 @@ const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: 50px;
   width: 1920px;
 `;
 const DdayContainer = styled.div`
@@ -45,6 +46,7 @@ const DdayHeader = styled.div`
   display: flex;
 `;
 const TopTitle = styled.div`
+  margin-bottom: 5px;
   margin-left: 241px;
   padding-top: 95px;
   text-align: left;
@@ -120,7 +122,7 @@ const CandyContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 1440px;
-  div {
+  > div {
     margin-right: 43px;
   }
 `;
@@ -137,10 +139,10 @@ export default function TotalCandy({ ddayNum = 11, waitingNum = 11 }: TotalCandy
     <Container>
       <TopContainer>
         <TopTitle>담은 캔디</TopTitle>
-        <TopSubTitle>앞으로 만들어갈 나만의 보상을 만들어보세요!</TopSubTitle>
+        <TopSubTitle>앞으로 만들어갈 나만의 보상들을 원하는대로 만들어보세요!</TopSubTitle>
       </TopContainer>
       <BodyContainer>
-        <Navigation />
+        <Navigation tab={0} />
         <DdayContainer>
           <DdayHeader>
             <Title>다가오는 캔디</Title>

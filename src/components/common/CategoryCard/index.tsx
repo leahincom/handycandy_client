@@ -3,6 +3,12 @@ import Image from 'next/image';
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
+  width: 336px;
+  height: 347px;
+`;
+const CardContainer = styled.div`
+  display: flex;
   position: relative;
   flex-direction: column;
   border-radius: 13px;
@@ -10,7 +16,11 @@ const Container = styled.div`
   background: rgba(231, 231, 231, 0.2);
   cursor: pointer;
   width: 336px;
-  height: 347px;
+  height: 255px;
+  font-family: var(--roboto);
+  :hover {
+    opacity: 0.1;
+  }
 `;
 const Card = styled.div`
   display: flex;
@@ -46,6 +56,7 @@ const ThirdImg = styled.img`
 `;
 const CardInfo = styled.div`
   margin-top: 10px;
+  padding: 20px;
 `;
 const Category = styled.h1`
   margin-bottom: 7px;
@@ -94,17 +105,19 @@ export default function CategoryCard({
 }: CategoryCardProps) {
   return (
     <Container onClick={onClick}>
-      <Card>
-        <Candy src={candyImg} />
-        <ThreeButton src='/assets/icons/ThreeButton.svg' alt='' width='15px' height='15px' objectFit='contain' />
-        <CardRow>
-          <FirstImg src={firstImg} />
-        </CardRow>
-        <CardRow>
-          <SecondImg src={secondImg} />
-          <ThirdImg src={thirdImg} />
-        </CardRow>
-      </Card>
+      <CardContainer>
+        <Card>
+          <Candy src={candyImg} />
+          <ThreeButton src='/assets/icons/ThreeButton.svg' alt='' width='15px' height='15px' objectFit='contain' />
+          <CardRow>
+            <FirstImg src={firstImg} />
+          </CardRow>
+          <CardRow>
+            <SecondImg src={secondImg} />
+            <ThirdImg src={thirdImg} />
+          </CardRow>
+        </Card>
+      </CardContainer>
       <CardInfo>
         <Category>{category}</Category>
         <CandyNum>캔디 {candynum}개 | </CandyNum>

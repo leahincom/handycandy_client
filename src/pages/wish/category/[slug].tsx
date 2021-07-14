@@ -125,7 +125,7 @@ const CandyContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 1440px;
-  div {
+  > div {
     margin-right: 43px;
   }
 `;
