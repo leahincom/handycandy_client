@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import DialogManager from '../components/DialogManager';
@@ -5,7 +6,7 @@ import RecommendCandyCard from '../components/home/RecommendCandyCard';
 import WaitingCardSlider from '../components/home/WaitingCardSlider';
 import ComingCandyCard from '../components/home/ComingCandyCard';
 import Navbar from '../components/common/Navbar';
-import { getUpcomingCards } from './api';
+import { getUpcomingCards, login } from './api';
 
 const BackgroundContainer = styled.div`
   position: fixed;
@@ -112,6 +113,7 @@ const userInfo = {
 };
 
 export default function Home() {
+  const user = useQuery(['login'], () => login('handycandy@gmail.com', 'handycandy1234!'));
   const { error, data } = useQuery(['upcoming'], () => getUpcomingCards());
 
   return (
@@ -129,8 +131,8 @@ export default function Home() {
               <CandyTitle>다가오는 캔디</CandyTitle>
               <CandyDesc>행복을 안겨줄 캔디들이 곧 도착해요</CandyDesc>
               <FlexContainer>
-                {data ? (
-                  data.map((candy: any, idx: number) => {
+                {data !== undefined ? (
+                  data.result.comming_candy.map((candy: any, idx: number) => {
                     return (
                       <ComingCandyCard
                         key={idx}
@@ -165,6 +167,7 @@ export default function Home() {
           </div>
         </Container>
       </BackgroundContainer>
+      <DialogManager />
     </>
   );
 }

@@ -17,7 +17,7 @@ const Container = styled.div`
   filter: drop-shadow(0px 0px 14.3769px rgba(0, 0, 0, 0.09));
 `;
 
-const Thumbnail = styled(Image)`
+const Thumbnail = styled.div`
   z-index: 2;
   border-top-left-radius: 17px;
   border-top-right-radius: 17px;
@@ -77,7 +77,13 @@ export interface ComingCandyCardProps {
 export default function ComingCandyCard({ itemImage, category, name, plannedDate }: ComingCandyCardProps) {
   return (
     <Container>
-      <Thumbnail src={itemImage === '' ? ComingCandyNull : itemImage} width='188px' height='192px' />
+      <Thumbnail>
+        {!itemImage ? (
+          <Image src={ComingCandyNull} alt='' width='188px' height='192px' />
+        ) : (
+          <Image src={itemImage} alt='' width='188px' height='192px' />
+        )}
+      </Thumbnail>
       <OptionBar plannedDate={plannedDate} />
       <Metadata>
         <Category>{category}</Category>
