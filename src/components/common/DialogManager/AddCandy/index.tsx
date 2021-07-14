@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { makeStyles, TextField } from '@material-ui/core';
-import { Donut, Ball } from '../../../../public/assets/candy';
-import { DonutAdded, BallAdded } from '../../../../public/assets/candyAdded';
-import Button from '../../common/Button';
+import { Donut, Ball } from '../../../../../public/assets/candy';
+import { DonutAdded, BallAdded } from '../../../../../public/assets/candyAdded';
+import Button from '../../Button';
 import CategoryDropdown from './Dropdown/Category';
 import CandyAdded from './CandyAdded';
 
@@ -18,21 +18,6 @@ const useStyles = makeStyles({
     },
   },
 });
-
-const Dialog = styled.div`
-  display: flex;
-  position: absolute;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 100;
-  border: 2px solid var(--gray-1);
-  border-radius: 25px;
-  background-color: var(--white);
-  padding: 40px 0 20px 0;
-  width: 726px;
-  height: 400px;
-`;
 
 const Title = styled.h1`
   line-height: 23px;
@@ -125,7 +110,7 @@ export default function AddCandy() {
   const classes = useStyles();
 
   return (
-    <Dialog>
+    <>
       {!added ? (
         <>
           <Title>캔디 추가하기</Title>
@@ -175,6 +160,6 @@ export default function AddCandy() {
       ) : (
         <CandyAdded category={category} selectedCategory={selectedCategory} candy={candy} />
       )}
-    </Dialog>
+    </>
   );
 }

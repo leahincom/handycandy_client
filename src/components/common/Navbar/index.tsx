@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useAtom } from 'jotai';
+import { openCandyModal } from '../../../states';
 import { Logo, Profile, Ring } from '../../../../public/assets/icons';
 import SearchBar from '../SearchBar';
 import NoticeModal from '../NoticeModal';
@@ -96,8 +98,14 @@ export default function Navbar() {
   const { asPath } = useRouter();
   const [isNoticeOpen, setIsNoticeOpen] = React.useState(false);
 
+  const [openModal, setOpenModal] = useAtom(openCandyModal);
+
   const openNotice = () => {
     setIsNoticeOpen((prev) => !prev);
+  };
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
   };
 
   const notices = {
@@ -147,7 +155,7 @@ export default function Navbar() {
         <ProfileIcon src={Profile} />
         <RingIcon src={Ring} onClick={openNotice} />
         {isNoticeOpen && <NoticeModal notices={notices} />}
-        <AddCandyButton>캔디추가하기</AddCandyButton>
+        <AddCandyButton onClick={handleOpenModal}>캔디추가하기</AddCandyButton>
       </Buttons>
     </Container>
   );

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useAtom } from 'jotai';
-import { openCandyModal } from '../../../states';
-import Button from '../../common/Button';
+import { openCandyModal } from '../../../../states';
+import Button from '../../Button';
 import AddCandyDate from './AddCandyDate';
 import { CandyAddedProps } from './CandyAdded';
 

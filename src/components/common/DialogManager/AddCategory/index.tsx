@@ -2,8 +2,19 @@ import React, { useState } from 'react';
 import Image from 'next/dist/client/image';
 import styled from 'styled-components';
 import { makeStyles, TextField } from '@material-ui/core';
-import Button from '../../common/Button';
-import { Donut, Clover, Flower, Fork, Leaf, Magnet, WaterDrop, X, Ball, Double } from '../../../../public/assets/candy';
+import Button from '../../Button';
+import {
+  Donut,
+  Clover,
+  Flower,
+  Fork,
+  Leaf,
+  Magnet,
+  WaterDrop,
+  X,
+  Ball,
+  Double,
+} from '../../../../../public/assets/candy';
 import {
   DonutAdded,
   CloverAdded,
@@ -15,8 +26,8 @@ import {
   XAdded,
   BallAdded,
   DoubleAdded,
-} from '../../../../public/assets/candyAdded';
-import { Check } from '../../../../public/assets/icons';
+} from '../../../../../public/assets/candyAdded';
+import { Check } from '../../../../../public/assets/icons';
 import CategoryAdded from './CategoryAdded';
 
 const useStyles = makeStyles({
