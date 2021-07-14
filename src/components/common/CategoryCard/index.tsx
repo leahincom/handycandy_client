@@ -118,7 +118,6 @@ export default function CategoryCard({
           </CardRow>
         </Card>
       </CardContainer>
-
       <CardInfo>
         <Category>{category}</Category>
         <CandyNum>캔디 {candynum}개 | </CandyNum>

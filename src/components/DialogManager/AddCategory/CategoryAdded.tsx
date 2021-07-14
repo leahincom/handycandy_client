@@ -3,7 +3,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import Image from 'next/dist/client/image';
 import { useAtom } from 'jotai';
-import { openCategoryModal } from '../../../states/';
+import { openCategoryModal } from '../../../states';
 import Button from '../../common/Button';
 
 const MainBox = styled.div`
