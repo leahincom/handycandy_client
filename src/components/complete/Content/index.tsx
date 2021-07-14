@@ -3,32 +3,6 @@ import React from 'react';
 import CompleteCard from '../Card';
 
 const Container = styled.div`
-  position: absolute;
-  bottom: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-`;
-
-const Title = styled.h1`
-  text-align: center;
-  line-height: 36px;
-  font-family: 'NanumSquareRound', sans-serif;
-  font-size: 32px;
-  font-weight: 800;
-  font-style: normal;
-`;
-
-const TitleWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid var(--black);
-  padding-bottom: 14px;
-  width: 588px;
-`;
-
-const CandyArea = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,7 +18,6 @@ const CandyGrid = styled.div`
   grid-template-columns: repeat(4, 1fr);
   grid-row-gap: 73px;
   grid-column-gap: 40px;
-  margin-top: 83px;
 `;
 export interface Candy {
   candy: string;
@@ -60,14 +33,9 @@ export interface CompleteContentProps {
   username: string;
 }
 
-export default function CompleteContent({ candyList, username, candynum, date }: CompleteContentProps) {
-  // const month = date.getMonth() + 1;
-
+export default function CompleteContent({ candyList }: CompleteContentProps) {
   return (
-    <CandyArea>
-      <TitleWrapper>
-        <Title>{candynum}개의 캔디를 주었어요</Title>
-      </TitleWrapper>
+    <Container>
       <CandyGrid>
         {candyList.map((candy, index) => (
           <CompleteCard
@@ -79,6 +47,6 @@ export default function CompleteContent({ candyList, username, candynum, date }:
           />
         ))}
       </CandyGrid>
-    </CandyArea>
+    </Container>
   );
 }

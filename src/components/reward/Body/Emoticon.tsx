@@ -76,10 +76,12 @@ const EmoticonArea = styled.div`
   height: 246px;
 `;
 
-const EmoticonWrapper = styled.div`
+const EmoticonWrapper = styled.div<{ isChecked: boolean }>`
   position: relative;
   width: 132px;
   height: 132px;
+  opacity: ${({ isChecked }) => (isChecked ? 1 : 0.5)};
+  cursor: pointer;
 `;
 
 const CheckWrapper = styled.div`
@@ -96,7 +98,7 @@ export interface EmoticonProps {
 }
 
 export default function Emoticon({ candy = '필보이드 핸드크림', fullpageApi }: EmoticonProps) {
-  const [checkedEmo, setCheckedEmo] = useAtom(CheckedEmoticon);
+  const [checkedEmoId, setCheckedEmoId] = useAtom(CheckedEmoticon);
 
   return (
     <Container className='section'>
@@ -108,10 +110,10 @@ export default function Emoticon({ candy = '필보이드 핸드크림', fullpage
       <Desc>오늘의 감정을 이모티콘으로 남겨보세요.</Desc>
       <EmoticonArea>
         {EmoticonList.map((emo, index) => (
-          <EmoticonWrapper key={index} onClick={() => setCheckedEmo(emo.id)}>
-            {checkedEmo === emo.id && (
+          <EmoticonWrapper key={index} onClick={() => setCheckedEmoId(emo.id)} isChecked={emo.id === checkedEmoId}>
+            {checkedEmoId === emo.id && (
               <CheckWrapper>
-                <Image src={Check} alt='check' layout='fixed' />
+                <Image src={Check} alt='check' width={75} height={56} />
               </CheckWrapper>
             )}
             <Image src={emo.emo} layout='fixed' objectFit='cover' objectPosition='center' alt='emoticon' />

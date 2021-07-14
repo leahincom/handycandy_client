@@ -6,6 +6,7 @@ import { RewardModalAtom } from '../../../states';
 import RewardModal from '../../reward/Modal';
 import CompleteContent, { Candy } from '../Content';
 import { CompleteBackground } from '../../../../public/assets/images/';
+import { Bubble } from '../../../../public/assets/icons';
 
 const candyArr = [
   {
@@ -90,6 +91,34 @@ const BodyDesc = styled.h2`
   font-weight: 400;
   font-style: normal;
 `;
+
+const BubbleWrapper = styled.div`
+  margin-top: 54px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const BubbleText = styled.h1`
+  font-family: var(--nanum);
+  font-style: normal;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 32px;
+  position: absolute;
+  top: 35px;
+`;
+
+const BubbleUnderline = styled.div`
+  width: 137px;
+  height: 15px;
+  background-color: var(--peach);
+  opacity: 0.5;
+  position: absolute;
+  bottom: 0;
+`;
+
 export interface CompleteMainProps {
   candyList: Candy[];
   username: string;
@@ -117,6 +146,13 @@ export default function CompleteMain({
       <Body>
         <BodyTitle>완료한 캔디</BodyTitle>
         <BodyDesc>내가 선물했던 캔디들이 모인 병들을 모아보세요</BodyDesc>
+        <BubbleWrapper>
+          <Image src={Bubble} width={460} height={120} alt='bubble' />
+          <BubbleText>
+            {candynum}개의 캔디
+            <BubbleUnderline />를 주었어요!
+          </BubbleText>
+        </BubbleWrapper>
       </Body>
       <CompleteContent candyList={candyList} username={username} candynum={candynum} date={date} />
       {isOpen && <RewardModal />}

@@ -16,3 +16,4 @@ export { default as LinkIcon } from './LinkIcon.svg';
 export { default as PlusIcon } from './edit_plus_icon.svg';
 export { default as BackArrow } from './back_arrow.svg';
 export { default as EditIcon } from './edit_icon.svg';
+export { default as Bubble } from './bubble.svg';
