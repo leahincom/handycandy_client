@@ -24,8 +24,11 @@ const InputWrapper = styled.input`
 export interface InputFieldProps {
   placeholder: string;
   type: string;
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
 }
 
-export default function InputField({ placeholder, type }: InputFieldProps) {
-  return <InputWrapper type={type} placeholder={placeholder} />;
+export default function InputField({ placeholder, type, name, value, onChange }: InputFieldProps) {
+  return <InputWrapper type={type} placeholder={placeholder} name={name} value={value} onChange={onChange} />;
 }

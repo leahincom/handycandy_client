@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import Navbar from '../components/common/Navbar';
@@ -55,12 +56,14 @@ const InputWrapper = styled.div`
 const BirthWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   outline: none;
   border: 1px solid var(--gray-5);
   border-radius: 17px;
   background: var(--white);
-  width: 684px;
+  padding-right: 55px;
+  padding-left: 113px;
+  width: 516px;
   height: 82px;
 
   span {
@@ -100,6 +103,26 @@ const Button = styled.button`
 
 export default function Signup() {
   const router = useRouter();
+  const [signupInfo, setSignupInfo] = useState({
+    email: '',
+    password: '',
+    passwordCheck: '',
+    nickname: '',
+    birthYear: '',
+    birthMonth: '',
+    birthDay: '',
+  });
+
+  const { email, password, nickname, birthYear, birthMonth, birthDay, passwordCheck } = signupInfo;
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setSignupInfo({
+      ...signupInfo,
+      [name]: value,
+    });
+  };
+
   const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     router.push('/signin');
@@ -113,29 +136,74 @@ export default function Signup() {
         <SignupForm onSubmit={handleSignup}>
           <InputWrapper>
             <p>아이디</p>
-            <InputField type='email' placeholder='example@email.com' />
+            <InputField
+              type='email'
+              placeholder='example@email.com'
+              name='email'
+              value={email}
+              onChange={handleInputChange}
+            />
           </InputWrapper>
           <InputWrapper>
             <p>이름</p>
-            <InputField type='text' placeholder='이름을 입력해주세요' />
+            <InputField
+              type='text'
+              name='nickname'
+              placeholder='이름을 입력해주세요'
+              value={nickname}
+              onChange={handleInputChange}
+            />
           </InputWrapper>
           <InputWrapper>
             <p>생년월일</p>
             <BirthWrapper>
-              <BirthInput type='text' maxLength={4} placeholder='YYYY' />
+              <BirthInput
+                type='text'
+                name='birthYear'
+                maxLength={4}
+                placeholder='YYYY'
+                value={birthYear}
+                onChange={handleInputChange}
+              />
               <span>/</span>
-              <BirthInput type='text' maxLength={2} placeholder='MM' />
+              <BirthInput
+                type='text'
+                name='birthMonth'
+                maxLength={2}
+                placeholder='MM'
+                value={birthMonth}
+                onChange={handleInputChange}
+              />
               <span>/</span>
-              <BirthInput type='text' maxLength={2} placeholder='DD' />
+              <BirthInput
+                type='text'
+                name='birthDay'
+                maxLength={2}
+                placeholder='DD'
+                value={birthDay}
+                onChange={handleInputChange}
+              />
             </BirthWrapper>
           </InputWrapper>
           <InputWrapper>
             <p>비밀번호</p>
-            <InputField type='password' placeholder='비밀번호를 입력해주세요' />
+            <InputField
+              name='password'
+              type='password'
+              placeholder='비밀번호를 입력해주세요'
+              value={password}
+              onChange={handleInputChange}
+            />
           </InputWrapper>
           <InputWrapper>
             <p>비밀번호 확인</p>
-            <InputField type='password' placeholder='비밀번호를 한번 더 입력해주세요' />
+            <InputField
+              name='passwordCheck'
+              type='password'
+              placeholder='비밀번호를 한번 더 입력해주세요'
+              value={passwordCheck}
+              onChange={handleInputChange}
+            />
           </InputWrapper>
           <Button type='submit'>가입하기</Button>
         </SignupForm>
