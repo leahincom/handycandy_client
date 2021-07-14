@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { makeStyles, TextField } from '@material-ui/core';
+import { useAtom } from 'jotai';
 import { Donut, Ball } from '../../../../public/assets/candy';
 import { DonutAdded, BallAdded } from '../../../../public/assets/candyAdded';
 import Button from '../Button';
+import { DetailCandyEditModalAtom } from '../../../states';
+import checkByte from '../../../utils/checkBytes';
 import DateDropdown from './Dropdown/Date';
 import CategoryDropdown from './Dropdown/Category';
 import DeleteModal from './DeleteModal';
-import { DetailCandyEditModalAtom } from '../../../states';
-import { useAtom } from 'jotai';
-import checkByte from '../../utils/checkBytes';
 
 interface BackgroundProps {
   isOpen: boolean;
