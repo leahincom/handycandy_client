@@ -9,7 +9,8 @@ import Button from '../../../components/common/Button';
 import ImageEditModal from '../../../components/common/CandyEdit/ImageEditModal';
 import { DetailCandyEditModalAtom, ImageEditModalAtom } from '../../../states';
 import CandyEditModal from '../../../components/common/CandyEdit';
-
+import Navbar from '../../../components/common/Navbar';
+import Footer from '../../../components/common/Footer';
 const Container = styled.div`
   width: 1920px;
   height: 2286px;
@@ -281,6 +282,7 @@ export default function Detail({ itemImg, date, category, itemName, link, messag
   };
   return (
     <>
+      <Navbar />
       <Container>
         <TopContainer>
           <PrevButtonDiv onClick={onClickToGoBack}>
@@ -357,6 +359,7 @@ export default function Detail({ itemImg, date, category, itemName, link, messag
           candyMessage='aaaa'
         />
       )}
+      <Footer />
     </>
   );
 }

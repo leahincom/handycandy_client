@@ -5,7 +5,8 @@ import { useRouter } from 'next/router';
 import Navigation from '../../../components/common/Navigation';
 import CandyCard from '../../../components/common/CandyCard';
 import WishedCandySlider from '../../../components/common/WishedCandySlider';
-
+import Navbar from '../../../components/common/Navbar';
+import Footer from '../../../components/common/Footer';
 const Container = styled.div`
   width: 1920px;
   height: 2286px;
@@ -136,75 +137,79 @@ export default function TotalCandy({ ddayNum = 11, waitingNum = 11 }: TotalCandy
   const router = useRouter();
 
   return (
-    <Container>
-      <TopContainer>
-        <TopTitle>담은 캔디</TopTitle>
-        <TopSubTitle>앞으로 만들어갈 나만의 보상들을 원하는대로 만들어보세요!</TopSubTitle>
-      </TopContainer>
-      <BodyContainer>
-        <Navigation tab={0} />
-        <DdayContainer>
-          <DdayHeader>
-            <Title>다가오는 캔디</Title>
-            <Num>{ddayNum}</Num>
-          </DdayHeader>
-          <Border></Border>
-          <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>
+    <>
+      <Navbar />
+      <Container>
+        <TopContainer>
+          <TopTitle>담은 캔디</TopTitle>
+          <TopSubTitle>앞으로 만들어갈 나만의 보상들을 원하는대로 만들어보세요!</TopSubTitle>
+        </TopContainer>
+        <BodyContainer>
+          <Navigation tab={0} />
+          <DdayContainer>
+            <DdayHeader>
+              <Title>다가오는 캔디</Title>
+              <Num>{ddayNum}</Num>
+            </DdayHeader>
+            <Border></Border>
+            <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>
 
-          <WishedCandySlider />
-        </DdayContainer>
-        <WaitingContainer>
-          <DdayHeader>
-            <Title>기다리는 캔디</Title>
+            <WishedCandySlider />
+          </DdayContainer>
+          <WaitingContainer>
+            <DdayHeader>
+              <Title>기다리는 캔디</Title>
 
-            <Num>{waitingNum}</Num>
-          </DdayHeader>
-          <Border></Border>
-          <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>
-          <CandyContainer>
-            <CandyCard
-              onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-              itemImage='https://dummyimage.com/254x278/000/fff'
-              category='고생한 나 자신을 위한'
-              name='모베러웍스 티셔츠'
-              createdDate={15}
-              plannedDate={date}
-            />
-            <CandyCard
-              onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-              itemImage='https://dummyimage.com/254x278/000/fff'
-              category='고생한 나 자신을 위한'
-              name='모베러웍스 티셔츠'
-              createdDate={15}
-              plannedDate={date}
-            />
-            <CandyCard
-              onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-              itemImage='https://dummyimage.com/254x278/000/fff'
-              category='고생한 나 자신을 위한'
-              name='모베러웍스 티셔츠'
-              createdDate={15}
-              plannedDate={date}
-            />
-            <CandyCard
-              onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-              itemImage='https://dummyimage.com/254x278/000/fff'
-              category='고생한 나 자신을 위한'
-              name='모베러웍스 티셔츠'
-              createdDate={15}
-              plannedDate={date}
-            />
-            <CandyCard
-              onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-              itemImage='https://dummyimage.com/254x278/000/fff'
-              category='고생한 나 자신을 위한'
-              name='모베러웍스 티셔츠'
-              createdDate={15}
-              plannedDate={date}
-            />
-          </CandyContainer>
-        </WaitingContainer>
-      </BodyContainer>
-    </Container>
+              <Num>{waitingNum}</Num>
+            </DdayHeader>
+            <Border></Border>
+            <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>
+            <CandyContainer>
+              <CandyCard
+                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
+                itemImage='https://dummyimage.com/254x278/000/fff'
+                category='고생한 나 자신을 위한'
+                name='모베러웍스 티셔츠'
+                createdDate={15}
+                plannedDate={date}
+              />
+              <CandyCard
+                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
+                itemImage='https://dummyimage.com/254x278/000/fff'
+                category='고생한 나 자신을 위한'
+                name='모베러웍스 티셔츠'
+                createdDate={15}
+                plannedDate={date}
+              />
+              <CandyCard
+                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
+                itemImage='https://dummyimage.com/254x278/000/fff'
+                category='고생한 나 자신을 위한'
+                name='모베러웍스 티셔츠'
+                createdDate={15}
+                plannedDate={date}
+              />
+              <CandyCard
+                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
+                itemImage='https://dummyimage.com/254x278/000/fff'
+                category='고생한 나 자신을 위한'
+                name='모베러웍스 티셔츠'
+                createdDate={15}
+                plannedDate={date}
+              />
+              <CandyCard
+                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
+                itemImage='https://dummyimage.com/254x278/000/fff'
+                category='고생한 나 자신을 위한'
+                name='모베러웍스 티셔츠'
+                createdDate={15}
+                plannedDate={date}
+              />
+            </CandyContainer>
+          </WaitingContainer>
+        </BodyContainer>
+      </Container>
+      <Footer />
+    </>
   );
 }
