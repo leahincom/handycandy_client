@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Image from 'next/image';
 import { Donut } from '../../../../public/assets/candy';
 import OptionBar from './OptionBar';
 
@@ -19,6 +20,7 @@ const Thumbnail = styled.img`
   border-top-left-radius: 17px;
   border-top-right-radius: 17px;
   width: 100%;
+  height: 258px;
 `;
 
 const Metadata = styled.div`
@@ -57,13 +59,13 @@ const Date = styled.h3`
   font-size: 13px;
   font-weight: 400;
 `;
-
-const Candy = styled.img`
+const CandyImg = styled.div`
   position: absolute;
   right: 16px;
   bottom: 109px;
   z-index: 100;
 `;
+const Candy = styled(Image)``;
 
 export interface CandyCardProps {
   onClick?: any;
@@ -88,7 +90,9 @@ export default function TestCard({ onClick, itemImage, category, name, createdDa
             : `담은지 ${createdDate}일 되었어요.`}
         </Date>
       </Metadata>
-      <Candy src={Donut} />
+      <CandyImg>
+        <Candy src={Donut} />
+      </CandyImg>
     </Container>
   );
 }
