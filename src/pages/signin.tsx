@@ -124,7 +124,7 @@ export default function Login() {
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(loginInfo);
+    router.push('/');
   };
 
   return (
@@ -158,7 +158,9 @@ export default function Login() {
           </LoginMenu>
           <Buttons>
             <SignInButton type='submit'>로그인</SignInButton>
-            <SignUpButton onClick={() => router.push('/signup')}>회원가입</SignUpButton>
+            <SignUpButton type='button' onClick={() => router.push('/signup')}>
+              회원가입
+            </SignUpButton>
           </Buttons>
         </LoginForm>
       </Container>

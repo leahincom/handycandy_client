@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 import Navbar from '../components/common/Navbar';
 import InputField from '../components/signup/InputField';
 
@@ -98,8 +99,10 @@ const Button = styled.button`
 `;
 
 export default function Signup() {
+  const router = useRouter();
   const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    router.push('/signin');
   };
   return (
     <>
@@ -134,7 +137,7 @@ export default function Signup() {
             <p>비밀번호 확인</p>
             <InputField type='password' placeholder='비밀번호를 한번 더 입력해주세요' />
           </InputWrapper>
-          <Button>가입하기</Button>
+          <Button type='submit'>가입하기</Button>
         </SignupForm>
       </Container>
     </>
