@@ -12,14 +12,13 @@ const Container = styled.div`
   height: 2286px;
 `;
 const TopContainer = styled.div`
-  margin-bottom: 35px;
   background: url('/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fpublic%2Fassets%2Ficons%2FWishedBackground.d57609740f3e21029f9fec81c477a5f5.svg&w=3840&q=75');
   width: 1920px;
   height: 276px;
 `;
 
 const TopTitle = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   margin-left: 241px;
   padding-top: 95px;
   text-align: left;
@@ -51,6 +50,9 @@ const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: 50px;
+  background: rgba(231, 231, 231, 0.2);
+  padding-top: 50px;
 `;
 const CandyContainer = styled.div`
   display: flex;
@@ -77,12 +79,12 @@ export default function CategoryCandy() {
     <Container>
       <TopContainer>
         <TopTitle>담은 캔디</TopTitle>
-        <TopSubTitle>앞으로 만들어갈 나만의 보상을 만들어보세요!</TopSubTitle>
+        <TopSubTitle>나만의 캔디들을 마음껏 담아보세요</TopSubTitle>
       </TopContainer>
       <BodyContainer>
         <Header>
           <div className='empty'></div>
-          <Navigation />
+          <Navigation tab={1} />
           <AddButton src={AddIcon} />
         </Header>
 

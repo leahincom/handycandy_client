@@ -2,8 +2,13 @@ import styled from 'styled-components';
 import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { PrevArrow, Go, RightQuote, LeftQuote, EditBtn } from '../../../../public/assets/icons';
+import { useAtom } from 'jotai';
+import Link from 'next/link';
+import { PrevArrow, LinkIcon, RightQuote, LeftQuote, EditBtn } from '../../../../public/assets/icons';
 import Button from '../../../components/common/Button';
+import ImageEditModal from '../../../components/common/CandyEdit/ImageEditModal';
+import { DetailCandyEditModalAtom, ImageEditModalAtom } from '../../../states';
+import CandyEditModal from '../../../components/common/CandyEdit';
 
 const Container = styled.div`
   width: 1920px;
@@ -26,6 +31,7 @@ const PrevButtonDiv = styled.div`
   position: absolute;
   top: 81px;
   left: 100px;
+  cursor: pointer;
 `;
 const PrevButton = styled(Image)``;
 const GoButton = styled(Image)``;
@@ -96,53 +102,41 @@ const BodyImg = styled.div`
   margin-left: 244px;
   width: 440px;
   height: 440px;
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 const BodyInfo = styled.div``;
-const Link = styled.div`
+const CandyLinkWrapper = styled.div`
   display: flex;
   align-items: center;
+  margin-top: 17px;
   margin-bottom: 57px;
+`;
 
-  div:nth-child(1) {
-    margin-right: 52px;
-
-    text-align: left;
-    line-height: 28px;
-    letter-spacing: -0.022em;
-    font-family: var(--roboto);
-    font-size: 24px;
-    font-weight: 700;
-    font-style: normal;
-    //styleName: cardview/title;
+const CandyLink = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  border-radius: 30px;
+  background-color: var(--gray-1);
+  cursor: pointer;
+  padding: 12.5px 33px;
+  height: 59px;
+  :hover {
+    background-color: var(--gray-4);
   }
-  div:nth-child(2) {
-    display: flex;
-    position: relative;
-    align-items: center;
-    border-radius: 30px;
-    background: #f2f2f2;
-    width: 244px;
-    height: 59px;
-    div:nth-child(1) {
-      margin-right: 15px !important;
-
-      margin-left: 32px !important;
-      width: 22px !important;
-      height: 22px !important;
-    }
-    div:nth-child(2) {
-      /* text-align: left; */
-      line-height: 34px;
-      letter-spacing: -0.022em;
-      color: #5a5a5a;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-        'Helvetica Neue', sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-      font-style: normal;
-    }
-    /* handycandy/gray/1 */
-  }
+`;
+const CandyLinkText = styled.a`
+  margin-left: 15px;
+  cursor: pointer;
+  line-height: 33.6px;
+  color: var(--gray-7);
+  font-family: var(--roboto);
+  font-size: 24px;
+  font-weight: 700;
+  font-style: normal;
 `;
 const MessageTitle = styled.div`
   margin-bottom: 23px;
@@ -185,14 +179,6 @@ const RightQuoteImgDiv = styled.div`
 const ButtonDiv = styled.div`
   display: flex;
   margin-top: 66px;
-  button {
-    margin-right: 7px;
-    line-height: 26px;
-    font-family: var(—roboto);
-    font-size: 22px;
-    font-weight: 500;
-    font-style: normal;
-  }
 `;
 
 export interface DetailProps {
@@ -233,11 +219,8 @@ const ItemImg = styled.img`
   position: relative;
   border-radius: 24px;
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.09);
-  &:hover {
-    opacity: 0.5;
-  }
 `;
-const EditButtonDiv = styled.div`
+const ImageEditButtonDiv = styled.div`
   display: none;
   position: absolute;
   right: 26px;
@@ -249,76 +232,131 @@ const EditButtonDiv = styled.div`
 const EditButton = styled(Image)`
   cursor: pointer;
 `;
-
+const CandyEditButtonDiv = styled.div`
+  margin-right: 7px;
+  line-height: 26px;
+  font-family: var(—roboto);
+  font-size: 22px;
+  font-weight: 500;
+  font-style: normal;
+`;
+const CandyCompleteButtonDiv = styled.div`
+  margin-right: 7px;
+  line-height: 26px;
+  font-family: var(—roboto);
+  font-size: 22px;
+  font-weight: 500;
+  font-style: normal;
+`;
+const CandyLinkTitle = styled.div`
+  margin-right: 95px;
+  text-align: left;
+  line-height: 28px;
+  letter-spacing: -0.022em;
+  font-family: var(--roboto);
+  font-size: 24px;
+  font-weight: 700;
+  font-style: normal;
+`;
 export default function Detail({ itemImg, date, category, itemName, link, message, info }: DetailProps) {
   const router = useRouter();
   itemImg = 'https://dummyimage.com/440X440/000/fff';
   date = '2021년 7월 10일';
   category = '회사생활로 지친 나를';
   itemName = '필보이드 핸드크림';
-  link = 'aaa';
+  link = 'https://www.naver.com';
   message = 'aaaa';
   info = 'aaaaa';
-  return (
-    <Container>
-      <TopContainer>
-        <PrevButtonDiv>
-          <PrevButton src={PrevArrow} />
-        </PrevButtonDiv>
-        <TopText>
-          <Date>
-            <span>저는 </span>
-            <span>{date}</span>
-            <span>에</span>
-          </Date>
-          <Category>
-            <span>{category} </span>
-            <span>위한,</span>
-          </Category>
-          <Title>
-            <span>{itemName}</span> <span>주기로 했어요.</span>
-          </Title>
-        </TopText>
-      </TopContainer>
-      <BodyContainer>
-        <BodyImg>
-          <ItemImg src={itemImg} />
-          <EditButtonDiv>
-            <EditButton src={EditBtn} />
-          </EditButtonDiv>
-        </BodyImg>
-        <BodyInfo>
-          <Info>
-            <div>상세정보</div>
-            <div>{info}</div>
-          </Info>
-          <Link>
-            <div>링크</div>
-            <div>
-              <GoButton src={Go} />
-              <div>{link}</div>
-            </div>
-          </Link>
-          <Message>
-            <MessageTitle>캔디데이에 받을 메세지</MessageTitle>
-            <MessageInfo>
-              <LeftQuoteImgDiv>
-                <LeftQuoteImg src={LeftQuote} />
-              </LeftQuoteImgDiv>
+  const [isImgModalOpen, setIsImgModalOpen] = useAtom(ImageEditModalAtom);
+  const [isEditModalOpen, setIsEditModalOpen] = useAtom(DetailCandyEditModalAtom);
 
-              <MessageText>{message}</MessageText>
-              <RightQuoteImgDiv>
-                <RightQuoteImg src={RightQuote} />
-              </RightQuoteImgDiv>
-            </MessageInfo>
-            <MessageLength>{message.length}/100자</MessageLength>
-          </Message>
-          <ButtonDiv>
-            <Button buttonColor='gray' color='gray' text='수정하기' size='md' />
-            <Button buttonColor='peach' color='gray' text='캔디 바로주기' size='md' />
-          </ButtonDiv>
-        </BodyInfo>
-      </BodyContainer>
-    </Container>
+  const onClickToOpenImageEditModal = () => {
+    setIsImgModalOpen(true);
+  };
+  const onClickToOpenCandyEditModal = () => {
+    setIsEditModalOpen(true);
+  };
+  const onClickToGoBack = () => {
+    router.back();
+  };
+  return (
+    <>
+      <Container>
+        <TopContainer>
+          <PrevButtonDiv onClick={onClickToGoBack}>
+            <PrevButton src={PrevArrow} />
+          </PrevButtonDiv>
+          <TopText>
+            <Date>
+              <span>저는 </span>
+              <span>{date}</span>
+              <span>에</span>
+            </Date>
+            <Category>
+              <span>{category} </span>
+              <span>위한,</span>
+            </Category>
+            <Title>
+              <span>{itemName}</span> <span>주기로 했어요.</span>
+            </Title>
+          </TopText>
+        </TopContainer>
+        <BodyContainer>
+          <BodyImg>
+            <ItemImg src={itemImg} />
+            <ImageEditButtonDiv onClick={onClickToOpenImageEditModal}>
+              <EditButton src={EditBtn} />
+            </ImageEditButtonDiv>
+          </BodyImg>
+          <BodyInfo>
+            <Info>
+              <div>상세정보</div>
+              <div>{info}</div>
+            </Info>
+            <CandyLinkWrapper>
+              <CandyLinkTitle>링크</CandyLinkTitle>
+              <CandyLink>
+                <Image src={LinkIcon} alt='LinkIcon' />
+                <Link href={link} passHref>
+                  <CandyLinkText>{link}</CandyLinkText>
+                </Link>
+              </CandyLink>
+            </CandyLinkWrapper>
+            <Message>
+              <MessageTitle>캔디데이에 받을 메세지</MessageTitle>
+              <MessageInfo>
+                <LeftQuoteImgDiv>
+                  <LeftQuoteImg src={LeftQuote} />
+                </LeftQuoteImgDiv>
+
+                <MessageText>{message}</MessageText>
+                <RightQuoteImgDiv>
+                  <RightQuoteImg src={RightQuote} />
+                </RightQuoteImgDiv>
+              </MessageInfo>
+              <MessageLength>{message.length}/100자</MessageLength>
+            </Message>
+            <ButtonDiv>
+              <CandyEditButtonDiv onClick={onClickToOpenCandyEditModal}>
+                <Button buttonColor='gray' color='gray' text='수정하기' size='md' />
+              </CandyEditButtonDiv>
+              <CandyCompleteButtonDiv onClick={() => router.push({ pathname: '/complete/[cid]', query: { cid: 0 } })}>
+                <Button buttonColor='peach' color='gray' text='캔디 바로주기' size='md' />
+              </CandyCompleteButtonDiv>
+            </ButtonDiv>
+          </BodyInfo>
+        </BodyContainer>
+      </Container>
+      {isImgModalOpen && <ImageEditModal candy='https://dummyimage.com/221x221/000/fff' />}
+      {isEditModalOpen && (
+        <CandyEditModal
+          candyImg='https://dummyimage.com/100x100/000/fff'
+          candyName='핸드크림'
+          candyCategory='고생한 나를 위한'
+          candyDate='20200601'
+          candyMessage='aaaa'
+        />
+      )}
+    </>
   );
 }
