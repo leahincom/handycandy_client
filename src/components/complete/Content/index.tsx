@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import React from 'react';
-import Banner from '../../reward/Banner';
 import CompleteCard from '../Card';
 
 const Container = styled.div`
-  background-color: var(--peach);
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
 `;
@@ -32,6 +33,7 @@ const CandyArea = styled.div`
   flex-direction: column;
   align-items: center;
   border-radius: 50px 50px 0px 0px;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.09);
   background-color: var(--white);
   padding: 76px 240px 184px 240px;
   width: auto;
@@ -59,29 +61,24 @@ export interface CompleteContentProps {
 }
 
 export default function CompleteContent({ candyList, username, candynum, date }: CompleteContentProps) {
-  const month = date.getMonth() + 1;
+  // const month = date.getMonth() + 1;
 
   return (
-    <Container>
-      <Banner bannerDesc='완료한 캔디' bannerTitle='내가 선물했던 캔디들이 모인 병들을 모아보세요' />
-      <CandyArea>
-        <TitleWrapper>
-          <Title>
-            {username}님은 {month}월에 {candynum}개의 캔디를 주었어요
-          </Title>
-        </TitleWrapper>
-        <CandyGrid>
-          {candyList.map((candy, index) => (
-            <CompleteCard
-              candy={candy.candy}
-              category={candy.category}
-              title={candy.title}
-              date={candy.date}
-              key={index}
-            />
-          ))}
-        </CandyGrid>
-      </CandyArea>
-    </Container>
+    <CandyArea>
+      <TitleWrapper>
+        <Title>{candynum}개의 캔디를 주었어요</Title>
+      </TitleWrapper>
+      <CandyGrid>
+        {candyList.map((candy, index) => (
+          <CompleteCard
+            candy={candy.candy}
+            category={candy.category}
+            title={candy.title}
+            date={candy.date}
+            key={index}
+          />
+        ))}
+      </CandyGrid>
+    </CandyArea>
   );
 }
