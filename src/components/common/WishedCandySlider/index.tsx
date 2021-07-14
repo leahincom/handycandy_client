@@ -69,7 +69,7 @@ export default function WishedCandySlider() {
     className: 'react__slick__slider__parent',
   };
   const date = new Date();
-  const router = new useRouter();
+  const router = useRouter();
   return (
     <Container>
       <Slider {...settings}>
