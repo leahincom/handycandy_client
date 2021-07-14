@@ -2,9 +2,12 @@ import { useAtom } from 'jotai';
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import { CandyEditModalAtom } from '../../../states';
+import Image from 'next/image';
+import { CandyEditModalAtom, CheckedEmoticon, DeleteModalAtom } from '../../../states';
 import checkByte from '../../../utils/checkBytes';
 import Button from '../../common/Button';
+import { EmoticonList } from '../../reward/Body/Emoticon';
+import { Check } from '../../../../public/assets/icons';
 
 interface BackgroundProps {
   isOpen: boolean;
@@ -72,10 +75,11 @@ const NameInput = styled.input`
   font-style: normal;
 `;
 
-const EmotionWrapper = styled.div`
+const EmoticonArea = styled.div`
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 16px;
   border: 1px solid var(--gray-3);
   border-radius: 17px;
@@ -83,6 +87,22 @@ const EmotionWrapper = styled.div`
   padding-left: 24px;
   width: 100%;
   height: 50px;
+`;
+
+const EmoticonWrapper = styled.div<{ isChecked: boolean }>`
+  position: relative;
+  width: 35px;
+  height: 35px;
+  opacity: ${({ isChecked }) => (isChecked ? 1 : 0.5)};
+  cursor: pointer;
+`;
+
+const CheckWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
 `;
 
 const HistoryTextArea = styled.textarea`
@@ -125,6 +145,7 @@ const DeleteText = styled.h1`
   font-size: 24px;
   font-weight: 700;
   font-style: normal;
+  cursor: pointer;
 `;
 
 const DeleteSubText = styled.h2`
@@ -154,12 +175,21 @@ export default function EditModal() {
   const { register, setValue } = useForm<InputForm>();
   const textLimitRef = useRef<HTMLSpanElement>(null);
   const [isOpen, setIsOpen] = useAtom(CandyEditModalAtom);
+  const [, setIsOpenDeleteModal] = useAtom(DeleteModalAtom);
+  const [checkedEmoId, setCheckedEmoId] = useAtom(CheckedEmoticon);
   const handleClickToClose = () => {
     setIsOpen(false);
   };
-  const onClickToComplete = () => {
+  const handleClickEmoticon = (id: string) => {
+    setCheckedEmoId(id);
+  };
+  const handleClickToComplete = () => {
     // TODO: update complete candy
     setIsOpen(false);
+  };
+  const handleClickToDeleteCandy = () => {
+    setIsOpen(false);
+    setIsOpenDeleteModal(true);
   };
 
   return (
@@ -170,8 +200,22 @@ export default function EditModal() {
         <SubTitle margin={35}>캔디 이름</SubTitle>
         <NameInput {...register('name')} defaultValue='필보이드 핸드크림' />
         <SubTitle margin={48}>감정 이모티콘</SubTitle>
-        {/* TODO: 정현이 코드 머지되면 옮겨오기: EmotionWrapper */}
-        <EmotionWrapper />
+        <EmoticonArea>
+          {EmoticonList.map((emo, index) => (
+            <EmoticonWrapper
+              key={index}
+              onClick={() => handleClickEmoticon(emo.id)}
+              isChecked={emo.id === checkedEmoId}
+            >
+              {checkedEmoId === emo.id && (
+                <CheckWrapper>
+                  <Image src={Check} width={27} height={17} alt='check' />
+                </CheckWrapper>
+              )}
+              <Image src={emo.emo} alt='emoticon' layout='fill' objectFit='cover' objectPosition='center' />
+            </EmoticonWrapper>
+          ))}
+        </EmoticonArea>
         <SubTitle margin={48}>캔디 히스토리</SubTitle>
         <HistoryTextArea
           {...register(HISTORY)}
@@ -182,9 +226,9 @@ export default function EditModal() {
           <TextCurrentNumber ref={textLimitRef}>0</TextCurrentNumber>/200Byte
         </TextLimitNumber>
         <Divider />
-        <DeleteText>캔디 삭제</DeleteText>
+        <DeleteText onClick={handleClickToDeleteCandy}>캔디 삭제</DeleteText>
         <DeleteSubText>캔디가 영구적으로 삭제됩니다.</DeleteSubText>
-        <ButtonWrapper onClick={onClickToComplete}>
+        <ButtonWrapper onClick={handleClickToComplete}>
           <Button text='완료' buttonColor='peach' size='ls' />
         </ButtonWrapper>
       </Container>

@@ -1,6 +1,7 @@
+import { useAtom } from 'jotai';
 import Image from 'next/image';
-import { useState } from 'react';
 import styled from 'styled-components';
+import { DeleteModalAtom } from '../../../states';
 import Button from '../../common/Button';
 
 interface BackgroundProps {
@@ -75,7 +76,7 @@ export interface DeleteModalProps {
 }
 
 export default function DeleteModal({ candy }: DeleteModalProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useAtom(DeleteModalAtom);
   const handleClickToClose = () => {
     setIsOpen(false);
   };
@@ -90,7 +91,7 @@ export default function DeleteModal({ candy }: DeleteModalProps) {
           캔디를 영구 삭제한 후에는 <br />이 작업을 실행 취소할 수 없습니다!
         </SubTitle>
         <ButtonWrapper>
-          <Button buttonColor='gray' size='sm' text='취소하기' />
+          <Button buttonColor='gray' size='sm' text='취소하기' onClick={handleClickToClose} />
           <Empty />
           <Button buttonColor='peach' size='sm' text='삭제 완료' />
         </ButtonWrapper>
