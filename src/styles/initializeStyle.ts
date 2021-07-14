@@ -3,9 +3,11 @@ import { css } from 'styled-components';
 const initializeStyle = css`
   * {
     -webkit-appearance: none;
+    box-sizing: border-box;
     margin: 0;
     border: 0;
     padding: 0;
+    letter-spacing: -0.022em;
     font: baseline;
     user-select: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);

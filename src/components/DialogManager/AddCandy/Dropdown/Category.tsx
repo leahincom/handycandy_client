@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import Image from 'next/dist/client/image';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -8,8 +9,9 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { useAtom } from 'jotai';
+import { openCandyModal, openCategoryModal } from '../../../../states';
 import { CategoryAdd, ToggleButton } from '../../../../../public/assets/icons';
-import AddCategory from '../../AddCategory';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,34 +24,35 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const ToggleIcon = styled.img<{ open: boolean }>`
+const ButtonStyle = styled(Button)``;
+
+const ToggleIcon = styled.div<{ open: boolean }>`
+  display: flex;
+  align-items: center;
   transform: ${(props) => props.open && 'rotate(180deg)'};
   transition: all 0.2s linear;
   margin-left: 25px;
+  height: 100%;
 `;
 
-const Icon = styled.img`
+const Icon = styled.div`
   margin-right: 12px;
+  margin-left: 25px;
 `;
 
 export interface CategoryDropdownProps {
   category: any;
   selectedCategory: number;
   setSelectedCategory: any;
-  handleDialogState: () => void;
 }
 
-export default function CategoryDropdown({
-  category,
-  selectedCategory,
-  setSelectedCategory,
-  handleDialogState,
-}: CategoryDropdownProps) {
+export default function CategoryDropdown({ category, selectedCategory, setSelectedCategory }: CategoryDropdownProps) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [addCategory, setAddCategory] = React.useState(false);
+  const [categoryModal, setCategoryModal] = useAtom(openCategoryModal);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
   const selectedItem = useMemo(() => category[selectedCategory], [category, selectedCategory]);
+  const [candyModal, setCandyModal] = useAtom(openCandyModal);
 
   const handleToggle = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setOpen((prevOpen) => !prevOpen);
@@ -65,7 +68,8 @@ export default function CategoryDropdown({
   };
 
   const handleAddCategory = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
-    setAddCategory(true);
+    setCandyModal(false);
+    setCategoryModal(true);
   };
 
   function handleListKeyDown(event: React.KeyboardEvent) {
@@ -87,7 +91,7 @@ export default function CategoryDropdown({
 
   return (
     <>
-      {!addCategory ? (
+      {!categoryModal && (
         <div style={{ marginRight: '15px' }} className={classes.root}>
           <Button
             ref={anchorRef}
@@ -99,18 +103,22 @@ export default function CategoryDropdown({
               fontStyle: 'normal',
               fontWeight: 'bold',
               fontSize: '28px',
-              lineHeight: '33px',
+              lineHeight: '28px',
               letterSpacing: '-0.022em',
               color: 'var(--black)',
               borderBottomRightRadius: '0',
               borderBottomLeftRadius: '0',
-              borderBottom: '1px solid #5A5A5A',
+              borderBottom: '1px solid var(--gray-7)',
               position: 'relative',
             }}
           >
-            <Icon src={selectedItem.image} width='35px' />
+            <Icon>
+              <Image src={selectedItem.image} width='35px' height='35px' alt='' />
+            </Icon>
             {selectedItem.name}
-            <ToggleIcon src={ToggleButton} alt='' open={open} />
+            <ToggleIcon open={open}>
+              <Image src={ToggleButton} alt='' />
+            </ToggleIcon>
           </Button>
           <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
             {({ TransitionProps, placement }) => (
@@ -148,14 +156,13 @@ export default function CategoryDropdown({
                                 lineHeight: '23px',
                                 letterSpacing: '-0.022em',
                                 color: 'var(--black)',
-                                padding: 0,
-                                paddingBottom: '10px',
-                                paddingTop: '10px',
+                                padding: '10px 25px 10px 0',
                                 justifyContent: 'flex-start',
-                                paddingRight: '25px',
                               }}
                             >
-                              <Icon src={el.image} width='35px' style={{ marginLeft: '25px' }} />
+                              <Icon>
+                                <Image src={el.image} width='35px' height='35px' alt='' />
+                              </Icon>
                               {el.name}
                             </MenuItem>
                           </>
@@ -176,14 +183,14 @@ export default function CategoryDropdown({
                           lineHeight: '23px',
                           letterSpacing: '-0.022em',
                           color: 'var(--black)',
-                          padding: 0,
-                          paddingBottom: '10px',
-                          paddingTop: '10px',
+                          padding: '10px 25px 10px 0',
                           borderBottomRightRadius: '25px',
                           borderBottomLeftRadius: '25px',
                         }}
                       >
-                        <Icon src={CategoryAdd} width='35px' style={{ marginLeft: '25px' }} />
+                        <Icon>
+                          <Image src={CategoryAdd} alt='' width='35px' height='35px' />
+                        </Icon>
                         카테고리 추가하기
                       </MenuItem>
                     </MenuList>
@@ -193,8 +200,6 @@ export default function CategoryDropdown({
             )}
           </Popper>
         </div>
-      ) : (
-        <AddCategory handleDialogState={handleDialogState} />
       )}
     </>
   );

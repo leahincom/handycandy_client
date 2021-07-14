@@ -8,6 +8,7 @@ const Container = styled.div`
   border-radius: 13px;
   box-shadow: 0px 0px 17px rgba(0, 0, 0, 0.09);
   background: rgba(231, 231, 231, 0.2);
+  cursor: pointer;
   width: 336px;
   height: 347px;
 `;
@@ -20,8 +21,10 @@ const CardRow = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const Candy = styled(Image)`
+const Candy = styled.img`
   position: absolute;
+  width: 72px;
+  height: 72px;
 `;
 const ThreeButton = styled(Image)`
   position: absolute;
@@ -29,26 +32,24 @@ const ThreeButton = styled(Image)`
   right: 15px;
   cursor: pointer;
 `;
-const FirstImg = styled(Image)`
+const FirstImg = styled.img`
   width: 184px;
   height: 254px;
 `;
-const SecondImg = styled(Image)`
+const SecondImg = styled.img`
   width: 152px;
   height: 127px;
 `;
-const ThirdImg = styled(Image)`
+const ThirdImg = styled.img`
   width: 152px;
   height: 127px;
 `;
 const CardInfo = styled.div`
   margin-top: 10px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
 `;
 const Category = styled.h1`
   margin-bottom: 7px;
-  margin-left: 20px;
+
   line-height: 28px;
   color: black;
   font-size: 24px;
@@ -56,7 +57,6 @@ const Category = styled.h1`
   font-style: normal;
 `;
 const CandyNum = styled.span`
-  margin-left: 20px;
   line-height: 21px;
   color: gray;
   font-size: 18px;
@@ -72,6 +72,7 @@ const Date = styled.span`
 `;
 
 export interface CategoryCardProps {
+  onClick: any;
   candyImg: string;
   category: string;
   candynum: number;
@@ -82,6 +83,7 @@ export interface CategoryCardProps {
 }
 
 export default function CategoryCard({
+  onClick,
   candyImg,
   category,
   candynum,
@@ -91,7 +93,7 @@ export default function CategoryCard({
   thirdImg,
 }: CategoryCardProps) {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <Card>
         <Candy src={candyImg} />
         <ThreeButton src='/assets/icons/ThreeButton.svg' alt='' width='15px' height='15px' objectFit='contain' />

@@ -1,0 +1,12 @@
+<svg width="133" height="132" viewBox="0 0 133 132" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M128.333 66.0008C128.333 100.426 100.426 128.334 66 128.334C31.5742 128.334 3.66666 100.426 3.66666 66.0003C3.66666 31.5746 31.5742 3.66699 66 3.66699C66.0793 3.66699 66.1586 3.66714 66.2378 3.66744H128.335V66.0008H128.333Z" fill="#A1F7CF"/>
+<path d="M71 69H61.5L62 78H71V69Z" fill="#E6FA94"/>
+<rect x="74" y="37" width="9" height="19" rx="4.5" fill="#1E1E1E"/>
+<rect x="57" y="37" width="9" height="19" rx="4.5" fill="#1E1E1E"/>
+<path d="M111.5 69.2358H62V78.2358H109C117.8 78.2358 121.333 75.5692 122 74.2358C128 66.6358 123.833 61.7358 121 60.2358C111.8 58.6358 110.833 65.5691 111.5 69.2358Z" fill="#75EDB5"/>
+<path d="M62 69L111 69" stroke="black" stroke-width="3" stroke-linecap="round"/>
+<path d="M62 78.0231H111.5C116 78.1897 125 76.2231 125 67.0231C125.333 64.5231 124.1 59.6231 116.5 60.0231C114 60.3564 109.5 62.5229 111.5 68.5229C112 69.5229 112.3 70.8229 115.5 72.0229" stroke="black" stroke-width="3" stroke-linecap="round"/>
+<path d="M71 68.5234V78.5234" stroke="black" stroke-width="3"/>
+<path d="M62 77V70H71V77H62Z" fill="#CAFCE5" stroke="black"/>
+<path d="M60 65C61.8333 67.8333 64.4 75.3 60 82.5" stroke="black" stroke-width="3" stroke-linecap="round"/>
+</svg>

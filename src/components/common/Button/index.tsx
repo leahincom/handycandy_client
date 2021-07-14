@@ -1,7 +1,14 @@
-import { MouseEventHandler } from 'react';
 import styled, { css } from 'styled-components';
 
 const sizeStyles = css<Pick<ButtonProps, 'size'>>`
+  ${({ size }) =>
+    size === 'ls' &&
+    css`
+      padding: 12px 30px;
+      line-height: 28px;
+      font-size: 24px;
+      font-weight: 400;
+    `}
   ${({ size }) =>
     size === 'sm' &&
     css`
@@ -21,16 +28,23 @@ const sizeStyles = css<Pick<ButtonProps, 'size'>>`
 `;
 
 const colorStyles = css<Pick<ButtonProps, 'color' | 'buttonColor'>>`
+  transition: 0.3s;
   color: ${({ color }) => (color ? color : '#5a5a5a')};
   ${({ buttonColor }) =>
     buttonColor === 'peach' &&
     css`
-      background-color: #ffbfbf;
+      background-color: var(--peach);
+      :hover {
+        background-color: var(--peach-hover);
+      }
     `}
   ${({ buttonColor }) =>
     buttonColor === 'gray' &&
     css`
-      background-color: #e9e9e9;
+      background-color: var(--gray-2);
+      :hover {
+        background-color: var(--gray-3);
+      }
     `}
 `;
 
@@ -45,18 +59,20 @@ const Container = styled.button<Omit<ButtonProps, 'text'>>`
   ${sizeStyles}
 `;
 
-const Text = styled.span``;
+const Text = styled.span`
+  font-family: --var(roboto);
+`;
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   buttonColor: 'peach' | 'gray';
   color?: string;
   text: string;
-  size: 'sm' | 'md';
+  size: 'ls' | 'sm' | 'md';
 }
 
-export default function Button({ buttonColor, color, text, size }: ButtonProps) {
+export default function Button({ buttonColor, color, text, size, ...props }: ButtonProps) {
   return (
-    <Container buttonColor={buttonColor} color={color} size={size}>
+    <Container {...props} buttonColor={buttonColor} color={color} size={size}>
       <Text>{text}</Text>
     </Container>
   );

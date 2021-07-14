@@ -14,6 +14,7 @@ const TabItem = styled.span`
   display: inline-block;
   position: relative;
   border-radius: 25px;
+  cursor: pointer;
   padding: 15px 25px;
   min-width: 155px;
   text-align: center;

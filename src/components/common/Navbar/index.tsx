@@ -9,6 +9,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--white);
   padding: 0 110px;
   min-width: 1440px;
   height: 106px;
@@ -26,7 +27,7 @@ const Menu = styled.div`
   cursor: pointer;
   line-height: 32px;
   color: var(--black);
-  font-family: 'NanumSquareRound', sans-serif;
+  font-family: var(--nanum);
   font-size: 1.75rem;
   font-size: 28px;
   font-weight: bold;
@@ -73,8 +74,7 @@ const AddCandyButton = styled.button`
   text-align: center;
   line-height: 23px;
   color: var(--peach);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+  font-family: var(--roboto);
   font-size: 20px;
   font-weight: bold;
 `;
