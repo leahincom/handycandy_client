@@ -10,7 +10,7 @@ export { default as Instagram } from './Instagram.svg';
 export { default as CategoryAdd } from './CategoryAdd.svg';
 export { default as ToggleButton } from './ToggleButton.svg';
 export { default as Check } from './Check.svg';
-export { default as HandCream } from './HandCream.svg';
+export { default as HandCream } from './handcream.svg';
 export { default as LinkIcon } from './LinkIcon.svg';
 export { default as BottomArrow } from './BottomArrow.svg';
 export { default as PlusIcon } from './edit_plus_icon.svg';
