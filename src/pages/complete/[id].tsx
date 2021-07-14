@@ -7,9 +7,10 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { EditIcon, LinkIcon, BackArrow } from '../../../public/assets/icons';
 import Button from '../../components/common/Button';
+import DeleteModal from '../../components/complete/Modal/DeleteModal';
 import EditModal from '../../components/complete/Modal/EditModal';
 import ImageEditModal from '../../components/complete/Modal/ImageEditModal';
-import { CandyEditModalAtom, ImageEditModalAtom } from '../../states';
+import { CandyEditModalAtom, DeleteModalAtom, ImageEditModalAtom } from '../../states';
 import checkByte from '../../utils/checkBytes';
 
 const Wrapper = styled.div`
@@ -215,6 +216,7 @@ export default function Detail({ link = 'https://www.naver.com' }: DetailProps) 
   const [isHover, setIsHover] = useState<boolean>(false);
   const [isImgModalOpen, setIsImgModalOpen] = useAtom(ImageEditModalAtom);
   const [isEditModalOpen, setIsEditModalOpen] = useAtom(CandyEditModalAtom);
+  const [isDeleteModalOpen] = useAtom(DeleteModalAtom);
   const router = useRouter();
 
   const onClickToGoBack = () => {
@@ -305,6 +307,7 @@ export default function Detail({ link = 'https://www.naver.com' }: DetailProps) 
       </Wrapper>
       {isImgModalOpen && <ImageEditModal candy='https://dummyimage.com/221x221/000/fff' />}
       {isEditModalOpen && <EditModal />}
+      {isDeleteModalOpen && <DeleteModal candy='https://dummyimage.com/100x100/000/fff' />}
     </>
   );
 }

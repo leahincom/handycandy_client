@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { CandyEditModalAtom, CheckedEmoticon } from '../../../states';
+import { CandyEditModalAtom, CheckedEmoticon, DeleteModalAtom } from '../../../states';
 import checkByte from '../../../utils/checkBytes';
 import Button from '../../common/Button';
 import { EmoticonList } from '../../reward/Body/Emoticon';
@@ -145,6 +145,7 @@ const DeleteText = styled.h1`
   font-size: 24px;
   font-weight: 700;
   font-style: normal;
+  cursor: pointer;
 `;
 
 const DeleteSubText = styled.h2`
@@ -174,16 +175,21 @@ export default function EditModal() {
   const { register, setValue } = useForm<InputForm>();
   const textLimitRef = useRef<HTMLSpanElement>(null);
   const [isOpen, setIsOpen] = useAtom(CandyEditModalAtom);
+  const [, setIsOpenDeleteModal] = useAtom(DeleteModalAtom);
   const [checkedEmoId, setCheckedEmoId] = useAtom(CheckedEmoticon);
   const handleClickToClose = () => {
     setIsOpen(false);
   };
-  const onClickToComplete = () => {
+  const handleClickEmoticon = (id: string) => {
+    setCheckedEmoId(id);
+  };
+  const handleClickToComplete = () => {
     // TODO: update complete candy
     setIsOpen(false);
   };
-  const handleClickEmoticon = (id: string) => {
-    setCheckedEmoId(id);
+  const handleClickToDeleteCandy = () => {
+    setIsOpen(false);
+    setIsOpenDeleteModal(true);
   };
 
   return (
@@ -220,9 +226,9 @@ export default function EditModal() {
           <TextCurrentNumber ref={textLimitRef}>0</TextCurrentNumber>/200Byte
         </TextLimitNumber>
         <Divider />
-        <DeleteText>캔디 삭제</DeleteText>
+        <DeleteText onClick={handleClickToDeleteCandy}>캔디 삭제</DeleteText>
         <DeleteSubText>캔디가 영구적으로 삭제됩니다.</DeleteSubText>
-        <ButtonWrapper onClick={onClickToComplete}>
+        <ButtonWrapper onClick={handleClickToComplete}>
           <Button text='완료' buttonColor='peach' size='ls' />
         </ButtonWrapper>
       </Container>

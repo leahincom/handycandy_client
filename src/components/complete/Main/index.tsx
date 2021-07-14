@@ -2,11 +2,12 @@ import { useAtom } from 'jotai';
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { RewardModalAtom } from '../../../states';
+import { DeleteModalAtom, RewardModalAtom } from '../../../states';
 import RewardModal from '../../reward/Modal';
 import CompleteContent, { Candy } from '../Content';
 import { CompleteBackground } from '../../../../public/assets/images/';
 import { Bubble } from '../../../../public/assets/icons';
+import DeleteModal from '../Modal/DeleteModal';
 
 const candyArr = [
   {
@@ -132,7 +133,8 @@ export default function CompleteMain({
   candynum = 13,
   date = new Date(),
 }: CompleteMainProps) {
-  const [isOpen] = useAtom(RewardModalAtom);
+  const [isOpenRewardModal] = useAtom(RewardModalAtom);
+
   return (
     <Container>
       <Image
@@ -155,7 +157,7 @@ export default function CompleteMain({
         </BubbleWrapper>
       </Body>
       <CompleteContent candyList={candyList} username={username} candynum={candynum} date={date} />
-      {isOpen && <RewardModal />}
+      {isOpenRewardModal && <RewardModal />}
     </Container>
   );
 }
