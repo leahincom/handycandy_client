@@ -1,4 +1,4 @@
-import { instance } from '../';
+import { instance } from '..';
 
 export interface CommingCandy {
   candy_id: string;
@@ -22,7 +22,9 @@ export interface GetUpcomingCards {
   result: GetUpcomingCardsResult;
 }
 
-export const getCommingCandy = async () => {
-  const cards = await instance.get(`/api/candies/commingCandy`);
-  return cards.data as GetUpcomingCards;
+export const getComingCandy = async () => {
+  const response = await instance.get(`/api/candies/commingCandy`);
+  const data = response.data as GetUpcomingCards;
+  console.log(data);
+  return data.result;
 };

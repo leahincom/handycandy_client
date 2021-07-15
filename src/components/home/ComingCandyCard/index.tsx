@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import Image from 'next/image';
-import { Donut } from '../../../../public/assets/candy';
+import CandyIcon from '../../common/CandyIcon';
 import { ComingCandyNull } from '../../../../public/assets/images';
-
 import OptionBar from './OptionBar';
 
 const Container = styled.div`
@@ -70,30 +69,31 @@ const Candy = styled.div`
 export interface ComingCandyCardProps {
   itemImage: string;
   category: string;
+  category_img: string;
   name: string;
   plannedDate?: Date;
 }
 
-export default function ComingCandyCard({ itemImage, category, name, plannedDate }: ComingCandyCardProps) {
+export default function ComingCandyCard({
+  itemImage,
+  category,
+  name,
+  plannedDate,
+  category_img,
+}: ComingCandyCardProps) {
   return (
     <Container>
       <Thumbnail>
-        {!itemImage ? (
-          <Image src={ComingCandyNull} alt='' width='188px' height='192px' />
-        ) : (
-          <Image src={itemImage} alt='' width='188px' height='192px' />
-        )}
+        <Image src={{ default: ComingCandyNull, src: itemImage, height: 192, width: 188 }} alt='' />
       </Thumbnail>
       <OptionBar plannedDate={plannedDate} />
       <Metadata>
         <Category>{category}</Category>
         <Name>{name}</Name>
       </Metadata>
-      {itemImage === '' ? null : (
-        <Candy>
-          <Image src={Donut} alt='' />
-        </Candy>
-      )}
+      <Candy>
+        <CandyIcon name={category_img} />
+      </Candy>
     </Container>
   );
 }

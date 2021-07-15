@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
+import dayjs from 'dayjs';
 import DialogManager from '../components/DialogManager';
 import RecommendCandyCard from '../components/home/RecommendCandyCard';
 import WaitingCardSlider from '../components/home/WaitingCardSlider';
 import ComingCandyCard from '../components/home/ComingCandyCard';
 import Navbar from '../components/common/Navbar';
-import { getUpcomingCards, login } from './api';
+import { login } from './api';
+import { getComingCandy } from './api/useGets/getComingCandy';
 
 const BackgroundContainer = styled.div`
   position: fixed;
@@ -114,8 +116,7 @@ const userInfo = {
 
 export default function Home() {
   const user = useQuery(['login'], () => login('handycandy@gmail.com', 'handycandy1234!'));
-  const { error, data } = useQuery(['upcoming'], () => getUpcomingCards());
-
+  const { error, data } = useQuery(['upcoming'], getComingCandy);
   return (
     <>
       <BackgroundContainer>
@@ -131,21 +132,18 @@ export default function Home() {
               <CandyTitle>다가오는 캔디</CandyTitle>
               <CandyDesc>행복을 안겨줄 캔디들이 곧 도착해요</CandyDesc>
               <FlexContainer>
-                {data !== undefined ? (
-                  data.result.comming_candy.map((candy: any, idx: number) => {
-                    return (
-                      <ComingCandyCard
-                        key={idx}
-                        itemImage={candy.image}
-                        category={candy.category}
-                        name={candy.name}
-                        plannedDate={candy.plannedDate}
-                      />
-                    );
-                  })
-                ) : (
-                  <ComingCandyCard itemImage='' category='내 손안의 달콤한 보상' name='캔디를 추가해보세요' />
-                )}
+                {data?.comming_candy
+                  .slice(0, 4)
+                  .map(({ candy_id, candy_image_url, candy_name, category_image_url, category_name, d_day }) => (
+                    <ComingCandyCard
+                      key={candy_id}
+                      itemImage={candy_image_url}
+                      category={category_name}
+                      name={candy_name}
+                      category_img={category_image_url}
+                      plannedDate={new Date(dayjs().subtract(d_day, 'day').valueOf())}
+                    />
+                  ))}
               </FlexContainer>
             </ComingContainer>
             <FlexContainer>
