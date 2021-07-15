@@ -1,5 +1,5 @@
-import CompleteMain, { CompleteMainProps } from '../../components/complete/Main';
+import CompleteMain from '../../components/complete/Main';
 
-export default function CompletePage({ ...restProps }: CompleteMainProps) {
-  return <CompleteMain {...restProps} />;
+export default function CompletePage() {
+  return <CompleteMain />;
 }

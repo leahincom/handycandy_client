@@ -3,7 +3,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useQuery } from 'react-query';
-import { useRouter } from 'next/router';
 import { CurrentMonthAtom, RewardModalAtom } from '../../../states';
 import RewardModal from '../../reward/Modal';
 import CompleteContent from '../Content';
@@ -11,57 +10,6 @@ import { CompleteBackground } from '../../../../public/assets/images/';
 import { Bubble } from '../../../../public/assets/icons';
 import CompleteSlider from '../Slider';
 import { getCompletedCandy } from '../../../pages/api/useGets/getCompletedCandy';
-
-const candyArr = [
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-];
 
 const Container = styled.div`
   z-index: 1;
@@ -131,7 +79,6 @@ const SliderWrapper = styled.div`
 `;
 
 export default function CompleteMain() {
-  const router = useRouter();
   const [isOpenRewardModal] = useAtom(RewardModalAtom);
   const [curMonth] = useAtom(CurrentMonthAtom);
   const { isLoading, isError, data, error } = useQuery('complete', () => getCompletedCandy(curMonth));
