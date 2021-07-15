@@ -103,9 +103,6 @@ export interface ImageEditModalProps {
 export default function ImageEditModal({ candy = 'https://dummyimage.com/221x221/000/fff' }: ImageEditModalProps) {
   const [isOpen, setIsOpen] = useAtom(ImageEditModalAtom);
   const [isHover, setIsHover] = useState<boolean>(false);
-  const [image, setImage] = useState();
-
-  const handleImage = () => {};
 
   const handleClickToClose = () => {
     setIsOpen(false);

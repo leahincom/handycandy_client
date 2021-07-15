@@ -108,7 +108,7 @@ export default function CategoryDropdown({
     setIsOpen((prev) => !prev);
   };
 
-  const selectCategory = (idx: number) => (event: React.MouseEvent<EventTarget>) => {
+  const selectCategory = (idx: number) => () => {
     setCategoryId(idx);
     setCategoryName(categories[idx].name);
   };

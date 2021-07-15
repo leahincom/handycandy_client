@@ -40,31 +40,6 @@ const WaitingContainer = styled.div`
 const DdayHeader = styled.div`
   display: flex;
 `;
-const TopTitle = styled.div`
-  margin-bottom: 10px;
-  text-align: left;
-  line-height: 59px;
-  letter-spacing: -0.022em;
-  color: #000000;
-  font-family: var(--nanum);
-  font-size: 44px;
-  font-weight: 800;
-  font-style: normal;
-  //styleName: title;
-`;
-const TopSubTitle = styled.div`
-  margin-bottom: 130px;
-  margin-left: 241px;
-  text-align: left;
-  line-height: 28px;
-  letter-spacing: -0.022em;
-  color: #909090;
-  font-family: var(--roboto);
-  font-size: 24px;
-  font-weight: 400;
-  font-style: normal;
-  //styleName: main/titlemd;
-`;
 const Title = styled.div`
   margin-top: 52px;
 

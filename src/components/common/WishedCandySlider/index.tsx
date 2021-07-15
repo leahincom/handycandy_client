@@ -1,10 +1,8 @@
 import React from 'react';
 import Slider from 'react-slick';
 import styled from 'styled-components';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import CandyCard from '../CandyCard';
-import { SliderRightBtn } from '../../../../public/assets/icons';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { PlannedCandy } from '../../../pages/api/useGets/getComingCandy';

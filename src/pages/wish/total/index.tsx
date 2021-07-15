@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import React from 'react';
-import { useRouter } from 'next/router';
 import Navigation from '../../../components/common/Navigation';
 import CandyCard from '../../../components/common/CandyCard';
 import WishedCandySlider from '../../../components/common/WishedCandySlider';
@@ -110,17 +109,6 @@ export interface TotalCandyProps {
   waitingNum: number;
 }
 export default function TotalCandy({ ddayNum = 11, waitingNum = 11 }: TotalCandyProps) {
-  const date = new Date();
-  const router = useRouter();
-
-  const Candy = {
-    itemImage: 'https://dummyimage.com/254x278/000/fff',
-    category: '고생한 나 자신을 위한',
-    name: '모베러웍스 티셔츠',
-    createdDate: 15,
-    plannedDate: date,
-  };
-
   return (
     <NavigationLayout
       background={
