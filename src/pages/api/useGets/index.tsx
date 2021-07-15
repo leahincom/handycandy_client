@@ -12,12 +12,6 @@ export const getMatchingCards = async (filter: string, item: string) => {
   return cards.data;
 };
 
-export const getUpcomingCards = async () => {
-  const cards = await instance.get(`/api/candies/commingCandy`);
-  console.log(cards);
-  return cards.data;
-};
-
 export const getRecommendCards = async (user_id: number) => {
   const cards = await instance.get(`/api/candies/recommendCandy`, {
     headers: {
