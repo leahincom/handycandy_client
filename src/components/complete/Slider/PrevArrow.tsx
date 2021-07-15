@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import styled from 'styled-components';
-import { PrevArrow as PrevArrowIcon } from '../../../../public/assets/icons';
+import { PreviousArrow as PrevArrowIcon } from '../../../../public/assets/icons';
 
 const ImageWrapper = styled.span``;
 
