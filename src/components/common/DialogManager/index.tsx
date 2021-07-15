@@ -7,7 +7,7 @@ import AddCategory from './AddCategory';
 
 const ModalControl = styled.div`
   display: flex;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   align-items: center;
@@ -17,7 +17,7 @@ const ModalControl = styled.div`
 `;
 
 const Outside = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   background: var(--black);
