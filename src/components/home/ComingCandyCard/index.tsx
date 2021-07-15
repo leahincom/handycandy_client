@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import Image from 'next/image';
+import Link from 'next/link';
 import CandyIcon from '../../common/CandyIcon';
 import { ComingCandyNull } from '../../../../public/assets/images';
+import { getRoutesName } from '../../../utils/routes';
 import OptionBar from './OptionBar';
 
 const Container = styled.div`
@@ -14,6 +16,9 @@ const Container = styled.div`
   height: 285px;
   font-family: var(--roboto);
   filter: drop-shadow(0px 0px 14.3769px rgba(0, 0, 0, 0.09));
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Thumbnail = styled.div`
@@ -68,6 +73,7 @@ const Candy = styled.div`
 
 export interface ComingCandyCardProps {
   itemImage: string;
+  candy_id?: string;
   category: string;
   category_img: string;
   name: string;
@@ -80,20 +86,23 @@ export default function ComingCandyCard({
   name,
   plannedDate,
   category_img,
+  candy_id,
 }: ComingCandyCardProps) {
   return (
-    <Container>
-      <Thumbnail>
-        <Image src={{ default: ComingCandyNull, src: itemImage, height: 192, width: 188 }} alt='' />
-      </Thumbnail>
-      <OptionBar plannedDate={plannedDate} />
-      <Metadata>
-        <Category>{category}</Category>
-        <Name>{name}</Name>
-      </Metadata>
-      <Candy>
-        <CandyIcon name={category_img} />
-      </Candy>
-    </Container>
+    <Link href={getRoutesName.wish.detail(candy_id ?? '')} passHref>
+      <Container>
+        <Thumbnail>
+          <Image src={{ default: ComingCandyNull, src: itemImage, height: 192, width: 188 }} alt='' />
+        </Thumbnail>
+        <OptionBar plannedDate={plannedDate} />
+        <Metadata>
+          <Category>{category}</Category>
+          <Name>{name}</Name>
+        </Metadata>
+        <Candy>
+          <CandyIcon name={category_img} />
+        </Candy>
+      </Container>
+    </Link>
   );
 }

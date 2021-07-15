@@ -117,6 +117,7 @@ const userInfo = {
 export default function Home() {
   const user = useQuery(['login'], () => login('handycandy@gmail.com', 'handycandy1234!'));
   const { error, data } = useQuery(['upcoming'], getComingCandy);
+
   return (
     <>
       <BackgroundContainer>
@@ -137,6 +138,7 @@ export default function Home() {
                   .map(({ candy_id, candy_image_url, candy_name, category_image_url, category_name, d_day }) => (
                     <ComingCandyCard
                       key={candy_id}
+                      candy_id={candy_id}
                       itemImage={candy_image_url}
                       category={category_name}
                       name={candy_name}
@@ -150,7 +152,7 @@ export default function Home() {
               <RecommendContainer>
                 <CandyTitle>추천 캔디</CandyTitle>
                 <CandyDesc>핸디캔디 추천으로 새로운 행복을 더해보세요</CandyDesc>
-                {recommendCandies?.map((candy, idx) => {
+                {recommendCandies.slice(0, 3)?.map((candy, idx) => {
                   return (
                     <RecommendCandyCard key={idx} title={candy.title} content={candy.content} image={candy.image} />
                   );
