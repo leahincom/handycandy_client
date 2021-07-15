@@ -68,6 +68,16 @@ const Header = styled.div`
   }
 `;
 
+const TopHeaderWrapper = styled.div`
+  margin: auto;
+  max-width: 1440px;
+`;
+
+const NavTapWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 export default function CategoryCandy() {
   const router = useRouter();
   return (
@@ -77,8 +87,12 @@ export default function CategoryCandy() {
       }
     >
       <Container>
-        <TopHeader title='담은 캔디' subTitle='나만의 캔디들을 마음껏 담아보세요' />
-        <Navigation tab={1} />
+        <TopHeaderWrapper>
+          <TopHeader title='담은 캔디' subTitle='나만의 캔디들을 마음껏 담아보세요' />
+        </TopHeaderWrapper>
+        <NavTapWrapper>
+          <Navigation tab={1} />
+        </NavTapWrapper>
         <BodyContainer>
           <Header>
             <div className='empty'></div>

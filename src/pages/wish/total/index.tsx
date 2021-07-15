@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import Navigation from '../../../components/common/Navigation';
 import CandyCard from '../../../components/common/CandyCard';
 import WishedCandySlider from '../../../components/common/WishedCandySlider';
-import Footer from '../../../components/common/Footer';
 import NavigationLayout from '../../../components/layout/NavigationLayout';
 import TopHeader from '../../../components/common/TopHeader';
 const Container = styled.div`
@@ -26,7 +25,7 @@ const DdayContainer = styled.div`
   margin-top: 25px;
   margin-bottom: 30px;
   background: rgba(231, 231, 231, 0.2);
-  /* width: 1920px; */
+  width: 100%;
   height: 620px;
 `;
 const WaitingContainer = styled.div`
@@ -70,6 +69,17 @@ const SubTitle = styled.div`
   font-style: normal;
   //styleName: main/barsub;
 `;
+
+const TopHeaderWrapper = styled.div`
+  margin: auto;
+  max-width: 1440px;
+`;
+
+const NavTapWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const Num = styled.div`
   display: flex;
   align-items: center;
@@ -118,8 +128,12 @@ export default function TotalCandy({ ddayNum = 11, waitingNum = 11 }: TotalCandy
       }
     >
       <Container>
-        <TopHeader title='담은 캔디' subTitle='앞으로 만들어갈 나만의 보상들을 원하는대로 만들어보세요!' />
-        <Navigation tab={0} />
+        <TopHeaderWrapper>
+          <TopHeader title='담은 캔디' subTitle='앞으로 만들어갈 나만의 보상들을 원하는대로 만들어보세요!' />
+        </TopHeaderWrapper>
+        <NavTapWrapper>
+          <Navigation tab={0} />
+        </NavTapWrapper>
         <BodyContainer>
           <DdayContainer>
             <DdayHeader>
