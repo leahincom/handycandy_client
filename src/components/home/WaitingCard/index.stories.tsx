@@ -20,6 +20,7 @@ export const OverflowTest = () => {
       <h3>11자를 넘으면 안됨</h3>
       <WaitingCard
         {...{
+          id: '1',
           thumbnail: 'https://dummyimage.com/364x278/000/fff',
           candy: 'https://dummyimage.com/70x70/000/fff',
           date: 10,
