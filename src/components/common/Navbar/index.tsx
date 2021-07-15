@@ -26,16 +26,18 @@ const Wrapper = styled.div`
 
 const Menus = styled.div`
   display: flex;
-  flex: 2.4;
   align-items: center;
   justify-content: space-between;
 `;
 
-const LogoLink = styled.a``;
+const LogoLink = styled.a`
+  margin-right: 30px;
+`;
 
 const Menu = styled.a<{ active?: boolean }>`
   opacity: ${({ active = false }) => (active ? 1 : 0.2)};
   opacity: 0.2;
+  margin-right: 30px;
   cursor: pointer;
   line-height: 32px;
   color: var(--black);
@@ -51,14 +53,13 @@ const Menu = styled.a<{ active?: boolean }>`
 
 const SearchArea = styled.div`
   display: flex;
-  flex: 2.7;
   justify-content: flex-end;
   margin-right: 54px;
+  margin-left: 40px;
 `;
 
 const Buttons = styled.div`
   display: flex;
-  flex: 1.3;
   align-items: center;
   justify-content: space-between;
 `;
