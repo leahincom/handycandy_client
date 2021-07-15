@@ -1,22 +1,22 @@
 import styled from 'styled-components';
 import Image from 'next/image';
-import { CardMore } from '../../../../public/assets/icons';
+import { Dday } from '../../../../public/assets/icons';
 
-const OptionBarWrapper = styled.div`
+const OptionBarWrapper = styled.div<OptionBarProps>`
   box-sizing: border-box;
   display: flex;
   position: absolute;
   top: 0;
-  left: 0;
+  left: ${(props) => (props.d_day === 0 ? '-5px' : '16px')};
   align-items: center;
   justify-content: flex-start;
   z-index: 100;
   background-color: transparent;
-  padding: 17px 16px;
+  padding-top: 17px;
   width: 100%;
 `;
 
-const Dday = styled.div`
+const DdayBar = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,19 +36,13 @@ const Dday = styled.div`
 `;
 
 interface OptionBarProps {
-  plannedDate?: Date;
+  d_day?: number;
 }
 
-export default function OptionBar({ plannedDate }: OptionBarProps) {
-  const now: Date = new Date();
-  let remainingDate: number = -1;
-
-  if (plannedDate) {
-    // 남은 일자 다시 계산
-    remainingDate = Math.floor((now.getTime() - plannedDate.getTime()) * 1.15741e-8);
-  }
-
-  const handleClick = () => {};
-
-  return <OptionBarWrapper>{remainingDate > -1 ? <Dday>D-{remainingDate}</Dday> : ''}</OptionBarWrapper>;
+export default function OptionBar({ d_day }: OptionBarProps) {
+  return (
+    <OptionBarWrapper d_day={d_day}>
+      {d_day === null ? '' : d_day === 0 ? <Image src={Dday} alt='' /> : <DdayBar>D-{d_day}</DdayBar>}
+    </OptionBarWrapper>
+  );
 }

@@ -143,16 +143,14 @@ export default function TotalCandy({ ddayNum = 11, waitingNum = 11 }: TotalCandy
             <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>
             <CandyContainer>
               <CandyCard
-                candy={{
-                  candy_id: '1',
-                  candy_image_url: '',
-                  candy_name: '',
-                  category_image_url: '',
-                  category_name: '',
-                  d_day: 1,
-                  date: 0,
-                  month: 0,
-                }}
+                candy_id='1'
+                candy_image_url=''
+                candy_name=''
+                category_image_url=''
+                category_name=''
+                d_day={1}
+                day={0}
+                month={0}
               />
             </CandyContainer>
           </WaitingContainer>

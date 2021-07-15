@@ -1,11 +1,10 @@
 import React from 'react';
 import Slider from 'react-slick';
 import styled from 'styled-components';
-import { useRouter } from 'next/router';
 import CandyCard from '../CandyCard';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { PlannedCandy } from '../../../pages/api/useGets/getComingCandy';
+import { Coming } from '../../../pages/api/useGets/getMatchedCandy';
 
 const Container = styled.div`
   /* width: 1450px; */
@@ -64,30 +63,41 @@ export default function WishedCandySlider() {
     infinite: true,
     slidesToShow: 5,
     slidesToScroll: 1,
-
     className: 'react__slick__slider__parent',
-  };
-  const router = useRouter();
-
-  const candy: PlannedCandy = {
-    candy_image_url: 'https://dummyimage.com/254x278/000/fff',
-    candy_id: '1',
-    candy_name: '모베리웍스 티셔츠',
-    category_image_url: 'Donut',
-    category_name: '고생한 나 자신을 위한',
-    d_day: 1,
-    date: 2,
-    month: 3,
   };
 
   return (
     <Container>
       <Slider {...settings}>
-        <CandyCard onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })} candy={candy} />
-        <CandyCard onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })} candy={candy} />
-        <CandyCard onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })} candy={candy} />
-        <CandyCard onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })} candy={candy} />
-        <CandyCard onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })} candy={candy} />
+        <CandyCard
+          candy_id='1'
+          candy_image_url=''
+          candy_name=''
+          category_image_url=''
+          category_name=''
+          d_day={0}
+          waiting_date={31}
+        />
+        <CandyCard
+          candy_id='1'
+          candy_image_url=''
+          candy_name=''
+          category_image_url=''
+          category_name=''
+          d_day={1}
+          day={0}
+          waiting_date={31}
+        />
+        <CandyCard
+          candy_id='1'
+          candy_image_url=''
+          candy_name=''
+          category_image_url=''
+          category_name=''
+          d_day={1}
+          day={0}
+          waiting_date={31}
+        />
       </Slider>
     </Container>
   );
