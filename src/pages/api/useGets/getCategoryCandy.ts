@@ -11,11 +11,7 @@ export interface CategoryCandy {
   image_url_three: string;
 }
 
-export const getCategoryCandy = async (id: string) => {
-  const candy = await instance.get(`/api/candies/category/`, {
-    data: {
-      category_id: id,
-    },
-  });
+export const getCategoryCandy = async () => {
+  const candy = await instance.get(`/api/category/`);
   return candy.data.result as CategoryCandy[];
 };

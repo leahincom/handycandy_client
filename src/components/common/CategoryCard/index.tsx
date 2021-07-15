@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Image from 'next/image';
-import CandyIcon from '../CandyIcon';
 
 const Container = styled.div`
   display: flex;
@@ -20,11 +19,12 @@ const CardContainer = styled.div`
   height: 255px;
   font-family: var(--roboto);
   :hover {
-    opacity: 0.1;
+    opacity: 0.7;
   }
 `;
 const Card = styled.div`
   display: flex;
+  position: relative;
   width: 336px;
   height: 255px;
 `;
@@ -32,10 +32,16 @@ const CardRow = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const Candy = styled.div`
+const CandyImgDiv = styled.div`
+  position: absolute;
+  top: -10px;
+  left: -10px;
+`;
+const Candy = styled(Image)`
   position: absolute;
   width: 72px;
   height: 72px;
+  object-fit: contain;
 `;
 const ThreeButton = styled(Image)`
   position: absolute;
@@ -85,11 +91,10 @@ const Date = styled.span`
 
 export interface CategoryCardProps {
   onClick: any;
-  candyImg?: string;
-  category_image_url?: string;
+  candyImg: string;
   category: string;
   candynum: number;
-  date: string;
+  date: number;
   firstImg: string;
   secondImg: string;
   thirdImg: string;
@@ -105,13 +110,14 @@ export default function CategoryCard({
   secondImg,
   thirdImg,
 }: CategoryCardProps) {
+  const candysrc = `/assets/candy/${candyImg}.svg`;
   return (
     <Container onClick={onClick}>
       <CardContainer>
         <Card>
-          <Candy>
-            <CandyIcon name={candyImg} />
-          </Candy>
+          <CandyImgDiv>
+            <Candy src={candysrc} alt='' width='52px' height='52px' objectFit='contain' />
+          </CandyImgDiv>
           <ThreeButton src='/assets/icons/ThreeButton.svg' alt='' width='15px' height='15px' objectFit='contain' />
           <CardRow>
             <FirstImg src={firstImg} />
