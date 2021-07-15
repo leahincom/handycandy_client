@@ -3,10 +3,10 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-import { AddIcon, WishedBackground } from '../../../../public/assets/icons';
+import { AddIcon } from '../../../../public/assets/icons';
 
 import Navigation from '../../../components/common/Navigation';
-import CategoryCard, { CategoryCardProps } from '../../../components/common/CategoryCard';
+import CategoryCard from '../../../components/common/CategoryCard';
 import Navbar from '../../../components/common/Navbar';
 import Footer from '../../../components/common/Footer';
 const Container = styled.div`
