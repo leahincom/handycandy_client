@@ -7,16 +7,13 @@ import DialogManager from '../components/common/DialogManager';
 import RecommendCandyCard from '../components/home/RecommendCandyCard';
 import WaitingCardSlider from '../components/home/WaitingCardSlider';
 import ComingCandyCard from '../components/home/ComingCandyCard';
-import Navbar from '../components/common/Navbar';
+import NavigationLayout from '../components/layout/NavigationLayout';
 import { login } from './api';
 import { CommingCandy, getComingCandy } from './api/useGets/getComingCandy';
 import { getRecommendCandy, RecommendCandy } from './api/useGets/getRecommendCandy';
 import { getWaitingCandy, WaitingCandy } from './api/useGets/getWatingCandy';
 
 const BackgroundContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
   background-image: url('/assets/images/MainBackground.png');
   width: 100%;
   height: 100%;
@@ -146,9 +143,8 @@ export default function Home() {
     return <div></div>;
   }
   return (
-    <>
+    <NavigationLayout>
       <BackgroundContainer>
-        <Navbar />
         <Container>
           <TitleContainer>
             두 병 채운 {userInfo.nickname}님, <br />
@@ -208,6 +204,6 @@ export default function Home() {
         </Container>
       </BackgroundContainer>
       <DialogManager />
-    </>
+    </NavigationLayout>
   );
 }
