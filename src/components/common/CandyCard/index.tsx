@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { MouseEventHandler } from 'react';
 import Image from 'next/dist/client/image';
-import { Donut } from '../../../../public/assets/candy';
 import { ComingCandyNull } from '../../../../public/assets/images';
+import CandyIcon from '../CandyIcon';
+import { PlannedCandy } from '../../../pages/api/useGets/getComingCandy';
 import OptionBar from './OptionBar';
 
 const Container = styled.div`
@@ -72,31 +73,24 @@ const Candy = styled.div`
 
 export interface CandyCardProps {
   onClick?: MouseEventHandler<HTMLDivElement>;
-  candy: any;
+  candy: PlannedCandy;
 }
 
 export default function CandyCard({ candy, onClick }: CandyCardProps) {
-  const { candy_image_url, category_name, candy_name, waiting_date } = candy;
-
+  const { candy_image_url, category_name, candy_name, date, category_image_url } = candy;
   return (
     <Container onClick={onClick}>
       <Thumbnail>
-        <Image
-          src={{ default: ComingCandyNull, src: candy_image_url }}
-          alt=''
-          // width='100%'
-          // height='100%'
-          layout='fill'
-        />
+        <Image src={{ src: candy_image_url, default: ComingCandyNull }} alt='' layout='fill' />
       </Thumbnail>
       <OptionBar plannedDate={undefined} />
       <Metadata>
         <Category>{category_name}</Category>
         <Name>{candy_name}</Name>
-        <Date>{`담은지 ${waiting_date}일 되었어요.`}</Date>
+        <Date>{`담은지 ${date}일 되었어요.`}</Date>
       </Metadata>
       <Candy>
-        <Image src={Donut} alt='' />
+        <CandyIcon name={category_image_url} />
       </Candy>
     </Container>
   );

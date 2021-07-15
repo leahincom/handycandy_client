@@ -11,49 +11,41 @@ import CompleteSlider, { bottleList } from '../Slider';
 
 const candyArr = [
   {
-    candy: 'https://dummyimage.com/80x80/000/fff',
     category: '일이삼사오육칠팔구십일이',
     title: '일이삼사오육칠팔구십일이',
     date: new Date(),
   },
   {
-    candy: 'https://dummyimage.com/80x80/000/fff',
     category: '일이삼사오육칠팔구십일이',
     title: '일이삼사오육칠팔구십일이',
     date: new Date(),
   },
   {
-    candy: 'https://dummyimage.com/80x80/000/fff',
     category: '일이삼사오육칠팔구십일이',
     title: '일이삼사오육칠팔구십일이',
     date: new Date(),
   },
   {
-    candy: 'https://dummyimage.com/80x80/000/fff',
     category: '일이삼사오육칠팔구십일이',
     title: '일이삼사오육칠팔구십일이',
     date: new Date(),
   },
   {
-    candy: 'https://dummyimage.com/80x80/000/fff',
     category: '일이삼사오육칠팔구십일이',
     title: '일이삼사오육칠팔구십일이',
     date: new Date(),
   },
   {
-    candy: 'https://dummyimage.com/80x80/000/fff',
     category: '일이삼사오육칠팔구십일이',
     title: '일이삼사오육칠팔구십일이',
     date: new Date(),
   },
   {
-    candy: 'https://dummyimage.com/80x80/000/fff',
     category: '일이삼사오육칠팔구십일이',
     title: '일이삼사오육칠팔구십일이',
     date: new Date(),
   },
   {
-    candy: 'https://dummyimage.com/80x80/000/fff',
     category: '일이삼사오육칠팔구십일이',
     title: '일이삼사오육칠팔구십일이',
     date: new Date(),

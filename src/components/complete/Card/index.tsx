@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
-import { Donut } from '../../../../public/assets/candy';
 import { ComingCandyNull } from '../../../../public/assets/images';
+import CandyIcon from '../../common/CandyIcon';
 
 const Container = styled.div`
   position: relative;
@@ -67,13 +67,14 @@ const Date = styled.div`
 `;
 
 export interface CompleteCardProps {
-  candy: string;
+  candy?: string;
   category: string;
   title: string;
   date: Date;
+  category_img?: string;
 }
 
-export default function CompleteCard({ candy, category, title, date }: CompleteCardProps) {
+export default function CompleteCard({ candy, category, title, date, category_img }: CompleteCardProps) {
   const getDateFormat = (date: Date) => {
     if (typeof date === 'number') {
       return date;
@@ -88,7 +89,7 @@ export default function CompleteCard({ candy, category, title, date }: CompleteC
       </CandyImage>
       <CandyEmoticonWrapper>
         <CandyEmoticon>
-          <Image src={Donut} alt='' />
+          <CandyIcon name={category_img} />
         </CandyEmoticon>
       </CandyEmoticonWrapper>
       <Category>{category}</Category>

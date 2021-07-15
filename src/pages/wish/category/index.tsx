@@ -101,7 +101,6 @@ export default function CategoryCandy() {
 
           <CandyContainer>
             <CategoryCard
-              candyImg='https://dummyimage.com/72x72/000/fff'
               category='고생한 나를 위한 캔디'
               candynum={20}
               date='3'
@@ -111,7 +110,6 @@ export default function CategoryCandy() {
               onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
             />
             <CategoryCard
-              candyImg='https://dummyimage.com/72x72/000/fff'
               category='고생한 나를 위한 캔디'
               candynum={20}
               date='3'
@@ -121,7 +119,6 @@ export default function CategoryCandy() {
               onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
             />
             <CategoryCard
-              candyImg='https://dummyimage.com/72x72/000/fff'
               category='고생한 나를 위한 캔디'
               candynum={20}
               date='3'
@@ -131,7 +128,6 @@ export default function CategoryCandy() {
               onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
             />
             <CategoryCard
-              candyImg='https://dummyimage.com/72x72/000/fff'
               category='고생한 나를 위한 캔디'
               candynum={20}
               date='3'
