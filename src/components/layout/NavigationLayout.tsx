@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Navbar from '../common/Navbar';
 
 const PageContent = styled.div`
-  margin-top: 106px;
+  position: relative;
 `;
 
 export interface NavigationLayoutProps {
