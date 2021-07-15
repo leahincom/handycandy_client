@@ -35,8 +35,6 @@ const Dialog = styled.div`
   box-sizing: border-box;
   display: flex;
   position: absolute;
-  top: 0;
-  left: 0;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
@@ -179,7 +177,7 @@ export default function AddCategory() {
     setCategory(e.target.value);
   };
 
-  const handleCandyClick = (id: number) => (e: React.MouseEvent<EventTarget>) => {
+  const handleCandyClick = (id: number) => () => {
     id === selectedCandy ? setSelectedCandy(-1) : setSelectedCandy(id);
   };
 
