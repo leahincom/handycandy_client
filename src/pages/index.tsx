@@ -12,6 +12,7 @@ import { login } from './api';
 import { PlannedCandy, getComingCandy } from './api/useGets/getComingCandy';
 import { getRecommendCandy, RecommendCandy } from './api/useGets/getRecommendCandy';
 import { getWaitingCandy, WaitingCandy } from './api/useGets/getWaitingCandy';
+import { getUserInfo } from './api/useGets/getUserInfo';
 
 const Container = styled.div`
   display: flex;
@@ -102,6 +103,10 @@ const DynamicCandyBottle = dynamic(() => import('../components/home/CandyBottle'
 
 export default function Home() {
   const { isSuccess } = useQuery('login', () => login(user_id, password));
+
+  const { data: userInfo } = useQuery(['userInfo'], getUserInfo, {
+    enabled: isSuccess,
+  });
   const { data: recommendCandyList } = useQuery(['getRecommendCandy', user_id], () => getRecommendCandy(user_id), {
     enabled: isSuccess,
   });
@@ -122,9 +127,11 @@ export default function Home() {
       {isLoad && (
         <Container>
           <TitleContainer>
-            두 병 채운 {userInfo.nickname}님, <br />
-            {userInfo.candyPhrase}
-            <p>📢 {userInfo.phrase} </p>
+            {userInfo?.month}월의 {userInfo?.user_nickname}님, <br />
+            {userInfo?.candy_count_phrase} {userInfo?.phrase}
+            <p>
+              📢 {userInfo?.month}월 {userInfo?.date}일 {userInfo?.banner}{' '}
+            </p>
             {candyInBottle && <DynamicCandyBottle candyList={candyInBottle} />}
           </TitleContainer>
           <div>
