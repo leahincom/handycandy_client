@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Logo, Profile, Ring } from '../../../../public/assets/icons';
 import SearchBar from '../SearchBar';
 import NoticeModal from '../NoticeModal';
+import { getRoutesName } from '../../../utils/routes';
 
 const Container = styled.div`
   display: flex;
@@ -22,7 +25,10 @@ const Menus = styled.div`
   justify-content: space-between;
 `;
 
-const Menu = styled.div`
+const LogoLink = styled.a``;
+
+const Menu = styled.a<{ active?: boolean }>`
+  opacity: ${({ active }) => (active ? 1 : 0.2)};
   opacity: 0.2;
   cursor: pointer;
   line-height: 32px;
@@ -32,10 +38,6 @@ const Menu = styled.div`
   font-size: 28px;
   font-weight: bold;
   font-weight: 800;
-
-  &.active {
-    opacity: 1;
-  }
 `;
 
 const SearchArea = styled.div`
@@ -79,16 +81,20 @@ const AddCandyButton = styled.button`
   font-weight: bold;
 `;
 
+interface NavMenu {
+  name: string;
+  href: string;
+}
+
+const menus: NavMenu[] = [
+  { name: '캔디 홈', href: getRoutesName.home },
+  { name: '담은 캔디', href: getRoutesName.wish.total },
+  { name: '완료한 캔디', href: getRoutesName.complete },
+];
+
 export default function Navbar() {
+  const { asPath } = useRouter();
   const [isNoticeOpen, setIsNoticeOpen] = React.useState(false);
-  const [menuState, setMenuState] = React.useState({
-    activeMenu: 0,
-    menus: [
-      { id: 0, name: '캔디 홈' },
-      { id: 1, name: '담은 캔디' },
-      { id: 2, name: '완료한 캔디' },
-    ],
-  });
 
   const openNotice = () => {
     setIsNoticeOpen((prev) => !prev);
@@ -123,15 +129,15 @@ export default function Navbar() {
   return (
     <Container>
       <Menus>
-        <Image src={Logo} alt='' />
-        {menuState.menus.map((menu) => (
-          <Menu
-            key={menu.id}
-            onClick={() => setMenuState({ ...menuState, activeMenu: menu.id })}
-            className={menu.id === menuState.activeMenu ? 'active' : ''}
-          >
-            {menu.name}
-          </Menu>
+        <Link href={getRoutesName.home} passHref>
+          <LogoLink>
+            <Image src={Logo} alt='handycandy' />
+          </LogoLink>
+        </Link>
+        {menus.map(({ href, name }) => (
+          <Link key={name} href={href} passHref>
+            <Menu active={asPath === href}>{name}</Menu>
+          </Link>
         ))}
       </Menus>
       <SearchArea>

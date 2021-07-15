@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import Image from 'next/image';
-import { Donut } from '../../../../public/assets/candy';
+import Link from 'next/link';
+import CandyIcon from '../../common/CandyIcon';
 import { ComingCandyNull } from '../../../../public/assets/images';
-
+import { getRoutesName } from '../../../utils/routes';
 import OptionBar from './OptionBar';
 
 const Container = styled.div`
@@ -15,6 +16,9 @@ const Container = styled.div`
   height: 285px;
   font-family: var(--roboto);
   filter: drop-shadow(0px 0px 14.3769px rgba(0, 0, 0, 0.09));
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Thumbnail = styled.div`
@@ -69,31 +73,36 @@ const Candy = styled.div`
 
 export interface ComingCandyCardProps {
   itemImage: string;
+  candy_id?: string;
   category: string;
+  category_img: string;
   name: string;
   plannedDate?: Date;
 }
 
-export default function ComingCandyCard({ itemImage, category, name, plannedDate }: ComingCandyCardProps) {
+export default function ComingCandyCard({
+  itemImage,
+  category,
+  name,
+  plannedDate,
+  category_img,
+  candy_id,
+}: ComingCandyCardProps) {
   return (
-    <Container>
-      <Thumbnail>
-        {!itemImage ? (
-          <Image src={ComingCandyNull} alt='' width='188px' height='192px' />
-        ) : (
-          <Image src={itemImage} alt='' width='188px' height='192px' />
-        )}
-      </Thumbnail>
-      <OptionBar plannedDate={plannedDate} />
-      <Metadata>
-        <Category>{category}</Category>
-        <Name>{name}</Name>
-      </Metadata>
-      {itemImage === '' ? null : (
+    <Link href={getRoutesName.wish.detail(candy_id ?? '')} passHref>
+      <Container>
+        <Thumbnail>
+          <Image src={{ default: ComingCandyNull, src: itemImage, height: 192, width: 188 }} alt='' />
+        </Thumbnail>
+        <OptionBar plannedDate={plannedDate} />
+        <Metadata>
+          <Category>{category}</Category>
+          <Name>{name}</Name>
+        </Metadata>
         <Candy>
-          <Image src={Donut} alt='' />
+          <CandyIcon name={category_img} />
         </Candy>
-      )}
-    </Container>
+      </Container>
+    </Link>
   );
 }

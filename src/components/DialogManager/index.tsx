@@ -13,9 +13,12 @@ const Outside = styled.div`
 `;
 
 const ModalControl = styled.div`
+  display: flex;
   position: absolute;
   top: 0;
   left: 0;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
 `;

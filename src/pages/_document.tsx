@@ -1,6 +1,6 @@
 import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-
+import Script from 'next/script';
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet();
@@ -37,6 +37,7 @@ export default class MyDocument extends Document {
             type='text/css'
             href='https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css'
           />
+          <Script src='https://cdn.jsdelivr.net/npm/pathseg@1.2.0/pathseg.min.js' />
           {this.props.styles}
         </Head>
         <body>

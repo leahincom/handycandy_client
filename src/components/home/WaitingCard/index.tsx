@@ -1,11 +1,16 @@
-import Image from 'next/image';
+import Link from 'next/link';
 import styled from 'styled-components';
+import { getRoutesName } from '../../../utils/routes';
+import CandyIcon from '../../common/CandyIcon';
 
 const Container = styled.div`
   position: relative;
   border-radius: 16px;
   width: 364px;
   height: 278px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -24,14 +29,16 @@ const Wrapper = styled.div`
   color: #ffffff;
 `;
 
-const BackgroundThumbnail = styled(Image)`
+const BackgroundThumbnail = styled.img`
   position: absolute;
   top: 0;
   left: 0;
   border-radius: 16px;
+  object-fit: cover;
+  object-position: center;
 `;
 
-const Candy = styled(Image)`
+const CandyWrapper = styled.div`
   position: absolute;
   top: 16px;
   right: 16px;
@@ -69,24 +76,29 @@ const Decs = styled.div`
   font-size: 24px;
 `;
 export interface WaitingCardProps {
+  id: string;
   thumbnail: string;
   candy: any;
   date: number;
   title: string;
 }
 
-export default function WaitingCard({ candy, title, date, thumbnail }: WaitingCardProps) {
+export default function WaitingCard({ candy, title, date, thumbnail, id }: WaitingCardProps) {
   return (
-    <Container>
-      <BackgroundThumbnail src={thumbnail} layout='fill' objectFit='cover' objectPosition='center' />
-      <Wrapper>
-        <Candy src={candy} width='70px' height='70px' />
-        <Title>
-          <UnderLinedTitle>{title}</UnderLinedTitle>이
-        </Title>
-        <Date>{date}일째</Date>
-        <Decs>캔디함에서 기다리고 있습니다.</Decs>
-      </Wrapper>
-    </Container>
+    <Link href={getRoutesName.wish.detail(id)} passHref>
+      <Container>
+        <BackgroundThumbnail src={thumbnail} />
+        <Wrapper>
+          <CandyWrapper>
+            <CandyIcon name={candy} />
+          </CandyWrapper>
+          <Title>
+            <UnderLinedTitle>{title}</UnderLinedTitle>이
+          </Title>
+          <Date>{date}일째</Date>
+          <Decs>캔디함에서 기다리고 있습니다.</Decs>
+        </Wrapper>
+      </Container>
+    </Link>
   );
 }

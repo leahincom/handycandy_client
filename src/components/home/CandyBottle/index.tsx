@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Bodies, Composite, Engine, Render, Runner } from 'matter-js';
-import { random } from 'lodash-es';
 import {
   Ball3d,
   Clover3d,
@@ -14,7 +13,7 @@ import {
   WaterDrop3d,
   X3d,
 } from '../../../../public/assets/candy3d';
-import 'pathseg';
+import random from '../../../utils/random';
 
 const WIDTH = 475;
 const HEIGHT = 650;
@@ -32,18 +31,7 @@ const bottomBorder = Bodies.rectangle(WIDTH / 2, HEIGHT, WIDTH, BAR_MASS, {
   isStatic: true,
   render: { fillStyle: 'rgba(255,255,255,0)' },
 });
-const candyMap: Record<string, string> = {
-  Ball: String(Ball3d),
-  Clover: String(Clover3d),
-  Donut: String(Donut3d),
-  Double: String(Double3d),
-  Flower: String(Flower3d),
-  Fork: String(Fork3d),
-  Leaf: String(Leaf3d),
-  Magnet: String(Magnet3d),
-  WaterDrop: String(WaterDrop3d),
-  X: String(X3d),
-};
+
 const Container = styled.div`
   position: relative;
   width: 475px;
@@ -84,6 +72,18 @@ const BottleBody = styled.div`
   backdrop-filter: blur(3px);
 `;
 
+const candyMap: Record<string, string> = {
+  Ball: Ball3d.src,
+  Clover: Clover3d.src,
+  Donut: Donut3d.src,
+  Double: Double3d.src,
+  Flower: Flower3d.src,
+  Fork: Fork3d.src,
+  Leaf: Leaf3d.src,
+  Magnet: Magnet3d.src,
+  WaterDrop: WaterDrop3d.src,
+  X: X3d.src,
+};
 export interface CandyBottleProps {
   candyList: string[];
 }
@@ -91,10 +91,28 @@ export interface CandyBottleProps {
 export default function CandyBottle({ candyList }: CandyBottleProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [loadingImage, setLoadingImage] = useState(true);
   useEffect(() => {
-    if (!containerRef.current || !canvasRef.current) {
+    if (typeof window === 'undefined') {
       return;
     }
+    let loadingCount = 0;
+    Object.values(candyMap).forEach((value) => {
+      const img = new Image();
+      img.src = value;
+      img.onload = () => {
+        loadingCount = loadingCount + 1;
+        if (loadingCount >= 10) {
+          setLoadingImage(false);
+        }
+      };
+    });
+  }, []);
+  useEffect(() => {
+    if (!containerRef.current || !canvasRef.current || typeof window === 'undefined' || loadingImage) {
+      return;
+    }
+
     const engine = Engine.create({});
     const render = Render.create({
       element: containerRef.current,
@@ -109,13 +127,13 @@ export default function CandyBottle({ candyList }: CandyBottleProps) {
       },
     });
     const world = engine.world;
-    const candy_render_list = candyList.map((value) => candyMap[value]);
+    const candy_render_list = candyList.filter((value) => value).map((value) => candyMap[value]);
     const candy_object_list = candy_render_list.map((value) =>
       Bodies.circle(random(-60, 60) + WIDTH / 2, -100 + random(-50, 50), 55, {
         density: 0.0005,
         frictionAir: 0.02,
         render: {
-          sprite: { texture: String(value), xScale: 0.3, yScale: 0.3 },
+          sprite: { texture: value, xScale: 0.3, yScale: 0.3 },
         },
       }),
     );
@@ -123,7 +141,7 @@ export default function CandyBottle({ candyList }: CandyBottleProps) {
     Composite.add(world, candy_object_list as any);
     Render.run(render);
     Runner.run(engine);
-  }, [candyList]);
+  }, [candyList, loadingImage]);
   return (
     <Container ref={containerRef}>
       <canvas ref={canvasRef}></canvas>
