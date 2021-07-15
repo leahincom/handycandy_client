@@ -22,8 +22,8 @@ export default function Search() {
     <NavigationLayout>
       <Banner searchValue={searchValue} />
       <ListBody>
-        <CandyList type='담은 캔디' />
-        <CandyList type='완료한 캔디' />
+        <CandyList type='담은 캔디' searchValue={searchValue} />
+        <CandyList type='완료한 캔디' searchValue={searchValue} />
       </ListBody>
       <DialogManager />
     </NavigationLayout>

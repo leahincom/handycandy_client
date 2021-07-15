@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
 import { Donut } from '../../../../public/assets/candy';
+import { ComingCandyNull } from '../../../../public/assets/images';
 
 const Container = styled.div`
   position: relative;
@@ -17,12 +18,16 @@ const CandyEmoticonWrapper = styled.div`
   position: absolute;
   top: -27.06px;
   right: 19.71px;
+  width: 80px;
+  height: 80px;
 `;
 
-const CandyEmoticon = styled(Image)``;
+const CandyEmoticon = styled.div``;
 
-const CandyImage = styled(Image)`
+const CandyImage = styled.div`
   border-radius: 80px;
+  width: 80px;
+  height: 80px;
 `;
 
 const Category = styled.div`
@@ -75,13 +80,17 @@ export default function CompleteCard({ candy, category, title, date }: CompleteC
 
   return (
     <Container>
-      <CandyImage src={candy} width='80px' height='80px' />
+      <CandyImage>
+        <Image src={{ default: ComingCandyNull, src: candy }} alt='' />
+      </CandyImage>
       <CandyEmoticonWrapper>
-        <CandyEmoticon src={Donut} width='80px' height='80px' />
+        <CandyEmoticon>
+          <Image src={Donut} alt='' />
+        </CandyEmoticon>
       </CandyEmoticonWrapper>
       <Category>{category}</Category>
       <Title>{title}</Title>
-      <Date>{getDateFormat(date)}</Date>
+      <Date>{date}</Date>
     </Container>
   );
 }
