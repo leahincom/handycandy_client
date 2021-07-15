@@ -34,7 +34,7 @@ const Menus = styled.div`
 const LogoLink = styled.a``;
 
 const Menu = styled.a<{ active?: boolean }>`
-  opacity: ${({ active }) => (active ? 1 : 0.2)};
+  opacity: ${({ active = false }) => (active ? 1 : 0.2)};
   opacity: 0.2;
   cursor: pointer;
   line-height: 32px;
@@ -44,6 +44,9 @@ const Menu = styled.a<{ active?: boolean }>`
   font-size: 28px;
   font-weight: bold;
   font-weight: 800;
+  &[data-active] {
+    opacity: 1;
+  }
 `;
 
 const SearchArea = styled.div`
@@ -90,19 +93,24 @@ const AddCandyButton = styled.button`
 interface NavMenu {
   name: string;
   href: string;
+  path: string[];
 }
 
 const menus: NavMenu[] = [
-  { name: '캔디 홈', href: getRoutesName.home },
-  { name: '담은 캔디', href: getRoutesName.wish.total },
-  { name: '완료한 캔디', href: getRoutesName.complete },
+  { name: '캔디 홈', href: getRoutesName.home, path: ['/', ''] },
+  {
+    name: '담은 캔디',
+    href: getRoutesName.wish.total,
+    path: ['/wish', '/wish/total', '/wish/detail/[cid]', '/wish/category/[slug]', '/wish/category'],
+  },
+  { name: '완료한 캔디', href: getRoutesName.complete, path: ['/complete', '/complete/[id]'] },
 ];
 
 export default function Navbar() {
-  const { asPath } = useRouter();
+  const { pathname } = useRouter();
   const [isNoticeOpen, setIsNoticeOpen] = React.useState(false);
 
-  const [openModal, setOpenModal] = useAtom(openCandyModal);
+  const [, setOpenModal] = useAtom(openCandyModal);
 
   const openNotice = () => {
     setIsNoticeOpen((prev) => !prev);
@@ -147,11 +155,16 @@ export default function Navbar() {
               <Image src={Logo} alt='handycandy' />
             </LogoLink>
           </Link>
-          {menus.map(({ href, name }) => (
-            <Link key={name} href={href} passHref>
-              <Menu active={asPath === href}>{name}</Menu>
-            </Link>
-          ))}
+          {menus.map(({ href, name, path }) => {
+            const active = path.some((p) => p === pathname);
+            return (
+              <Link key={name} href={href} passHref>
+                <Menu active={active} data-active={active ? '' : undefined}>
+                  {name}
+                </Menu>
+              </Link>
+            );
+          })}
         </Menus>
         <SearchArea>
           <SearchBar />
