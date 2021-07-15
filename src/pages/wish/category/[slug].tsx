@@ -3,21 +3,17 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import CandyCard from '../../../components/common/CandyCard';
 import WishedCandySlider from '../../../components/common/WishedCandySlider';
-import Navbar from '../../../components/common/Navbar';
-import Footer from '../../../components/common/Footer';
+import NavigationLayout from '../../../components/layout/NavigationLayout';
+import TopHeader from '../../../components/common/TopHeader';
 const Container = styled.div`
   position: relative;
-  width: 1920px;
-  height: 2286px;
+  padding-bottom: 160px;
 `;
 const TopContainer = styled.div`
   background: url('/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fpublic%2Fassets%2Ficons%2FEachWishedBackground.6db9d706ad35ad78b0f08c8e770639c0.svg&w=3840&q=75');
-  width: 1920px;
-  height: 276px;
 `;
 const BodyContainer = styled.div`
   display: flex;
-  position: absolute;
   top: 380px;
   flex-direction: column;
   align-items: center;
@@ -31,7 +27,6 @@ const DdayContainer = styled.div`
   margin-top: 25px;
   margin-bottom: 30px;
   background: rgba(231, 231, 231, 0.2);
-  width: 1920px;
   height: 620px;
   /* div :nth-child(last) {
     position: absolute;
@@ -44,15 +39,12 @@ const WaitingContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-  width: 1490px;
 `;
 const DdayHeader = styled.div`
   display: flex;
 `;
 const TopTitle = styled.div`
   margin-bottom: 10px;
-  margin-left: 241px;
-  padding-top: 95px;
   text-align: left;
   line-height: 59px;
   letter-spacing: -0.022em;
@@ -137,7 +129,6 @@ const CandyNumContainer = styled.div`
   margin-bottom: 30px;
   border-radius: 50px;
   background: #ffffff;
-  width: 1920px;
   height: 142px;
 `;
 const Total = styled.div`
@@ -197,14 +188,9 @@ export default function EachCategory({ category, totalNum, ddayNum, waitingNum }
   };
 
   return (
-    <>
-      <Navbar />
+    <NavigationLayout>
       <Container>
-        <TopContainer>
-          {/* <Background src={EachWishedBackground} /> */}
-          <TopTitle>{category} 캔디</TopTitle>
-          <TopSubTitle>앞으로 만들어갈 나만의 보상을 만들어보세요!</TopSubTitle>
-        </TopContainer>
+        <TopHeader title={`${category} 캔디`} subTitle='앞으로 만들어갈 나만의 보상을 만들어보세요!' />
         <CandyNumContainer>
           <Total>
             <CandyNum>{totalNum}</CandyNum>
@@ -267,7 +253,6 @@ export default function EachCategory({ category, totalNum, ddayNum, waitingNum }
           </WaitingContainer>
         </BodyContainer>
       </Container>
-      <Footer />
-    </>
+    </NavigationLayout>
   );
 }

@@ -1,34 +1,23 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import dayjs from 'dayjs';
 import dynamic from 'next/dynamic';
-import { GetServerSideProps } from 'next';
 import DialogManager from '../components/common/DialogManager';
 import RecommendCandyCard from '../components/home/RecommendCandyCard';
 import WaitingCardSlider from '../components/home/WaitingCardSlider';
 import ComingCandyCard from '../components/home/ComingCandyCard';
-import Navbar from '../components/common/Navbar';
+import NavigationLayout from '../components/layout/NavigationLayout';
 import { login } from './api';
 import { CommingCandy, getComingCandy } from './api/useGets/getComingCandy';
 import { getRecommendCandy, RecommendCandy } from './api/useGets/getRecommendCandy';
 import { getWaitingCandy, WaitingCandy } from './api/useGets/getWatingCandy';
 
-const BackgroundContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-image: url('/assets/images/MainBackground.png');
-  width: 100%;
-  height: 100%;
-`;
-
 const Container = styled.div`
   display: flex;
   margin: 0 auto;
-  margin-top: 103px;
+  padding-top: 80px;
   padding-bottom: 56px;
-  max-width: 1440px;
 `;
 
 const TitleContainer = styled.div`
@@ -143,13 +132,12 @@ export default function Home() {
   const candyInBottle = useMemo(() => {
     return comingCandyList?.map((value) => value.category_image_url);
   }, [comingCandyList]);
-  if (!recommendCandyList || !comingCandyList || !waitingCandyList) {
-    return <div></div>;
-  }
+  const isLoad = useMemo(() => {
+    return recommendCandyList && comingCandyList && waitingCandyList;
+  }, [recommendCandyList, comingCandyList, waitingCandyList]);
   return (
-    <>
-      <BackgroundContainer>
-        <Navbar />
+    <NavigationLayout background={'/assets/images/MainBackground.png'}>
+      {isLoad && (
         <Container>
           <TitleContainer>
             두 병 채운 {userInfo.nickname}님, <br />
@@ -207,8 +195,8 @@ export default function Home() {
             </FlexContainer>
           </div>
         </Container>
-      </BackgroundContainer>
+      )}
       <DialogManager />
-    </>
+    </NavigationLayout>
   );
 }

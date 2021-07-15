@@ -62,8 +62,10 @@ const candyArr = [
 
 const Container = styled.div`
   z-index: 1;
+  padding-bottom: 88px;
   width: 100%;
   height: 100%;
+
   .background {
     z-index: -1;
   }
@@ -71,8 +73,6 @@ const Container = styled.div`
 
 const Body = styled.div`
   z-index: 1;
-  padding: 88px;
-  height: 800px 240px 0px 240px;
 `;
 
 const BodyTitle = styled.h1`
@@ -124,6 +124,7 @@ const SliderWrapper = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 90px;
+  padding-bottom: 60px;
   width: 100%;
 `;
 

@@ -3,21 +3,21 @@ import React from 'react';
 import CompleteCard from '../Card';
 
 const Container = styled.div`
+  box-sizing: content-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 50px 50px 0px 0px;
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.09);
   background-color: var(--white);
-  padding: 76px 240px 184px 240px;
-  width: auto;
+  padding: 80px 24px 160px;
 `;
 
 const CandyGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-row-gap: 73px;
-  grid-column-gap: 40px;
+  width: 100%;
 `;
 export interface Candy {
   candy: string;

@@ -9,41 +9,39 @@ import Button from '../../../components/common/Button';
 import ImageEditModal from '../../../components/common/CandyEdit/ImageEditModal';
 import { DetailCandyEditModalAtom, ImageEditModalAtom } from '../../../states';
 import CandyEditModal from '../../../components/common/CandyEdit';
-import Navbar from '../../../components/common/Navbar';
 import Footer from '../../../components/common/Footer';
+import NavigationLayout from '../../../components/layout/NavigationLayout';
 const Container = styled.div`
-  width: 1920px;
-  height: 2286px;
+  margin: auto;
+  padding-bottom: 160px;
+  padding-left: 20px;
+  width: 100%;
+  max-width: 1300px;
 `;
 const TopContainer = styled.div`
   margin-bottom: 42px;
   background: url('/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fpublic%2Fassets%2Ficons%2FWishedBackground.d57609740f3e21029f9fec81c477a5f5.svg&w=3840&q=75');
-  width: 1920px;
   height: 327px;
 `;
 const BodyContainer = styled.div`
   display: flex;
-
   align-items: center;
-  width: 1920px;
+  justify-content: space-between;
 `;
 
 const PrevButtonDiv = styled.div`
   position: absolute;
-  top: 81px;
+  top: 100px;
   left: 100px;
   cursor: pointer;
 `;
 const PrevButton = styled(Image)``;
-const GoButton = styled(Image)``;
 const LeftQuoteImg = styled(Image)``;
 
 const RightQuoteImg = styled(Image)``;
 
 const TopText = styled.div`
-  margin-left: 243px;
   /* or 59px */
-  padding-top: 88px;
   line-height: 135%;
   line-height: 59.4px;
   letter-spacing: -0.022em;
@@ -99,8 +97,6 @@ const Info = styled.div`
 `;
 const BodyImg = styled.div`
   position: relative;
-  margin-right: 95px;
-  margin-left: 244px;
   width: 440px;
   height: 440px;
   &:hover {
@@ -281,8 +277,7 @@ export default function Detail({ itemImg, date, category, itemName, link, messag
     router.back();
   };
   return (
-    <>
-      <Navbar />
+    <NavigationLayout>
       <Container>
         <TopContainer>
           <PrevButtonDiv onClick={onClickToGoBack}>
@@ -359,7 +354,6 @@ export default function Detail({ itemImg, date, category, itemName, link, messag
           candyMessage='aaaa'
         />
       )}
-      <Footer />
-    </>
+    </NavigationLayout>
   );
 }

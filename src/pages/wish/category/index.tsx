@@ -3,26 +3,20 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-import { AddIcon, WishedBackground } from '../../../../public/assets/icons';
+import { AddIcon } from '../../../../public/assets/icons';
 
 import Navigation from '../../../components/common/Navigation';
-import CategoryCard, { CategoryCardProps } from '../../../components/common/CategoryCard';
-import Navbar from '../../../components/common/Navbar';
+import CategoryCard from '../../../components/common/CategoryCard';
 import Footer from '../../../components/common/Footer';
+import NavigationLayout from '../../../components/layout/NavigationLayout';
+import TopHeader from '../../../components/common/TopHeader';
 const Container = styled.div`
-  width: 1920px;
-  height: 2286px;
+  padding-bottom: 80px;
 `;
-const TopContainer = styled.div`
-  background: url('/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fpublic%2Fassets%2Ficons%2FWishedBackground.d57609740f3e21029f9fec81c477a5f5.svg&w=3840&q=75');
-  width: 1920px;
-  height: 276px;
-`;
+const TopContainer = styled.div``;
 
 const TopTitle = styled.div`
   margin-bottom: 5px;
-  margin-left: 241px;
-  padding-top: 95px;
   text-align: left;
   line-height: 59px;
   letter-spacing: -0.022em;
@@ -34,8 +28,7 @@ const TopTitle = styled.div`
   //styleName: title;
 `;
 const TopSubTitle = styled.div`
-  margin-bottom: 130px;
-  margin-left: 241px;
+  margin-bottom: 80px;
   text-align: left;
   line-height: 28px;
   letter-spacing: -0.022em;
@@ -78,17 +71,17 @@ const Header = styled.div`
 export default function CategoryCandy() {
   const router = useRouter();
   return (
-    <>
-      <Navbar />
+    <NavigationLayout
+      background={
+        '/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fpublic%2Fassets%2Ficons%2FWishedBackground.d57609740f3e21029f9fec81c477a5f5.svg&w=3840&q=75'
+      }
+    >
       <Container>
-        <TopContainer>
-          <TopTitle>담은 캔디</TopTitle>
-          <TopSubTitle>나만의 캔디들을 마음껏 담아보세요</TopSubTitle>
-        </TopContainer>
+        <TopHeader title='담은 캔디' subTitle='나만의 캔디들을 마음껏 담아보세요' />
+        <Navigation tab={1} />
         <BodyContainer>
           <Header>
             <div className='empty'></div>
-            <Navigation tab={1} />
             <AddButton src={AddIcon} />
           </Header>
 
@@ -136,7 +129,6 @@ export default function CategoryCandy() {
           </CandyContainer>
         </BodyContainer>
       </Container>
-      <Footer />
-    </>
+    </NavigationLayout>
   );
 }
