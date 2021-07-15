@@ -10,6 +10,7 @@ import Button from '../../components/common/Button';
 import DeleteModal from '../../components/complete/Modal/DeleteModal';
 import EditModal from '../../components/complete/Modal/EditModal';
 import ImageEditModal from '../../components/complete/Modal/ImageEditModal';
+import NavigationLayout from '../../components/layout/NavigationLayout';
 import { CandyEditModalAtom, DeleteModalAtom, ImageEditModalAtom } from '../../states';
 import checkByte from '../../utils/checkBytes';
 
@@ -238,7 +239,7 @@ export default function Detail({ link = 'https://www.naver.com' }: DetailProps) 
   };
 
   return (
-    <>
+    <NavigationLayout>
       <Wrapper>
         <Banner>
           <BackArrowWrapper onClick={onClickToGoBack}>
@@ -308,6 +309,6 @@ export default function Detail({ link = 'https://www.naver.com' }: DetailProps) 
       {isImgModalOpen && <ImageEditModal candy='https://dummyimage.com/221x221/000/fff' />}
       {isEditModalOpen && <EditModal />}
       {isDeleteModalOpen && <DeleteModal candy='https://dummyimage.com/100x100/000/fff' />}
-    </>
+    </NavigationLayout>
   );
 }

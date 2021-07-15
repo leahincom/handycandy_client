@@ -6,6 +6,7 @@ export const getRoutesName = {
   category: '/category',
   categoryDetail: (slug: string) => `/category/${slug}`,
   wish: {
+    index: '/wish',
     total: '/wish/total',
     detail: (cid: string) => `/wish/detail/${cid}`,
     category: '/wish/category',

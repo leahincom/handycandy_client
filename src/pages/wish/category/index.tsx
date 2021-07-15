@@ -7,8 +7,8 @@ import { AddIcon } from '../../../../public/assets/icons';
 
 import Navigation from '../../../components/common/Navigation';
 import CategoryCard from '../../../components/common/CategoryCard';
-import Navbar from '../../../components/common/Navbar';
 import Footer from '../../../components/common/Footer';
+import NavigationLayout from '../../../components/layout/NavigationLayout';
 const Container = styled.div`
   width: 1920px;
   height: 2286px;
@@ -78,8 +78,7 @@ const Header = styled.div`
 export default function CategoryCandy() {
   const router = useRouter();
   return (
-    <>
-      <Navbar />
+    <NavigationLayout>
       <Container>
         <TopContainer>
           <TopTitle>담은 캔디</TopTitle>
@@ -137,6 +136,6 @@ export default function CategoryCandy() {
         </BodyContainer>
       </Container>
       <Footer />
-    </>
+    </NavigationLayout>
   );
 }

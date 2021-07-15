@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 import React from 'react';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Navigation from '../../../components/common/Navigation';
 import CandyCard from '../../../components/common/CandyCard';
 import WishedCandySlider from '../../../components/common/WishedCandySlider';
-import Navbar from '../../../components/common/Navbar';
 import Footer from '../../../components/common/Footer';
+import NavigationLayout from '../../../components/layout/NavigationLayout';
 const Container = styled.div`
   width: 1920px;
   height: 2286px;
@@ -145,8 +144,7 @@ export default function TotalCandy({ ddayNum = 11, waitingNum = 11 }: TotalCandy
   };
 
   return (
-    <>
-      <Navbar />
+    <NavigationLayout>
       <Container>
         <TopContainer>
           <TopTitle>담은 캔디</TopTitle>
@@ -198,6 +196,6 @@ export default function TotalCandy({ ddayNum = 11, waitingNum = 11 }: TotalCandy
         </BodyContainer>
       </Container>
       <Footer />
-    </>
+    </NavigationLayout>
   );
 }

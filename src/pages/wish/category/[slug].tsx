@@ -3,8 +3,8 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import CandyCard from '../../../components/common/CandyCard';
 import WishedCandySlider from '../../../components/common/WishedCandySlider';
-import Navbar from '../../../components/common/Navbar';
 import Footer from '../../../components/common/Footer';
+import NavigationLayout from '../../../components/layout/NavigationLayout';
 const Container = styled.div`
   position: relative;
   width: 1920px;
@@ -197,8 +197,7 @@ export default function EachCategory({ category, totalNum, ddayNum, waitingNum }
   };
 
   return (
-    <>
-      <Navbar />
+    <NavigationLayout>
       <Container>
         <TopContainer>
           {/* <Background src={EachWishedBackground} /> */}
@@ -268,6 +267,6 @@ export default function EachCategory({ category, totalNum, ddayNum, waitingNum }
         </BodyContainer>
       </Container>
       <Footer />
-    </>
+    </NavigationLayout>
   );
 }
