@@ -17,7 +17,8 @@ const Container = styled.div`
   display: flex;
   margin: 0 auto;
   padding-top: 80px;
-  padding-bottom: 56px;
+  padding-bottom: 240px;
+  max-width: 1440px;
 `;
 
 const TitleContainer = styled.div`

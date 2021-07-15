@@ -8,11 +8,7 @@ const PageContent = styled.div<{ bg?: string }>`
   background: url(${({ bg }) => bg});
   background-repeat: none;
   background-size: cover;
-  & > * {
-    margin: auto;
-    padding-top: 80px;
-    max-width: 1440px;
-  }
+  padding-top: 80px;
 `;
 
 export interface NavigationLayoutProps {

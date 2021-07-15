@@ -155,8 +155,10 @@ export default function CompleteMain({
           objectPosition='center'
         />
         <Body>
-          <BodyTitle>완료한 캔디</BodyTitle>
-          <BodyDesc>내가 선물했던 캔디들이 모인 병들을 모아보세요</BodyDesc>
+          <div style={{ margin: 'auto', maxWidth: '1440px' }}>
+            <BodyTitle>완료한 캔디</BodyTitle>
+            <BodyDesc>내가 선물했던 캔디들이 모인 병들을 모아보세요</BodyDesc>
+          </div>
           <BubbleWrapper>
             <Image src={Bubble} width={460} height={120} alt='bubble' />
             <BubbleText>

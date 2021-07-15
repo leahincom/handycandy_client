@@ -20,8 +20,6 @@ const Container = styled.div`
 `;
 const TopContainer = styled.div`
   margin-bottom: 42px;
-  background: url('/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fpublic%2Fassets%2Ficons%2FWishedBackground.d57609740f3e21029f9fec81c477a5f5.svg&w=3840&q=75');
-  height: 327px;
 `;
 const BodyContainer = styled.div`
   display: flex;

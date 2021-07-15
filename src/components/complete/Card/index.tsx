@@ -75,6 +75,9 @@ export interface CompleteCardProps {
 
 export default function CompleteCard({ candy, category, title, date }: CompleteCardProps) {
   const getDateFormat = (date: Date) => {
+    if (typeof date === 'number') {
+      return date;
+    }
     return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDay()}일`;
   };
 

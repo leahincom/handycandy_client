@@ -18,6 +18,7 @@ const CandyGrid = styled.div`
   grid-template-columns: repeat(4, 1fr);
   grid-row-gap: 73px;
   width: 100%;
+  max-width: 1440px;
 `;
 export interface Candy {
   candy: string;
