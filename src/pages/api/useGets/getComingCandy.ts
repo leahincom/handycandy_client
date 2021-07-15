@@ -1,6 +1,6 @@
 import { instance } from '..';
 
-export interface CommingCandy {
+export interface PlannedCandy {
   candy_id: string;
   candy_image_url: string;
   candy_name: string;
@@ -13,7 +13,7 @@ export interface CommingCandy {
 
 export interface GetUpcomingCardsResult {
   comming_candy_count: number;
-  comming_candy: CommingCandy[];
+  comming_candy: PlannedCandy[];
 }
 
 export interface GetUpcomingCards {

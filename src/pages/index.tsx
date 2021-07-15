@@ -10,9 +10,9 @@ import WaitingCardSlider from '../components/home/WaitingCardSlider';
 import ComingCandyCard from '../components/home/ComingCandyCard';
 import Navbar from '../components/common/Navbar';
 import { login } from './api';
-import { CommingCandy, getComingCandy } from './api/useGets/getComingCandy';
+import { PlannedCandy, getComingCandy } from './api/useGets/getComingCandy';
 import { getRecommendCandy, RecommendCandy } from './api/useGets/getRecommendCandy';
-import { getWaitingCandy, WaitingCandy } from './api/useGets/getWatingCandy';
+import { getWaitingCandy, WaitingCandy } from './api/useGets/getWaitingCandy';
 
 const BackgroundContainer = styled.div`
   position: fixed;
@@ -123,7 +123,7 @@ const password = 'handycandy1234!';
 
 export interface HomeServerProps {
   recommendCandyList: RecommendCandy[];
-  comingCandyList: CommingCandy[];
+  comingCandyList: PlannedCandy[];
   waitingCandyList: WaitingCandy[];
 }
 
