@@ -3,6 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
+import { useQuery } from 'react-query';
 import { AddIcon } from '../../../../public/assets/icons';
 
 import Navigation from '../../../components/common/Navigation';
@@ -10,6 +11,8 @@ import CategoryCard from '../../../components/common/CategoryCard';
 import Footer from '../../../components/common/Footer';
 import NavigationLayout from '../../../components/layout/NavigationLayout';
 import TopHeader from '../../../components/common/TopHeader';
+import { getCategoryCandy } from '../../../pages/api/useGets/getCategoryCandy';
+
 const Container = styled.div`
   padding-bottom: 80px;
 `;
@@ -80,6 +83,8 @@ const NavTapWrapper = styled.div`
 
 export default function CategoryCandy() {
   const router = useRouter();
+  const { isLoading, error, data, status } = useQuery(['category'], () => getCategoryCandy());
+  const categoryList = data;
   return (
     <NavigationLayout
       background={
@@ -100,42 +105,32 @@ export default function CategoryCandy() {
           </Header>
 
           <CandyContainer>
-            <CategoryCard
-              category='고생한 나를 위한 캔디'
-              candynum={20}
-              date='3'
-              firstImg='https://dummyimage.com/184x255/000/fff'
-              secondImg='https://dummyimage.com/151x127/000/fff'
-              thirdImg='https://dummyimage.com/151x127/000/fff'
-              onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
-            />
-            <CategoryCard
-              category='고생한 나를 위한 캔디'
-              candynum={20}
-              date='3'
-              firstImg='https://dummyimage.com/184x255/000/fff'
-              secondImg='https://dummyimage.com/151x127/000/fff'
-              thirdImg='https://dummyimage.com/151x127/000/fff'
-              onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
-            />
-            <CategoryCard
-              category='고생한 나를 위한 캔디'
-              candynum={20}
-              date='3'
-              firstImg='https://dummyimage.com/184x255/000/fff'
-              secondImg='https://dummyimage.com/151x127/000/fff'
-              thirdImg='https://dummyimage.com/151x127/000/fff'
-              onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
-            />
-            <CategoryCard
-              category='고생한 나를 위한 캔디'
-              candynum={20}
-              date='3'
-              firstImg='https://dummyimage.com/184x255/000/fff'
-              secondImg='https://dummyimage.com/151x127/000/fff'
-              thirdImg='https://dummyimage.com/151x127/000/fff'
-              onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
-            />
+            {categoryList
+              ?.slice(0, 4)
+              .map(
+                ({
+                  category_id,
+                  name,
+                  recent_update_date,
+                  category_image_url,
+                  category_candy_count,
+                  image_url_one,
+                  image_url_two,
+                  image_url_three,
+                }) => (
+                  <CategoryCard
+                    key={category_id}
+                    candyImg={category_image_url}
+                    category={name}
+                    candynum={category_candy_count}
+                    date={recent_update_date}
+                    firstImg={image_url_one}
+                    secondImg={image_url_two}
+                    thirdImg={image_url_three}
+                    onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
+                  />
+                ),
+              )}
           </CandyContainer>
         </BodyContainer>
       </Container>
