@@ -42,7 +42,6 @@ const RightQuoteImg = styled(Image)``;
 
 const TopText = styled.div`
   /* or 59px */
-  padding-top: 60px;
   line-height: 135%;
   line-height: 59.4px;
   letter-spacing: -0.022em;
@@ -355,7 +354,6 @@ export default function Detail({ itemImg, date, category, itemName, link, messag
           candyMessage='aaaa'
         />
       )}
-      <Footer />
     </NavigationLayout>
   );
 }

@@ -7,13 +7,9 @@ import Footer from '../../../components/common/Footer';
 import NavigationLayout from '../../../components/layout/NavigationLayout';
 const Container = styled.div`
   position: relative;
-  width: 1920px;
-  height: 2286px;
 `;
 const TopContainer = styled.div`
   background: url('/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fpublic%2Fassets%2Ficons%2FEachWishedBackground.6db9d706ad35ad78b0f08c8e770639c0.svg&w=3840&q=75');
-  width: 1920px;
-  height: 276px;
 `;
 const BodyContainer = styled.div`
   display: flex;
@@ -51,8 +47,6 @@ const DdayHeader = styled.div`
 `;
 const TopTitle = styled.div`
   margin-bottom: 10px;
-  margin-left: 241px;
-  padding-top: 95px;
   text-align: left;
   line-height: 59px;
   letter-spacing: -0.022em;
@@ -266,7 +260,6 @@ export default function EachCategory({ category, totalNum, ddayNum, waitingNum }
           </WaitingContainer>
         </BodyContainer>
       </Container>
-      <Footer />
     </NavigationLayout>
   );
 }

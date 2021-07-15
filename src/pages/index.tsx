@@ -13,18 +13,11 @@ import { CommingCandy, getComingCandy } from './api/useGets/getComingCandy';
 import { getRecommendCandy, RecommendCandy } from './api/useGets/getRecommendCandy';
 import { getWaitingCandy, WaitingCandy } from './api/useGets/getWatingCandy';
 
-const BackgroundContainer = styled.div`
-  background-image: url('/assets/images/MainBackground.png');
-  width: 100%;
-  height: 100%;
-`;
-
 const Container = styled.div`
   display: flex;
   margin: 0 auto;
-  margin-top: 103px;
+  padding-top: 80px;
   padding-bottom: 56px;
-  max-width: 1440px;
 `;
 
 const TitleContainer = styled.div`
@@ -143,67 +136,65 @@ export default function Home() {
     return recommendCandyList && comingCandyList && waitingCandyList;
   }, [recommendCandyList, comingCandyList, waitingCandyList]);
   return (
-    <NavigationLayout>
+    <NavigationLayout background={'/assets/images/MainBackground.png'}>
       {isLoad && (
-        <BackgroundContainer>
-          <Container>
-            <TitleContainer>
-              두 병 채운 {userInfo.nickname}님, <br />
-              {userInfo.candyPhrase}
-              <p>📢 {userInfo.phrase} </p>
-              {candyInBottle && <DynamicCandyBottle candyList={candyInBottle} />}
-            </TitleContainer>
-            <div>
-              <ComingContainer>
-                <CandyTitle>다가오는 캔디</CandyTitle>
-                <CandyDesc>행복을 안겨줄 캔디들이 곧 도착해요</CandyDesc>
-                <FlexContainer>
-                  {comingCandyList
-                    ?.slice(0, 4)
-                    .map(({ candy_id, candy_image_url, candy_name, category_image_url, category_name, d_day }) => (
-                      <ComingCandyCard
-                        key={candy_id}
-                        candy_id={candy_id}
-                        itemImage={candy_image_url}
-                        category={category_name}
-                        name={candy_name}
-                        category_img={category_image_url}
-                        plannedDate={new Date(dayjs().subtract(d_day, 'day').valueOf())}
-                      />
-                    ))}
-                </FlexContainer>
-              </ComingContainer>
+        <Container>
+          <TitleContainer>
+            두 병 채운 {userInfo.nickname}님, <br />
+            {userInfo.candyPhrase}
+            <p>📢 {userInfo.phrase} </p>
+            {candyInBottle && <DynamicCandyBottle candyList={candyInBottle} />}
+          </TitleContainer>
+          <div>
+            <ComingContainer>
+              <CandyTitle>다가오는 캔디</CandyTitle>
+              <CandyDesc>행복을 안겨줄 캔디들이 곧 도착해요</CandyDesc>
               <FlexContainer>
-                <RecommendContainer>
-                  <CandyTitle>추천 캔디</CandyTitle>
-                  <CandyDesc>핸디캔디 추천으로 새로운 행복을 더해보세요</CandyDesc>
-                  {recommendCandies.slice(0, 3)?.map((candy, idx) => {
-                    return (
-                      <RecommendCandyCard key={idx} title={candy.title} content={candy.content} image={candy.image} />
-                    );
-                  })}
-                </RecommendContainer>
-                <WaitingContainer>
-                  <CandyTitle>기다리는 캔디</CandyTitle>
-                  <CandyDesc> 담고만 있었던 캔디로 꺼내보세요 </CandyDesc>
-                  {waitingCandyList && (
-                    <WaitingCardSlider
-                      waitingCandyList={waitingCandyList?.map(
-                        ({ candy_id, candy_image_url, candy_name, category_image_url, waiting_date }) => ({
-                          candy: category_image_url,
-                          date: waiting_date,
-                          thumbnail: candy_image_url,
-                          title: candy_name,
-                          id: candy_id,
-                        }),
-                      )}
+                {comingCandyList
+                  ?.slice(0, 4)
+                  .map(({ candy_id, candy_image_url, candy_name, category_image_url, category_name, d_day }) => (
+                    <ComingCandyCard
+                      key={candy_id}
+                      candy_id={candy_id}
+                      itemImage={candy_image_url}
+                      category={category_name}
+                      name={candy_name}
+                      category_img={category_image_url}
+                      plannedDate={new Date(dayjs().subtract(d_day, 'day').valueOf())}
                     />
-                  )}
-                </WaitingContainer>
+                  ))}
               </FlexContainer>
-            </div>
-          </Container>
-        </BackgroundContainer>
+            </ComingContainer>
+            <FlexContainer>
+              <RecommendContainer>
+                <CandyTitle>추천 캔디</CandyTitle>
+                <CandyDesc>핸디캔디 추천으로 새로운 행복을 더해보세요</CandyDesc>
+                {recommendCandies.slice(0, 3)?.map((candy, idx) => {
+                  return (
+                    <RecommendCandyCard key={idx} title={candy.title} content={candy.content} image={candy.image} />
+                  );
+                })}
+              </RecommendContainer>
+              <WaitingContainer>
+                <CandyTitle>기다리는 캔디</CandyTitle>
+                <CandyDesc> 담고만 있었던 캔디로 꺼내보세요 </CandyDesc>
+                {waitingCandyList && (
+                  <WaitingCardSlider
+                    waitingCandyList={waitingCandyList?.map(
+                      ({ candy_id, candy_image_url, candy_name, category_image_url, waiting_date }) => ({
+                        candy: category_image_url,
+                        date: waiting_date,
+                        thumbnail: candy_image_url,
+                        title: candy_name,
+                        id: candy_id,
+                      }),
+                    )}
+                  />
+                )}
+              </WaitingContainer>
+            </FlexContainer>
+          </div>
+        </Container>
       )}
       <DialogManager />
     </NavigationLayout>
