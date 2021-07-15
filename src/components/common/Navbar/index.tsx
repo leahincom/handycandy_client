@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,12 +11,16 @@ import NoticeModal from '../NoticeModal';
 import { getRoutesName } from '../../../utils/routes';
 
 const Container = styled.div`
-  display: flex;
-  align-items: center;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   background-color: var(--white);
-  padding: 0 110px;
-  min-width: 1440px;
+  width: 100%;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin: auto;
+  width: 1440px;
   height: 106px;
 `;
 
@@ -136,27 +140,29 @@ export default function Navbar() {
   };
   return (
     <Container>
-      <Menus>
-        <Link href={getRoutesName.home} passHref>
-          <LogoLink>
-            <Image src={Logo} alt='handycandy' />
-          </LogoLink>
-        </Link>
-        {menus.map(({ href, name }) => (
-          <Link key={name} href={href} passHref>
-            <Menu active={asPath === href}>{name}</Menu>
+      <Wrapper>
+        <Menus>
+          <Link href={getRoutesName.home} passHref>
+            <LogoLink>
+              <Image src={Logo} alt='handycandy' />
+            </LogoLink>
           </Link>
-        ))}
-      </Menus>
-      <SearchArea>
-        <SearchBar />
-      </SearchArea>
-      <Buttons>
-        <ProfileIcon src={Profile} />
-        <RingIcon src={Ring} onClick={openNotice} />
-        {isNoticeOpen && <NoticeModal notices={notices} />}
-        <AddCandyButton onClick={handleOpenModal}>캔디추가하기</AddCandyButton>
-      </Buttons>
+          {menus.map(({ href, name }) => (
+            <Link key={name} href={href} passHref>
+              <Menu active={asPath === href}>{name}</Menu>
+            </Link>
+          ))}
+        </Menus>
+        <SearchArea>
+          <SearchBar />
+        </SearchArea>
+        <Buttons>
+          <ProfileIcon src={Profile} />
+          <RingIcon src={Ring} onClick={openNotice} />
+          {isNoticeOpen && <NoticeModal notices={notices} />}
+          <AddCandyButton onClick={handleOpenModal}>캔디추가하기</AddCandyButton>
+        </Buttons>
+      </Wrapper>
     </Container>
   );
 }
