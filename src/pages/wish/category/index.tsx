@@ -9,6 +9,7 @@ import Navigation from '../../../components/common/Navigation';
 import CategoryCard from '../../../components/common/CategoryCard';
 import Footer from '../../../components/common/Footer';
 import NavigationLayout from '../../../components/layout/NavigationLayout';
+import TopHeader from '../../../components/common/TopHeader';
 const Container = styled.div`
   padding-bottom: 80px;
 `;
@@ -27,7 +28,7 @@ const TopTitle = styled.div`
   //styleName: title;
 `;
 const TopSubTitle = styled.div`
-  margin-bottom: 130px;
+  margin-bottom: 80px;
   text-align: left;
   line-height: 28px;
   letter-spacing: -0.022em;
@@ -76,14 +77,11 @@ export default function CategoryCandy() {
       }
     >
       <Container>
-        <TopContainer>
-          <TopTitle>담은 캔디</TopTitle>
-          <TopSubTitle>나만의 캔디들을 마음껏 담아보세요</TopSubTitle>
-        </TopContainer>
+        <TopHeader title='담은 캔디' subTitle='나만의 캔디들을 마음껏 담아보세요' />
+        <Navigation tab={1} />
         <BodyContainer>
           <Header>
             <div className='empty'></div>
-            <Navigation tab={1} />
             <AddButton src={AddIcon} />
           </Header>
 

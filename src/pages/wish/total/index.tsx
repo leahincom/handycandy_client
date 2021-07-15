@@ -6,12 +6,11 @@ import CandyCard from '../../../components/common/CandyCard';
 import WishedCandySlider from '../../../components/common/WishedCandySlider';
 import Footer from '../../../components/common/Footer';
 import NavigationLayout from '../../../components/layout/NavigationLayout';
+import TopHeader from '../../../components/common/TopHeader';
 const Container = styled.div`
   padding-bottom: 80px;
 `;
-const TopContainer = styled.div`
-  margin-bottom: 40px;
-`;
+
 const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -40,32 +39,7 @@ const WaitingContainer = styled.div`
 const DdayHeader = styled.div`
   display: flex;
 `;
-const TopTitle = styled.div`
-  margin-bottom: 5px;
-  /* margin-left: 241px; */
-  text-align: left;
-  line-height: 59px;
-  letter-spacing: -0.022em;
-  color: #000000;
-  font-family: var(--nanum);
-  font-size: 44px;
-  font-weight: 800;
-  font-style: normal;
-  //styleName: title;
-`;
-const TopSubTitle = styled.div`
-  margin-bottom: 130px;
-  /* margin-left: 241px; */
-  text-align: left;
-  line-height: 28px;
-  letter-spacing: -0.022em;
-  color: #909090;
-  font-family: var(--roboto);
-  font-size: 24px;
-  font-weight: 400;
-  font-style: normal;
-  //styleName: main/titlemd;
-`;
+
 const Title = styled.div`
   margin-top: 52px;
 
@@ -144,12 +118,9 @@ export default function TotalCandy({ ddayNum = 11, waitingNum = 11 }: TotalCandy
       }
     >
       <Container>
-        <TopContainer>
-          <TopTitle>담은 캔디</TopTitle>
-          <TopSubTitle>앞으로 만들어갈 나만의 보상들을 원하는대로 만들어보세요!</TopSubTitle>
-        </TopContainer>
+        <TopHeader title='담은 캔디' subTitle='앞으로 만들어갈 나만의 보상들을 원하는대로 만들어보세요!' />
+        <Navigation tab={0} />
         <BodyContainer>
-          <Navigation tab={0} />
           <DdayContainer>
             <DdayHeader>
               <Title>다가오는 캔디</Title>
