@@ -9,9 +9,6 @@ const Container = styled.div`
   position: relative;
   padding-bottom: 160px;
 `;
-const TopContainer = styled.div`
-  background: url('/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fpublic%2Fassets%2Ficons%2FEachWishedBackground.6db9d706ad35ad78b0f08c8e770639c0.svg&w=3840&q=75');
-`;
 const BodyContainer = styled.div`
   display: flex;
   top: 380px;
@@ -176,16 +173,7 @@ export interface EachCategoryProps {
   waitingNum: number;
 }
 export default function EachCategory({ category, totalNum, ddayNum, waitingNum }: EachCategoryProps) {
-  const date = new Date();
   const router = useRouter();
-
-  const Candy = {
-    itemImage: 'https://dummyimage.com/254x278/000/fff',
-    category: '고생한 나 자신을 위한',
-    name: '모베러웍스 티셔츠',
-    createdDate: 15,
-    plannedDate: date,
-  };
 
   return (
     <NavigationLayout>
@@ -230,23 +218,16 @@ export default function EachCategory({ category, totalNum, ddayNum, waitingNum }
             <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>
             <CandyContainer>
               <CandyCard
-                candy={Candy}
-                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-              />
-              <CandyCard
-                candy={Candy}
-                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-              />
-              <CandyCard
-                candy={Candy}
-                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-              />
-              <CandyCard
-                candy={Candy}
-                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-              />
-              <CandyCard
-                candy={Candy}
+                candy={{
+                  candy_id: '1',
+                  candy_image_url: '',
+                  candy_name: '',
+                  category_image_url: '',
+                  category_name: '',
+                  d_day: 1,
+                  date: 0,
+                  month: 0,
+                }}
                 onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
               />
             </CandyContainer>

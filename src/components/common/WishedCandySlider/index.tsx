@@ -7,6 +7,7 @@ import CandyCard from '../CandyCard';
 import { SliderRightBtn } from '../../../../public/assets/icons';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { PlannedCandy } from '../../../pages/api/useGets/getComingCandy';
 
 const Container = styled.div`
   /* width: 1450px; */
@@ -68,15 +69,17 @@ export default function WishedCandySlider() {
 
     className: 'react__slick__slider__parent',
   };
-  const date = new Date();
   const router = useRouter();
 
-  const candy = {
-    itemImage: 'https://dummyimage.com/254x278/000/fff',
-    category: '고생한 나 자신을 위한',
-    name: '모베러웍스 티셔츠',
-    createdDate: 15,
-    plannedDate: date,
+  const candy: PlannedCandy = {
+    candy_image_url: 'https://dummyimage.com/254x278/000/fff',
+    candy_id: '1',
+    candy_name: '모베리웍스 티셔츠',
+    category_image_url: 'Donut',
+    category_name: '고생한 나 자신을 위한',
+    d_day: 1,
+    date: 2,
+    month: 3,
   };
 
   return (
