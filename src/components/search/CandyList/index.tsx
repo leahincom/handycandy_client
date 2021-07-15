@@ -73,7 +73,7 @@ export interface CandyListProps {
 }
 
 export default function CandyList({ type, searchValue }: CandyListProps) {
-  const { isLoading, error, data, status } = useQuery(['search', searchValue], () => getMatchedCandy(searchValue));
+  const { isLoading, data } = useQuery(['search', searchValue], () => getMatchedCandy(searchValue));
 
   return (
     <>

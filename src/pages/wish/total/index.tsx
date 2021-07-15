@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import React from 'react';
-import { useRouter } from 'next/router';
 import Navigation from '../../../components/common/Navigation';
 import CandyCard from '../../../components/common/CandyCard';
 import WishedCandySlider from '../../../components/common/WishedCandySlider';
@@ -110,17 +109,6 @@ export interface TotalCandyProps {
   waitingNum: number;
 }
 export default function TotalCandy({ ddayNum = 11, waitingNum = 11 }: TotalCandyProps) {
-  const date = new Date();
-  const router = useRouter();
-
-  const Candy = {
-    itemImage: 'https://dummyimage.com/254x278/000/fff',
-    category: '고생한 나 자신을 위한',
-    name: '모베러웍스 티셔츠',
-    createdDate: 15,
-    plannedDate: date,
-  };
-
   return (
     <NavigationLayout
       background={
@@ -155,24 +143,16 @@ export default function TotalCandy({ ddayNum = 11, waitingNum = 11 }: TotalCandy
             <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>
             <CandyContainer>
               <CandyCard
-                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-                candy={Candy}
-              />
-              <CandyCard
-                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-                candy={Candy}
-              />
-              <CandyCard
-                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-                candy={Candy}
-              />
-              <CandyCard
-                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-                candy={Candy}
-              />
-              <CandyCard
-                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-                candy={Candy}
+                candy={{
+                  candy_id: '1',
+                  candy_image_url: '',
+                  candy_name: '',
+                  category_image_url: '',
+                  category_name: '',
+                  d_day: 1,
+                  date: 0,
+                  month: 0,
+                }}
               />
             </CandyContainer>
           </WaitingContainer>

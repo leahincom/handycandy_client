@@ -4,18 +4,7 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { RewardModalAtom } from '../../../states';
 import Button from '../../common/Button';
-import {
-  Ball,
-  Donut,
-  Clover,
-  Double,
-  Flower,
-  Fork,
-  Magnet,
-  WaterDrop,
-  Leaf,
-  X,
-} from '../../../../public/assets/completeCandy';
+import { Ball } from '../../../../public/assets/completeCandy';
 
 interface BackgroundProps {
   isOpen: boolean;

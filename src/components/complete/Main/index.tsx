@@ -9,56 +9,12 @@ import { CompleteBackground } from '../../../../public/assets/images/';
 import { Bubble } from '../../../../public/assets/icons';
 import CompleteSlider, { bottleList } from '../Slider';
 
-const candyArr = [
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-  {
-    candy: 'https://dummyimage.com/80x80/000/fff',
-    category: '일이삼사오육칠팔구십일이',
-    title: '일이삼사오육칠팔구십일이',
-    date: new Date(),
-  },
-];
+const candyArr: Candy[] = new Array(10).fill(1).map((_, index) => ({
+  category: '일이삼사오육칠팔구십일이' + index,
+  title: '일이삼사오육칠팔구십일이',
+  date: new Date(),
+  candy: '',
+}));
 
 const Container = styled.div`
   z-index: 1;

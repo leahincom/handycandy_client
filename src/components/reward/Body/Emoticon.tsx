@@ -78,10 +78,10 @@ const EmoticonArea = styled.div`
 
 const EmoticonWrapper = styled.div<{ isChecked: boolean }>`
   position: relative;
-  width: 132px;
-  height: 132px;
   opacity: ${({ isChecked }) => (isChecked ? 1 : 0.5)};
   cursor: pointer;
+  width: 132px;
+  height: 132px;
 `;
 
 const CheckWrapper = styled.div`
