@@ -3,12 +3,13 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useQuery } from 'react-query';
+import { useRouter } from 'next/router';
 import { CurrentMonthAtom, RewardModalAtom } from '../../../states';
 import RewardModal from '../../reward/Modal';
-import CompleteContent, { Candy } from '../Content';
+import CompleteContent from '../Content';
 import { CompleteBackground } from '../../../../public/assets/images/';
 import { Bubble } from '../../../../public/assets/icons';
-import CompleteSlider, { bottleList } from '../Slider';
+import CompleteSlider from '../Slider';
 import { getCompletedCandy } from '../../../pages/api/useGets/getCompletedCandy';
 
 const candyArr = [
@@ -130,6 +131,7 @@ const SliderWrapper = styled.div`
 `;
 
 export default function CompleteMain() {
+  const router = useRouter();
   const [isOpenRewardModal] = useAtom(RewardModalAtom);
   const [curMonth] = useAtom(CurrentMonthAtom);
   const { isLoading, isError, data, error } = useQuery('complete', () => getCompletedCandy(curMonth));
@@ -140,8 +142,6 @@ export default function CompleteMain() {
 
   return (
     <>
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Error!{console.log(error)}</p>}
       <Container>
         <Image
           className='background'
@@ -156,6 +156,8 @@ export default function CompleteMain() {
           <BodyDesc>내가 선물했던 캔디들이 모인 병들을 모아보세요</BodyDesc>
           <BubbleWrapper>
             <Image src={Bubble} width={460} height={120} alt='bubble' />
+            {isLoading && <p>Loading...</p>}
+            {isError && <p>Error!{console.log(error)}</p>}
             <BubbleText>
               {data?.result.candy_count}개의 캔디
               <BubbleUnderline />를 주었어요!

@@ -28,6 +28,7 @@ const Container = styled.div`
   padding: 18px 24px 27px 24px;
   width: 330px;
   height: 224px;
+  cursor: pointer;
 `;
 
 const CandyEmoticonWrapper = styled.div`
@@ -78,7 +79,9 @@ const Date = styled.div`
   font-style: normal;
 `;
 
-export interface CompleteCardProps extends CompletedCandy {}
+export interface CompleteCardProps extends CompletedCandy {
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+}
 
 export default function CompleteCard({
   candy_image_url,
@@ -88,11 +91,12 @@ export default function CompleteCard({
   year,
   month,
   date,
+  onClick,
 }: CompleteCardProps) {
   const categoryUrl = categoryList.find((c) => c.name === category_image_url)?.src;
 
   return (
-    <Container>
+    <Container onClick={onClick}>
       {/* <CandyImage src={candy_image_url} width='80px' height='80px' /> */}
       <CandyEmoticonWrapper>
         <CandyEmoticon src={categoryUrl} width='80px' height='80px' />
