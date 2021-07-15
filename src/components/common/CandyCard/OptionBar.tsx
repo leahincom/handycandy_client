@@ -9,7 +9,7 @@ const OptionBarWrapper = styled.div`
   top: 0;
   left: 0;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   z-index: 100;
   background-color: transparent;
   padding: 17px 16px;
@@ -50,10 +50,5 @@ export default function OptionBar({ plannedDate }: OptionBarProps) {
 
   const handleClick = () => {};
 
-  return (
-    <OptionBarWrapper>
-      {remainingDate > -1 ? <Dday>D-{remainingDate}</Dday> : ''}
-      <Image src={CardMore} alt='' width='23px' height='15px' onClick={handleClick} />
-    </OptionBarWrapper>
-  );
+  return <OptionBarWrapper>{remainingDate > -1 ? <Dday>D-{remainingDate}</Dday> : ''}</OptionBarWrapper>;
 }

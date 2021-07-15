@@ -18,6 +18,7 @@ const Container = styled.div`
 `;
 
 const Thumbnail = styled.div`
+  position: relative;
   z-index: 2;
   border-top-left-radius: 17px;
   border-top-right-radius: 17px;
@@ -80,7 +81,13 @@ export default function CandyCard({ candy, onClick }: CandyCardProps) {
   return (
     <Container onClick={onClick}>
       <Thumbnail>
-        <Image src={{ default: ComingCandyNull, src: candy_image_url }} alt='' />
+        <Image
+          src={{ default: ComingCandyNull, src: candy_image_url }}
+          alt=''
+          // width='100%'
+          // height='100%'
+          layout='fill'
+        />
       </Thumbnail>
       <OptionBar plannedDate={undefined} />
       <Metadata>
