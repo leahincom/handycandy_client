@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useAtom } from 'jotai';
 import styled from 'styled-components';
 import Image from 'next/dist/client/image';
-import { useAtom } from 'jotai';
+import { useQuery } from 'react-query';
+import { getMatchingCards } from '../../../pages/api';
 import { searchToken } from '../../../states';
 import { NoResult } from '../../../../public/assets/icons';
 import CandyCard from '../../../components/common/CandyCard/';
-import CompleteCard from '../../reward/Card/';
+import CompleteCard from '../../complete/Card/';
 
 const List = styled.div`
   box-sizing: border-box;
@@ -71,31 +73,8 @@ export interface CandyListProps {
 }
 
 export default function CandyList({ type }: CandyListProps) {
-  const [token, setToken] = useAtom(searchToken);
-  const [cards, setCards] = useState([
-    {
-      itemImage: 'https://dummyimage.com/254x260/000/fff',
-      category: '고생한 나 자신을 위한',
-      name: '모베러웍스 티셔츠',
-      createdDate: 15,
-      plannedDate: new Date(),
-    },
-    {
-      itemImage: 'https://dummyimage.com/254x260/000/fff',
-      category: '고생한 나 자신을 위한',
-      name: '모베러웍스 티셔츠',
-      createdDate: 15,
-      plannedDate: new Date(),
-    },
-  ]);
-
-  // useEffect(
-  //   (() => {
-  //     // api GET
-  //     // setcards()
-  //   })(),
-  //   [cards],
-  // );
+  const [searchValue] = useAtom(searchToken);
+  const { isLoading, error, data, status } = useQuery(['search', searchValue], () => getMatchingCards(searchValue));
 
   return (
     <List>
@@ -104,12 +83,12 @@ export default function CandyList({ type }: CandyListProps) {
         <Text size={20} weight='normal' color='var(--gray-6)'>
           총
           <Text size={20} weight='bold' color='var(--gray-6)' style={{ marginLeft: '8px' }}>
-            {cards.length}
+            {data ? data.length : 0}
           </Text>
           건의 캔디가 검색되었어요
         </Text>
       </TitleBox>
-      {!cards ? (
+      {!data ? (
         <EmptyBody>
           <EmptyIcon>
             <Image src={NoResult} alt='' />
@@ -123,7 +102,7 @@ export default function CandyList({ type }: CandyListProps) {
         </EmptyBody>
       ) : (
         <CardBody type={type}>
-          {cards.map((card, idx) =>
+          {data.map((card: any, idx: number) =>
             type === '담은 캔디' ? (
               <CandyCard key={idx} candy={card} />
             ) : (

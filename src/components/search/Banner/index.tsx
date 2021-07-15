@@ -21,9 +21,8 @@ const SearchBar = styled.div`
   display: flex;
   align-items: flex-start;
   border-bottom: 1px solid var(--gray-7);
-  padding: 0 5px;
+  padding: 3px;
   width: fit-content;
-  height: 44px;
   letter-spacing: -0.022em;
   color: var(--black);
   font-family: var(--nanum);

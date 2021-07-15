@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useAtom } from 'jotai';
-import { searchToken } from '../../states';
 import Navbar from '../../components/common/Navbar';
+import DialogManager from '../../components/common/DialogManager';
 import Banner from '../../components/search/Banner';
 import CandyList from '../../components/search/CandyList';
 
@@ -15,8 +14,6 @@ const ListBody = styled.div`
 `;
 
 export default function Search() {
-  const [token, setToken] = useAtom(searchToken);
-
   return (
     <>
       <Navbar />
@@ -25,6 +22,7 @@ export default function Search() {
         <CandyList type='담은 캔디' />
         <CandyList type='완료한 캔디' />
       </ListBody>
+      <DialogManager />
     </>
   );
 }
