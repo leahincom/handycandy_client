@@ -6,10 +6,16 @@ export const getUserInfo = async () => {
   return user.data;
 };
 
-export const getMatchingCards = async (filter: string, item: string) => {
-  const cards = await instance.get(`/api/search/filter=${filter}&item=${item}`);
+export const getMatchingCards = async (item: string) => {
+  const cards = await instance.get(`/api/search/item=${item}`);
   console.log(cards);
-  return cards.data;
+  return cards.data.result.item_list;
+};
+
+export const getUpcomingCards = async () => {
+  const cards = await instance.get(`/api/candies/commingCandy`);
+  console.log(cards);
+  return cards.data.result.comming_candy;
 };
 
 export const getRecommendCards = async (user_id: number) => {

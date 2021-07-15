@@ -8,4 +8,5 @@ export const CheckedEmoticon = atom<string>('');
 
 export const openCandyModal = atom<boolean>(false);
 export const openCategoryModal = atom<boolean>(false);
+export const searchToken = atom<string>('');
 export const DetailCandyEditModalAtom = atom<boolean>(false);

@@ -32,3 +32,6 @@ export { default as SliderLeftBtn } from './SliderLeftArrow.svg';
 export { default as SliderRightBtn } from './SliderRightArrow.svg';
 export { default as PreviousArrow } from './PreviousArrow.svg';
 export { default as NextArrow } from './NextArrow.svg';
+export { default as NoResult } from './NoResult.svg';
+export { default as SearchThin } from './SearchThin.svg';
+export { default as Exclude } from './Exclude.svg';

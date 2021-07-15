@@ -10,8 +10,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useAtom } from 'jotai';
-import { openCandyModal, openCategoryModal } from '../../../../states';
-import { CategoryAdd, ToggleButton } from '../../../../../public/assets/icons';
+import { openCandyModal, openCategoryModal } from '../../../../../states';
+import { CategoryAdd, ToggleButton } from '../../../../../../public/assets/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
