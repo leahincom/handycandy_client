@@ -3,9 +3,11 @@ import { useRouter } from 'next/dist/client/router';
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
 import { CheckedEmoticon, RewardModalAtom } from '../../../states';
 import Button from '../../common/Button';
+import { postRewardCandy, RewardBodyProps } from '../../../pages/api/usePosts/postRewardCandy';
 import { EmoticonList } from './Emoticon';
 
 const Container = styled.div`
@@ -62,15 +64,33 @@ const ButtonWrapper = styled.div`
   width: 100%;
 `;
 
+interface InputForm {
+  message: string;
+}
+
 export default function Diary() {
   const router = useRouter();
+  const { register, getValues } = useForm<InputForm>();
   const [, setIsCompleteModalOpen] = useAtom(RewardModalAtom);
-  const onClickToComplete = () => {
+  const [checkedEmoId] = useAtom(CheckedEmoticon);
+
+  const Emoticon = EmoticonList.find((e) => e.id === checkedEmoId)?.emo;
+  const postRewardMutation = useMutation((body: RewardBodyProps) => postRewardCandy(body));
+
+  const handleClickComplete = () => {
+    const { message } = getValues();
+    if (!checkedEmoId) {
+      throw new Error('선택된 이모지가 없습니다!');
+    }
+    const body = {
+      candy_id: router.query.id as string,
+      feeling: checkedEmoId,
+      message,
+    };
+    postRewardMutation.mutate(body);
     router.push('/complete');
     setIsCompleteModalOpen(true);
   };
-  const [checkedEmo] = useAtom(CheckedEmoticon);
-  const Emoticon = EmoticonList.find((e) => e.id === checkedEmo)?.emo;
 
   return (
     <Container className='section'>
@@ -82,8 +102,8 @@ export default function Diary() {
         <br />
         선택한 나의 기분을 자세히 이야기해주세요.
       </CandyTitle>
-      <DiaryArea placeholder='오늘의 기록을 더 상세히 남겨요!' />
-      <ButtonWrapper onClick={onClickToComplete}>
+      <DiaryArea {...register('message')} placeholder='오늘의 기록을 더 상세히 남겨요!' />
+      <ButtonWrapper onClick={handleClickComplete}>
         <Button buttonColor='peach' size='md' text='완료하기' />
       </ButtonWrapper>
     </Container>

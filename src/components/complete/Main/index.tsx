@@ -2,12 +2,14 @@ import { useAtom } from 'jotai';
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { RewardModalAtom } from '../../../states';
+import { useQuery } from 'react-query';
+import { CurrentMonthAtom, RewardModalAtom } from '../../../states';
 import RewardModal from '../../reward/Modal';
 import CompleteContent, { Candy } from '../Content';
 import { CompleteBackground } from '../../../../public/assets/images/';
 import { Bubble } from '../../../../public/assets/icons';
 import CompleteSlider, { bottleList } from '../Slider';
+import { getCompletedCandy } from '../../../pages/api/useGets/getCompletedCandy';
 
 const candyArr = [
   {
@@ -127,23 +129,18 @@ const SliderWrapper = styled.div`
   width: 100%;
 `;
 
-export interface CompleteMainProps {
-  candyList: Candy[];
-  username: string;
-  candynum: number;
-  date: Date;
-}
-
-export default function CompleteMain({
-  candyList = candyArr,
-  username = '오주영',
-  candynum = 13,
-  date = new Date(),
-}: CompleteMainProps) {
+export default function CompleteMain() {
   const [isOpenRewardModal] = useAtom(RewardModalAtom);
+  const [curMonth] = useAtom(CurrentMonthAtom);
+  const { isLoading, isError, data, error } = useQuery('complete', () => getCompletedCandy(curMonth));
+  const curDirectory = new Set(data?.result.cur_categories).size;
+  const beforeDirectory = new Set(data?.result.before_categoris).size;
+  const afterDirectory = new Set(data?.result.after_categoris).size;
 
   return (
     <>
+      {isLoading && <p>Loading...</p>}
+      {isError && <p>Error!{console.log(error)}</p>}
       <Container>
         <Image
           className='background'
@@ -159,15 +156,15 @@ export default function CompleteMain({
           <BubbleWrapper>
             <Image src={Bubble} width={460} height={120} alt='bubble' />
             <BubbleText>
-              {candynum}개의 캔디
+              {data?.result.candy_count}개의 캔디
               <BubbleUnderline />를 주었어요!
             </BubbleText>
           </BubbleWrapper>
           <SliderWrapper>
-            <CompleteSlider bottles={bottleList} />
+            <CompleteSlider before={beforeDirectory} current={curDirectory} after={afterDirectory} />
           </SliderWrapper>
         </Body>
-        <CompleteContent candyList={candyList} username={username} candynum={candynum} date={date} />
+        <CompleteContent />
         {isOpenRewardModal && <RewardModal />}
       </Container>
     </>

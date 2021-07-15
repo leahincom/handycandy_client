@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
 import { Donut } from '../../../../public/assets/candy';
+import { CompletedCandy } from '../../../pages/api/useGets/getCompletedCandy';
 
 const Container = styled.div`
   position: relative;
@@ -61,27 +62,26 @@ const Date = styled.div`
   font-style: normal;
 `;
 
-export interface CompleteCardProps {
-  candy: string;
-  category: string;
-  title: string;
-  date: Date;
-}
+export interface CompleteCardProps extends CompletedCandy {}
 
-export default function CompleteCard({ candy, category, title, date }: CompleteCardProps) {
-  const getDateFormat = (date: Date) => {
-    return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDay()}일`;
-  };
-
+export default function CompleteCard({
+  candy_image_url,
+  category_name,
+  candy_name,
+  category_image_url,
+  year,
+  month,
+  date,
+}: CompleteCardProps) {
   return (
     <Container>
-      <CandyImage src={candy} width='80px' height='80px' />
+      {/* <CandyImage src={candy_image_url} width='80px' height='80px' /> */}
       <CandyEmoticonWrapper>
-        <CandyEmoticon src={Donut} width='80px' height='80px' />
+        {/* <CandyEmoticon src={category_image_url} width='80px' height='80px' /> */}
       </CandyEmoticonWrapper>
-      <Category>{category}</Category>
-      <Title>{title}</Title>
-      <Date>{getDateFormat(date)}</Date>
+      <Category>{category_name}</Category>
+      <Title>{candy_name}</Title>
+      <Date>{`${year}년 ${month}월 ${date}일`}</Date>
     </Container>
   );
 }

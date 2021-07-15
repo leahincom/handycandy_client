@@ -10,3 +10,5 @@ export const openCandyModal = atom<boolean>(false);
 export const openCategoryModal = atom<boolean>(false);
 export const searchToken = atom<string>('');
 export const DetailCandyEditModalAtom = atom<boolean>(false);
+
+export const CurrentMonthAtom = atom<number>(new Date().getMonth() + 1);

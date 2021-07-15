@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import { fullpageApi } from '@fullpage/react-fullpage';
 import { LinkIcon, HandCream } from '../../../../public/assets/icons';
+import { RewardCandy } from '../../../pages/api/useGets/getRewardCandy';
 import DownArrowButton from './DownArrowButton';
 
 const Container = styled.div`
@@ -102,44 +103,41 @@ const CandyDate = styled.div`
   margin-top: 52px;
 `;
 
-export interface BodyProps {
-  candy: string;
-  date: string;
-  desc: string;
-  link: string;
-  info: string;
+export interface BodyProps extends RewardCandy {
   fullpageApi: fullpageApi;
 }
 
 export default function Body({
-  candy = '필보이드 핸드크림',
-  desc = '회사생활로 지친 자신',
-  date = '2020년 7월 3일',
-  info = '일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십',
-  link = 'https://www.naver.com',
+  category_name,
+  candy_name,
+  detail_info,
+  shopping_link,
+  year,
+  month,
+  date,
   fullpageApi,
 }: BodyProps) {
   return (
     <Container className='section'>
       <CandyTitle>
-        <Underlined>{desc}</Underlined>을 위해
+        <Underlined>{category_name}</Underlined>을 위해
         <br />
-        <Underlined style={{ fontWeight: '700' }}>{candy}</Underlined>을 선물할거에요.
+        <Underlined style={{ fontWeight: '700' }}>{candy_name}</Underlined>을 선물할거에요.
       </CandyTitle>
       <CandyContentWrapper>
         <Candy src={HandCream} width='325px' height='325px' />
         <CandyContent>
           <CandyInfo>
             <CandyText weight={700}>상세정보</CandyText>
-            <CandyInfoText weight={400}>{info}</CandyInfoText>
+            <CandyInfoText weight={400}>{detail_info}</CandyInfoText>
           </CandyInfo>
 
           <CandyLinkWrapper>
             <CandyText weight={700}>링크</CandyText>
             <CandyLink>
               <Image src={LinkIcon} alt='LinkIcon' />
-              <Link href={link} passHref>
-                <CandyLinkText>{link}</CandyLinkText>
+              <Link href={shopping_link} passHref>
+                <CandyLinkText>{shopping_link}</CandyLinkText>
               </Link>
             </CandyLink>
           </CandyLinkWrapper>
@@ -147,7 +145,7 @@ export default function Body({
           <CandyDate>
             <CandyText weight={700}>캔디 준 날</CandyText>
             <CandyText weight={400} style={{ marginLeft: '39px' }}>
-              {date}
+              {`${year}년 ${month}월 ${date}`}
             </CandyText>
           </CandyDate>
         </CandyContent>

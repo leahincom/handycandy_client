@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import React from 'react';
+import { useQuery } from 'react-query';
+import { useAtom } from 'jotai';
 import CompleteCard from '../Card';
+import { getCompletedCandy } from '../../../pages/api/useGets/getCompletedCandy';
+import { CurrentMonthAtom } from '../../../states';
 
 const Container = styled.div`
   display: flex;
@@ -26,22 +30,24 @@ export interface Candy {
   date: Date;
 }
 
-export interface CompleteContentProps {
-  candyList: Candy[];
-  candynum: number;
-  date: Date;
-  username: string;
-}
+export default function CompleteContent() {
+  const [curMonth] = useAtom(CurrentMonthAtom);
+  const { data, isError, isLoading, error } = useQuery('complete', () => getCompletedCandy(curMonth));
 
-export default function CompleteContent({ candyList }: CompleteContentProps) {
   return (
     <Container>
       <CandyGrid>
-        {candyList.map((candy, index) => (
+        {isLoading && <p>Loading...</p>}
+        {isError && <p>Error! {console.log(error)}</p>}
+        {data?.result.completed_candy.map((candy, index) => (
           <CompleteCard
-            candy={candy.candy}
-            category={candy.category}
-            title={candy.title}
+            candy_id={candy.candy_id}
+            candy_name={candy.candy_name}
+            candy_image_url={candy.candy_image_url}
+            category_name={candy.category_image_url}
+            category_image_url={candy.category_image_url}
+            year={candy.year}
+            month={candy.month}
             date={candy.date}
             key={index}
           />
