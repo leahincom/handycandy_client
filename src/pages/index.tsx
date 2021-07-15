@@ -83,24 +83,6 @@ const CandyDesc = styled.div`
   font-size: 18px;
 `;
 
-const recommendCandies = [
-  {
-    title: '한강으로 자전거 타러 가기',
-    content: '시원한 바람 맞으며 나들이가자!',
-    image: 'https://dummyimage.com/74.68x74.68/000/fff',
-  },
-  {
-    title: '한강으로 자전거 타러 가기',
-    content: '시원한 바람 맞으며 나들이가자!',
-    image: 'https://dummyimage.com/74.68x74.68/000/fff',
-  },
-  {
-    title: '한강으로 자전거 타러 가기',
-    content: '시원한 바람 맞으며 나들이가자!',
-    image: 'https://dummyimage.com/74.68x74.68/000/fff',
-  },
-];
-
 const userInfo = {
   nickname: '다정',
   candyPhrase: '날 위한 달콤함을 잊지마세요',
@@ -169,9 +151,14 @@ export default function Home() {
               <RecommendContainer>
                 <CandyTitle>추천 캔디</CandyTitle>
                 <CandyDesc>핸디캔디 추천으로 새로운 행복을 더해보세요</CandyDesc>
-                {recommendCandies.slice(0, 3)?.map((candy, idx) => {
+                {recommendCandyList?.slice(0, 3).map((candy, idx) => {
                   return (
-                    <RecommendCandyCard key={idx} title={candy.title} content={candy.content} image={candy.image} />
+                    <RecommendCandyCard
+                      key={idx}
+                      title={candy.candy_name}
+                      content={candy.tag_name}
+                      image={candy.candy_image_url}
+                    />
                   );
                 })}
               </RecommendContainer>
