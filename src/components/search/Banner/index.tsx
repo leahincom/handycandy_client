@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/dist/client/image';
-import { useAtom } from 'jotai';
 import { SearchThin, Exclude } from '../../../../public/assets/icons';
-import { searchToken } from '../../../states';
 
 const Container = styled.div`
   box-sizing: border-box;
@@ -52,16 +50,18 @@ const Circle = styled.div`
   height: 100%;
 `;
 
-export default function Banner() {
-  const [token, setToken] = useAtom(searchToken);
+export interface BannerProps {
+  searchValue?: string | string[];
+}
 
+export default function Banner({ searchValue }: BannerProps) {
   return (
     <Container>
       <SearchBar>
         <ImageStyle>
           <Image src={SearchThin} alt='' />
         </ImageStyle>
-        {token}
+        {searchValue}
       </SearchBar>
       <Desc>모든 캔디 검색결과 입니다.</Desc>
       <Circle>

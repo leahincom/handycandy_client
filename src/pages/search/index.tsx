@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 import Navbar from '../../components/common/Navbar';
 import DialogManager from '../../components/common/DialogManager';
 import Banner from '../../components/search/Banner';
@@ -14,10 +15,13 @@ const ListBody = styled.div`
 `;
 
 export default function Search() {
+  const router = useRouter();
+  const searchValue = router.query.item;
+
   return (
     <>
       <Navbar />
-      <Banner />
+      <Banner searchValue={searchValue} />
       <ListBody>
         <CandyList type='담은 캔디' />
         <CandyList type='완료한 캔디' />

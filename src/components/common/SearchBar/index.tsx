@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import Link from 'next/dist/client/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { useAtom } from 'jotai';
-import { searchToken } from '../../../states';
 import { Search } from '../../../../public/assets/icons';
 
 const SearchBar = styled.div`
@@ -34,7 +31,6 @@ const InputField = styled.input`
 export default function Navbar() {
   const [search, setSearch] = useState('');
   const router = useRouter();
-  const [token, setToken] = useAtom(searchToken);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -42,9 +38,11 @@ export default function Navbar() {
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setToken(search);
-    router.push('/search');
     setSearch('');
+    router.push({
+      pathname: '/search',
+      query: { item: search },
+    });
   };
 
   return (
