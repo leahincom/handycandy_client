@@ -188,10 +188,14 @@ export default function EachCategory({ category, totalNum, ddayNum, waitingNum }
   const date = new Date();
   const router = useRouter();
 
-  category = '고생한 나자신을 위한';
-  totalNum = 25;
-  ddayNum = 11;
-  waitingNum = 11;
+  const candy = {
+    itemImage: 'https://dummyimage.com/254x278/000/fff',
+    category: '고생한 나 자신을 위한',
+    name: '모베러웍스 티셔츠',
+    createdDate: 15,
+    plannedDate: date,
+  };
+
   return (
     <>
       <Navbar />
@@ -240,43 +244,23 @@ export default function EachCategory({ category, totalNum, ddayNum, waitingNum }
             <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>
             <CandyContainer>
               <CandyCard
-                itemImage='https://dummyimage.com/254x278/000/fff'
-                category='고생한 나 자신을 위한'
-                name='모베러웍스 티셔츠'
-                createdDate={15}
-                plannedDate={date}
+                candy={candy}
                 onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
               />
               <CandyCard
-                itemImage='https://dummyimage.com/254x278/000/fff'
-                category='고생한 나 자신을 위한'
-                name='모베러웍스 티셔츠'
-                createdDate={15}
-                plannedDate={date}
+                candy={candy}
                 onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
               />
               <CandyCard
-                itemImage='https://dummyimage.com/254x278/000/fff'
-                category='고생한 나 자신을 위한'
-                name='모베러웍스 티셔츠'
-                createdDate={15}
-                plannedDate={date}
+                candy={candy}
                 onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
               />
               <CandyCard
-                itemImage='https://dummyimage.com/254x278/000/fff'
-                category='고생한 나 자신을 위한'
-                name='모베러웍스 티셔츠'
-                createdDate={15}
-                plannedDate={date}
+                candy={candy}
                 onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
               />
               <CandyCard
-                itemImage='https://dummyimage.com/254x278/000/fff'
-                category='고생한 나 자신을 위한'
-                name='모베러웍스 티셔츠'
-                createdDate={15}
-                plannedDate={date}
+                candy={candy}
                 onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
               />
             </CandyContainer>

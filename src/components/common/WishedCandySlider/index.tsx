@@ -70,57 +70,24 @@ export default function WishedCandySlider() {
   };
   const date = new Date();
   const router = useRouter();
+
+  const candy = {
+    itemImage: 'https://dummyimage.com/254x278/000/fff',
+    category: '고생한 나 자신을 위한',
+    name: '모베러웍스 티셔츠',
+    createdDate: 15,
+    plannedDate: date,
+  };
+
   return (
     <Container>
       <Slider {...settings}>
-        <CandyCard
-          onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-          itemImage='https://dummyimage.com/254x278/000/fff'
-          category='고생한 나 자신을 위한'
-          name='모베러웍스 티셔츠'
-          createdDate={15}
-          plannedDate={date}
-        />
-        <CandyCard
-          onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-          itemImage='https://dummyimage.com/254x278/000/fff'
-          category='고생한 나 자신을 위한'
-          name='모베러웍스 티셔츠'
-          createdDate={15}
-          plannedDate={date}
-        />
-        <CandyCard
-          onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-          itemImage='https://dummyimage.com/254x278/000/fff'
-          category='고생한 나 자신을 위한'
-          name='모베러웍스 티셔츠'
-          createdDate={15}
-          plannedDate={date}
-        />
-        <CandyCard
-          onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-          itemImage='https://dummyimage.com/254x278/000/fff'
-          category='고생한 나 자신을 위한'
-          name='모베러웍스 티셔츠'
-          createdDate={15}
-          plannedDate={date}
-        />
-        <CandyCard
-          onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-          itemImage='https://dummyimage.com/254x278/000/fff'
-          category='고생한 나 자신을 위한'
-          name='모베러웍스 티셔츠'
-          createdDate={15}
-          plannedDate={date}
-        />
-        <CandyCard
-          onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-          itemImage='https://dummyimage.com/254x278/000/fff'
-          category='고생한 나 자신을 위한'
-          name='모베러웍스 티셔츠'
-          createdDate={15}
-          plannedDate={date}
-        />
+        <CandyCard onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })} />
+        <CandyCard onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })} candy={candy} />
+        <CandyCard onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })} candy={candy} />
+        <CandyCard onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })} candy={candy} />
+        <CandyCard onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })} candy={candy} />
+        <CandyCard onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })} candy={candy} />
       </Slider>
     </Container>
   );

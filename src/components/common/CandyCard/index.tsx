@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { MouseEventHandler } from 'react';
 import Image from 'next/dist/client/image';
 import { Donut } from '../../../../public/assets/candy';
 import OptionBar from './OptionBar';
@@ -66,13 +67,13 @@ const Candy = styled.div`
   bottom: 109px;
   z-index: 100;
 `;
-const Candy = styled(Image)``;
 
 export interface CandyCardProps {
-  candy: any;
+  onClick?: MouseEventHandler<HTMLDivElement>;
+  candy?: any;
 }
 
-export default function TestCard({ candy }: CandyCardProps) {
+export default function TestCard({ candy, onClick }: CandyCardProps) {
   const { itemImage, category, name, createdDate, plannedDate } = candy;
 
   return (
