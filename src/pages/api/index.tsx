@@ -1,5 +1,5 @@
 import axios from 'axios';
-export { getMatchingCards, getUpcomingCards } from './useGets';
+export { getMatchingCards } from './useGets';
 // export * from './usePosts';
 
 const check = typeof window === 'undefined' ? false : !window.localStorage ? false : true;

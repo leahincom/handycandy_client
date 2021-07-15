@@ -1,7 +1,7 @@
 import React from 'react';
 import Slider from 'react-slick';
 import styled from 'styled-components';
-import WaitingCard from '../WaitingCard';
+import WaitingCard, { WaitingCardProps } from '../WaitingCard';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -23,7 +23,15 @@ const Container = styled.div`
   }
 `;
 
-export default function WaitingCardSlider() {
+export interface WaitingCandyItem extends WaitingCardProps {
+  id: string;
+}
+
+export interface WaitingCardSliderProps {
+  waitingCandyList: WaitingCandyItem[];
+}
+
+export default function WaitingCardSlider({ waitingCandyList }: WaitingCardSliderProps) {
   const settings = {
     arrows: false,
     dots: true,
@@ -35,30 +43,9 @@ export default function WaitingCardSlider() {
   return (
     <Container>
       <Slider {...settings}>
-        <WaitingCard
-          thumbnail='https://dummyimage.com/364x278/000/fff'
-          candy='https://dummyimage.com/70x70/000/fff'
-          date={10}
-          title='필보이드 핸드크림'
-        />
-        <WaitingCard
-          thumbnail='https://dummyimage.com/364x278/000/fff'
-          candy='https://dummyimage.com/70x70/000/fff'
-          date={10}
-          title='필보이드 핸드크림'
-        />
-        <WaitingCard
-          thumbnail='https://dummyimage.com/364x278/000/fff'
-          candy='https://dummyimage.com/70x70/000/fff'
-          date={10}
-          title='필보이드 핸드크림'
-        />
-        <WaitingCard
-          thumbnail='https://dummyimage.com/364x278/000/fff'
-          candy='https://dummyimage.com/70x70/000/fff'
-          date={10}
-          title='필보이드 핸드크림'
-        />
+        {waitingCandyList.map(({ candy, date, thumbnail, title, id }) => (
+          <WaitingCard key={id} id={id} thumbnail={thumbnail} candy={candy} date={date} title={title} />
+        ))}
       </Slider>
     </Container>
   );

@@ -5,7 +5,9 @@ import { Hydrate } from 'react-query/hydration';
 import GlobalStyle from '../styles/GlobalStyle';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () => new QueryClient({ defaultOptions: { queries: { retry: false, refetchOnWindowFocus: false } } }),
+  );
 
   return (
     <QueryClientProvider client={queryClient}>

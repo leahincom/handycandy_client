@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import dayjs from 'dayjs';
+import dynamic from 'next/dynamic';
+import { GetServerSideProps } from 'next';
 import DialogManager from '../components/DialogManager';
 import RecommendCandyCard from '../components/home/RecommendCandyCard';
 import WaitingCardSlider from '../components/home/WaitingCardSlider';
 import ComingCandyCard from '../components/home/ComingCandyCard';
 import Navbar from '../components/common/Navbar';
 import { login } from './api';
-import { getComingCandy } from './api/useGets/getComingCandy';
+import { CommingCandy, getComingCandy } from './api/useGets/getComingCandy';
+import { getRecommendCandy, RecommendCandy } from './api/useGets/getRecommendCandy';
+import { getWaitingCandy, WaitingCandy } from './api/useGets/getWatingCandy';
 
 const BackgroundContainer = styled.div`
   position: fixed;
@@ -114,10 +118,34 @@ const userInfo = {
   phrase: '한줄 문구입니다',
 };
 
-export default function Home() {
-  const user = useQuery(['login'], () => login('handycandy@gmail.com', 'handycandy1234!'));
-  const { error, data } = useQuery(['upcoming'], getComingCandy);
+const user_id = 'handycandy@gmail.com';
+const password = 'handycandy1234!';
 
+export interface HomeServerProps {
+  recommendCandyList: RecommendCandy[];
+  comingCandyList: CommingCandy[];
+  waitingCandyList: WaitingCandy[];
+}
+
+const DynamicCandyBottle = dynamic(() => import('../components/home/CandyBottle'));
+
+export default function Home() {
+  const { isSuccess } = useQuery('login', () => login(user_id, password));
+  const { data: recommendCandyList } = useQuery(['getRecommendCandy', user_id], () => getRecommendCandy(user_id), {
+    enabled: isSuccess,
+  });
+  const { data: comingCandyList } = useQuery(['getComingCandy'], getComingCandy, {
+    enabled: isSuccess,
+  });
+  const { data: waitingCandyList } = useQuery(['getWaitingCandy'], getWaitingCandy, {
+    enabled: isSuccess,
+  });
+  const candyInBottle = useMemo(() => {
+    return comingCandyList?.map((value) => value.category_image_url);
+  }, [comingCandyList]);
+  if (!recommendCandyList || !comingCandyList || !waitingCandyList) {
+    return <div></div>;
+  }
   return (
     <>
       <BackgroundContainer>
@@ -127,14 +155,15 @@ export default function Home() {
             두 병 채운 {userInfo.nickname}님, <br />
             {userInfo.candyPhrase}
             <p>📢 {userInfo.phrase} </p>
+            {candyInBottle && <DynamicCandyBottle candyList={candyInBottle} />}
           </TitleContainer>
           <div>
             <ComingContainer>
               <CandyTitle>다가오는 캔디</CandyTitle>
               <CandyDesc>행복을 안겨줄 캔디들이 곧 도착해요</CandyDesc>
               <FlexContainer>
-                {data?.comming_candy
-                  .slice(0, 4)
+                {comingCandyList
+                  ?.slice(0, 4)
                   .map(({ candy_id, candy_image_url, candy_name, category_image_url, category_name, d_day }) => (
                     <ComingCandyCard
                       key={candy_id}
@@ -161,7 +190,19 @@ export default function Home() {
               <WaitingContainer>
                 <CandyTitle>기다리는 캔디</CandyTitle>
                 <CandyDesc> 담고만 있었던 캔디로 꺼내보세요 </CandyDesc>
-                <WaitingCardSlider />
+                {waitingCandyList && (
+                  <WaitingCardSlider
+                    waitingCandyList={waitingCandyList?.map(
+                      ({ candy_id, candy_image_url, candy_name, category_image_url, waiting_date }) => ({
+                        candy: category_image_url,
+                        date: waiting_date,
+                        thumbnail: candy_image_url,
+                        title: candy_name,
+                        id: candy_id,
+                      }),
+                    )}
+                  />
+                )}
               </WaitingContainer>
             </FlexContainer>
           </div>
