@@ -23,8 +23,8 @@ export default function Search() {
       <Navbar />
       <Banner searchValue={searchValue} />
       <ListBody>
-        <CandyList type='담은 캔디' />
-        <CandyList type='완료한 캔디' />
+        <CandyList type='담은 캔디' searchValue={searchValue} />
+        <CandyList type='완료한 캔디' searchValue={searchValue} />
       </ListBody>
       <DialogManager />
     </>
