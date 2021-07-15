@@ -1,0 +1,10 @@
+export { default as Bottle0 } from './bottle0.png';
+export { default as Bottle1 } from './bottle1.png';
+export { default as Bottle2 } from './bottle2.png';
+export { default as Bottle3 } from './bottle3.png';
+export { default as Bottle4 } from './bottle4.png';
+export { default as Bottle5 } from './bottle5.png';
+export { default as Bottle6 } from './bottle6.png';
+export { default as Bottle7 } from './bottle7.png';
+export { default as Bottle8 } from './bottle8.png';
+export { default as Bottle9 } from './bottle9.png';

@@ -3,6 +3,7 @@ import { useRouter } from 'next/dist/client/router';
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import Link from 'next/link';
 import { CheckedEmoticon, RewardModalAtom } from '../../../states';
 import Button from '../../common/Button';
 import { EmoticonList } from './Emoticon';

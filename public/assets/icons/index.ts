@@ -30,3 +30,5 @@ export { default as RightQuote } from './RightQuote.svg';
 export { default as EditBtn } from './Edit.svg';
 export { default as SliderLeftBtn } from './SliderLeftArrow.svg';
 export { default as SliderRightBtn } from './SliderRightArrow.svg';
+export { default as PreviousArrow } from './PreviousArrow.svg';
+export { default as NextArrow } from './NextArrow.svg';

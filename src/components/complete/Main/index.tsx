@@ -2,12 +2,12 @@ import { useAtom } from 'jotai';
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { DeleteModalAtom, RewardModalAtom } from '../../../states';
+import { RewardModalAtom } from '../../../states';
 import RewardModal from '../../reward/Modal';
 import CompleteContent, { Candy } from '../Content';
 import { CompleteBackground } from '../../../../public/assets/images/';
 import { Bubble } from '../../../../public/assets/icons';
-import DeleteModal from '../Modal/DeleteModal';
+import CompleteSlider, { bottleList } from '../Slider';
 
 const candyArr = [
   {
@@ -61,7 +61,6 @@ const candyArr = [
 ];
 
 const Container = styled.div`
-  position: relative;
   z-index: 1;
   width: 100%;
   height: 100%;
@@ -120,6 +119,14 @@ const BubbleUnderline = styled.div`
   bottom: 0;
 `;
 
+const SliderWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 90px;
+`;
+
 export interface CompleteMainProps {
   candyList: Candy[];
   username: string;
@@ -136,28 +143,33 @@ export default function CompleteMain({
   const [isOpenRewardModal] = useAtom(RewardModalAtom);
 
   return (
-    <Container>
-      <Image
-        className='background'
-        src={CompleteBackground}
-        alt='background'
-        layout='fill'
-        objectFit='cover'
-        objectPosition='center'
-      />
-      <Body>
-        <BodyTitle>완료한 캔디</BodyTitle>
-        <BodyDesc>내가 선물했던 캔디들이 모인 병들을 모아보세요</BodyDesc>
-        <BubbleWrapper>
-          <Image src={Bubble} width={460} height={120} alt='bubble' />
-          <BubbleText>
-            {candynum}개의 캔디
-            <BubbleUnderline />를 주었어요!
-          </BubbleText>
-        </BubbleWrapper>
-      </Body>
-      <CompleteContent candyList={candyList} username={username} candynum={candynum} date={date} />
-      {isOpenRewardModal && <RewardModal />}
-    </Container>
+    <>
+      <Container>
+        <Image
+          className='background'
+          src={CompleteBackground}
+          alt='background'
+          layout='fill'
+          objectFit='cover'
+          objectPosition='center'
+        />
+        <Body>
+          <BodyTitle>완료한 캔디</BodyTitle>
+          <BodyDesc>내가 선물했던 캔디들이 모인 병들을 모아보세요</BodyDesc>
+          <BubbleWrapper>
+            <Image src={Bubble} width={460} height={120} alt='bubble' />
+            <BubbleText>
+              {candynum}개의 캔디
+              <BubbleUnderline />를 주었어요!
+            </BubbleText>
+          </BubbleWrapper>
+          <SliderWrapper>
+            <CompleteSlider bottles={bottleList} />
+          </SliderWrapper>
+        </Body>
+        <CompleteContent candyList={candyList} username={username} candynum={candynum} date={date} />
+        {isOpenRewardModal && <RewardModal />}
+      </Container>
+    </>
   );
 }
