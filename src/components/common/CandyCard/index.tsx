@@ -78,6 +78,7 @@ export interface CandyCardProps {
 
 export default function CandyCard({ candy, onClick }: CandyCardProps) {
   const { candy_image_url, category_name, candy_name, date, category_image_url } = candy;
+  console.log(candy_image_url, category_image_url);
   return (
     <Container onClick={onClick}>
       <Thumbnail>
