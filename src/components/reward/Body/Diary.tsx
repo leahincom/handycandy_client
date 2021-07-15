@@ -1,6 +1,6 @@
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/dist/client/router';
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
@@ -8,6 +8,7 @@ import { useMutation } from 'react-query';
 import { CheckedEmoticon, RewardModalAtom } from '../../../states';
 import Button from '../../common/Button';
 import { postRewardCandy, RewardBodyProps } from '../../../pages/api/usePosts/postRewardCandy';
+import checkByte from '../../../utils/checkBytes';
 import { EmoticonList } from './Emoticon';
 
 const Container = styled.div`
@@ -64,13 +65,28 @@ const ButtonWrapper = styled.div`
   width: 100%;
 `;
 
+const TextLimitNumber = styled.h3`
+  margin-top: 4px;
+  text-align: end;
+  line-height: 21px;
+  color: var(--gray-5);
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+`;
+const TextCurrentNumber = styled.span``;
+
 interface InputForm {
-  message: string;
+  message?: string;
 }
+
+const MESSAGE = 'message';
 
 export default function Diary() {
   const router = useRouter();
-  const { register, getValues } = useForm<InputForm>();
+  const { register, getValues, setValue } = useForm<InputForm>();
+  const textLimitRef = useRef<HTMLSpanElement>(null);
   const [, setIsCompleteModalOpen] = useAtom(RewardModalAtom);
   const [checkedEmoId] = useAtom(CheckedEmoticon);
 
@@ -87,6 +103,8 @@ export default function Diary() {
       feeling: checkedEmoId,
       message,
     };
+    console.log('🚀 ~ file: Diary.tsx ~ line 90 ~ handleClickComplete ~ body', body);
+
     postRewardMutation.mutate(body);
     router.push('/complete');
     setIsCompleteModalOpen(true);
@@ -102,7 +120,14 @@ export default function Diary() {
         <br />
         선택한 나의 기분을 자세히 이야기해주세요.
       </CandyTitle>
-      <DiaryArea {...register('message')} placeholder='오늘의 기록을 더 상세히 남겨요!' />
+      <DiaryArea
+        {...register(MESSAGE)}
+        placeholder='오늘의 기록을 더 상세히 남겨요!'
+        onChange={(e) => checkByte(e, textLimitRef, MESSAGE, setValue)}
+      />
+      <TextLimitNumber>
+        <TextCurrentNumber ref={textLimitRef}>0</TextCurrentNumber>/200Byte
+      </TextLimitNumber>
       <ButtonWrapper onClick={handleClickComplete}>
         <Button buttonColor='peach' size='md' text='완료하기' />
       </ButtonWrapper>
