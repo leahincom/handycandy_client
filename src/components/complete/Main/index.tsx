@@ -93,38 +93,38 @@ const BodyDesc = styled.h2`
 `;
 
 const BubbleWrapper = styled.div`
-  margin-top: 54px;
-  position: relative;
   display: flex;
-  justify-content: center;
+  position: relative;
   align-items: center;
+  justify-content: center;
+  margin-top: 54px;
 `;
 
 const BubbleText = styled.h1`
-  font-family: var(--nanum);
-  font-style: normal;
-  font-weight: 800;
-  font-size: 28px;
-  line-height: 32px;
   position: absolute;
   top: 35px;
+  line-height: 32px;
+  font-family: var(--nanum);
+  font-size: 28px;
+  font-weight: 800;
+  font-style: normal;
 `;
 
 const BubbleUnderline = styled.div`
-  width: 137px;
-  height: 15px;
-  background-color: var(--peach);
-  opacity: 0.5;
   position: absolute;
   bottom: 0;
+  opacity: 0.5;
+  background-color: var(--peach);
+  width: 137px;
+  height: 15px;
 `;
 
 const SliderWrapper = styled.div`
-  width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   margin-top: 90px;
+  width: 100%;
 `;
 
 export interface CompleteMainProps {

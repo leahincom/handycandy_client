@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import dayjs from 'dayjs';
 import dynamic from 'next/dynamic';
 import { GetServerSideProps } from 'next';
-import DialogManager from '../components/DialogManager';
+import DialogManager from '../components/common/DialogManager';
 import RecommendCandyCard from '../components/home/RecommendCandyCard';
 import WaitingCardSlider from '../components/home/WaitingCardSlider';
 import ComingCandyCard from '../components/home/ComingCandyCard';

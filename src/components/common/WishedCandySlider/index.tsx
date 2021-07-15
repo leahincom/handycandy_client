@@ -82,7 +82,6 @@ export default function WishedCandySlider() {
   return (
     <Container>
       <Slider {...settings}>
-        <CandyCard onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })} />
         <CandyCard onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })} candy={candy} />
         <CandyCard onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })} candy={candy} />
         <CandyCard onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })} candy={candy} />

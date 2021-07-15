@@ -28,13 +28,13 @@ const Container = styled.div`
   }
 
   .slick-center {
-    transition: transform 0.3s;
     transform: scale(1.5);
+    transition: transform 0.3s;
   }
   .slick-slide > div {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
   }
 `;
 

@@ -188,7 +188,7 @@ export default function EachCategory({ category, totalNum, ddayNum, waitingNum }
   const date = new Date();
   const router = useRouter();
 
-  const candy = {
+  const Candy = {
     itemImage: 'https://dummyimage.com/254x278/000/fff',
     category: '고생한 나 자신을 위한',
     name: '모베러웍스 티셔츠',
@@ -244,23 +244,23 @@ export default function EachCategory({ category, totalNum, ddayNum, waitingNum }
             <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>
             <CandyContainer>
               <CandyCard
-                candy={candy}
+                candy={Candy}
                 onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
               />
               <CandyCard
-                candy={candy}
+                candy={Candy}
                 onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
               />
               <CandyCard
-                candy={candy}
+                candy={Candy}
                 onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
               />
               <CandyCard
-                candy={candy}
+                candy={Candy}
                 onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
               />
               <CandyCard
-                candy={candy}
+                candy={Candy}
                 onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
               />
             </CandyContainer>

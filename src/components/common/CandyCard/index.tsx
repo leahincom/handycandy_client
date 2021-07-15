@@ -70,10 +70,10 @@ const Candy = styled.div`
 
 export interface CandyCardProps {
   onClick?: MouseEventHandler<HTMLDivElement>;
-  candy?: any;
+  candy: any;
 }
 
-export default function TestCard({ candy, onClick }: CandyCardProps) {
+export default function CandyCard({ candy, onClick }: CandyCardProps) {
   const { itemImage, category, name, createdDate, plannedDate } = candy;
 
   return (
