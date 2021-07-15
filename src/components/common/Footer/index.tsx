@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
+import Image from 'next/dist/client/image';
 import { Logo, Mail, Instagram } from '../../../../public/assets/icons/';
 
 const Container = styled.div`
@@ -35,7 +36,7 @@ const LogoBox = styled.div`
   font-style: normal;
 `;
 
-const LogoIcon = styled.img`
+const LogoIcon = styled.div`
   margin-bottom: 12px;
 `;
 
@@ -108,7 +109,7 @@ const Item = styled.a`
   }
 `;
 
-const ContactIcon = styled.img`
+const ContactIcon = styled.div`
   margin-right: 10px;
 `;
 
@@ -117,7 +118,9 @@ export default function Footer() {
     <Container>
       <LogoBar>
         <LogoBox>
-          <LogoIcon src={Logo} />
+          <LogoIcon>
+            <Image src={Logo} alt='' />
+          </LogoIcon>
           @Beta Version 2021
         </LogoBox>
         <Button>익스텐션 설치하기</Button>
@@ -164,13 +167,17 @@ export default function Footer() {
         <ItemBox>
           <Link href='https://www.instagram.com/handycandy_official/' passHref={true}>
             <Item>
-              <ContactIcon src={Instagram} />
+              <ContactIcon>
+                <Image src={Instagram} alt='' />
+              </ContactIcon>
               handycandy_official
             </Item>
           </Link>
           <Link href='mailto:handycandy@gmail.com' passHref={true}>
             <Item>
-              <ContactIcon src={Mail} />
+              <ContactIcon>
+                <Image src={Mail} alt='' />
+              </ContactIcon>
               handycandy@gmail.com
             </Item>
           </Link>
