@@ -44,7 +44,7 @@ export default function CompleteContent() {
             candy_id={candy.candy_id}
             candy_name={candy.candy_name}
             candy_image_url={candy.candy_image_url}
-            category_name={candy.category_image_url}
+            category_name={candy.category_name}
             category_image_url={candy.category_image_url}
             year={candy.year}
             month={candy.month}

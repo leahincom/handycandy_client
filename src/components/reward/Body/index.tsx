@@ -145,7 +145,7 @@ export default function Body({
           <CandyDate>
             <CandyText weight={700}>캔디 준 날</CandyText>
             <CandyText weight={400} style={{ marginLeft: '39px' }}>
-              {`${year}년 ${month}월 ${date}`}
+              {`${year}년 ${month}월 ${date}일`}
             </CandyText>
           </CandyDate>
         </CandyContent>

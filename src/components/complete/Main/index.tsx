@@ -136,6 +136,7 @@ export default function CompleteMain() {
   const curDirectory = new Set(data?.result.cur_categories).size;
   const beforeDirectory = new Set(data?.result.before_categoris).size;
   const afterDirectory = new Set(data?.result.after_categoris).size;
+  // TODO: 슬라이더 12개 받아오도록 api 바뀌는 대로 구현 새로하기
 
   return (
     <>

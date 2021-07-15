@@ -20,6 +20,6 @@ const Template: Story<CompleteSliderProps> = (props) => <CompleteSlider {...prop
 const bottleList = [Bottle0, Bottle1, Bottle2, Bottle3, Bottle4, Bottle5, Bottle6, Bottle7, Bottle8, Bottle9];
 
 export const Basic = Template.bind({});
-Basic.args = {
-  bottles: bottleList,
-};
+// Basic.args = {
+//   bottles: bottleList,
+// };

@@ -1,8 +1,24 @@
 import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
-import { Donut } from '../../../../public/assets/candy';
+import { Donut, Ball, Clover, Double, Flower, Fork, Leaf, Magnet, WaterDrop, X } from '../../../../public/assets/candy';
 import { CompletedCandy } from '../../../pages/api/useGets/getCompletedCandy';
+
+export interface Category {
+  name: string;
+  src: any;
+}
+
+const categoryList: Category[] = [
+  { name: 'Ball', src: Ball },
+  { name: 'Donut', src: Donut },
+  { name: 'Clover', src: Clover },
+  { name: 'Double', src: Double },
+  { name: 'Flower', src: Flower },
+  { name: 'Fork', src: Fork },
+  { name: 'Magnet', src: Magnet },
+  { name: 'WaterDrop', src: WaterDrop },
+];
 
 const Container = styled.div`
   position: relative;
@@ -73,11 +89,13 @@ export default function CompleteCard({
   month,
   date,
 }: CompleteCardProps) {
+  const categoryUrl = categoryList.find((c) => c.name === category_image_url)?.src;
+
   return (
     <Container>
       {/* <CandyImage src={candy_image_url} width='80px' height='80px' /> */}
       <CandyEmoticonWrapper>
-        {/* <CandyEmoticon src={category_image_url} width='80px' height='80px' /> */}
+        <CandyEmoticon src={categoryUrl} width='80px' height='80px' />
       </CandyEmoticonWrapper>
       <Category>{category_name}</Category>
       <Title>{candy_name}</Title>
