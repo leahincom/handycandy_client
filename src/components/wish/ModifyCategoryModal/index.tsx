@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useMutation, QueryClient } from 'react-query';
+import { putEditCategory } from '../../../pages/api/usePuts/putEditCategory';
 import { Donut, Flower, Magnet, WaterDrop, Double } from '../../../../public/assets/candy';
 import Button from '../../common/Button';
+import { candyIconList } from '../../../utils/categoryIcons';
+import { CategoryList } from '../../../pages/api/useGets/getCategoryList';
 import CategoryDropdown from './CategoryDropdown';
 import ImageContainer from './ImageContainer';
 import DeleteCategoryModal from './DeleteCategoryModal';
@@ -58,26 +62,9 @@ const CategoryWrapper = styled.div`
   font-size: 18px;
 `;
 
-const CateogoryInfo = styled.div`
+const CategoryInfo = styled.div`
   display: flex;
   margin-top: 18px;
-
-  > span {
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    margin-left: 20px;
-    border: 1px solid var(--gray-3);
-    border-radius: 17px;
-    padding-left: 37px;
-    width: 365px;
-    height: 50px;
-    line-height: 28px;
-    color: var(--black);
-    font-family: var(--roboto);
-    font-size: 24px;
-    font-weight: bold;
-  }
 `;
 
 const DeleteWrapper = styled.div`
@@ -95,6 +82,27 @@ const DeleteWrapper = styled.div`
   }
 `;
 
+const InputBox = styled.input`
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  border: 1px solid var(--gray-3);
+  border-radius: 17px;
+  padding-left: 37px;
+  width: 365px;
+  height: 50px;
+  line-height: 28px;
+  color: var(--black);
+  font-family: var(--roboto);
+  font-size: 24px;
+  font-weight: bold;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
 const DeleteButton = styled.div`
   margin-top: 19px;
   margin-bottom: 11px;
@@ -103,44 +111,39 @@ const DeleteButton = styled.div`
   font-family: var(--roboto);
   font-size: 24px;
   font-weight: bold;
+
+  &:hover {
+    color: var(--gray-6);
+  }
 `;
 
-const categories = [
-  {
-    image: Donut,
-    name: '행복한 나를 위한',
-  },
-  {
-    image: Magnet,
-    name: '바쁜 일상 후를 위한',
-  },
-  {
-    image: WaterDrop,
-    name: '휴식주기를 위한',
-  },
-  {
-    image: Flower,
-    name: '특별한 날을 위한',
-  },
-  {
-    image: Double,
-    name: '짜릿한 나를 위한',
-  },
-  {
-    image: Double,
-    name: '짜릿한 나를 위한',
-  },
-  {
-    image: Double,
-    name: '짜릿한 나를 위한',
-  },
-];
+export interface ModifyCategoryModalProps {
+  isOpen: boolean;
+  setIsOpen: any;
+  selectedCategory: string;
+  setSelectedCategory: any;
+  categoryList: CategoryList[];
+  preview: string[];
+}
 
-export default function ModifyCategoryModal() {
-  const [isOpen, setIsOpen] = useState(true);
+export default function ModifyCategoryModal({
+  isOpen,
+  setIsOpen,
+  selectedCategory,
+  setSelectedCategory,
+  categoryList,
+  preview,
+}: ModifyCategoryModalProps) {
+  const queryClient = new QueryClient();
+  const mutation = useMutation('categoryList', putEditCategory);
   const [isDelete, setIsDelete] = useState<boolean>(false);
-  const [categoryId, setCategoryId] = useState<number>(0);
-  const [categoryName, setCategoryName] = useState<string>(categories[categoryId].name);
+  const [categoryName, setCategoryName] = useState<string>(
+    categoryList.filter((category: CategoryList) => category.category_id === selectedCategory)[0].name,
+  );
+  const tempImage = categoryList.filter((category) => category.category_id === selectedCategory)[0].category_image_url;
+  const [categoryImage, setCategoryImage] = useState<string>(
+    candyIconList.filter((icon) => icon.name === tempImage)[0].src.src,
+  );
 
   const handleCloseClick = () => {
     setIsOpen(false);
@@ -149,30 +152,50 @@ export default function ModifyCategoryModal() {
   const deleteModalOpen = () => {
     setIsDelete(true);
   };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCategoryName(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    mutation.mutate(
+      { category_name: categoryName, category_image_url: categoryImage },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries('categoryList');
+        },
+      },
+    );
+    setIsOpen(false);
+  };
+
+  const candyImage = categoryList.filter((category: CategoryList) => category.category_id === selectedCategory)[0]
+    .category_image_url;
+
   return (
     <>
       {!isDelete ? (
         <>
-          <Background isOpen={isOpen} />
+          <Background isOpen={isOpen} onClick={handleCloseClick} />
           <Container isOpen={isOpen}>
             <Title>카테고리 수정</Title>
             <ImageContainer
-              candyImg='https://dummyimage.com/364x278/000/fff'
-              firstImg='https://dummyimage.com/184x255/000/fff'
-              secondImg='https://dummyimage.com/364x278/000/fff'
-              thirdImg='https://dummyimage.com/364x278/000/fff'
+              candyImg={candyIconList.filter((icon) => icon.name === candyImage)[0].src.src}
+              firstImg={preview[0]}
+              secondImg={preview[1]}
+              thirdImg={preview[2]}
             />
             <CategoryWrapper>
               <p>카테고리명</p>
-              <CateogoryInfo>
+              <CategoryInfo>
                 <CategoryDropdown
-                  categories={categories}
-                  categoryId={categoryId}
-                  setCategoryId={setCategoryId}
-                  setCategoryName={setCategoryName}
+                  setCategoryImage={setCategoryImage}
+                  categoryImage={categoryImage}
+                  categoryList={categoryList}
+                  setSelectedCategory={setSelectedCategory}
                 />
-                <span>{categoryName}</span>
-              </CateogoryInfo>
+                <InputBox value={categoryName} onChange={handleInputChange} />
+              </CategoryInfo>
             </CategoryWrapper>
             <hr
               style={{
@@ -185,11 +208,19 @@ export default function ModifyCategoryModal() {
               <DeleteButton onClick={deleteModalOpen}>카테고리 삭제</DeleteButton>
               <p>카테고리와 모든 캔디들은 영구적으로 삭제됩니다.</p>
             </DeleteWrapper>
-            <Button text='완료' size='sm' buttonColor='peach' color='black' onClick={handleCloseClick} />
+            <Button text='완료' size='sm' buttonColor='peach' color='black' onClick={handleSubmit} />
           </Container>
         </>
       ) : (
-        <DeleteCategoryModal candy={categories[categoryId].image} />
+        <DeleteCategoryModal
+          selectedCategory={selectedCategory}
+          candy={
+            categoryList.filter((category: CategoryList) => category.category_id === selectedCategory)[0]
+              .category_image_url
+          }
+          setIsOpen={setIsOpen}
+          isOpen={isOpen}
+        />
       )}
     </>
   );

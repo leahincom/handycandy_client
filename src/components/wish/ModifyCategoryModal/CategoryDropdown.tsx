@@ -2,18 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { ToggleButton } from '../../../../public/assets/icons';
-
-export interface Category {
-  image: string;
-  name: string;
-}
-
-export interface CategoryDropdownProps {
-  setCategoryName: (categoryName: string) => void;
-  categoryId: number;
-  setCategoryId: (id: number) => void;
-  categories: Category[];
-}
+import { CategoryList } from '../../../pages/api/useGets/getCategoryList';
+import { candyIconList } from '../../../utils/categoryIcons';
 
 const Dropdown = styled.div<{ isOpen: boolean }>`
   box-sizing: border-box;
@@ -82,25 +72,35 @@ const Option = styled.div`
   }
 `;
 
-const CategoryIcon = styled(Image)`
+const CategoryIcon = styled.img`
   margin-right: 13px;
   width: 36px;
   height: 36px;
 `;
 
-const Toggle = styled(Image)<{ isOpen: boolean }>`
+const Toggle = styled.div<{ isOpen: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transform: ${(props) => props.isOpen && 'rotate(180deg)'};
   transition: all 0.2s linear;
   cursor: pointer;
   width: 15px;
-  height: 8px;
+  height: 100%;
 `;
 
+export interface CategoryDropdownProps {
+  setSelectedCategory: any;
+  categoryList: CategoryList[];
+  categoryImage: string;
+  setCategoryImage: any;
+}
+
 export default function CategoryDropdown({
-  categories,
-  setCategoryName,
-  categoryId,
-  setCategoryId,
+  setSelectedCategory,
+  categoryList,
+  categoryImage,
+  setCategoryImage,
 }: CategoryDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -108,28 +108,34 @@ export default function CategoryDropdown({
     setIsOpen((prev) => !prev);
   };
 
-  const selectCategory = (idx: number) => () => {
-    setCategoryId(idx);
-    setCategoryName(categories[idx].name);
+  const handleOptionClick = (category_id: string) => {
+    const imageName = categoryList.filter((category) => category.category_id === category_id)[0].category_image_url;
+    setSelectedCategory(category_id);
+    setCategoryImage(candyIconList.filter((icon) => icon.name === imageName)[0].src.src);
   };
 
   return (
     <Dropdown isOpen={isOpen} onClick={openDropdown}>
-      <CategoryIcon src={categories[categoryId].image} alt='' />
+      <CategoryIcon src={categoryImage} alt='' />
       <Options isOpen={isOpen}>
         <Wrapper>
-          {categories.map((category, idx) => {
+          {categoryList.map((category, idx) => {
             return (
-              <Option key={idx} onClick={selectCategory(idx)}>
-                <div>
-                  <Image src={category.image} alt='' width='38px' height='38px' />
-                </div>
+              <Option key={idx} onClick={() => handleOptionClick(category.category_id)}>
+                <Image
+                  src={candyIconList.filter((icon) => icon.name === category.category_image_url)[0].src.src}
+                  alt=''
+                  width='36px'
+                  height='36px'
+                />
               </Option>
             );
           })}
         </Wrapper>
       </Options>
-      <Toggle src={ToggleButton} isOpen={isOpen} alt='' />
+      <Toggle isOpen={isOpen}>
+        <Image src={ToggleButton} alt='' />
+      </Toggle>
     </Dropdown>
   );
 }

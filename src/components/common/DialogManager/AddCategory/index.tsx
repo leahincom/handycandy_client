@@ -127,7 +127,7 @@ export default function AddCategory() {
   const handleNextClick = () => {
     if (selectedCandy > -1) {
       mutation.mutate({
-        category_image_url: candyIconList[selectedCandy].src,
+        category_image_url: candyIconList[selectedCandy].src.src,
         name: category,
       });
       setAdded(true);

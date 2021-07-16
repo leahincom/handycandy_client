@@ -41,7 +41,7 @@ const Metadata = styled.div<ContainerProps>`
   background-color: white;
   padding: 40px 0 23px 17px;
   width: 100%;
-  height: 130px;
+  height: ${(props) => (props.from === 'home' ? '78px' : '125px')};
   ${Container}:hover & {
     background-color: rgba(90, 90, 90, 0.1);
   }
@@ -75,20 +75,21 @@ const Candy = styled.div<ContainerProps>`
   position: absolute;
   right: 16px;
   bottom: ${(props) => (props.from === 'home' ? '69px' : '109px')};
-  z-index: 100;
+  z-index: 5;
 `;
 
 export interface CandyCardProps {
   candy_id?: string;
   candy_image_url: string;
   candy_name: string;
-  category_image_url: string;
+  category_image_url?: string;
   category_name: string;
   d_day?: number;
   month?: number;
   date?: number;
   waiting_date?: number;
   from?: string;
+  isNull?: boolean;
 }
 
 export interface ContainerProps {
@@ -106,6 +107,7 @@ export default function CandyCard({
   date,
   waiting_date,
   from,
+  isNull,
 }: CandyCardProps) {
   return (
     <Link href={getRoutesName.wish.detail(candy_id ?? '')} passHref>
@@ -115,18 +117,19 @@ export default function CandyCard({
           src={candy_image_url !== '' ? candy_image_url : '/assets/images/ComingCandyNull.png'}
           alt=''
         />
-        {d_day !== undefined ? <OptionBar d_day={d_day} /> : <></>}
-
-        <Metadata>
+        {!isNull && d_day !== undefined && <OptionBar d_day={d_day} />}
+        <Metadata from={from}>
           <Category from={from}>{category_name}</Category>
           <Name from={from}>{candy_name}</Name>
           {from !== 'home' ? (
             <Date>{d_day === undefined ? `담은지 ${waiting_date}일 되었어요.` : `${month}월 ${date}일 예정`}</Date>
           ) : null}
         </Metadata>
-        <Candy from={from}>
-          <CandyIcon name={category_image_url} />
-        </Candy>
+        {!isNull && (
+          <Candy from={from}>
+            <CandyIcon name={category_image_url} />
+          </Candy>
+        )}
       </Container>
     </Link>
   );

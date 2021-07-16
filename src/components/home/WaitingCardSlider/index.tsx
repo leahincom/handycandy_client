@@ -28,7 +28,7 @@ export interface WaitingCandyItem extends WaitingCardProps {
 }
 
 export interface WaitingCardSliderProps {
-  waitingCandyList: WaitingCandyItem[];
+  waitingCandyList: WaitingCandyItem[] | undefined;
 }
 
 export default function WaitingCardSlider({ waitingCandyList }: WaitingCardSliderProps) {
@@ -43,8 +43,8 @@ export default function WaitingCardSlider({ waitingCandyList }: WaitingCardSlide
   return (
     <Container>
       <Slider {...settings}>
-        {waitingCandyList.map(({ candy, date, thumbnail, title, id }) => (
-          <WaitingCard key={id} id={id} thumbnail={thumbnail} candy={candy} date={date} title={title} />
+        {waitingCandyList?.map(({ candy, date, thumbnail, title, id, isNull }) => (
+          <WaitingCard key={id} id={id} thumbnail={thumbnail} candy={candy} date={date} title={title} isNull={isNull} />
         ))}
       </Slider>
     </Container>

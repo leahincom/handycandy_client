@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import Navbar from '../components/common/Navbar';
+import { login } from './api';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -122,8 +123,9 @@ export default function Login() {
     });
   };
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    await login(loginInfo.id, loginInfo.password);
     router.push('/');
   };
 
