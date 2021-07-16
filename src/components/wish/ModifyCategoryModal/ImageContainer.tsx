@@ -51,13 +51,13 @@ export interface ImageContainerProps {
 export default function ImageContainer({ candyImg, firstImg, secondImg, thirdImg }: ImageContainerProps) {
   return (
     <Container>
-      <Candy src={candyImg} />
+      <Candy src={candyImg} layout='fill' />
       <CardRow>
-        <FirstImg src={firstImg} />
+        <FirstImg src={firstImg} layout='fill' />
       </CardRow>
       <CardRow>
-        <SecondImg src={secondImg} />
-        <ThirdImg src={thirdImg} />
+        <SecondImg src={secondImg} layout='fill' />
+        <ThirdImg src={thirdImg} layout='fill' />
       </CardRow>
     </Container>
   );

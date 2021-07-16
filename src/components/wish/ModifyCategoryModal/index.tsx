@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useQuery } from 'react-query';
 import { Donut, Flower, Magnet, WaterDrop, Double } from '../../../../public/assets/candy';
 import Button from '../../common/Button';
+import { candyIconList } from '../../../utils/categoryIcons';
+import { CategoryList } from '../../../pages/api/useGets/getCategoryList';
 import CategoryDropdown from './CategoryDropdown';
 import ImageContainer from './ImageContainer';
 import DeleteCategoryModal from './DeleteCategoryModal';
@@ -58,7 +61,7 @@ const CategoryWrapper = styled.div`
   font-size: 18px;
 `;
 
-const CateogoryInfo = styled.div`
+const CategoryInfo = styled.div`
   display: flex;
   margin-top: 18px;
 
@@ -103,44 +106,28 @@ const DeleteButton = styled.div`
   font-family: var(--roboto);
   font-size: 24px;
   font-weight: bold;
+
+  &:hover {
+    color: var(--gray-6);
+  }
 `;
 
-const categories = [
-  {
-    image: Donut,
-    name: '행복한 나를 위한',
-  },
-  {
-    image: Magnet,
-    name: '바쁜 일상 후를 위한',
-  },
-  {
-    image: WaterDrop,
-    name: '휴식주기를 위한',
-  },
-  {
-    image: Flower,
-    name: '특별한 날을 위한',
-  },
-  {
-    image: Double,
-    name: '짜릿한 나를 위한',
-  },
-  {
-    image: Double,
-    name: '짜릿한 나를 위한',
-  },
-  {
-    image: Double,
-    name: '짜릿한 나를 위한',
-  },
-];
+export interface ModifyCategoryModalProps {
+  isOpen: boolean;
+  setIsOpen: any;
+  selectedCategory: string;
+  setSelectedCategory: any;
+  categoryList: CategoryList[];
+}
 
-export default function ModifyCategoryModal() {
-  const [isOpen, setIsOpen] = useState(true);
+export default function ModifyCategoryModal({
+  isOpen,
+  setIsOpen,
+  selectedCategory,
+  setSelectedCategory,
+  categoryList,
+}: ModifyCategoryModalProps) {
   const [isDelete, setIsDelete] = useState<boolean>(false);
-  const [categoryId, setCategoryId] = useState<number>(0);
-  const [categoryName, setCategoryName] = useState<string>(categories[categoryId].name);
 
   const handleCloseClick = () => {
     setIsOpen(false);
@@ -149,11 +136,12 @@ export default function ModifyCategoryModal() {
   const deleteModalOpen = () => {
     setIsDelete(true);
   };
+
   return (
     <>
       {!isDelete ? (
         <>
-          <Background isOpen={isOpen} />
+          <Background isOpen={isOpen} onClick={handleCloseClick} />
           <Container isOpen={isOpen}>
             <Title>카테고리 수정</Title>
             <ImageContainer
@@ -164,15 +152,16 @@ export default function ModifyCategoryModal() {
             />
             <CategoryWrapper>
               <p>카테고리명</p>
-              <CateogoryInfo>
+              <CategoryInfo>
                 <CategoryDropdown
-                  categories={categories}
-                  categoryId={categoryId}
-                  setCategoryId={setCategoryId}
-                  setCategoryName={setCategoryName}
+                  categoryList={categoryList}
+                  selectedCategory={selectedCategory}
+                  setSelectedCategory={setSelectedCategory}
                 />
-                <span>{categoryName}</span>
-              </CateogoryInfo>
+                <span>
+                  {categoryList.filter((category: CategoryList) => category.category_id === selectedCategory)[0].name}
+                </span>
+              </CategoryInfo>
             </CategoryWrapper>
             <hr
               style={{
@@ -189,7 +178,15 @@ export default function ModifyCategoryModal() {
           </Container>
         </>
       ) : (
-        <DeleteCategoryModal candy={categories[categoryId].image} />
+        <DeleteCategoryModal
+          selectedCategory={selectedCategory}
+          candy={
+            categoryList.filter((category: CategoryList) => category.category_id === selectedCategory)[0]
+              .category_image_url
+          }
+          setIsOpen={setIsOpen}
+          isOpen={isOpen}
+        />
       )}
     </>
   );

@@ -2,18 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { ToggleButton } from '../../../../public/assets/icons';
-
-export interface Category {
-  image: string;
-  name: string;
-}
-
-export interface CategoryDropdownProps {
-  setCategoryName: (categoryName: string) => void;
-  categoryId: number;
-  setCategoryId: (id: number) => void;
-  categories: Category[];
-}
+import { CategoryList } from '../../../pages/api/useGets/getCategoryList';
+import { candyIconList } from '../../../utils/categoryIcons';
 
 const Dropdown = styled.div<{ isOpen: boolean }>`
   box-sizing: border-box;
@@ -82,13 +72,13 @@ const Option = styled.div`
   }
 `;
 
-const CategoryIcon = styled(Image)`
+const CategoryIcon = styled.div`
   margin-right: 13px;
   width: 36px;
   height: 36px;
 `;
 
-const Toggle = styled(Image)<{ isOpen: boolean }>`
+const Toggle = styled.div<{ isOpen: boolean }>`
   transform: ${(props) => props.isOpen && 'rotate(180deg)'};
   transition: all 0.2s linear;
   cursor: pointer;
@@ -96,40 +86,58 @@ const Toggle = styled(Image)<{ isOpen: boolean }>`
   height: 8px;
 `;
 
+export interface CategoryDropdownProps {
+  selectedCategory: string;
+  setSelectedCategory: any;
+  categoryList: CategoryList[];
+}
+
 export default function CategoryDropdown({
-  categories,
-  setCategoryName,
-  categoryId,
-  setCategoryId,
+  selectedCategory,
+  setSelectedCategory,
+  categoryList,
 }: CategoryDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [categoryImage, setCategoryImage] = useState<string>('Leaf');
 
   const openDropdown = () => {
     setIsOpen((prev) => !prev);
+    setCategoryImage(
+      categoryList.filter((category) => category.category_id === selectedCategory)[0].category_image_url,
+    );
   };
 
-  const selectCategory = (idx: number) => () => {
-    setCategoryId(idx);
-    setCategoryName(categories[idx].name);
+  const handleOptionClick = (category_id: string) => {
+    setSelectedCategory(category_id);
+    console.log(category_id);
   };
 
   return (
     <Dropdown isOpen={isOpen} onClick={openDropdown}>
-      <CategoryIcon src={categories[categoryId].image} alt='' />
+      <CategoryIcon>
+        <Image src={candyIconList.filter((icon) => icon.name === categoryImage)[0].src.src} alt='' layout='fill' />
+      </CategoryIcon>
+
       <Options isOpen={isOpen}>
         <Wrapper>
-          {categories.map((category, idx) => {
+          {categoryList.map((category, idx) => {
             return (
-              <Option key={idx} onClick={selectCategory(idx)}>
+              <Option key={idx} onClick={() => handleOptionClick(category.category_id)}>
                 <div>
-                  <Image src={category.image} alt='' width='38px' height='38px' />
+                  <Image
+                    src={candyIconList.filter((icon) => icon.name === category.category_image_url)[0].src.src}
+                    alt=''
+                    layout='fill'
+                  />
                 </div>
               </Option>
             );
           })}
         </Wrapper>
       </Options>
-      <Toggle src={ToggleButton} isOpen={isOpen} alt='' />
+      <Toggle isOpen={isOpen}>
+        <Image src={ToggleButton} alt='' />
+      </Toggle>
     </Dropdown>
   );
 }

@@ -5,7 +5,7 @@ import { openCandyModal, openCategoryModal } from '../../../states';
 import AddCandy from './AddCandy';
 import AddCategory from './AddCategory';
 
-const ModalControl = styled.div`
+export const ModalControl = styled.div`
   display: flex;
   position: fixed;
   top: 0;
@@ -17,7 +17,7 @@ const ModalControl = styled.div`
   height: 100%;
 `;
 
-const Outside = styled.div`
+export const Outside = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -36,7 +36,7 @@ const Outside = styled.div`
   }
 `;
 
-const Dialog = styled.div`
+export const Dialog = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
