@@ -145,7 +145,6 @@ export default function ImageEditModal({ candy }: ImageEditModalProps) {
     setIsOpen(false);
   };
   const handleClickSave = () => {
-    console.log('[req에 넣어서 보낼 정보]: ', candyId, '  ', imageUrl);
     putCandyImageMutation.mutate();
     setIsOpen(false);
   };

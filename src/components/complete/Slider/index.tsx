@@ -69,7 +69,6 @@ export default function CompleteSlider({ category_num }: CompleteSliderProps) {
     bottle: bottleList[num].src,
     month: index + 1,
   }));
-  console.log('🚀 ~ file: index.tsx ~ line 72 ~ sliderList ~ sliderList', sliderList);
 
   const [curMonth] = useAtom(CurrentMonthAtom);
   const sliderRef = useRef<Slider>(null);
@@ -81,6 +80,7 @@ export default function CompleteSlider({ category_num }: CompleteSliderProps) {
     infinite: true,
     initialSlide: curMonth - 1,
     slidesToShow: 3,
+    draggable: false,
     centerPadding: '0px',
     nextArrow: <NextArrow sliderRef={sliderRef} />,
     prevArrow: <PrevArrow sliderRef={sliderRef} />,

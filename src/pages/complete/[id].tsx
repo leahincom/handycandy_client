@@ -271,9 +271,7 @@ export default function Detail() {
     getComletedCandyDetail(candyId as string),
   );
   const banner = completeBannerList.find((banner) => banner.name === data?.banner)?.src;
-  console.log(banner);
 
-  console.log('[완료 캔디 상세]: ', data);
   const onClickToGoBack = () => {
     router.back();
   };
