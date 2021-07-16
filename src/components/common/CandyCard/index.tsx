@@ -75,7 +75,7 @@ const Candy = styled.div`
   position: absolute;
   right: 16px;
   bottom: 109px;
-  z-index: 100;
+  z-index: 5;
 `;
 
 export interface CandyCardProps {
