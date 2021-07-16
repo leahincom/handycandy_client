@@ -157,9 +157,8 @@ export default function TotalCandy() {
             <Border></Border>
             <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>
             <CandyContainer>
-              {waitingList
-                ?.slice(0, 5)
-                .map(({ candy_id, category_name, candy_image_url, candy_name, category_image_url, waiting_date }) => (
+              {waitingList?.map(
+                ({ candy_id, category_name, candy_image_url, candy_name, category_image_url, waiting_date }) => (
                   <CandyCard
                     key={candy_id}
                     candy_id={candy_id}
@@ -169,7 +168,8 @@ export default function TotalCandy() {
                     waiting_date={waiting_date}
                     category_name={category_name}
                   />
-                ))}
+                ),
+              )}
             </CandyContainer>
           </WaitingContainer>
         </BodyContainer>
