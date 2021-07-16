@@ -4,13 +4,14 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
-import { CandyEditModalAtom, CheckedEmoticon, DeleteModalAtom } from '../../../states';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { CandyEditModalAtom, DeleteModalAtom } from '../../../states';
 import checkByte from '../../../utils/checkBytes';
 import Button from '../../common/Button';
 import { EmoticonList } from '../../reward/Body/Emoticon';
 import { Check } from '../../../../public/assets/icons';
 import { getComletedCandyDetail } from '../../../pages/api/useGets/getCompletedCandyDetail';
+import { putCompletedCandy } from '../../../pages/api/usePuts/putCompletedCandy';
 
 interface BackgroundProps {
   isOpen: boolean;
@@ -173,19 +174,19 @@ interface InputForm {
 }
 
 const HISTORY = 'history';
+const NAME = 'name';
 
 export default function EditModal() {
-  const { register, setValue } = useForm<InputForm>();
+  const { register, getValues, setValue } = useForm<InputForm>();
   const textLimitRef = useRef<HTMLSpanElement>(null);
   const [isOpen, setIsOpen] = useAtom(CandyEditModalAtom);
   const [, setIsOpenDeleteModal] = useAtom(DeleteModalAtom);
   const [checkedEmoId, setCheckedEmoId] = useState<string>('');
   const router = useRouter();
   const candyId = router.query.id as string;
-
   const { data } = useQuery(['complete', candyId], () => getComletedCandyDetail(candyId));
-
-  console.log(data?.feeling_image_url);
+  const emoticonId = EmoticonList.find((emo) => emo.name === data?.feeling_image_url)?.id as string;
+  const queryClient = useQueryClient();
 
   const handleClickToClose = () => {
     setIsOpen(false);
@@ -193,8 +194,29 @@ export default function EditModal() {
   const handleClickEmoticon = (id: string) => {
     setCheckedEmoId(id);
   };
+  const putCompleteCandyMutation = useMutation(putCompletedCandy, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['complete', candyId]);
+    },
+  });
   const handleClickToComplete = () => {
-    // TODO: update complete candy
+    const { history, name } = getValues();
+    try {
+      if (!name) {
+        throw new Error('캔디 이름이 입력되지 않았습니다.');
+      }
+      if (!data) {
+        return;
+      }
+      putCompleteCandyMutation.mutate({
+        review_id: data?.review_id,
+        candy_name: name,
+        feeling: checkedEmoId,
+        message: history,
+      });
+    } catch (error) {
+      console.error(error);
+    }
     setIsOpen(false);
   };
   const handleClickToDeleteCandy = () => {
@@ -203,7 +225,6 @@ export default function EditModal() {
   };
 
   useEffect(() => {
-    const emoticonId = EmoticonList.find((emo) => emo.name === data?.feeling_image_url)?.id;
     if (emoticonId) {
       setCheckedEmoId(emoticonId);
     }
@@ -215,7 +236,7 @@ export default function EditModal() {
       <Container isOpen={isOpen}>
         <Title>완료 캔디수정</Title>
         <SubTitle margin={35}>캔디 이름</SubTitle>
-        <NameInput {...register('name')} defaultValue='필보이드 핸드크림' />
+        <NameInput {...register(NAME)} defaultValue={data?.candy_name} />
         <SubTitle margin={48}>감정 이모티콘</SubTitle>
         <EmoticonArea>
           {EmoticonList.map((emo, index) => (
@@ -236,6 +257,7 @@ export default function EditModal() {
         <SubTitle margin={48}>캔디 히스토리</SubTitle>
         <HistoryTextArea
           {...register(HISTORY)}
+          defaultValue={data?.candy_history}
           rows={4}
           onChange={(e) => checkByte(e, textLimitRef, HISTORY, setValue)}
         />

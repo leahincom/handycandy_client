@@ -4,7 +4,7 @@ interface bodyProps {
   review_id: string;
   candy_name: string;
   feeling: string;
-  message: string;
+  message?: string;
 }
 
 export interface PutCompletedCandy {
