@@ -42,13 +42,20 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: -80px;
 `;
 
 const Banner = styled.div`
   position: relative;
-  padding: 88px 269px 47px;
+  padding: 88px 0 47px;
   width: 100%;
+  /* padding: 88px 269px 47px; */
+  /* max-width: 1440px; */
   height: 327px;
+`;
+
+const BannerWrapper = styled.div`
+  max-width: 1440px;
 `;
 
 const BannerImage = styled.div`
@@ -66,7 +73,9 @@ const BackArrowWrapper = styled.div`
   height: 24px;
 `;
 
-const Title = styled.span`
+const Title = styled.div`
+  margin: auto;
+  max-width: 1440px;
   line-height: 59px;
   color: var(--black);
   font-family: var(--nanum);
@@ -83,8 +92,9 @@ const Underline = styled.span`
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
   margin-top: 52px;
+  width: 100%;
+  max-width: 1440px;
 `;
 
 const CandyWrapper = styled.div`
@@ -124,11 +134,11 @@ const CandyImage = styled(Image)`
 
 const EmoticonWrapper = styled.div`
   position: absolute;
-  width: 77px;
-  height: 81px;
   top: -21px;
   left: -21px;
   z-index: 2;
+  width: 77px;
+  height: 81px;
 `;
 
 const CandyEditIconWrapper = styled.div`
@@ -147,6 +157,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 73px;
+  width: 100%;
 `;
 
 const TextWrapper = styled.div`
@@ -217,19 +228,19 @@ const CandyLink = styled.div`
 `;
 
 const CandyLinkText = styled.a`
-  padding-top: 4px;
   margin-left: 15px;
   cursor: pointer;
+  padding-top: 4px;
+  max-width: 416px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   line-height: 33.6px;
+  white-space: nowrap;
   color: var(--gray-7);
   font-family: Roboto;
   font-size: 24px;
   font-weight: 700;
   font-style: normal;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 416px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -240,12 +251,12 @@ const ButtonWrapper = styled.div`
 `;
 
 const TempCandyImage = styled.img`
+  transition: filter 0.3s;
+  border-radius: 24px;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transition: filter 0.3s;
-  border-radius: 24px;
   filter: drop-shadow(0px 0px 12px rgba(0, 0, 0, 0.09));
 `;
 
@@ -329,7 +340,7 @@ export default function Detail() {
                   <CandyEditIcon src={EditIcon} layout='fill' objectFit='cover' objectPosition='center' />
                 </CandyEditIconWrapper>
               </CandyImageWrapper>
-              {data.shopping_link && (
+              {data?.shopping_link && (
                 <CandyLink>
                   <Image src={LinkIcon} alt='LinkIcon' />
                   <Link href={data.shopping_link} passHref>
