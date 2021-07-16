@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import dayjs from 'dayjs';
@@ -13,6 +13,7 @@ import { PlannedCandy, getComingCandy } from './api/useGets/getComingCandy';
 import { getRecommendCandy, RecommendCandy } from './api/useGets/getRecommendCandy';
 import { getWaitingCandy, WaitingCandy } from './api/useGets/getWaitingCandy';
 import { getUserInfo } from './api/useGets/getUserInfo';
+import axios from 'axios';
 
 const Container = styled.div`
   display: flex;
@@ -123,6 +124,18 @@ export default function Home() {
   const isLoad = useMemo(() => {
     return recommendCandyList && comingCandyList && waitingCandyList;
   }, [recommendCandyList, comingCandyList, waitingCandyList]);
+
+  useEffect(() => {
+    async function effect() {
+      try {
+        const reponse = await axios.get('/api/proxy/candies/waitingCandy');
+        console.log('effect', reponse);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    effect();
+  }, []);
   return (
     <NavigationLayout background={'/assets/images/MainBackground.png'}>
       {isLoad && (
