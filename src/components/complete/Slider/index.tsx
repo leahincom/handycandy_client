@@ -49,8 +49,8 @@ const Container = styled.div`
     transition: transform 0.3s;
   }
   .slick-center h1 {
-    font-weight: 800;
     line-height: 51px;
+    font-weight: 800;
   }
 
   .slick-slide > div {

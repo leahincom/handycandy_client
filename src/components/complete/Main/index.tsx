@@ -20,7 +20,6 @@ import { getCompletedCandy } from '../../../pages/api/useGets/getCompletedCandy'
 
 const Container = styled.div`
   z-index: 1;
-  padding-bottom: 88px;
   width: 100%;
   height: 100%;
 
