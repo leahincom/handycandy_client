@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { MouseEventHandler } from 'react';
 import Image from 'next/dist/client/image';
+import Link from 'next/link';
 import { ComingCandyNull } from '../../../../public/assets/images';
 import CandyIcon from '../CandyIcon';
-import { PlannedCandy } from '../../../pages/api/useGets/getComingCandy';
+import { getRoutesName } from '../../../utils/routes';
 import OptionBar from './OptionBar';
 
 const Container = styled.div`
@@ -20,9 +20,8 @@ const Container = styled.div`
 
 const Thumbnail = styled.div`
   position: relative;
-  z-index: 2;
-  border-top-left-radius: 17px;
-  border-top-right-radius: 17px;
+  z-index: 1;
+  box-shadow: 5px 5px 20px #c4c4c471;
   width: 100%;
   height: 258px;
 `;
@@ -32,13 +31,17 @@ const Metadata = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  z-index: 1;
+  z-index: 2;
   border-bottom-left-radius: 17px;
   border-bottom-right-radius: 17px;
   box-shadow: 5px 5px 20px #c4c4c471;
   background-color: white;
   padding: 23px 0 23px 17px;
   width: 100%;
+
+  &:hover {
+    background: var(--gray-1);
+  }
 `;
 
 const Category = styled.h2`
@@ -72,27 +75,44 @@ const Candy = styled.div`
 `;
 
 export interface CandyCardProps {
-  onClick?: MouseEventHandler<HTMLDivElement>;
-  candy: PlannedCandy;
+  candy_id?: string;
+  candy_image_url: string;
+  candy_name: string;
+  category_image_url: string;
+  category_name: string;
+  d_day?: number;
+  month?: number;
+  day?: number;
+  waiting_date?: number;
 }
 
-export default function CandyCard({ candy, onClick }: CandyCardProps) {
-  const { candy_image_url, category_name, candy_name, date, category_image_url } = candy;
-  console.log(candy_image_url, category_image_url);
+export default function CandyCard({
+  candy_id,
+  candy_image_url,
+  candy_name,
+  category_image_url,
+  category_name,
+  d_day,
+  month,
+  day,
+  waiting_date,
+}: CandyCardProps) {
   return (
-    <Container onClick={onClick}>
-      <Thumbnail>
-        <Image src={{ src: candy_image_url, default: ComingCandyNull }} alt='' layout='fill' />
-      </Thumbnail>
-      <OptionBar plannedDate={undefined} />
-      <Metadata>
-        <Category>{category_name}</Category>
-        <Name>{candy_name}</Name>
-        <Date>{`담은지 ${date}일 되었어요.`}</Date>
-      </Metadata>
-      <Candy>
-        <CandyIcon name={category_image_url} />
-      </Candy>
-    </Container>
+    <Link href={getRoutesName.wish.detail(candy_id ?? '')} passHref>
+      <Container>
+        <Thumbnail>
+          <Image src={{ src: candy_image_url, default: ComingCandyNull }} alt='' layout='fill' />
+        </Thumbnail>
+        <OptionBar d_day={d_day} />
+        <Metadata>
+          <Category>{category_name}</Category>
+          <Name>{candy_name}</Name>
+          <Date>{`담은지 ${waiting_date}일 되었어요.`}</Date>
+        </Metadata>
+        <Candy>
+          <CandyIcon name={category_image_url} />
+        </Candy>
+      </Container>
+    </Link>
   );
 }

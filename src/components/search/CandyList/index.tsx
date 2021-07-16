@@ -73,7 +73,10 @@ export interface CandyListProps {
 }
 
 export default function CandyList({ type, searchValue }: CandyListProps) {
+  // searchValue===data
+  // searchValue="" 일 때 data===undefined
   const { isLoading, data } = useQuery(['search', searchValue], () => getMatchedCandy(searchValue));
+  const candies = data && (type === '담은 캔디' ? data.coming_list : data.completed_list);
 
   return (
     <>
@@ -84,12 +87,12 @@ export default function CandyList({ type, searchValue }: CandyListProps) {
             <Text size={20} weight='normal' color='var(--gray-6)'>
               총
               <Text size={20} weight='bold' color='var(--gray-6)' style={{ marginLeft: '8px' }}>
-                {!data ? 0 : type === '담은 캔디' ? data.coming_list.length : data.completed_list.length}
+                {!data ? 0 : candies.length}
               </Text>
               건의 캔디가 검색되었어요
             </Text>
           </TitleBox>
-          {!data ? (
+          {candies.length === 0 ? (
             <EmptyBody>
               <EmptyIcon>
                 <Image src={NoResult} alt='' />
@@ -103,21 +106,27 @@ export default function CandyList({ type, searchValue }: CandyListProps) {
             </EmptyBody>
           ) : (
             <CardBody type={type}>
-              {type === '담은 캔디'
-                ? data.coming_list.map((candy: any, idx: number) => <CandyCard key={idx} candy={candy} />)
-                : data.completed_list.map((candy: any, idx: number) => (
-                    <CompleteCard
-                      key={idx}
-                      candy_id={candy.candy_id}
-                      category_image_url={candy.category_image_url}
-                      candy_image_url={candy.candy_image_url}
-                      category_name={candy.category_name}
-                      candy_name={candy.candy_name}
-                      year={candy.year}
-                      month={candy.month}
-                      date={candy.date}
-                    />
-                  ))}
+              {candies.map((candy: any, idx: number) => {
+                return type === '담은 캔디' ? (
+                  <CandyCard
+                    key={idx}
+                    candy_id={candy.candy_id}
+                    candy_image_url={candy.candy_image_url}
+                    candy_name={candy.candy_name}
+                    category_image_url={candy.category_image_url}
+                    category_name={candy.category_name}
+                    waiting_date={candy.waiting_date}
+                  />
+                ) : (
+                  <CompleteCard
+                    key={idx}
+                    candy={candy.candy_image_url}
+                    category={candy.category_name}
+                    title={candy.candy_name}
+                    date={candy.date}
+                  />
+                );
+              })}
             </CardBody>
           )}
         </List>

@@ -60,7 +60,7 @@ const ButtonBar = styled.div`
 export interface CandyAddedProps {
   category: any;
   selectedCategory: number;
-  candy: string;
+  candy: any;
 }
 
 export default function CandyAdded({ category, selectedCategory, candy }: CandyAddedProps) {
