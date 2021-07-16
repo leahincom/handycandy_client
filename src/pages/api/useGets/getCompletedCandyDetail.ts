@@ -22,5 +22,5 @@ export interface CompletedCandyDetail {
 
 export const getComletedCandyDetail = async (candy_id: string) => {
   const { data } = await instance.get(`/api/candies/completedCandy/detail/${candy_id}`);
-  return data as GetCompletedCandyDetail;
+  return data.result as CompletedCandyDetail;
 };

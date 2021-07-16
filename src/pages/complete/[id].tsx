@@ -4,7 +4,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useQuery } from 'react-query';
 import styled from 'styled-components';
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 import { EditIcon, LinkIcon, BackArrow } from '../../../public/assets/icons';
 import Button from '../../components/common/Button';
 import DeleteModal from '../../components/complete/Modal/DeleteModal';
@@ -12,8 +15,9 @@ import EditModal from '../../components/complete/Modal/EditModal';
 import ImageEditModal from '../../components/complete/Modal/ImageEditModal';
 import { CandyEditModalAtom, DeleteModalAtom, ImageEditModalAtom } from '../../states';
 import checkByte from '../../utils/checkBytes';
+import { getComletedCandyDetail } from '../api/useGets/getCompletedCandyDetail';
 
-const Wrapper = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,7 +55,7 @@ const Underline = styled.span`
   width: fit-content;
 `;
 
-const Container = styled.div`
+const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 52px;
@@ -218,6 +222,9 @@ export default function Detail({ link = 'https://www.naver.com' }: DetailProps) 
   const [isEditModalOpen, setIsEditModalOpen] = useAtom(CandyEditModalAtom);
   const [isDeleteModalOpen] = useAtom(DeleteModalAtom);
   const router = useRouter();
+  const { isLoading, isError, data, error } = useQuery(['complete', router.query.id], () =>
+    getComletedCandyDetail(router.query.id as string),
+  );
 
   const onClickToGoBack = () => {
     router.back();
@@ -239,72 +246,79 @@ export default function Detail({ link = 'https://www.naver.com' }: DetailProps) 
 
   return (
     <>
-      <Wrapper>
-        <Banner>
-          <BackArrowWrapper onClick={onClickToGoBack}>
-            <Image src={BackArrow} layout='fill' objectFit='cover' objectPosition='center' alt='arrow' />
-          </BackArrowWrapper>
-
-          <Title>
-            저는 <Underline>2021년 6월 9일</Underline>에
-            <br />
-            <Underline>회사생활로 지친 나를</Underline> 위한
-            <br />
-            <Underline>필보이드 핸드크림</Underline>을 줬어요.
-          </Title>
-        </Banner>
-
+      {isLoading && <Spin />}
+      {isError && <p>Error! {console.log(error)}</p>}
+      {data && (
         <Container>
-          <CandyWrapper>
-            <CandyImageWrapper onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
-              <CandyHover isHover={isHover} />
-              <CandyImage
-                src='https://dummyimage.com/416x416/000/fff'
-                layout='fill'
-                objectFit='cover'
-                objectPosition='center'
-              />
-              <CandyEditIconWrapper onClick={onClickToOpenImageEditModal}>
-                <CandyEditIcon src={EditIcon} layout='fill' objectFit='cover' objectPosition='center' />
-              </CandyEditIconWrapper>
-            </CandyImageWrapper>
-            <CandyLink>
-              <Image src={LinkIcon} alt='LinkIcon' />
-              <Link href={link} passHref>
-                <CandyLinkText>{link}</CandyLinkText>
-              </Link>
-            </CandyLink>
-          </CandyWrapper>
-          <Content>
-            <TextWrapper>
-              <CandyTitle>상세 정보</CandyTitle>
-              <CandyDesc>일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오</CandyDesc>
-            </TextWrapper>
-            <CandyTitle style={{ marginTop: '31px' }}>캔디데이에 받을 메시지</CandyTitle>
-            <CandyTextArea
-              {...register(MESSAGE)}
-              rows={3}
-              onChange={(e) => checkByte(e, messageTextLimitRef, MESSAGE, setValue)}
-            />
-            <TextLimitNumber>
-              <TextCurrentNumber ref={messageTextLimitRef}>0</TextCurrentNumber>/200Byte
-            </TextLimitNumber>
-            <CandyTitle style={{ marginTop: '8px' }}>캔디 히스토리</CandyTitle>
-            <CandyTextArea
-              {...register(HISTORY)}
-              rows={3}
-              onChange={(e) => checkByte(e, historyTextLimitRef, HISTORY, setValue)}
-            />
-            <TextLimitNumber>
-              <TextCurrentNumber ref={historyTextLimitRef}>0</TextCurrentNumber>/200Byte
-            </TextLimitNumber>
-          </Content>
-        </Container>
+          <Banner>
+            <BackArrowWrapper onClick={onClickToGoBack}>
+              <Image src={BackArrow} layout='fill' objectFit='cover' objectPosition='center' alt='arrow' />
+            </BackArrowWrapper>
 
-        <ButtonWrapper onClick={onClickToOpenCandyEditModal}>
-          <Button buttonColor='gray' size='ls' text='수정하기' />
-        </ButtonWrapper>
-      </Wrapper>
+            <Title>
+              저는 <Underline>{`${data.year}년 ${data.month}월 ${data.date}일`}</Underline>에
+              <br />
+              <Underline>{data.category_name}</Underline> 위한
+              <br />
+              <Underline>{data.candy_name}</Underline>을 줬어요.
+            </Title>
+          </Banner>
+
+          <Wrapper>
+            <CandyWrapper>
+              <CandyImageWrapper onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
+                <CandyHover isHover={isHover} />
+                <CandyImage
+                  src='https://dummyimage.com/416x416/000/fff'
+                  layout='fill'
+                  objectFit='cover'
+                  objectPosition='center'
+                />
+                <CandyEditIconWrapper onClick={onClickToOpenImageEditModal}>
+                  <CandyEditIcon src={EditIcon} layout='fill' objectFit='cover' objectPosition='center' />
+                </CandyEditIconWrapper>
+              </CandyImageWrapper>
+              <CandyLink>
+                <Image src={LinkIcon} alt='LinkIcon' />
+                <Link href={link} passHref>
+                  <CandyLinkText>{link}</CandyLinkText>
+                </Link>
+              </CandyLink>
+            </CandyWrapper>
+            <Content>
+              <TextWrapper>
+                <CandyTitle>상세 정보</CandyTitle>
+                <CandyDesc>{data.detail_info}</CandyDesc>
+              </TextWrapper>
+              <CandyTitle style={{ marginTop: '31px' }}>{data.message}</CandyTitle>
+              <CandyTextArea
+                {...register(MESSAGE)}
+                rows={3}
+                onChange={(e) => checkByte(e, messageTextLimitRef, MESSAGE, setValue)}
+                defaultValue={data.message}
+              />
+              <TextLimitNumber>
+                <TextCurrentNumber ref={messageTextLimitRef}>0</TextCurrentNumber>/200Byte
+              </TextLimitNumber>
+              <CandyTitle style={{ marginTop: '8px' }}>캔디 히스토리</CandyTitle>
+              <CandyTextArea
+                {...register(HISTORY)}
+                rows={3}
+                onChange={(e) => checkByte(e, historyTextLimitRef, HISTORY, setValue)}
+                defaultValue={data.candy_history}
+              />
+              <TextLimitNumber>
+                <TextCurrentNumber ref={historyTextLimitRef}>0</TextCurrentNumber>/200Byte
+              </TextLimitNumber>
+            </Content>
+          </Wrapper>
+
+          <ButtonWrapper onClick={onClickToOpenCandyEditModal}>
+            <Button buttonColor='gray' size='ls' text='수정하기' />
+          </ButtonWrapper>
+        </Container>
+      )}
+
       {isImgModalOpen && <ImageEditModal candy='https://dummyimage.com/221x221/000/fff' />}
       {isEditModalOpen && <EditModal />}
       {isDeleteModalOpen && <DeleteModal candy='https://dummyimage.com/100x100/000/fff' />}

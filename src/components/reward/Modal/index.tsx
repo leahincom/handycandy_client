@@ -2,7 +2,7 @@ import { useAtom } from 'jotai';
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-import { RewardModalAtom } from '../../../states';
+import { CompleteModalCategory, RewardModalAtom } from '../../../states';
 import Button from '../../common/Button';
 import {
   Ball,
@@ -16,6 +16,24 @@ import {
   Leaf,
   X,
 } from '../../../../public/assets/completeCandy';
+
+interface CompleteCandyList {
+  name: string;
+  src: any;
+}
+
+const completeCandyList: CompleteCandyList[] = [
+  { name: 'Ball', src: Ball },
+  { name: 'Donut', src: Donut },
+  { name: 'Clover', src: Clover },
+  { name: 'Double', src: Double },
+  { name: 'Flower', src: Flower },
+  { name: 'Fork', src: Fork },
+  { name: 'Magnet', src: Magnet },
+  { name: 'WaterDrop', src: WaterDrop },
+  { name: 'Leaf', src: Leaf },
+  { name: 'X', src: X },
+];
 
 interface BackgroundProps {
   isOpen: boolean;
@@ -81,20 +99,23 @@ const ButtonWrap = styled.div`
 
 export default function RewardModal() {
   const [isOpen, setIsOpen] = useAtom(RewardModalAtom);
-  const handleClickToClose = () => {
+  const [completeModalCategory] = useAtom(CompleteModalCategory);
+  const categoryImage = completeCandyList.find((c) => c.name === completeModalCategory)?.src;
+  const handleClickClose = () => {
     setIsOpen(false);
   };
+
   return (
     <>
-      <Background isOpen={isOpen} onClick={handleClickToClose} />
+      <Background isOpen={isOpen} onClick={handleClickClose} />
       <Container isOpen={isOpen}>
-        <Image src={Ball} width={173} height={159} alt='candy' />
+        <Image src={categoryImage} width={173} height={159} alt='candy' />
         <Title>오늘도 캔디를 주었군요!</Title>
         <Desc>
           보다 자신을 아끼고 사랑할 수 있는 사람이 되고 있어요 <br />
           핸디캔디는 항상 곁에 있어요
         </Desc>
-        <ButtonWrap onClick={handleClickToClose}>
+        <ButtonWrap onClick={handleClickClose}>
           <Button buttonColor='peach' text='확인' size='md' />
         </ButtonWrap>
       </Container>

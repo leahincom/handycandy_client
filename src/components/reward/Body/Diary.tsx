@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { CheckedEmoticon, RewardModalAtom } from '../../../states';
+import { CheckedEmoticon, CompleteModalCategory, RewardModalAtom } from '../../../states';
 import Button from '../../common/Button';
 import { postRewardCandy, RewardBodyProps } from '../../../pages/api/usePosts/postRewardCandy';
 import checkByte from '../../../utils/checkBytes';
@@ -89,6 +89,7 @@ export default function Diary() {
   const textLimitRef = useRef<HTMLSpanElement>(null);
   const [, setIsCompleteModalOpen] = useAtom(RewardModalAtom);
   const [checkedEmoId] = useAtom(CheckedEmoticon);
+  const [, setCompleteModalCategory] = useAtom(CompleteModalCategory);
 
   const Emoticon = EmoticonList.find((e) => e.id === checkedEmoId)?.emo;
   const postRewardMutation = useMutation((body: RewardBodyProps) => postRewardCandy(body));
@@ -105,9 +106,16 @@ export default function Diary() {
     };
     console.log('🚀 ~ file: Diary.tsx ~ line 90 ~ handleClickComplete ~ body', body);
 
-    postRewardMutation.mutate(body);
-    router.push('/complete');
-    setIsCompleteModalOpen(true);
+    postRewardMutation.mutate(body, {
+      onSuccess: (data) => {
+        setCompleteModalCategory(data.category_image_url);
+        router.push('/complete');
+        setIsCompleteModalOpen(true);
+      },
+      onError: () => {
+        console.log(postRewardMutation.error);
+      },
+    });
   };
 
   return (

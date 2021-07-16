@@ -12,3 +12,4 @@ export const searchToken = atom<string>('');
 export const DetailCandyEditModalAtom = atom<boolean>(false);
 
 export const CurrentMonthAtom = atom<number>(new Date().getMonth() + 1);
+export const CompleteModalCategory = atom<string>('');
