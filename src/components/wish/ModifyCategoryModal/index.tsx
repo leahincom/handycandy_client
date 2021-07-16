@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useQuery } from 'react-query';
+import { useMutation, QueryClient } from 'react-query';
+import { putEditCategory } from '../../../pages/api/usePuts/putEditCategory';
 import { Donut, Flower, Magnet, WaterDrop, Double } from '../../../../public/assets/candy';
 import Button from '../../common/Button';
 import { candyIconList } from '../../../utils/categoryIcons';
@@ -133,9 +134,15 @@ export default function ModifyCategoryModal({
   categoryList,
   preview,
 }: ModifyCategoryModalProps) {
+  const queryClient = new QueryClient();
+  const mutation = useMutation('categoryList', putEditCategory);
   const [isDelete, setIsDelete] = useState<boolean>(false);
   const [categoryName, setCategoryName] = useState<string>(
     categoryList.filter((category: CategoryList) => category.category_id === selectedCategory)[0].name,
+  );
+  const tempImage = categoryList.filter((category) => category.category_id === selectedCategory)[0].category_image_url;
+  const [categoryImage, setCategoryImage] = useState<string>(
+    candyIconList.filter((icon) => icon.name === tempImage)[0].src.src,
   );
 
   const handleCloseClick = () => {
@@ -148,6 +155,11 @@ export default function ModifyCategoryModal({
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCategoryName(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    mutation.mutate({ category_name: categoryName, category_image_url: categoryImage });
+    setIsOpen(false);
   };
 
   const candyImage = categoryList.filter((category: CategoryList) => category.category_id === selectedCategory)[0]
@@ -170,8 +182,9 @@ export default function ModifyCategoryModal({
               <p>카테고리명</p>
               <CategoryInfo>
                 <CategoryDropdown
+                  setCategoryImage={setCategoryImage}
+                  categoryImage={categoryImage}
                   categoryList={categoryList}
-                  selectedCategory={selectedCategory}
                   setSelectedCategory={setSelectedCategory}
                 />
                 <InputBox value={categoryName} onChange={handleInputChange} />
@@ -188,7 +201,7 @@ export default function ModifyCategoryModal({
               <DeleteButton onClick={deleteModalOpen}>카테고리 삭제</DeleteButton>
               <p>카테고리와 모든 캔디들은 영구적으로 삭제됩니다.</p>
             </DeleteWrapper>
-            <Button text='완료' size='sm' buttonColor='peach' color='black' onClick={handleCloseClick} />
+            <Button text='완료' size='sm' buttonColor='peach' color='black' onClick={handleSubmit} />
           </Container>
         </>
       ) : (

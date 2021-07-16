@@ -90,21 +90,19 @@ const Toggle = styled.div<{ isOpen: boolean }>`
 `;
 
 export interface CategoryDropdownProps {
-  selectedCategory: string;
   setSelectedCategory: any;
   categoryList: CategoryList[];
+  categoryImage: string;
+  setCategoryImage: any;
 }
 
 export default function CategoryDropdown({
-  selectedCategory,
   setSelectedCategory,
   categoryList,
+  categoryImage,
+  setCategoryImage,
 }: CategoryDropdownProps) {
-  const tempImage = categoryList.filter((category) => category.category_id === selectedCategory)[0].category_image_url;
   const [isOpen, setIsOpen] = useState(false);
-  const [categoryImage, setCategoryImage] = useState<string>(
-    candyIconList.filter((icon) => icon.name === tempImage)[0].src.src,
-  );
 
   const openDropdown = () => {
     setIsOpen((prev) => !prev);
