@@ -74,16 +74,6 @@ export default function WishedCandySlider() {
   const router = useRouter();
   const { isLoading, error, data, status } = useQuery(['category'], () => getComingCandy());
   const comingList = data?.comming_candy;
-  // const candy: PlannedCandy = {
-  //   candy_image_url: 'https://dummyimage.com/254x278/000/fff',
-  //   candy_id: '1',
-  //   candy_name: '모베리웍스 티셔츠',
-  //   category_image_url: 'Donut',
-  //   category_name: '고생한 나 자신을 위한',
-  //   d_day: 1,
-  //   date: 2,
-  //   month: 3,
-  // };
 
   return (
     <Container>
