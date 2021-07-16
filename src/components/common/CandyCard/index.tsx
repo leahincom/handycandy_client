@@ -103,11 +103,16 @@ export default function CandyCard({
         <Thumbnail>
           <Image src={{ src: candy_image_url, default: ComingCandyNull }} alt='' layout='fill' />
         </Thumbnail>
-        <OptionBar d_day={d_day} />
+        {d_day && <OptionBar d_day={d_day} />}
+
         <Metadata>
           <Category>{category_name}</Category>
           <Name>{candy_name}</Name>
-          <Date>{`담은지 ${waiting_date}일 되었어요.`}</Date>
+          {month && day ? (
+            <Date>{`${month} 월 ${day}일 예정`}</Date>
+          ) : (
+            <Date>{`담은지 ${waiting_date}일 되었어요.`}</Date>
+          )}
         </Metadata>
         <Candy>
           <CandyIcon name={category_image_url} />

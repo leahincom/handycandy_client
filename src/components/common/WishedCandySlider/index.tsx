@@ -100,7 +100,7 @@ export default function WishedCandySlider() {
               category_name={category_name}
               d_day={d_day}
               month={month}
-              waiting_date={date}
+              day={date}
             />
           ))}
       </Slider>
