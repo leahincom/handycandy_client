@@ -116,19 +116,9 @@ export default function CandyCard({
         {d_day && <OptionBar d_day={d_day} />}
 
         <Metadata>
-<<<<<<< HEAD
-          <Category>{category_name}</Category>
-          <Name>{candy_name}</Name>
-          {month && day ? (
-            <Date>{`${month} 월 ${day}일 예정`}</Date>
-          ) : (
-            <Date>{`담은지 ${waiting_date}일 되었어요.`}</Date>
-          )}
-=======
           <Category from={from}>{category_name}</Category>
           <Name from={from}>{candy_name}</Name>
           <Date>{d_day === undefined ? `담은지 ${waiting_date}일 되었어요.` : `${month}월 ${date}일 예정`}</Date>
->>>>>>> d02e273c9ad2352934979a49720c6c9a6cb40626
         </Metadata>
         <Candy>
           <CandyIcon name={category_image_url} />

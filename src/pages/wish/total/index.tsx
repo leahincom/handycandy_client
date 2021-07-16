@@ -102,6 +102,7 @@ const Num = styled.div`
 
 const CandyContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   width: 1440px;
   > div {

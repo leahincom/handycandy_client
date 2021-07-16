@@ -27,26 +27,7 @@ export interface CategoryCandyWaitingCandy {
   waiting_date: number;
 }
 
-<<<<<<< HEAD
 export const getCategoryCandy = async () => {
   const candy = await instance.get(`/api/category/`);
-  return candy.data.result as CategoryCandy[];
-=======
-export interface CategoryCandy {
-  banner: string;
-  all_candy_count: number;
-  coming_candy_count: number;
-  waiting_candy_count: number;
-  coming_candy: CategoryCandyComingCandy[];
-  waiting_candy: CategoryCandyWaitingCandy[];
-}
-
-export const getCategoryCandy = async (category_id: string) => {
-  const candy = await instance.get(`/api/category/detail/${category_id}`, {
-    headers: {
-      'x-auth-token': localStorage.getItem('userToken'),
-    },
-  });
-  return candy.data.result as CategoryCandy;
->>>>>>> d02e273c9ad2352934979a49720c6c9a6cb40626
+  return candy.data.result;
 };
