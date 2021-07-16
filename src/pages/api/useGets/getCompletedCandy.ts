@@ -1,33 +1,36 @@
 import { instance } from '..';
 
 export interface GetCompletedCandy {
-  status: number;
-  success: boolean;
-  result: GetCompletedCandyResult;
-}
-
-export interface GetCompletedCandyResult {
+  category_num: number[];
   user_nickname: string;
-  month: string;
-  candy_count: number;
-  cur_categories: string[];
-  before_categoris: string[];
-  after_categoris: string[];
-  completed_candy: CompletedCandy[];
+  monthly_candies: { [key: string]: CompletedCandy[] };
 }
 
 export interface CompletedCandy {
   candy_id: string;
   candy_image_url: string;
   candy_name: string;
-  category_image_url: string;
+  category_image_url: CategoryImageURL;
   category_name: string;
   year: number;
   month: number;
   date: number;
 }
 
-export const getCompletedCandy = async (month: number) => {
-  const { data } = await instance.get(`api/candies/completedCandy/${month}`);
-  return data as GetCompletedCandy;
+export enum CategoryImageURL {
+  Ball = 'Ball',
+  Clover = 'Clover',
+  Donut = 'Donut',
+  Double = 'Double',
+  Flower = 'Flower',
+  WaterDrop = 'WaterDrop',
+  X = 'X',
+  Fork = 'Fork',
+  Leaf = 'Leaf',
+  Magnet = 'Magnet',
+}
+
+export const getCompletedCandy = async () => {
+  const { data } = await instance.get(`api/candies/completedCandy`);
+  return data.result as GetCompletedCandy;
 };

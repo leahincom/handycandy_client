@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 import React from 'react';
 import { useQuery } from 'react-query';
-import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
 import CompleteCard from '../Card';
 import { getCompletedCandy } from '../../../pages/api/useGets/getCompletedCandy';
-import { CurrentMonthAtom } from '../../../states';
 
 const Container = styled.div`
   box-sizing: content-box;
@@ -34,18 +32,19 @@ export interface Candy {
 
 export default function CompleteContent() {
   const router = useRouter();
-  const [curMonth] = useAtom(CurrentMonthAtom);
-  const { data, isError, isLoading, error } = useQuery('complete', () => getCompletedCandy(curMonth));
+  const { data, isError, isLoading, error } = useQuery('complete', () => getCompletedCandy());
   const onClickCompleteCard = (candy_id: string) => {
     router.push(`/complete/${candy_id}}`);
   };
+
+  console.log('[data]:', data);
 
   return (
     <Container>
       <CandyGrid>
         {isLoading && <p>Loading...</p>}
         {isError && <p>Error! {console.log(error)}</p>}
-        {data?.result.completed_candy.map((candy, index) => (
+        {/* {data?.result.completed_candy.map((candy, index) => (
           <CompleteCard
             onClick={() => onClickCompleteCard(candy.candy_id)}
             candy_id={candy.candy_id}
@@ -58,7 +57,7 @@ export default function CompleteContent() {
             date={candy.date}
             key={index}
           />
-        ))}
+        ))} */}
       </CandyGrid>
     </Container>
   );
