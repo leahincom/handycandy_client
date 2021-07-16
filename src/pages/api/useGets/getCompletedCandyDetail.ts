@@ -20,6 +20,7 @@ export interface CompletedCandyDetail {
   candy_history: string;
   review_id: string;
   banner: BannerImageUrl;
+  shopping_link: string;
 }
 
 export const getComletedCandyDetail = async (candy_id: string) => {

@@ -236,11 +236,7 @@ interface InputForm {
 const MESSAGE = 'message';
 const HISTORY = 'history';
 
-export interface DetailProps {
-  link: string;
-}
-
-export default function Detail({ link = 'https://www.naver.com' }: DetailProps) {
+export default function Detail() {
   const { register, setValue } = useForm<InputForm>();
   const messageTextLimitRef = useRef<HTMLSpanElement>(null);
   const historyTextLimitRef = useRef<HTMLSpanElement>(null);
@@ -254,6 +250,7 @@ export default function Detail({ link = 'https://www.naver.com' }: DetailProps) 
   );
   const banner = completeBannerList.find((banner) => banner.name === data?.banner)?.src;
 
+  console.log('[완료 캔디 상세]: ', data);
   const onClickToGoBack = () => {
     router.back();
   };
@@ -309,12 +306,14 @@ export default function Detail({ link = 'https://www.naver.com' }: DetailProps) 
                   <CandyEditIcon src={EditIcon} layout='fill' objectFit='cover' objectPosition='center' />
                 </CandyEditIconWrapper>
               </CandyImageWrapper>
-              <CandyLink>
-                <Image src={LinkIcon} alt='LinkIcon' />
-                <Link href={link} passHref>
-                  <CandyLinkText>{link}</CandyLinkText>
-                </Link>
-              </CandyLink>
+              {data.shopping_link && (
+                <CandyLink>
+                  <Image src={LinkIcon} alt='LinkIcon' />
+                  <Link href={data.shopping_link} passHref>
+                    <CandyLinkText>{data.shopping_link}</CandyLinkText>
+                  </Link>
+                </CandyLink>
+              )}
             </CandyWrapper>
             <Content>
               <TextWrapper>
