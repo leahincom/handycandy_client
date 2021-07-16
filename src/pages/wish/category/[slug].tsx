@@ -199,7 +199,7 @@ export default function EachCategory({ category, totalNum, ddayNum, waitingNum }
                 category_image_url=''
                 category_name=''
                 d_day={1}
-                day={0}
+                date={0}
                 month={0}
               />
             </CandyContainer>

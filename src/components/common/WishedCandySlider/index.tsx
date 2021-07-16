@@ -85,7 +85,7 @@ export default function WishedCandySlider() {
           category_image_url=''
           category_name=''
           d_day={1}
-          day={0}
+          date={0}
           waiting_date={31}
         />
         <CandyCard
@@ -95,7 +95,7 @@ export default function WishedCandySlider() {
           category_image_url=''
           category_name=''
           d_day={1}
-          day={0}
+          date={0}
           waiting_date={31}
         />
       </Slider>

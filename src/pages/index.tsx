@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import DialogManager from '../components/common/DialogManager';
 import RecommendCandyCard from '../components/home/RecommendCandyCard';
 import WaitingCardSlider from '../components/home/WaitingCardSlider';
-import ComingCandyCard from '../components/home/ComingCandyCard';
+import CandyCard from '../components/common/CandyCard';
 import NavigationLayout from '../components/layout/NavigationLayout';
 import { login } from './api';
 import { PlannedCandy, getComingCandy } from './api/useGets/getComingCandy';
@@ -56,6 +56,8 @@ const ComingContainer = styled.div`
 
 const FlexContainer = styled.div`
   display: flex;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 const RecommendContainer = styled.div`
@@ -142,17 +144,31 @@ export default function Home() {
               <FlexContainer>
                 {comingCandyList
                   ?.slice(0, 4)
-                  .map(({ candy_id, candy_image_url, candy_name, category_image_url, category_name, d_day }) => (
-                    <ComingCandyCard
-                      key={candy_id}
-                      candy_id={candy_id}
-                      itemImage={candy_image_url}
-                      category={category_name}
-                      name={candy_name}
-                      category_img={category_image_url}
-                      plannedDate={new Date(dayjs().subtract(d_day, 'day').valueOf())}
-                    />
-                  ))}
+                  .map(
+                    ({
+                      candy_id,
+                      candy_image_url,
+                      candy_name,
+                      category_image_url,
+                      category_name,
+                      d_day,
+                      month,
+                      date,
+                    }) => (
+                      <CandyCard
+                        key={candy_id}
+                        candy_id={candy_id}
+                        candy_image_url={candy_image_url}
+                        candy_name={candy_name}
+                        category_image_url={category_image_url}
+                        category_name={category_name}
+                        d_day={d_day}
+                        month={month}
+                        date={date}
+                        from='home'
+                      />
+                    ),
+                  )}
               </FlexContainer>
             </ComingContainer>
             <FlexContainer>

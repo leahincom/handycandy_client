@@ -149,7 +149,7 @@ export default function TotalCandy({ ddayNum = 11, waitingNum = 11 }: TotalCandy
                 category_image_url=''
                 category_name=''
                 d_day={1}
-                day={0}
+                date={0}
                 month={0}
               />
             </CandyContainer>
