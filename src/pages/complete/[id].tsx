@@ -207,18 +207,19 @@ const CandyLink = styled.div`
 `;
 
 const CandyLinkText = styled.a`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding-top: 4px;
   margin-left: 15px;
   cursor: pointer;
-  padding-top: 4px;
   line-height: 33.6px;
   color: var(--gray-7);
   font-family: Roboto;
   font-size: 24px;
   font-weight: 700;
   font-style: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 416px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -353,7 +354,7 @@ export default function Detail() {
       {/* Todo: 서버에러 해결되면 이미지 서버에서 주는걸로 바꾸기 */}
       {isImgModalOpen && <ImageEditModal candy='https://dummyimage.com/221x221/000/fff' />}
       {isEditModalOpen && <EditModal />}
-      {isDeleteModalOpen && <DeleteModal candy='https://dummyimage.com/100x100/000/fff' candy_id={candyId} />}
+      {isDeleteModalOpen && <DeleteModal candy='https://dummyimage.com/100x100/000/fff' />}
     </NavigationLayout>
   );
 }

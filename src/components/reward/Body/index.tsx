@@ -91,6 +91,10 @@ const CandyLinkText = styled.a`
   font-size: 24px;
   font-weight: 700;
   font-style: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 416px;
 `;
 
 const CandyInfo = styled.div`

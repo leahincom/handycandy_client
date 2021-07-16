@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import { deleteCandy } from '../../../pages/api/useDeletes/deleteCandy';
-import { getComletedCandyDetail } from '../../../pages/api/useGets/getCompletedCandyDetail';
 import { DeleteModalAtom } from '../../../states';
 import Button from '../../common/Button';
 
@@ -77,7 +76,6 @@ const Empty = styled.div`
 
 export interface DeleteModalProps {
   candy: string;
-  candy_id: string;
 }
 
 export default function DeleteModal({ candy }: DeleteModalProps) {
@@ -90,7 +88,7 @@ export default function DeleteModal({ candy }: DeleteModalProps) {
   const queryClient = useQueryClient();
   const deleteCandyMutation = useMutation(() => deleteCandy(candyId), {
     onSuccess: () => {
-      queryClient.invalidateQueries(['complete', candyId]);
+      queryClient.invalidateQueries('complete');
     },
   });
   const handleClickDelete = () => {
