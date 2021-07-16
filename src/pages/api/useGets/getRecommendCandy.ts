@@ -6,12 +6,8 @@ export interface RecommendCandy {
   tag_name: string;
 }
 
-export const getRecommendCandy = async (user_id: string) => {
-  const cards = await instance.get(`/api/candies/recommendCandy`, {
-    headers: {
-      user_id: `${user_id}`,
-    },
-  });
+export const getRecommendCandy = async () => {
+  const cards = await instance.get(`/api/candies/recommendCandy`);
   console.log(cards);
   return cards.data.result as RecommendCandy[];
 };

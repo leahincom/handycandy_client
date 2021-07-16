@@ -14,6 +14,12 @@ export interface GetWaitingCandyResult {
 }
 
 export const getWaitingCandy = async () => {
-  const cards = await instance.get(`/api/candies/waitingCandy`);
+  const cards = await instance.get(`/api/candies/waitingCandy`, {
+    headers: {
+      'x-auth-token': localStorage.getItem('userToken'),
+    },
+  });
+  console.log(cards);
+
   return cards.data.result.waiting_candy as WaitingCandy[];
 };
