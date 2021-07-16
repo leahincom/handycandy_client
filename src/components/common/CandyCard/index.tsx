@@ -82,13 +82,14 @@ export interface CandyCardProps {
   candy_id?: string;
   candy_image_url: string;
   candy_name: string;
-  category_image_url: string;
+  category_image_url?: string;
   category_name: string;
   d_day?: number;
   month?: number;
   date?: number;
   waiting_date?: number;
   from?: string;
+  isNull?: boolean;
 }
 
 export interface ContainerProps {
@@ -106,6 +107,7 @@ export default function CandyCard({
   date,
   waiting_date,
   from,
+  isNull,
 }: CandyCardProps) {
   return (
     <Link href={getRoutesName.wish.detail(candy_id ?? '')} passHref>
@@ -115,8 +117,7 @@ export default function CandyCard({
           src={candy_image_url !== '' ? candy_image_url : '/assets/images/ComingCandyNull.png'}
           alt=''
         />
-        {d_day !== undefined ? <OptionBar d_day={d_day} /> : <></>}
-
+        {!isNull || d_day !== undefined ? <OptionBar d_day={d_day} /> : <></>}
         <Metadata>
           <Category from={from}>{category_name}</Category>
           <Name from={from}>{candy_name}</Name>
@@ -124,9 +125,11 @@ export default function CandyCard({
             <Date>{d_day === undefined ? `담은지 ${waiting_date}일 되었어요.` : `${month}월 ${date}일 예정`}</Date>
           ) : null}
         </Metadata>
-        <Candy from={from}>
-          <CandyIcon name={category_image_url} />
-        </Candy>
+        {!isNull && (
+          <Candy from={from}>
+            <CandyIcon name={category_image_url} />
+          </Candy>
+        )}
       </Container>
     </Link>
   );
