@@ -158,7 +158,14 @@ export default function ModifyCategoryModal({
   };
 
   const handleSubmit = () => {
-    mutation.mutate({ category_name: categoryName, category_image_url: categoryImage });
+    mutation.mutate(
+      { category_name: categoryName, category_image_url: categoryImage },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries('categoryList');
+        },
+      },
+    );
     setIsOpen(false);
   };
 
