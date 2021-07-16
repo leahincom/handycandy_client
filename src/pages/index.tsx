@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import dayjs from 'dayjs';
 import dynamic from 'next/dynamic';
+import axios from 'axios';
 import DialogManager from '../components/common/DialogManager';
 import RecommendCandyCard from '../components/home/RecommendCandyCard';
 import WaitingCardSlider from '../components/home/WaitingCardSlider';
@@ -13,7 +14,6 @@ import { PlannedCandy, getComingCandy } from './api/useGets/getComingCandy';
 import { getRecommendCandy, RecommendCandy } from './api/useGets/getRecommendCandy';
 import { getWaitingCandy, WaitingCandy } from './api/useGets/getWaitingCandy';
 import { getUserInfo } from './api/useGets/getUserInfo';
-import axios from 'axios';
 
 const Container = styled.div`
   display: flex;
