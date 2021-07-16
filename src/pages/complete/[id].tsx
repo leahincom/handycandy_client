@@ -245,8 +245,9 @@ export default function Detail() {
   const [isEditModalOpen, setIsEditModalOpen] = useAtom(CandyEditModalAtom);
   const [isDeleteModalOpen] = useAtom(DeleteModalAtom);
   const router = useRouter();
-  const { isLoading, isError, data, error } = useQuery(['complete', router.query.id], () =>
-    getComletedCandyDetail(router.query.id as string),
+  const candyId = router.query.id;
+  const { isLoading, isError, data, error } = useQuery(['complete', candyId], () =>
+    getComletedCandyDetail(candyId as string),
   );
   const banner = completeBannerList.find((banner) => banner.name === data?.banner)?.src;
 
@@ -352,7 +353,7 @@ export default function Detail() {
       {/* Todo: 서버에러 해결되면 이미지 서버에서 주는걸로 바꾸기 */}
       {isImgModalOpen && <ImageEditModal candy='https://dummyimage.com/221x221/000/fff' />}
       {isEditModalOpen && <EditModal />}
-      {isDeleteModalOpen && <DeleteModal candy='https://dummyimage.com/100x100/000/fff' />}
+      {isDeleteModalOpen && <DeleteModal candy='https://dummyimage.com/100x100/000/fff' candy_id={candyId} />}
     </NavigationLayout>
   );
 }
