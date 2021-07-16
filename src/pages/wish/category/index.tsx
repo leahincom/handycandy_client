@@ -7,13 +7,12 @@ import { useQuery } from 'react-query';
 import { AddIcon } from '../../../../public/assets/icons';
 import Navigation from '../../../components/common/Navigation';
 import CategoryCard from '../../../components/common/CategoryCard';
-import Navigation from '../../../components/common/Navigation';
 import NavigationLayout from '../../../components/layout/NavigationLayout';
 import TopHeader from '../../../components/common/TopHeader';
 import { getCategoryList } from '../../../pages/api/useGets/getCategoryList';
 import { openCategoryModal } from '../../../states';
 import DialogManager from '../../../components/common/DialogManager';
-import ModifyCategoryModal from '../../../components/wish/ModifyCategoryModal
+import ModifyCategoryModal from '../../../components/wish/ModifyCategoryModal';
 const Container = styled.div`
   padding-bottom: 80px;
 `;
@@ -59,7 +58,7 @@ const NavTapWrapper = styled.div`
 
 export default function CategoryCandy() {
   const router = useRouter();
-        const { isLoading, error, data: categoryList, status } = useQuery(['categoryList'], getCategoryList);
+  const { isLoading, error, data: categoryList, status } = useQuery(['categoryList'], getCategoryList);
   const [isAddCategoryModalOpen, setisAddCategoryModalOpen] = useAtom(openCategoryModal);
 
   const onClickToOpenAddCategoryModal = () => {
@@ -89,7 +88,7 @@ export default function CategoryCandy() {
               <Navigation tab={1} />
             </NavTapWrapper>
             <Header>
-            <AddButton src={AddIcon} onClick={onClickToOpenAddCategoryModal} />
+              <AddButton src={AddIcon} onClick={onClickToOpenAddCategoryModal} />
             </Header>
 
             <CandyContainer>
@@ -134,7 +133,7 @@ export default function CategoryCandy() {
           preview={preview}
         />
       )}
-              {isAddCategoryModalOpen && <DialogManager />}
+      {isAddCategoryModalOpen && <DialogManager />}
     </>
   );
 }
