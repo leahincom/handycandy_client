@@ -18,6 +18,7 @@ import { getComletedCandyDetail } from '../api/useGets/getCompletedCandyDetail';
 import { ComingCandyNull } from '../../../public/assets/images';
 import { Ball, Clover, Donut, Double, Flower, Fork, Leaf, Magnet, WaterDrop, X } from '../../../public/assets/banners';
 import { CategoryImageUrl as BannerImageUrl } from '../api/useGets/getCompletedCandy';
+import CandyIcon from '../../components/common/CandyIcon';
 
 interface CompleteBannerList {
   name: BannerImageUrl;
@@ -119,6 +120,15 @@ const CandyImage = styled(Image)`
   transition: filter 0.3s;
   border-radius: 24px;
   filter: drop-shadow(0px 0px 12px rgba(0, 0, 0, 0.09));
+`;
+
+const EmoticonWrapper = styled.div`
+  position: absolute;
+  width: 77px;
+  height: 81px;
+  top: -21px;
+  left: -21px;
+  z-index: 2;
 `;
 
 const CandyEditIconWrapper = styled.div`
@@ -261,6 +271,7 @@ export default function Detail() {
     getComletedCandyDetail(candyId as string),
   );
   const banner = completeBannerList.find((banner) => banner.name === data?.banner)?.src;
+  console.log(banner);
 
   console.log('[완료 캔디 상세]: ', data);
   const onClickToGoBack = () => {
@@ -283,13 +294,11 @@ export default function Detail() {
 
   return (
     <NavigationLayout>
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Error! {console.log(error)}</p>}
       {data && (
         <Container>
           <Banner>
             <BannerImage>
-              <Image src={banner} alt='banner' layout='fill' objectFit='cover' objectPosition='center' />
+              {banner && <Image src={banner} alt='banner' layout='fill' objectFit='cover' objectPosition='center' />}
             </BannerImage>
             <BackArrowWrapper onClick={onClickToGoBack}>
               <Image src={BackArrow} layout='fill' objectFit='cover' objectPosition='center' alt='arrow' />
@@ -307,6 +316,9 @@ export default function Detail() {
           <Wrapper>
             <CandyWrapper>
               <CandyImageWrapper onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
+                <EmoticonWrapper>
+                  <CandyIcon name={data.feeling_image_url} width={81} height={81} />
+                </EmoticonWrapper>
                 <CandyHover isHover={isHover} />
                 <TempCandyImage src={data.candy_image_url || '/assets/images/ComingCandyNull.png'} alt='candy' />
                 {/* <CandyImage

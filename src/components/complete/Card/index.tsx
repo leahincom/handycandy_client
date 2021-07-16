@@ -5,26 +5,26 @@ import { CompletedCandy } from '../../../pages/api/useGets/getCompletedCandy';
 import { ComingCandyNull } from '../../../../public/assets/images';
 import CandyIcon from '../../common/CandyIcon';
 
-const Container = styled.div`
+const Container = styled.div<{ bgColor: string }>`
   position: relative;
   border-radius: 20px;
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.09);
-  background-color: var(--white);
+  background-color: ${({ bgColor }) => bgColor};
   padding: 18px 24px 27px 24px;
   width: 330px;
   height: 224px;
   cursor: pointer;
 `;
 
-const CandyEmoticonWrapper = styled.div`
+const CandyEmoticon = styled.div`
   position: absolute;
   top: -27.06px;
   right: 19.71px;
   width: 80px;
   height: 80px;
+  z-index: 10;
+  opacity: 1;
 `;
-
-const CandyEmoticon = styled.div``;
 
 const CandyImage = styled.div`
   border-radius: 80px;
@@ -79,6 +79,17 @@ export interface CompleteCardProps extends CompletedCandy {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
+const bgColorList = [
+  { color: 'rgba(230, 250, 148, 0.2)', category: 'Ball' },
+  { color: 'rgba(174, 202, 255, 0.2)', category: 'Double' },
+  { color: 'rgba(255, 208, 248, 0.2)', category: 'Clover' },
+  { color: 'rgba(161, 247, 207, 0.2)', category: 'WaterDrop' },
+  { color: 'rgba(199, 254, 180, 0.2)', category: 'Magnet' },
+  { color: 'rgba(251, 239, 196, 0.2)', category: 'Fork' },
+  { color: 'rgba(255, 191, 191, 0.2)', category: 'Donut' },
+  { color: 'rgba(164, 226, 251, 0.2)', category: 'X' },
+];
+
 export default function CompleteCard({
   candy_image_url,
   category_name,
@@ -89,17 +100,17 @@ export default function CompleteCard({
   date,
   onClick,
 }: CompleteCardProps) {
+  const bgColor = bgColorList.find((ele) => ele.category === category_image_url)?.color as string;
+
   return (
-    <Container onClick={onClick}>
+    <Container onClick={onClick} bgColor={bgColor}>
       <CandyImage>
         <TempCandyImage src={candy_image_url || '/assets/images/ComingCandyNull.png'} alt='candy' />
         {/* <Image src={{ default: ComingCandyNull, src: candy_image_url }} alt='' /> */}
       </CandyImage>
-      <CandyEmoticonWrapper>
-        <CandyEmoticon>
-          <CandyIcon name={category_image_url} width={89} height={89} />
-        </CandyEmoticon>
-      </CandyEmoticonWrapper>
+      <CandyEmoticon>
+        <CandyIcon name={category_image_url} width={89} height={89} />
+      </CandyEmoticon>
       <Category>{category_name}</Category>
       <Title>{candy_name}</Title>
       <Date>{`${year}년 ${month}월 ${date}일`}</Date>

@@ -102,8 +102,7 @@ export default function CompleteMain() {
           objectFit='cover'
           objectPosition='center'
         />
-        {isLoading && <p>Loading...</p>}
-        {isError && <p>Error!{console.log(error)}</p>}
+
         {data && (
           <Body>
             <div style={{ margin: 'auto', maxWidth: '1440px' }}>

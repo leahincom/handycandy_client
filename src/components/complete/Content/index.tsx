@@ -40,13 +40,9 @@ export default function CompleteContent() {
     router.push(`/complete/${candy_id}`);
   };
 
-  console.log('🚀 ~ file: index.tsx ~ line 40 ~ CompleteContent ~ data', data);
-
   return (
     <Container>
       <CandyGrid>
-        {isLoading && <p>Loading...</p>}
-        {isError && <p>Error! {console.log(error)}</p>}
         {data &&
           data.monthly_candies[curMonth].map((candy, index) => (
             <CompleteCard
