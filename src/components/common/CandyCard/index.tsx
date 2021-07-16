@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import Image from 'next/dist/client/image';
 import Link from 'next/link';
-import { ComingCandyNull } from '../../../../public/assets/images';
 import CandyIcon from '../CandyIcon';
 import { getRoutesName } from '../../../utils/routes';
 import OptionBar from './OptionBar';
@@ -18,31 +16,32 @@ const Container = styled.div<ContainerProps>`
     'Helvetica Neue', sans-serif;
 `;
 
-const Thumbnail = styled.div<ContainerProps>`
+const Thumbnail = styled.img<ContainerProps>`
   position: relative;
   z-index: 1;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
   box-shadow: 5px 5px 20px #c4c4c471;
   width: 100%;
-  height: ${(props) => (props.from === 'home' ? '188px' : '254px')};
-
+  height: ${(props) => (props.from === 'home' ? '192px' : '254px')};
   ${Container}:hover & {
     opacity: 0.7;
   }
 `;
 
-const Metadata = styled.div`
+const Metadata = styled.div<ContainerProps>`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   z-index: 2;
-  border-bottom-left-radius: 17px;
-  border-bottom-right-radius: 17px;
+  border-bottom-left-radius: ${(props) => (props.from === 'home' ? '14px' : '17px')};
+  border-bottom-right-radius: ${(props) => (props.from === 'home' ? '14px' : '17px')};
   box-shadow: 5px 5px 20px #c4c4c471;
   background-color: white;
-  padding: 23px 0 23px 17px;
+  padding: 40px 0 23px 17px;
   width: 100%;
-
+  height: 130px;
   ${Container}:hover & {
     background-color: rgba(90, 90, 90, 0.1);
   }
@@ -51,6 +50,7 @@ const Metadata = styled.div`
 const Category = styled.h2<ContainerProps>`
   margin: 0;
   margin-bottom: 4px;
+  margin-bottom: 4px;
   color: #4b4b4b;
   font-size: ${(props) => (props.from === 'home' ? '14px' : '16px')};
   font-weight: 400;
@@ -58,6 +58,7 @@ const Category = styled.h2<ContainerProps>`
 
 const Name = styled.h1<ContainerProps>`
   margin: 0;
+  margin-bottom: 9px;
   color: #252525;
   font-size: ${(props) => (props.from === 'home' ? '18px' : '24px')};
   font-weight: 700;
@@ -65,17 +66,16 @@ const Name = styled.h1<ContainerProps>`
 
 const Date = styled.h3`
   margin: 0;
-  margin-top: 12px;
   color: #a0a0a0;
   font-size: 13px;
   font-weight: 400;
 `;
 
-const Candy = styled.div`
+const Candy = styled.div<ContainerProps>`
   position: absolute;
   right: 16px;
-  bottom: 109px;
-  z-index: 5;
+  bottom: ${(props) => (props.from === 'home' ? '69px' : '109px')};
+  z-index: 100;
 `;
 
 export interface CandyCardProps {
@@ -110,16 +110,21 @@ export default function CandyCard({
   return (
     <Link href={getRoutesName.wish.detail(candy_id ?? '')} passHref>
       <Container from={from}>
-        <Thumbnail from={from}>
-          <Image src={{ src: candy_image_url, default: ComingCandyNull }} alt='' layout='fill' />
-        </Thumbnail>
-        <OptionBar d_day={d_day} />
+        <Thumbnail
+          from={from}
+          src={candy_image_url !== '' ? candy_image_url : '/assets/images/ComingCandyNull.png'}
+          alt=''
+        />
+        {d_day !== undefined ? <OptionBar d_day={d_day} /> : <></>}
+
         <Metadata>
           <Category from={from}>{category_name}</Category>
           <Name from={from}>{candy_name}</Name>
-          <Date>{d_day === undefined ? `담은지 ${waiting_date}일 되었어요.` : `${month}월 ${date}일 예정`}</Date>
+          {from !== 'home' ? (
+            <Date>{d_day === undefined ? `담은지 ${waiting_date}일 되었어요.` : `${month}월 ${date}일 예정`}</Date>
+          ) : null}
         </Metadata>
-        <Candy>
+        <Candy from={from}>
           <CandyIcon name={category_image_url} />
         </Candy>
       </Container>

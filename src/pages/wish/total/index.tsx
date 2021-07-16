@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 import React from 'react';
+import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
 import Navigation from '../../../components/common/Navigation';
 import CandyCard from '../../../components/common/CandyCard';
 import WishedCandySlider from '../../../components/common/WishedCandySlider';
 import NavigationLayout from '../../../components/layout/NavigationLayout';
 import TopHeader from '../../../components/common/TopHeader';
+import { PlannedCandy, getComingCandy } from '../../../pages/api/useGets/getComingCandy';
+import { WaitingCandy, getWaitingCandy } from '../../../pages/api/useGets/getWaitingCandy';
+
 const Container = styled.div`
   padding-bottom: 80px;
 `;
@@ -13,6 +18,7 @@ const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   border-radius: 50px;
 `;
 const DdayContainer = styled.div`
@@ -97,18 +103,19 @@ const Num = styled.div`
 
 const CandyContainer = styled.div`
   display: flex;
-  justify-content: center;
-  width: 1440px;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  width: 1480px;
   > div {
-    margin-right: 43px;
+    margin-right: 40px;
+    margin-bottom: 50px;
   }
 `;
 
-export interface TotalCandyProps {
-  ddayNum: number;
-  waitingNum: number;
-}
-export default function TotalCandy({ ddayNum = 11, waitingNum = 11 }: TotalCandyProps) {
+export default function TotalCandy() {
+  const { data: comingList } = useQuery(['coming'], () => getComingCandy());
+  const { data: waitingList } = useQuery(['waiting'], () => getWaitingCandy());
+  const router = useRouter();
   return (
     <NavigationLayout
       background={
@@ -126,7 +133,7 @@ export default function TotalCandy({ ddayNum = 11, waitingNum = 11 }: TotalCandy
           <DdayContainer>
             <DdayHeader>
               <Title>다가오는 캔디</Title>
-              <Num>{ddayNum}</Num>
+              <Num>{comingList?.length}</Num>
             </DdayHeader>
             <Border></Border>
             <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>
@@ -137,21 +144,24 @@ export default function TotalCandy({ ddayNum = 11, waitingNum = 11 }: TotalCandy
             <DdayHeader>
               <Title>기다리는 캔디</Title>
 
-              <Num>{waitingNum}</Num>
+              <Num>{waitingList?.length}</Num>
             </DdayHeader>
             <Border></Border>
             <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>
             <CandyContainer>
-              <CandyCard
-                candy_id='1'
-                candy_image_url=''
-                candy_name=''
-                category_image_url=''
-                category_name=''
-                d_day={1}
-                date={0}
-                month={0}
-              />
+              {waitingList?.map(
+                ({ candy_id, category_name, candy_image_url, candy_name, category_image_url, waiting_date }) => (
+                  <CandyCard
+                    key={candy_id}
+                    candy_id={candy_id}
+                    candy_image_url={candy_image_url}
+                    candy_name={candy_name}
+                    category_image_url={category_image_url}
+                    waiting_date={waiting_date}
+                    category_name={category_name}
+                  />
+                ),
+              )}
             </CandyContainer>
           </WaitingContainer>
         </BodyContainer>
