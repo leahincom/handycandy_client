@@ -64,7 +64,7 @@ export interface RecommendCandyCardProps {
 }
 
 export default function RecommendCandyCard({ title, content, image }: RecommendCandyCardProps) {
-  const [openModal, setOpenModal] = useAtom(openCandyModal);
+  const [, setOpenModal] = useAtom(openCandyModal);
   return (
     <Container>
       <CardImage src={image} />

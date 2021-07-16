@@ -3,21 +3,14 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import CandyCard from '../../../components/common/CandyCard';
 import WishedCandySlider from '../../../components/common/WishedCandySlider';
-import Navbar from '../../../components/common/Navbar';
-import Footer from '../../../components/common/Footer';
+import NavigationLayout from '../../../components/layout/NavigationLayout';
+import TopHeader from '../../../components/common/TopHeader';
 const Container = styled.div`
   position: relative;
-  width: 1920px;
-  height: 2286px;
-`;
-const TopContainer = styled.div`
-  background: url('/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fpublic%2Fassets%2Ficons%2FEachWishedBackground.6db9d706ad35ad78b0f08c8e770639c0.svg&w=3840&q=75');
-  width: 1920px;
-  height: 276px;
+  padding-bottom: 160px;
 `;
 const BodyContainer = styled.div`
   display: flex;
-  position: absolute;
   top: 380px;
   flex-direction: column;
   align-items: center;
@@ -31,7 +24,6 @@ const DdayContainer = styled.div`
   margin-top: 25px;
   margin-bottom: 30px;
   background: rgba(231, 231, 231, 0.2);
-  width: 1920px;
   height: 620px;
   /* div :nth-child(last) {
     position: absolute;
@@ -44,37 +36,9 @@ const WaitingContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-  width: 1490px;
 `;
 const DdayHeader = styled.div`
   display: flex;
-`;
-const TopTitle = styled.div`
-  margin-bottom: 10px;
-  margin-left: 241px;
-  padding-top: 95px;
-  text-align: left;
-  line-height: 59px;
-  letter-spacing: -0.022em;
-  color: #000000;
-  font-family: var(--nanum);
-  font-size: 44px;
-  font-weight: 800;
-  font-style: normal;
-  //styleName: title;
-`;
-const TopSubTitle = styled.div`
-  margin-bottom: 130px;
-  margin-left: 241px;
-  text-align: left;
-  line-height: 28px;
-  letter-spacing: -0.022em;
-  color: #909090;
-  font-family: var(--roboto);
-  font-size: 24px;
-  font-weight: 400;
-  font-style: normal;
-  //styleName: main/titlemd;
 `;
 const Title = styled.div`
   margin-top: 52px;
@@ -137,7 +101,6 @@ const CandyNumContainer = styled.div`
   margin-bottom: 30px;
   border-radius: 50px;
   background: #ffffff;
-  width: 1920px;
   height: 142px;
 `;
 const Total = styled.div`
@@ -185,26 +148,12 @@ export interface EachCategoryProps {
   waitingNum: number;
 }
 export default function EachCategory({ category, totalNum, ddayNum, waitingNum }: EachCategoryProps) {
-  const date = new Date();
   const router = useRouter();
 
-  const Candy = {
-    itemImage: 'https://dummyimage.com/254x278/000/fff',
-    category: '고생한 나 자신을 위한',
-    name: '모베러웍스 티셔츠',
-    createdDate: 15,
-    plannedDate: date,
-  };
-
   return (
-    <>
-      <Navbar />
+    <NavigationLayout>
       <Container>
-        <TopContainer>
-          {/* <Background src={EachWishedBackground} /> */}
-          <TopTitle>{category} 캔디</TopTitle>
-          <TopSubTitle>앞으로 만들어갈 나만의 보상을 만들어보세요!</TopSubTitle>
-        </TopContainer>
+        <TopHeader title={`${category} 캔디`} subTitle='앞으로 만들어갈 나만의 보상을 만들어보세요!' />
         <CandyNumContainer>
           <Total>
             <CandyNum>{totalNum}</CandyNum>
@@ -244,30 +193,22 @@ export default function EachCategory({ category, totalNum, ddayNum, waitingNum }
             <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>
             <CandyContainer>
               <CandyCard
-                candy={Candy}
-                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-              />
-              <CandyCard
-                candy={Candy}
-                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-              />
-              <CandyCard
-                candy={Candy}
-                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-              />
-              <CandyCard
-                candy={Candy}
-                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-              />
-              <CandyCard
-                candy={Candy}
+                candy={{
+                  candy_id: '1',
+                  candy_image_url: '',
+                  candy_name: '',
+                  category_image_url: '',
+                  category_name: '',
+                  d_day: 1,
+                  date: 0,
+                  month: 0,
+                }}
                 onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
               />
             </CandyContainer>
           </WaitingContainer>
         </BodyContainer>
       </Container>
-      <Footer />
-    </>
+    </NavigationLayout>
   );
 }

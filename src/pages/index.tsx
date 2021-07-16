@@ -1,33 +1,24 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import dayjs from 'dayjs';
 import dynamic from 'next/dynamic';
-import { GetServerSideProps } from 'next';
 import DialogManager from '../components/common/DialogManager';
 import RecommendCandyCard from '../components/home/RecommendCandyCard';
 import WaitingCardSlider from '../components/home/WaitingCardSlider';
 import ComingCandyCard from '../components/home/ComingCandyCard';
-import Navbar from '../components/common/Navbar';
+import NavigationLayout from '../components/layout/NavigationLayout';
 import { login } from './api';
-import { CommingCandy, getComingCandy } from './api/useGets/getComingCandy';
+import { PlannedCandy, getComingCandy } from './api/useGets/getComingCandy';
 import { getRecommendCandy, RecommendCandy } from './api/useGets/getRecommendCandy';
-import { getWaitingCandy, WaitingCandy } from './api/useGets/getWatingCandy';
-
-const BackgroundContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-image: url('/assets/images/MainBackground.png');
-  width: 100%;
-  height: 100%;
-`;
+import { getWaitingCandy, WaitingCandy } from './api/useGets/getWaitingCandy';
+import { getUserInfo } from './api/useGets/getUserInfo';
 
 const Container = styled.div`
   display: flex;
   margin: 0 auto;
-  margin-top: 103px;
-  padding-bottom: 56px;
+  padding-top: 80px;
+  padding-bottom: 240px;
   max-width: 1440px;
 `;
 
@@ -94,24 +85,6 @@ const CandyDesc = styled.div`
   font-size: 18px;
 `;
 
-const recommendCandies = [
-  {
-    title: '한강으로 자전거 타러 가기',
-    content: '시원한 바람 맞으며 나들이가자!',
-    image: 'https://dummyimage.com/74.68x74.68/000/fff',
-  },
-  {
-    title: '한강으로 자전거 타러 가기',
-    content: '시원한 바람 맞으며 나들이가자!',
-    image: 'https://dummyimage.com/74.68x74.68/000/fff',
-  },
-  {
-    title: '한강으로 자전거 타러 가기',
-    content: '시원한 바람 맞으며 나들이가자!',
-    image: 'https://dummyimage.com/74.68x74.68/000/fff',
-  },
-];
-
 const userInfo = {
   nickname: '다정',
   candyPhrase: '날 위한 달콤함을 잊지마세요',
@@ -123,7 +96,7 @@ const password = 'handycandy1234!';
 
 export interface HomeServerProps {
   recommendCandyList: RecommendCandy[];
-  comingCandyList: CommingCandy[];
+  comingCandyList: PlannedCandy[];
   waitingCandyList: WaitingCandy[];
 }
 
@@ -131,6 +104,10 @@ const DynamicCandyBottle = dynamic(() => import('../components/home/CandyBottle'
 
 export default function Home() {
   const { isSuccess } = useQuery('login', () => login(user_id, password));
+
+  const { data: userInfo } = useQuery(['userInfo'], getUserInfo, {
+    enabled: isSuccess,
+  });
   const { data: recommendCandyList } = useQuery(['getRecommendCandy', user_id], () => getRecommendCandy(user_id), {
     enabled: isSuccess,
   });
@@ -143,18 +120,19 @@ export default function Home() {
   const candyInBottle = useMemo(() => {
     return comingCandyList?.map((value) => value.category_image_url);
   }, [comingCandyList]);
-  if (!recommendCandyList || !comingCandyList || !waitingCandyList) {
-    return <div></div>;
-  }
+  const isLoad = useMemo(() => {
+    return recommendCandyList && comingCandyList && waitingCandyList;
+  }, [recommendCandyList, comingCandyList, waitingCandyList]);
   return (
-    <>
-      <BackgroundContainer>
-        <Navbar />
+    <NavigationLayout background={'/assets/images/MainBackground.png'}>
+      {isLoad && (
         <Container>
           <TitleContainer>
-            두 병 채운 {userInfo.nickname}님, <br />
-            {userInfo.candyPhrase}
-            <p>📢 {userInfo.phrase} </p>
+            {userInfo?.month}월의 {userInfo?.user_nickname}님, <br />
+            {userInfo?.candy_count_phrase} {userInfo?.phrase}
+            <p>
+              📢 {userInfo?.month}월 {userInfo?.date}일 {userInfo?.banner}{' '}
+            </p>
             {candyInBottle && <DynamicCandyBottle candyList={candyInBottle} />}
           </TitleContainer>
           <div>
@@ -181,9 +159,14 @@ export default function Home() {
               <RecommendContainer>
                 <CandyTitle>추천 캔디</CandyTitle>
                 <CandyDesc>핸디캔디 추천으로 새로운 행복을 더해보세요</CandyDesc>
-                {recommendCandies.slice(0, 3)?.map((candy, idx) => {
+                {recommendCandyList?.slice(0, 3).map((candy, idx) => {
                   return (
-                    <RecommendCandyCard key={idx} title={candy.title} content={candy.content} image={candy.image} />
+                    <RecommendCandyCard
+                      key={idx}
+                      title={candy.candy_name}
+                      content={candy.tag_name}
+                      image={candy.candy_image_url}
+                    />
                   );
                 })}
               </RecommendContainer>
@@ -207,8 +190,8 @@ export default function Home() {
             </FlexContainer>
           </div>
         </Container>
-      </BackgroundContainer>
+      )}
       <DialogManager />
-    </>
+    </NavigationLayout>
   );
 }

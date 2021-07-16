@@ -45,11 +45,11 @@ export interface CategoryDropdownProps {
 export default function CategoryDropdown({ category, selectedCategory, setSelectedCategory }: CategoryDropdownProps) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [addCategory, setAddCategory] = React.useState(false);
+  const [, setAddCategory] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
   const selectedItem = useMemo(() => category[selectedCategory], [category, selectedCategory]);
 
-  const handleToggle = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
@@ -62,7 +62,7 @@ export default function CategoryDropdown({ category, selectedCategory, setSelect
     setOpen(false);
   };
 
-  const handleAddCategory = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+  const handleAddCategory = (_e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     setAddCategory(true);
   };
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Bodies, Composite, Engine, Render, Runner } from 'matter-js';
+import ImageComp from 'next/image';
 import {
   Ball3d,
   Clover3d,
@@ -13,11 +14,12 @@ import {
   WaterDrop3d,
   X3d,
 } from '../../../../public/assets/candy3d';
+import bottle from '../../../../public/assets/home/bottle.svg';
 import random from '../../../utils/random';
 
-const WIDTH = 475;
+const WIDTH = 450;
 const HEIGHT = 650;
-const BAR_MASS = 30;
+const BAR_MASS = 50;
 
 const leftBorder = Bodies.rectangle(0, HEIGHT / 2, BAR_MASS, HEIGHT, {
   isStatic: true,
@@ -146,9 +148,7 @@ export default function CandyBottle({ candyList }: CandyBottleProps) {
     <Container ref={containerRef}>
       <canvas ref={canvasRef}></canvas>
       <BottleWrapper>
-        <BottleHead />
-        <BottleNeck />
-        <BottleBody />
+        <ImageComp src={bottle} alt='bottle' />
       </BottleWrapper>
     </Container>
   );

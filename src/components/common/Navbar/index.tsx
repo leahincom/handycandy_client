@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,27 +11,33 @@ import NoticeModal from '../NoticeModal';
 import { getRoutesName } from '../../../utils/routes';
 
 const Container = styled.div`
-  display: flex;
-  align-items: center;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   background-color: var(--white);
-  padding: 0 110px;
-  min-width: 1440px;
+  width: 100%;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin: auto;
+  width: 1440px;
   height: 106px;
 `;
 
 const Menus = styled.div`
   display: flex;
-  flex: 2.4;
   align-items: center;
   justify-content: space-between;
 `;
 
-const LogoLink = styled.a``;
+const LogoLink = styled.a`
+  margin-right: 30px;
+`;
 
 const Menu = styled.a<{ active?: boolean }>`
-  opacity: ${({ active }) => (active ? 1 : 0.2)};
+  opacity: ${({ active = false }) => (active ? 1 : 0.2)};
   opacity: 0.2;
+  margin-right: 30px;
   cursor: pointer;
   line-height: 32px;
   color: var(--black);
@@ -40,18 +46,20 @@ const Menu = styled.a<{ active?: boolean }>`
   font-size: 28px;
   font-weight: bold;
   font-weight: 800;
+  &[data-active] {
+    opacity: 1;
+  }
 `;
 
 const SearchArea = styled.div`
   display: flex;
-  flex: 2.7;
   justify-content: flex-end;
   margin-right: 54px;
+  margin-left: 40px;
 `;
 
 const Buttons = styled.div`
   display: flex;
-  flex: 1.3;
   align-items: center;
   justify-content: space-between;
 `;
@@ -86,19 +94,24 @@ const AddCandyButton = styled.button`
 interface NavMenu {
   name: string;
   href: string;
+  path: string[];
 }
 
 const menus: NavMenu[] = [
-  { name: '캔디 홈', href: getRoutesName.home },
-  { name: '담은 캔디', href: getRoutesName.wish.total },
-  { name: '완료한 캔디', href: getRoutesName.complete },
+  { name: '캔디 홈', href: getRoutesName.home, path: ['/', ''] },
+  {
+    name: '담은 캔디',
+    href: getRoutesName.wish.total,
+    path: ['/wish', '/wish/total', '/wish/detail/[cid]', '/wish/category/[slug]', '/wish/category'],
+  },
+  { name: '완료한 캔디', href: getRoutesName.complete, path: ['/complete', '/complete/[id]'] },
 ];
 
 export default function Navbar() {
-  const { asPath } = useRouter();
+  const { pathname } = useRouter();
   const [isNoticeOpen, setIsNoticeOpen] = React.useState(false);
 
-  const [openModal, setOpenModal] = useAtom(openCandyModal);
+  const [, setOpenModal] = useAtom(openCandyModal);
 
   const openNotice = () => {
     setIsNoticeOpen((prev) => !prev);
@@ -136,27 +149,34 @@ export default function Navbar() {
   };
   return (
     <Container>
-      <Menus>
-        <Link href={getRoutesName.home} passHref>
-          <LogoLink>
-            <Image src={Logo} alt='handycandy' />
-          </LogoLink>
-        </Link>
-        {menus.map(({ href, name }) => (
-          <Link key={name} href={href} passHref>
-            <Menu active={asPath === href}>{name}</Menu>
+      <Wrapper>
+        <Menus>
+          <Link href={getRoutesName.home} passHref>
+            <LogoLink>
+              <Image src={Logo} alt='handycandy' />
+            </LogoLink>
           </Link>
-        ))}
-      </Menus>
-      <SearchArea>
-        <SearchBar />
-      </SearchArea>
-      <Buttons>
-        <ProfileIcon src={Profile} />
-        <RingIcon src={Ring} onClick={openNotice} />
-        {isNoticeOpen && <NoticeModal notices={notices} />}
-        <AddCandyButton onClick={handleOpenModal}>캔디추가하기</AddCandyButton>
-      </Buttons>
+          {menus.map(({ href, name, path }) => {
+            const active = path.some((p) => p === pathname);
+            return (
+              <Link key={name} href={href} passHref>
+                <Menu active={active} data-active={active ? '' : undefined}>
+                  {name}
+                </Menu>
+              </Link>
+            );
+          })}
+        </Menus>
+        <SearchArea>
+          <SearchBar />
+        </SearchArea>
+        <Buttons>
+          <ProfileIcon src={Profile} />
+          <RingIcon src={Ring} onClick={openNotice} />
+          {isNoticeOpen && <NoticeModal notices={notices} />}
+          <AddCandyButton onClick={handleOpenModal}>캔디추가하기</AddCandyButton>
+        </Buttons>
+      </Wrapper>
     </Container>
   );
 }

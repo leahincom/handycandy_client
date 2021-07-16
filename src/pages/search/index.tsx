@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
-import Navbar from '../../components/common/Navbar';
 import DialogManager from '../../components/common/DialogManager';
 import Banner from '../../components/search/Banner';
 import CandyList from '../../components/search/CandyList';
+import NavigationLayout from '../../components/layout/NavigationLayout';
 
 const ListBody = styled.div`
   box-sizing: border-box;
@@ -19,14 +19,13 @@ export default function Search() {
   const searchValue = router.query.item;
 
   return (
-    <>
-      <Navbar />
+    <NavigationLayout>
       <Banner searchValue={searchValue} />
       <ListBody>
-        <CandyList type='담은 캔디' />
-        <CandyList type='완료한 캔디' />
+        <CandyList type='담은 캔디' searchValue={searchValue} />
+        <CandyList type='완료한 캔디' searchValue={searchValue} />
       </ListBody>
       <DialogManager />
-    </>
+    </NavigationLayout>
   );
 }

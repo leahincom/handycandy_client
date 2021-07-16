@@ -6,11 +6,9 @@ const candyIcon = { Ball, Clover, Donut, Double, Flower, Fork, Leaf, Magnet, Wat
 export type CandyIconName = keyof typeof candyIcon;
 
 export interface CandyIconProps {
-  name: CandyIconName | string;
+  name?: CandyIconName | string;
 }
 
-export default function CandyIcon({ name }: CandyIconProps) {
-  return (
-    <Image src={{ src: candyIcon?.[name as CandyIconName] ?? Ball, default: Ball, width: 44, height: 44 }} alt={name} />
-  );
+export default function CandyIcon({ name = 'X' }: CandyIconProps) {
+  return <Image src={{ src: candyIcon?.[name as CandyIconName]?.src ?? X.src, width: 44, height: 44 }} alt={name} />;
 }

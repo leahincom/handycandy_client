@@ -11,10 +11,19 @@ import { Bubble } from '../../../../public/assets/icons';
 import CompleteSlider from '../Slider';
 import { getCompletedCandy } from '../../../pages/api/useGets/getCompletedCandy';
 
+const candyArr: Candy[] = new Array(10).fill(1).map((_, index) => ({
+  category: '일이삼사오육칠팔구십일이' + index,
+  title: '일이삼사오육칠팔구십일이',
+  date: new Date(),
+  candy: '',
+}));
+
 const Container = styled.div`
   z-index: 1;
+  padding-bottom: 88px;
   width: 100%;
   height: 100%;
+
   .background {
     z-index: -1;
   }
@@ -22,8 +31,6 @@ const Container = styled.div`
 
 const Body = styled.div`
   z-index: 1;
-  padding: 88px;
-  height: 800px 240px 0px 240px;
 `;
 
 const BodyTitle = styled.h1`
@@ -75,6 +82,7 @@ const SliderWrapper = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 90px;
+  padding-bottom: 60px;
   width: 100%;
 `;
 
@@ -99,8 +107,10 @@ export default function CompleteMain() {
           objectPosition='center'
         />
         <Body>
-          <BodyTitle>완료한 캔디</BodyTitle>
-          <BodyDesc>내가 선물했던 캔디들이 모인 병들을 모아보세요</BodyDesc>
+          <div style={{ margin: 'auto', maxWidth: '1440px' }}>
+            <BodyTitle>완료한 캔디</BodyTitle>
+            <BodyDesc>내가 선물했던 캔디들이 모인 병들을 모아보세요</BodyDesc>
+          </div>
           <BubbleWrapper>
             <Image src={Bubble} width={460} height={120} alt='bubble' />
             {isLoading && <p>Loading...</p>}

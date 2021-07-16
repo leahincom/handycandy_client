@@ -1,13 +1,12 @@
+/* eslint-disable indent */
 import React from 'react';
-import { useAtom } from 'jotai';
 import styled from 'styled-components';
 import Image from 'next/dist/client/image';
 import { useQuery } from 'react-query';
-import { getMatchingCards } from '../../../pages/api';
-import { searchToken } from '../../../states';
-import { NoResult } from '../../../../public/assets/icons';
 import CandyCard from '../../../components/common/CandyCard/';
 import CompleteCard from '../../complete/Card/';
+import { getMatchedCandy } from '../../../pages/api/useGets/getMatchedCandy';
+import { NoResult } from '../../../../public/assets/icons';
 
 const List = styled.div`
   box-sizing: border-box;
@@ -70,53 +69,55 @@ const EmptyIcon = styled.div`
 
 export interface CandyListProps {
   type: string;
+  searchValue?: string | string[];
 }
 
-export default function CandyList({ type }: CandyListProps) {
-  const [searchValue] = useAtom(searchToken);
-  const { isLoading, error, data, status } = useQuery(['search', searchValue], () => getMatchingCards(searchValue));
+export default function CandyList({ type, searchValue }: CandyListProps) {
+  const { isLoading, data } = useQuery(['search', searchValue], () => getMatchedCandy(searchValue));
 
   return (
-    <List>
-      <TitleBox>
-        <Title>{type === '담은 캔디' ? '담은 캔디' : '완료한 캔디'}</Title>
-        <Text size={20} weight='normal' color='var(--gray-6)'>
-          총
-          <Text size={20} weight='bold' color='var(--gray-6)' style={{ marginLeft: '8px' }}>
-            {data ? data.length : 0}
-          </Text>
-          건의 캔디가 검색되었어요
-        </Text>
-      </TitleBox>
-      {!data ? (
-        <EmptyBody>
-          <EmptyIcon>
-            <Image src={NoResult} alt='' />
-          </EmptyIcon>
-          <Text size={28} weight='bold' color='var(--gray-7)'>
-            검색결과가 없어요!
-          </Text>
-          <Text size={18} weight='normal' color='var(--gray-5)'>
-            다른 검색어로 소중한 캔디를 찾아보세요
-          </Text>
-        </EmptyBody>
-      ) : (
-        <CardBody type={type}>
-          {data.map((card: any, idx: number) =>
-            type === '담은 캔디' ? (
-              <CandyCard key={idx} candy={card} />
-            ) : (
-              <CompleteCard
-                key={idx}
-                candy={card.itemImage}
-                category={card.category}
-                title={card.name}
-                date={new Date()}
-              />
-            ),
+    <>
+      {!isLoading && (
+        <List>
+          <TitleBox>
+            <Title>{type === '담은 캔디' ? '담은 캔디' : '완료한 캔디'}</Title>
+            <Text size={20} weight='normal' color='var(--gray-6)'>
+              총
+              <Text size={20} weight='bold' color='var(--gray-6)' style={{ marginLeft: '8px' }}>
+                {!data ? 0 : type === '담은 캔디' ? data.coming_list.length : data.completed_list.length}
+              </Text>
+              건의 캔디가 검색되었어요
+            </Text>
+          </TitleBox>
+          {!data ? (
+            <EmptyBody>
+              <EmptyIcon>
+                <Image src={NoResult} alt='' />
+              </EmptyIcon>
+              <Text size={28} weight='bold' color='var(--gray-7)'>
+                검색결과가 없어요!
+              </Text>
+              <Text size={18} weight='normal' color='var(--gray-5)'>
+                다른 검색어로 소중한 캔디를 찾아보세요
+              </Text>
+            </EmptyBody>
+          ) : (
+            <CardBody type={type}>
+              {type === '담은 캔디'
+                ? data.coming_list.map((candy: any, idx: number) => <CandyCard key={idx} candy={candy} />)
+                : data.completed_list.map((candy: any, idx: number) => (
+                    <CompleteCard
+                      key={idx}
+                      candy={candy.candy_image_url}
+                      category={candy.category_name}
+                      title={candy.candy_name}
+                      date={candy.date}
+                    />
+                  ))}
+            </CardBody>
           )}
-        </CardBody>
+        </List>
       )}
-    </List>
+    </>
   );
 }

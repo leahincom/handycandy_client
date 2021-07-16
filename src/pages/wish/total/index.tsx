@@ -1,28 +1,19 @@
 import styled from 'styled-components';
 import React from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
 import Navigation from '../../../components/common/Navigation';
 import CandyCard from '../../../components/common/CandyCard';
 import WishedCandySlider from '../../../components/common/WishedCandySlider';
-import Navbar from '../../../components/common/Navbar';
-import Footer from '../../../components/common/Footer';
+import NavigationLayout from '../../../components/layout/NavigationLayout';
+import TopHeader from '../../../components/common/TopHeader';
 const Container = styled.div`
-  width: 1920px;
-  height: 2286px;
+  padding-bottom: 80px;
 `;
-const TopContainer = styled.div`
-  margin-bottom: 40px;
-  background: url('/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fpublic%2Fassets%2Ficons%2FWishedBackground.d57609740f3e21029f9fec81c477a5f5.svg&w=3840&q=75');
-  width: 1920px;
-  height: 276px;
-`;
+
 const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 50px;
-  width: 1920px;
 `;
 const DdayContainer = styled.div`
   display: flex;
@@ -33,7 +24,7 @@ const DdayContainer = styled.div`
   margin-top: 25px;
   margin-bottom: 30px;
   background: rgba(231, 231, 231, 0.2);
-  width: 1920px;
+  width: 100%;
   height: 620px;
 `;
 const WaitingContainer = styled.div`
@@ -41,38 +32,12 @@ const WaitingContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-  width: 1920px;
+  /* width: 1920px; */
 `;
 const DdayHeader = styled.div`
   display: flex;
 `;
-const TopTitle = styled.div`
-  margin-bottom: 5px;
-  margin-left: 241px;
-  padding-top: 95px;
-  text-align: left;
-  line-height: 59px;
-  letter-spacing: -0.022em;
-  color: #000000;
-  font-family: var(--nanum);
-  font-size: 44px;
-  font-weight: 800;
-  font-style: normal;
-  //styleName: title;
-`;
-const TopSubTitle = styled.div`
-  margin-bottom: 130px;
-  margin-left: 241px;
-  text-align: left;
-  line-height: 28px;
-  letter-spacing: -0.022em;
-  color: #909090;
-  font-family: var(--roboto);
-  font-size: 24px;
-  font-weight: 400;
-  font-style: normal;
-  //styleName: main/titlemd;
-`;
+
 const Title = styled.div`
   margin-top: 52px;
 
@@ -103,6 +68,17 @@ const SubTitle = styled.div`
   font-style: normal;
   //styleName: main/barsub;
 `;
+
+const TopHeaderWrapper = styled.div`
+  margin: auto;
+  max-width: 1440px;
+`;
+
+const NavTapWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const Num = styled.div`
   display: flex;
   align-items: center;
@@ -133,27 +109,20 @@ export interface TotalCandyProps {
   waitingNum: number;
 }
 export default function TotalCandy({ ddayNum = 11, waitingNum = 11 }: TotalCandyProps) {
-  const date = new Date();
-  const router = useRouter();
-
-  const Candy = {
-    itemImage: 'https://dummyimage.com/254x278/000/fff',
-    category: '고생한 나 자신을 위한',
-    name: '모베러웍스 티셔츠',
-    createdDate: 15,
-    plannedDate: date,
-  };
-
   return (
-    <>
-      <Navbar />
+    <NavigationLayout
+      background={
+        '/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fpublic%2Fassets%2Ficons%2FWishedBackground.d57609740f3e21029f9fec81c477a5f5.svg&w=3840&q=75'
+      }
+    >
       <Container>
-        <TopContainer>
-          <TopTitle>담은 캔디</TopTitle>
-          <TopSubTitle>앞으로 만들어갈 나만의 보상들을 원하는대로 만들어보세요!</TopSubTitle>
-        </TopContainer>
-        <BodyContainer>
+        <TopHeaderWrapper>
+          <TopHeader title='담은 캔디' subTitle='앞으로 만들어갈 나만의 보상들을 원하는대로 만들어보세요!' />
+        </TopHeaderWrapper>
+        <NavTapWrapper>
           <Navigation tab={0} />
+        </NavTapWrapper>
+        <BodyContainer>
           <DdayContainer>
             <DdayHeader>
               <Title>다가오는 캔디</Title>
@@ -174,30 +143,21 @@ export default function TotalCandy({ ddayNum = 11, waitingNum = 11 }: TotalCandy
             <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>
             <CandyContainer>
               <CandyCard
-                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-                candy={Candy}
-              />
-              <CandyCard
-                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-                candy={Candy}
-              />
-              <CandyCard
-                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-                candy={Candy}
-              />
-              <CandyCard
-                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-                candy={Candy}
-              />
-              <CandyCard
-                onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
-                candy={Candy}
+                candy={{
+                  candy_id: '1',
+                  candy_image_url: '',
+                  candy_name: '',
+                  category_image_url: '',
+                  category_name: '',
+                  d_day: 1,
+                  date: 0,
+                  month: 0,
+                }}
               />
             </CandyContainer>
           </WaitingContainer>
         </BodyContainer>
       </Container>
-      <Footer />
-    </>
+    </NavigationLayout>
   );
 }

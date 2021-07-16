@@ -13,6 +13,7 @@ import Button from '../../components/common/Button';
 import DeleteModal from '../../components/complete/Modal/DeleteModal';
 import EditModal from '../../components/complete/Modal/EditModal';
 import ImageEditModal from '../../components/complete/Modal/ImageEditModal';
+import NavigationLayout from '../../components/layout/NavigationLayout';
 import { CandyEditModalAtom, DeleteModalAtom, ImageEditModalAtom } from '../../states';
 import checkByte from '../../utils/checkBytes';
 import { getComletedCandyDetail } from '../api/useGets/getCompletedCandyDetail';
@@ -245,15 +246,15 @@ export default function Detail({ link = 'https://www.naver.com' }: DetailProps) 
   };
 
   return (
-    <>
-      {isLoading && <Spin />}
-      {isError && <p>Error! {console.log(error)}</p>}
-      {data && (
-        <Container>
-          <Banner>
-            <BackArrowWrapper onClick={onClickToGoBack}>
-              <Image src={BackArrow} layout='fill' objectFit='cover' objectPosition='center' alt='arrow' />
-            </BackArrowWrapper>
+    <NavigationLayout>
+    {isLoading && <Spin />}
+    {isError && <p>Error! {console.log(error)}</p>}
+    {data && (
+      <Container>
+        <Banner>
+          <BackArrowWrapper onClick={onClickToGoBack}>
+            <Image src={BackArrow} layout='fill' objectFit='cover' objectPosition='center' alt='arrow' />
+          </BackArrowWrapper>
 
             <Title>
               저는 <Underline>{`${data.year}년 ${data.month}월 ${data.date}일`}</Underline>에
@@ -322,6 +323,6 @@ export default function Detail({ link = 'https://www.naver.com' }: DetailProps) 
       {isImgModalOpen && <ImageEditModal candy='https://dummyimage.com/221x221/000/fff' />}
       {isEditModalOpen && <EditModal />}
       {isDeleteModalOpen && <DeleteModal candy='https://dummyimage.com/100x100/000/fff' />}
-    </>
+    </NavigationLayout>
   );
 }

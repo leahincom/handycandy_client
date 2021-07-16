@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Image from 'next/image';
+import CandyIcon from '../CandyIcon';
 
 const Container = styled.div`
   display: flex;
@@ -31,7 +32,7 @@ const CardRow = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const Candy = styled.img`
+const Candy = styled.div`
   position: absolute;
   width: 72px;
   height: 72px;
@@ -84,7 +85,8 @@ const Date = styled.span`
 
 export interface CategoryCardProps {
   onClick: any;
-  candyImg: string;
+  candyImg?: string;
+  category_image_url?: string;
   category: string;
   candynum: number;
   date: string;
@@ -107,7 +109,9 @@ export default function CategoryCard({
     <Container onClick={onClick}>
       <CardContainer>
         <Card>
-          <Candy src={candyImg} />
+          <Candy>
+            <CandyIcon name={candyImg} />
+          </Candy>
           <ThreeButton src='/assets/icons/ThreeButton.svg' alt='' width='15px' height='15px' objectFit='contain' />
           <CardRow>
             <FirstImg src={firstImg} />

@@ -6,7 +6,6 @@ import { Donut, Ball } from '../../../../public/assets/candy';
 import { DonutAdded, BallAdded } from '../../../../public/assets/candyAdded';
 import Button from '../Button';
 import { DetailCandyEditModalAtom } from '../../../states';
-import checkByte from '../../../utils/checkBytes';
 import DateDropdown from './Dropdown/Date';
 import CategoryDropdown from './Dropdown/Category';
 import DeleteModal from './DeleteModal';
@@ -66,9 +65,6 @@ const Title = styled.div`
   font-style: normal;
 `;
 
-const Decs = styled.p``;
-
-const Thumbnail = styled.img``;
 const Text = styled.div`
   margin-bottom: 20px;
   text-align: left;
@@ -122,9 +118,6 @@ const Message = styled.div`
   flex-direction: column;
   margin-top: 30px;
   width: 486px;
-`;
-const Name = styled.div`
-  padding: 10px;
 `;
 const TextBox = styled.textarea`
   box-sizing: border-box;
@@ -188,18 +181,6 @@ const InputDiv = styled.div`
 const ButtonDiv = styled.div`
   margin-top: 39px;
 `;
-const Desc = styled.p`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  line-height: 50px;
-  letter-spacing: -0.022em;
-  color: var(--black);
-  font-family: var(--roboto);
-  font-size: 28px;
-  font-weight: normal;
-  font-style: normal;
-`;
 const DropdownDiv = styled.div`
   display: flex;
   align-items: center;
@@ -230,7 +211,7 @@ export interface CandyEditProps {
   candyMessage: string;
 }
 
-export default function CandyEdit({ candyImg, candyName, candyCategory, candyDate, candyMessage }: CandyEditProps) {
+export default function CandyEdit({ candyImg, candyCategory, candyMessage }: CandyEditProps) {
   const category = [
     {
       image: Donut,
@@ -293,17 +274,13 @@ export default function CandyEdit({ candyImg, candyName, candyCategory, candyDat
   };
 
   const classes = useStyles();
-  const [count, setCount] = useState(0);
+  const [, setCount] = useState(0);
   const handleMessageChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     const script = e.target.value;
     setCount(script.length);
   };
   const [isOpen, setIsOpen] = useAtom(DetailCandyEditModalAtom);
   const handleClickToClose = () => {
-    setIsOpen(false);
-  };
-  const onClickToComplete = () => {
-    // TODO: update complete candy
     setIsOpen(false);
   };
   const handleNextClick: React.MouseEventHandler<HTMLButtonElement> = () => {
