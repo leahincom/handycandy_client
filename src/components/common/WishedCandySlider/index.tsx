@@ -12,7 +12,6 @@ import { PlannedCandy, getComingCandy } from '../../../pages/api/useGets/getComi
 
 const Container = styled.div`
   /* width: 1450px; */
-  height: 420px;
   .slick-arrow .slick-prev {
     &::before {
       width: 40px;
@@ -38,10 +37,7 @@ const Container = styled.div`
   .react__slick__slider__parent .slick-prev,
   .react__slick__slider__parent .slick-next {
     position: absolute;
-    top: 45%;
-
-    /* width: 23px;
-    height: 47px; */
+    top: 50%;
   }
 
   .react__slick__slider__parent .slick-prev {
@@ -76,7 +72,7 @@ const Container = styled.div`
     justify-content: center;
     margin-right: 30px;
     width: 270px !important;
-    height: 450px;
+    /* height: 450px; */
   }
 `;
 interface WishedCandySliderProps {
@@ -92,15 +88,13 @@ export default function WishedCandySlider({ candy_list }: WishedCandySliderProps
     className: 'react__slick__slider__parent',
   };
   const router = useRouter();
-  const { isLoading, error, data, status } = useQuery(['category'], () => getComingCandy());
-  const comingList = data?.comming_candy;
+  const { data: comingList } = useQuery(['category'], () => getComingCandy());
 
   return (
     <Container>
       <Slider {...settings}>
-        {comingList
-          ?.slice(0, 6)
-          .map(({ candy_id, candy_image_url, candy_name, category_image_url, category_name, d_day, month, date }) => (
+        {comingList?.map(
+          ({ candy_id, candy_image_url, candy_name, category_image_url, category_name, d_day, month, date }) => (
             <CandyCard
               key={candy_id}
               candy_id={candy_id}
@@ -112,7 +106,8 @@ export default function WishedCandySlider({ candy_list }: WishedCandySliderProps
               month={month}
               date={date}
             />
-          ))}
+          ),
+        )}
       </Slider>
     </Container>
   );

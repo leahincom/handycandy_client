@@ -18,6 +18,7 @@ const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   border-radius: 50px;
 `;
 const DdayContainer = styled.div`
@@ -103,27 +104,17 @@ const Num = styled.div`
 const CandyContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  width: 1440px;
+  margin: 0 auto;
+  width: 1480px;
   > div {
-    margin-right: 43px;
+    margin-right: 40px;
+    margin-bottom: 50px;
   }
 `;
 
 export default function TotalCandy() {
-  const getComing = () => {
-    const { isLoading, error, data, status } = useQuery(['coming'], () => getComingCandy());
-    const ddayNum = data?.comming_candy_count;
-    return ddayNum;
-  };
-  const getWaiting = () => {
-    const { isLoading, error, data, status } = useQuery(['waiting'], () => getWaitingCandy());
-    const waitingList = data?.waiting_candy;
-    return waitingList;
-  };
-  const ddayNum = getComing();
-  const waitingList = getWaiting();
-  const waitingNum = waitingList?.length;
+  const { data: comingList } = useQuery(['coming'], () => getComingCandy());
+  const { data: waitingList } = useQuery(['waiting'], () => getWaitingCandy());
   const router = useRouter();
   return (
     <NavigationLayout
@@ -142,7 +133,7 @@ export default function TotalCandy() {
           <DdayContainer>
             <DdayHeader>
               <Title>다가오는 캔디</Title>
-              <Num>{ddayNum}</Num>
+              <Num>{comingList?.length}</Num>
             </DdayHeader>
             <Border></Border>
             <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>
@@ -153,7 +144,7 @@ export default function TotalCandy() {
             <DdayHeader>
               <Title>기다리는 캔디</Title>
 
-              <Num>{waitingNum}</Num>
+              <Num>{waitingList?.length}</Num>
             </DdayHeader>
             <Border></Border>
             <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>

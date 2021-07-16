@@ -29,7 +29,6 @@ const TitleContainer = styled.div`
   font-family: var(--nanum);
   font-size: 44px;
   font-weight: 800;
-
   & > p {
     box-sizing: border-box;
     display: flex;

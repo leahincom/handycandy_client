@@ -6,19 +6,15 @@ export interface WaitingCandy {
   candy_name: string;
   category_image_url: string;
   waiting_date: number;
+  category_name: string;
 }
 
 export interface GetWaitingCandyResult {
   waiting_candy_count: number;
   waiting_candy: WaitingCandy[];
 }
-export interface GetWaitingCards {
-  status: number;
-  success: boolean;
-  result: GetWaitingCandyResult;
-}
+
 export const getWaitingCandy = async () => {
-  const response = await instance.get(`/api/candies/waitingCandy`);
-  const data = response.data as GetWaitingCards;
-  return data.result;
+  const cards = await instance.get(`/api/candies/waitingCandy`);
+  return cards.data.result.waiting_candy as WaitingCandy[];
 };

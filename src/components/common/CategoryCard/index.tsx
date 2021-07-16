@@ -31,14 +31,20 @@ const Card = styled.div`
 const CardRow = styled.div`
   display: flex;
   flex-direction: column;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
 `;
 const CandyImgDiv = styled.div`
   position: absolute;
   top: -10px;
   left: -10px;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
 `;
 const Candy = styled(Image)`
   position: absolute;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
   width: 72px;
   height: 72px;
   object-fit: contain;
