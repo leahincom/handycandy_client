@@ -25,5 +25,5 @@ export interface GetUpcomingCards {
 export const getComingCandy = async () => {
   const response = await instance.get(`/api/candies/commingCandy`);
   const data = response.data as GetUpcomingCards;
-  return data.result.comming_candy;
+  return data.result;
 };

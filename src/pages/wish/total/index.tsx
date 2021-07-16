@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 import React from 'react';
+import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
 import Navigation from '../../../components/common/Navigation';
 import CandyCard from '../../../components/common/CandyCard';
 import WishedCandySlider from '../../../components/common/WishedCandySlider';
 import NavigationLayout from '../../../components/layout/NavigationLayout';
 import TopHeader from '../../../components/common/TopHeader';
+import { PlannedCandy, getComingCandy } from '../../../pages/api/useGets/getComingCandy';
+import { WaitingCandy, getWaitingCandy } from '../../../pages/api/useGets/getWaitingCandy';
+
 const Container = styled.div`
   padding-bottom: 80px;
 `;
@@ -104,11 +109,25 @@ const CandyContainer = styled.div`
   }
 `;
 
-export interface TotalCandyProps {
-  ddayNum: number;
-  waitingNum: number;
-}
-export default function TotalCandy({ ddayNum = 11, waitingNum = 11 }: TotalCandyProps) {
+export default function TotalCandy() {
+  const getComing = () => {
+    const { isLoading, error, data, status } = useQuery(['coming'], () => getComingCandy());
+    const ddayNum = data?.comming_candy_count;
+    console.log(ddayNum);
+    return ddayNum;
+  };
+  const getWaiting = () => {
+    const { isLoading, error, data, status } = useQuery(['waiting'], () => getWaitingCandy());
+    console.log(status);
+    console.log(data);
+    const waitingList = data?.waiting_candy;
+    return waitingList;
+  };
+  const ddayNum = getComing();
+  const waitingList = getWaiting();
+  const waitingNum = waitingList?.length;
+  // console.log(waitingList);
+  const router = useRouter();
   return (
     <NavigationLayout
       background={
@@ -142,18 +161,15 @@ export default function TotalCandy({ ddayNum = 11, waitingNum = 11 }: TotalCandy
             <Border></Border>
             <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>
             <CandyContainer>
-              <CandyCard
-                candy={{
-                  candy_id: '1',
-                  candy_image_url: '',
-                  candy_name: '',
-                  category_image_url: '',
-                  category_name: '',
-                  d_day: 1,
-                  date: 0,
-                  month: 0,
-                }}
-              />
+              {waitingList
+                ?.slice(0, 5)
+                .map(({ candy_id, candy_image_url, candy_name, category_image_url, waiting_date }) => (
+                  <CandyCard
+                    key={candy_id}
+                    candy={(candy_image_url, candy_name, candy_name, waiting_date, category_image_url)}
+                    onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
+                  />
+                ))}
             </CandyContainer>
           </WaitingContainer>
         </BodyContainer>
