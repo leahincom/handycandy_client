@@ -108,9 +108,13 @@ export default function CandyList({ type, searchValue }: CandyListProps) {
                 : data.completed_list.map((candy: any, idx: number) => (
                     <CompleteCard
                       key={idx}
-                      candy={candy.candy_image_url}
-                      category={candy.category_name}
-                      title={candy.candy_name}
+                      candy_id={candy.candy_id}
+                      category_image_url={candy.category_image_url}
+                      candy_image_url={candy.candy_image_url}
+                      category_name={candy.category_name}
+                      candy_name={candy.candy_name}
+                      year={candy.year}
+                      month={candy.month}
                       date={candy.date}
                     />
                   ))}

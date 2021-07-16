@@ -11,12 +11,12 @@ import { Bubble } from '../../../../public/assets/icons';
 import CompleteSlider from '../Slider';
 import { getCompletedCandy } from '../../../pages/api/useGets/getCompletedCandy';
 
-const candyArr: Candy[] = new Array(10).fill(1).map((_, index) => ({
-  category: '일이삼사오육칠팔구십일이' + index,
-  title: '일이삼사오육칠팔구십일이',
-  date: new Date(),
-  candy: '',
-}));
+// const candyArr: Candy[] = new Array(10).fill(1).map((_, index) => ({
+//   category: '일이삼사오육칠팔구십일이' + index,
+//   title: '일이삼사오육칠팔구십일이',
+//   date: new Date(),
+//   candy: '',
+// }));
 
 const Container = styled.div`
   z-index: 1;

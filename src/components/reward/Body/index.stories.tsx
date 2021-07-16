@@ -23,10 +23,10 @@ const Template: Story<CompeleteProps> = (props) => (
 );
 
 export const Basic = Template.bind({});
-Basic.args = {
-  candy: '필보이드 핸드크림',
-  desc: '회사생활로 지친 자신',
-  date: '2020년 7월 3일',
-  info: '일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십',
-  link: 'https://www.naver.com',
-};
+// Basic.args = {
+//   candy: '필보이드 핸드크림',
+//   desc: '회사생활로 지친 자신',
+//   date: '2020년 7월 3일',
+//   info: '일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십',
+//   link: 'https://www.naver.com',
+// };
