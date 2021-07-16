@@ -317,7 +317,7 @@ export default function Detail() {
                 <Image src={LinkIcon} alt='LinkIcon' />
                 <a href={candyInfo?.shopping_link} target='_blank' rel='noreferrer'>
                   <CandyLinkText>
-                    {candyInfo?.shopping_link.length >= 10
+                    {candyInfo?.shopping_link && candyInfo.shopping_link.length >= 10
                       ? candyInfo?.shopping_link.slice(0, 10) + '...'
                       : candyInfo?.shopping_link}
                   </CandyLinkText>
