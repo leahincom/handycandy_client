@@ -44,10 +44,14 @@ const Candy = styled(Image)`
   height: 72px;
   object-fit: contain;
 `;
-const ThreeButton = styled(Image)`
+const ThreeButtonDiv = styled.div`
   position: absolute;
-  top: 18px;
   right: 15px;
+  bottom: 18px;
+`;
+
+const ThreeButton = styled(Image)`
+  z-index: 10;
   cursor: pointer;
 `;
 const FirstImg = styled.img`
@@ -143,7 +147,9 @@ export default function CategoryCard({
           <CandyImgDiv>
             <Candy src={candysrc} alt='' width='52px' height='52px' objectFit='contain' />
           </CandyImgDiv>
-          <ThreeButton src='/assets/icons/ThreeButton.svg' alt='' width='15px' height='15px' objectFit='contain' />
+          <ThreeButtonDiv>
+            <ThreeButton src='/assets/icons/ThreeButton.svg' alt='' width='45px' height='45px' objectFit='contain' />
+          </ThreeButtonDiv>
           <CardRow>{firstImg === '' ? <FirstEmpty /> : <FirstImg src={firstImg} />}</CardRow>
           <CardRow>
             {secondImg === '' ? <SecondEmpty /> : <SecondImg src={secondImg} />}
