@@ -10,14 +10,14 @@ export interface CompletedCandy {
   candy_id: string;
   candy_image_url: string;
   candy_name: string;
-  category_image_url: CategoryImageURL;
+  category_image_url: CategoryImageUrl;
   category_name: string;
   year: number;
   month: number;
   date: number;
 }
 
-export enum CategoryImageURL {
+export enum CategoryImageUrl {
   Ball = 'Ball',
   Clover = 'Clover',
   Donut = 'Donut',

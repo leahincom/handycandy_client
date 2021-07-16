@@ -16,24 +16,24 @@ import {
   WaterDrop,
   X,
 } from '../../../../public/assets/completeCandy';
-import { CategoryImageURL } from '../../../pages/api/useGets/getCompletedCandy';
+import { CategoryImageUrl } from '../../../pages/api/useGets/getCompletedCandy';
 
 interface CompleteCandyList {
-  name: CategoryImageURL;
+  name: CategoryImageUrl;
   src: any;
 }
 
 const completeCandyList: CompleteCandyList[] = [
-  { name: CategoryImageURL.Ball, src: Ball },
-  { name: CategoryImageURL.Donut, src: Donut },
-  { name: CategoryImageURL.Clover, src: Clover },
-  { name: CategoryImageURL.Double, src: Double },
-  { name: CategoryImageURL.Flower, src: Flower },
-  { name: CategoryImageURL.Fork, src: Fork },
-  { name: CategoryImageURL.Magnet, src: Magnet },
-  { name: CategoryImageURL.WaterDrop, src: WaterDrop },
-  { name: CategoryImageURL.Leaf, src: Leaf },
-  { name: CategoryImageURL.X, src: X },
+  { name: CategoryImageUrl.Ball, src: Ball },
+  { name: CategoryImageUrl.Donut, src: Donut },
+  { name: CategoryImageUrl.Clover, src: Clover },
+  { name: CategoryImageUrl.Double, src: Double },
+  { name: CategoryImageUrl.Flower, src: Flower },
+  { name: CategoryImageUrl.Fork, src: Fork },
+  { name: CategoryImageUrl.Magnet, src: Magnet },
+  { name: CategoryImageUrl.WaterDrop, src: WaterDrop },
+  { name: CategoryImageUrl.Leaf, src: Leaf },
+  { name: CategoryImageUrl.X, src: X },
 ];
 
 interface BackgroundProps {

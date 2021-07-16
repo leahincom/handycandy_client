@@ -1,5 +1,5 @@
 import { instance } from '..';
-import { CompletedCandy, CategoryImageURL } from './getCompletedCandy';
+import { CompletedCandy, CategoryImageUrl } from './getCompletedCandy';
 
 export interface Coming {
   candy_image_url: string;
@@ -11,7 +11,7 @@ export interface Coming {
 
 export interface Completed extends CompletedCandy {
   candy_image_url: string;
-  category_image_url: CategoryImageURL;
+  category_image_url: CategoryImageUrl;
   candy_name: string;
 }
 

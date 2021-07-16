@@ -15,6 +15,39 @@ import NavigationLayout from '../../components/layout/NavigationLayout';
 import { CandyEditModalAtom, DeleteModalAtom, ImageEditModalAtom } from '../../states';
 import checkByte from '../../utils/checkBytes';
 import { getComletedCandyDetail } from '../api/useGets/getCompletedCandyDetail';
+import { ComingCandyNull } from '../../../public/assets/images';
+import {
+  Ball,
+  Clover,
+  CommonBanner,
+  Donut,
+  Double,
+  Flower,
+  Fork,
+  Leaf,
+  Magnet,
+  WaterDrop,
+  X,
+} from '../../../public/assets/banners';
+import { CategoryImageUrl as BannerImageUrl } from '../api/useGets/getCompletedCandy';
+
+interface CompleteBannerList {
+  name: BannerImageUrl;
+  src: any;
+}
+
+const completeBannerList: CompleteBannerList[] = [
+  { name: BannerImageUrl.Ball, src: Ball },
+  { name: BannerImageUrl.Donut, src: Donut },
+  { name: BannerImageUrl.Clover, src: Clover },
+  { name: BannerImageUrl.Double, src: Double },
+  { name: BannerImageUrl.Flower, src: Flower },
+  { name: BannerImageUrl.Fork, src: Fork },
+  { name: BannerImageUrl.Magnet, src: Magnet },
+  { name: BannerImageUrl.WaterDrop, src: WaterDrop },
+  { name: BannerImageUrl.Leaf, src: Leaf },
+  { name: BannerImageUrl.X, src: X },
+];
 
 const Container = styled.div`
   display: flex;
@@ -24,10 +57,18 @@ const Container = styled.div`
 
 const Banner = styled.div`
   position: relative;
-  background-color: var(--peach);
   padding: 88px 269px 47px;
   width: 100%;
   height: 327px;
+  /* & > div {
+    width: 100%;
+  } */
+`;
+
+const BannerImage = styled.div`
+  & > div {
+    z-index: -1;
+  }
 `;
 
 const BackArrowWrapper = styled.div`
@@ -142,7 +183,8 @@ const CandyTextArea = styled.textarea`
   border-radius: 17px;
   background-color: var(--gray-1);
   padding: 18px 29px;
-  width: 100%;
+  min-width: 852px;
+  height: 126px;
   resize: none;
   line-height: 30px;
   font-family: var(--roboto);
@@ -198,6 +240,7 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 7px;
+  margin-bottom: 36px;
 `;
 
 interface InputForm {
@@ -224,6 +267,7 @@ export default function Detail({ link = 'https://www.naver.com' }: DetailProps) 
   const { isLoading, isError, data, error } = useQuery(['complete', router.query.id], () =>
     getComletedCandyDetail(router.query.id as string),
   );
+  const banner = completeBannerList.find((banner) => banner.name === data?.banner)?.src;
 
   const onClickToGoBack = () => {
     router.back();
@@ -250,6 +294,9 @@ export default function Detail({ link = 'https://www.naver.com' }: DetailProps) 
       {data && (
         <Container>
           <Banner>
+            <BannerImage>
+              <Image src={banner} alt='banner' layout='fill' objectFit='cover' objectPosition='center' />
+            </BannerImage>
             <BackArrowWrapper onClick={onClickToGoBack}>
               <Image src={BackArrow} layout='fill' objectFit='cover' objectPosition='center' alt='arrow' />
             </BackArrowWrapper>
@@ -267,7 +314,12 @@ export default function Detail({ link = 'https://www.naver.com' }: DetailProps) 
             <CandyWrapper>
               <CandyImageWrapper onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
                 <CandyHover isHover={isHover} />
-                <CandyImage src={data.candy_image_url} layout='fill' objectFit='cover' objectPosition='center' />
+                <CandyImage
+                  src={{ default: ComingCandyNull, src: data.candy_image_url }}
+                  layout='fill'
+                  objectFit='cover'
+                  objectPosition='center'
+                />
                 <CandyEditIconWrapper onClick={onClickToOpenImageEditModal}>
                   <CandyEditIcon src={EditIcon} layout='fill' objectFit='cover' objectPosition='center' />
                 </CandyEditIconWrapper>
@@ -284,7 +336,7 @@ export default function Detail({ link = 'https://www.naver.com' }: DetailProps) 
                 <CandyTitle>상세 정보</CandyTitle>
                 <CandyDesc>{data.detail_info}</CandyDesc>
               </TextWrapper>
-              <CandyTitle style={{ marginTop: '31px' }}>{data.message}</CandyTitle>
+              <CandyTitle style={{ marginTop: '31px' }}>캔디데이에 받을 메시지</CandyTitle>
               <CandyTextArea
                 {...register(MESSAGE)}
                 rows={3}
