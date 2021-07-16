@@ -342,7 +342,9 @@ export default function Detail() {
               <CandyEditButtonDiv onClick={onClickToOpenCandyEditModal}>
                 <Button buttonColor='gray' color='gray' text='수정하기' size='md' />
               </CandyEditButtonDiv>
-              <CandyCompleteButtonDiv onClick={() => router.push({ pathname: '/complete/[cid]', query: { cid: 0 } })}>
+              <CandyCompleteButtonDiv
+                onClick={() => router.push({ pathname: '/reward/[cid]', query: { cid: candyInfo?.candy_id } })}
+              >
                 <Button buttonColor='peach' color='gray' text='캔디 바로주기' size='md' />
               </CandyCompleteButtonDiv>
             </ButtonDiv>
