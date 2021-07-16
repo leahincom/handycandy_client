@@ -72,18 +72,21 @@ const Option = styled.div`
   }
 `;
 
-const CategoryIcon = styled.div`
+const CategoryIcon = styled.img`
   margin-right: 13px;
   width: 36px;
   height: 36px;
 `;
 
 const Toggle = styled.div<{ isOpen: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transform: ${(props) => props.isOpen && 'rotate(180deg)'};
   transition: all 0.2s linear;
   cursor: pointer;
   width: 15px;
-  height: 8px;
+  height: 100%;
 `;
 
 export interface CategoryDropdownProps {
@@ -97,39 +100,36 @@ export default function CategoryDropdown({
   setSelectedCategory,
   categoryList,
 }: CategoryDropdownProps) {
+  const tempImage = categoryList.filter((category) => category.category_id === selectedCategory)[0].category_image_url;
   const [isOpen, setIsOpen] = useState(false);
-  const [categoryImage, setCategoryImage] = useState<string>('Leaf');
+  const [categoryImage, setCategoryImage] = useState<string>(
+    candyIconList.filter((icon) => icon.name === tempImage)[0].src.src,
+  );
 
   const openDropdown = () => {
     setIsOpen((prev) => !prev);
-    setCategoryImage(
-      categoryList.filter((category) => category.category_id === selectedCategory)[0].category_image_url,
-    );
   };
 
   const handleOptionClick = (category_id: string) => {
+    const imageName = categoryList.filter((category) => category.category_id === category_id)[0].category_image_url;
     setSelectedCategory(category_id);
-    console.log(category_id);
+    setCategoryImage(candyIconList.filter((icon) => icon.name === imageName)[0].src.src);
   };
 
   return (
     <Dropdown isOpen={isOpen} onClick={openDropdown}>
-      <CategoryIcon>
-        <Image src={candyIconList.filter((icon) => icon.name === categoryImage)[0].src.src} alt='' layout='fill' />
-      </CategoryIcon>
-
+      <CategoryIcon src={categoryImage} alt='' />
       <Options isOpen={isOpen}>
         <Wrapper>
           {categoryList.map((category, idx) => {
             return (
               <Option key={idx} onClick={() => handleOptionClick(category.category_id)}>
-                <div>
-                  <Image
-                    src={candyIconList.filter((icon) => icon.name === category.category_image_url)[0].src.src}
-                    alt=''
-                    layout='fill'
-                  />
-                </div>
+                <Image
+                  src={candyIconList.filter((icon) => icon.name === category.category_image_url)[0].src.src}
+                  alt=''
+                  width='36px'
+                  height='36px'
+                />
               </Option>
             );
           })}

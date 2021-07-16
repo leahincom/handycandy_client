@@ -57,6 +57,7 @@ export default function CategoryCandy() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [preview, setPreview] = useState<string[]>([]);
 
   const handleCloseModal = () => {
     setIsOpen(false);
@@ -107,6 +108,7 @@ export default function CategoryCandy() {
                     thirdImg={image_url_three}
                     setIsOpen={setIsOpen}
                     setSelectedCategory={setSelectedCategory}
+                    setPreview={setPreview}
                   />
                 ),
               )}
@@ -121,6 +123,7 @@ export default function CategoryCandy() {
           setSelectedCategory={setSelectedCategory}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
+          preview={preview}
         />
       )}
     </>

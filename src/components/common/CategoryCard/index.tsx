@@ -130,6 +130,7 @@ export interface CategoryCardProps {
   setIsOpen: any;
   category_id: string;
   setSelectedCategory: any;
+  setPreview: any;
 }
 export default function CategoryCard({
   candyImg,
@@ -142,9 +143,11 @@ export default function CategoryCard({
   setIsOpen,
   category_id,
   setSelectedCategory,
+  setPreview,
 }: CategoryCardProps) {
   const candysrc = `/assets/candy/${candyImg}.svg`;
   const handleOptionClick = () => {
+    setPreview([firstImg, secondImg, thirdImg]);
     setIsOpen(true);
     setSelectedCategory(category_id);
   };

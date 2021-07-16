@@ -64,23 +64,6 @@ const CategoryWrapper = styled.div`
 const CategoryInfo = styled.div`
   display: flex;
   margin-top: 18px;
-
-  > span {
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    margin-left: 20px;
-    border: 1px solid var(--gray-3);
-    border-radius: 17px;
-    padding-left: 37px;
-    width: 365px;
-    height: 50px;
-    line-height: 28px;
-    color: var(--black);
-    font-family: var(--roboto);
-    font-size: 24px;
-    font-weight: bold;
-  }
 `;
 
 const DeleteWrapper = styled.div`
@@ -95,6 +78,27 @@ const DeleteWrapper = styled.div`
 
   p:nth-of-type(2) {
     color: #5a5a5a;
+  }
+`;
+
+const InputBox = styled.input`
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  border: 1px solid var(--gray-3);
+  border-radius: 17px;
+  padding-left: 37px;
+  width: 365px;
+  height: 50px;
+  line-height: 28px;
+  color: var(--black);
+  font-family: var(--roboto);
+  font-size: 24px;
+  font-weight: bold;
+
+  &:focus {
+    outline: none;
   }
 `;
 
@@ -118,6 +122,7 @@ export interface ModifyCategoryModalProps {
   selectedCategory: string;
   setSelectedCategory: any;
   categoryList: CategoryList[];
+  preview: string[];
 }
 
 export default function ModifyCategoryModal({
@@ -126,8 +131,12 @@ export default function ModifyCategoryModal({
   selectedCategory,
   setSelectedCategory,
   categoryList,
+  preview,
 }: ModifyCategoryModalProps) {
   const [isDelete, setIsDelete] = useState<boolean>(false);
+  const [categoryName, setCategoryName] = useState<string>(
+    categoryList.filter((category: CategoryList) => category.category_id === selectedCategory)[0].name,
+  );
 
   const handleCloseClick = () => {
     setIsOpen(false);
@@ -137,6 +146,13 @@ export default function ModifyCategoryModal({
     setIsDelete(true);
   };
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCategoryName(event.target.value);
+  };
+
+  const candyImage = categoryList.filter((category: CategoryList) => category.category_id === selectedCategory)[0]
+    .category_image_url;
+
   return (
     <>
       {!isDelete ? (
@@ -145,10 +161,10 @@ export default function ModifyCategoryModal({
           <Container isOpen={isOpen}>
             <Title>카테고리 수정</Title>
             <ImageContainer
-              candyImg='https://dummyimage.com/364x278/000/fff'
-              firstImg='https://dummyimage.com/184x255/000/fff'
-              secondImg='https://dummyimage.com/364x278/000/fff'
-              thirdImg='https://dummyimage.com/364x278/000/fff'
+              candyImg={candyIconList.filter((icon) => icon.name === candyImage)[0].src.src}
+              firstImg={preview[0]}
+              secondImg={preview[1]}
+              thirdImg={preview[2]}
             />
             <CategoryWrapper>
               <p>카테고리명</p>
@@ -158,9 +174,7 @@ export default function ModifyCategoryModal({
                   selectedCategory={selectedCategory}
                   setSelectedCategory={setSelectedCategory}
                 />
-                <span>
-                  {categoryList.filter((category: CategoryList) => category.category_id === selectedCategory)[0].name}
-                </span>
+                <InputBox value={categoryName} onChange={handleInputChange} />
               </CategoryInfo>
             </CategoryWrapper>
             <hr
