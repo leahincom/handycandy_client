@@ -1,36 +1,34 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
 import CandyCard from '../../../components/common/CandyCard';
 import WishedCandySlider from '../../../components/common/WishedCandySlider';
 import NavigationLayout from '../../../components/layout/NavigationLayout';
 import TopHeader from '../../../components/common/TopHeader';
+import { getCategoryCandy } from '../../api/useGets/getCategoryCandy';
 const Container = styled.div`
   position: relative;
   padding-bottom: 160px;
 `;
 const BodyContainer = styled.div`
   display: flex;
-  top: 380px;
   flex-direction: column;
   align-items: center;
+  padding-top: 40px;
 `;
 const DdayContainer = styled.div`
   display: flex;
-  position: relative;
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
   margin-top: 25px;
   margin-bottom: 30px;
-  background: rgba(231, 231, 231, 0.2);
+  background: rgba(231, 231, 231, 0.7);
+  width: 100%;
   height: 620px;
-  /* div :nth-child(last) {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-  } */
 `;
+
 const WaitingContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -87,17 +85,14 @@ const Num = styled.div`
 `;
 
 const CandyContainer = styled.div`
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   width: 1440px;
-  > div {
-    margin-right: 43px;
-  }
 `;
 const CandyNumContainer = styled.div`
   display: flex;
-  position: absolute;
-  top: 245px;
+  /* position: absolute; */
+  /* top: 245px; */
   margin-bottom: 30px;
   border-radius: 50px;
   background: #ffffff;
@@ -128,80 +123,99 @@ const CandyNum = styled.div`
 const Text = styled.div`
   opacity: 0.9;
   line-height: 25px;
-  /* identical to box height */
-
   letter-spacing: -0.022em;
-
-  /* handycandy/gray6 */
-
   color: #808080;
   font-family: var(--roboto);
   font-size: 21px;
   font-weight: normal;
   font-style: normal;
-`; // const Background = styled(Image)``;
+`;
 
-export interface EachCategoryProps {
-  category: string;
-  totalNum: number;
-  ddayNum: number;
-  waitingNum: number;
-}
-export default function EachCategory({ category, totalNum, ddayNum, waitingNum }: EachCategoryProps) {
-  const router = useRouter();
+const TopHeaderContainer = styled.div`
+  margin-top: -80px;
+  padding-top: 80px;
+  height: 380px;
+`;
+
+const TopHeaderWrapper = styled.div`
+  margin: auto;
+  max-width: 1440px;
+`;
+
+export default function EachCategory() {
+  const { query, back } = useRouter();
+  const slug = useMemo(() => {
+    if (typeof query.slug === 'string') {
+      return query.slug;
+    }
+    return '';
+  }, [query.slug]);
+  const { data, status } = useQuery(['getCategoryCandy', slug], () => getCategoryCandy(slug), {
+    enabled: slug.length > 0,
+  });
+  useEffect(() => {
+    if (status === 'error') {
+      alert('잘못된 페이지입니다.');
+      back();
+    }
+  }, [status, back]);
 
   return (
     <NavigationLayout>
       <Container>
-        <TopHeader title={`${category} 캔디`} subTitle='앞으로 만들어갈 나만의 보상을 만들어보세요!' />
-        <CandyNumContainer>
-          <Total>
-            <CandyNum>{totalNum}</CandyNum>
-            <Text>개의 총 캔디</Text>
-          </Total>
-          <Dday>
-            <CandyNum>{ddayNum}</CandyNum>
-            <Text>개의 다가오는 캔디</Text>
-          </Dday>
-          <Waiting>
-            <CandyNum>{waitingNum}</CandyNum>
-            <Text>개의 기다리는 캔디</Text>
-          </Waiting>
-        </CandyNumContainer>
+        <TopHeaderContainer style={{ backgroundImage: `url(${data?.banner})` }}>
+          <TopHeaderWrapper>
+            <TopHeader
+              title={`${data?.coming_candy?.[0].category_name ?? ''} 캔디`}
+              subTitle='앞으로 만들어갈 나만의 보상을 만들어보세요!'
+            />
+          </TopHeaderWrapper>
+          <CandyNumContainer>
+            <Total>
+              <CandyNum>{data?.all_candy_count}</CandyNum>
+              <Text>개의 총 캔디</Text>
+            </Total>
+            <Dday>
+              <CandyNum>{data?.coming_candy_count}</CandyNum>
+              <Text>개의 다가오는 캔디</Text>
+            </Dday>
+            <Waiting>
+              <CandyNum>{data?.waiting_candy_count}</CandyNum>
+              <Text>개의 기다리는 캔디</Text>
+            </Waiting>
+          </CandyNumContainer>
+        </TopHeaderContainer>
         <BodyContainer>
           <DdayContainer>
             <DdayHeader>
               <Title>다가오는 캔디</Title>
-
-              <Num>{ddayNum}</Num>
+              <Num>{data?.coming_candy_count}</Num>
             </DdayHeader>
             <Border></Border>
             <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>
-
-            <WishedCandySlider />
-            {/* <UpButtonDiv>
-            <UpButton src={UpIcon} />
-          </UpButtonDiv> */}
+            <WishedCandySlider candy_list={data?.coming_candy} />
           </DdayContainer>
           <WaitingContainer>
             <DdayHeader>
               <Title>기다리는 캔디</Title>
-
-              <Num>{waitingNum}</Num>
+              <Num>{data?.waiting_candy_count}</Num>
             </DdayHeader>
             <Border></Border>
             <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>
             <CandyContainer>
-              <CandyCard
-                candy_id='1'
-                candy_image_url=''
-                candy_name=''
-                category_image_url=''
-                category_name=''
-                d_day={1}
-                date={0}
-                month={0}
-              />
+              {data?.waiting_candy?.map((value) => {
+                return (
+                  <CandyCard
+                    key={value.candy_id}
+                    candy_id={value.candy_id}
+                    candy_image_url={value.candy_image_url}
+                    candy_name={value.candy_name}
+                    category_image_url={value.candy_image_url}
+                    category_name={value.candy_name}
+                    d_day={value.waiting_date}
+                  />
+                );
+              })}
             </CandyContainer>
           </WaitingContainer>
         </BodyContainer>
