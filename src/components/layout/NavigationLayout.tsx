@@ -9,6 +9,7 @@ const PageContent = styled.div<{ bg?: string }>`
   background-repeat: none;
   background-size: cover;
   padding-top: 80px;
+  min-height: 70vh;
 `;
 
 export interface NavigationLayoutProps {

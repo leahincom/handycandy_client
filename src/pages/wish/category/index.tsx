@@ -8,39 +8,12 @@ import { AddIcon } from '../../../../public/assets/icons';
 
 import Navigation from '../../../components/common/Navigation';
 import CategoryCard from '../../../components/common/CategoryCard';
-import Footer from '../../../components/common/Footer';
 import NavigationLayout from '../../../components/layout/NavigationLayout';
 import TopHeader from '../../../components/common/TopHeader';
 import { getCategoryCandy } from '../../../pages/api/useGets/getCategoryCandy';
 
 const Container = styled.div`
   padding-bottom: 80px;
-`;
-const TopContainer = styled.div``;
-
-const TopTitle = styled.div`
-  margin-bottom: 5px;
-  text-align: left;
-  line-height: 59px;
-  letter-spacing: -0.022em;
-  color: #000000;
-  font-family: var(--nanum);
-  font-size: 44px;
-  font-weight: 800;
-  font-style: normal;
-  //styleName: title;
-`;
-const TopSubTitle = styled.div`
-  margin-bottom: 80px;
-  text-align: left;
-  line-height: 28px;
-  letter-spacing: -0.022em;
-  color: #909090;
-  font-family: var(--roboto);
-  font-size: 24px;
-  font-weight: 400;
-  font-style: normal;
-  //styleName: main/titlemd;
 `;
 
 const AddButton = styled(Image)``;

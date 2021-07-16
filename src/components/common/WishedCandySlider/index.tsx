@@ -7,14 +7,36 @@ import ComingCandyCard from '../../home/ComingCandyCard';
 import CandyCard from '../CandyCard';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+<<<<<<< HEAD
 import dayjs from 'dayjs';
 import { Coming } from '../../../pages/api/useGets/getMatchedCandy';
+=======
+import { CategoryCandyComingCandy } from '../../../pages/api/useGets/getCategoryCandy';
+>>>>>>> d02e273c9ad2352934979a49720c6c9a6cb40626
 
 import { PlannedCandy, getComingCandy } from '../../../pages/api/useGets/getComingCandy';
 
 const Container = styled.div`
   /* width: 1450px; */
   height: 420px;
+  .slick-arrow .slick-prev {
+    &::before {
+      width: 40px;
+      height: 40px;
+      color: black;
+      font-size: 50px;
+      content: '<';
+    }
+  }
+  .slick-arrow .slick-next {
+    &::before {
+      width: 40px;
+      height: 40px;
+      color: black;
+      font-size: 50px;
+      content: '>';
+    }
+  }
   .react__slick__slider__parent {
     position: relative;
   }
@@ -63,7 +85,11 @@ const Container = styled.div`
     height: 450px;
   }
 `;
-export default function WishedCandySlider() {
+interface WishedCandySliderProps {
+  candy_list?: CategoryCandyComingCandy[];
+}
+
+export default function WishedCandySlider({ candy_list }: WishedCandySliderProps) {
   const settings = {
     arrows: true,
     infinite: true,
@@ -78,6 +104,7 @@ export default function WishedCandySlider() {
   return (
     <Container>
       <Slider {...settings}>
+<<<<<<< HEAD
         {comingList
           ?.slice(0, 6)
           .map(({ candy_id, candy_image_url, candy_name, category_image_url, category_name, d_day, month, date }) => (
@@ -93,6 +120,23 @@ export default function WishedCandySlider() {
               day={date}
             />
           ))}
+=======
+        {candy_list?.map(({ candy_id, candy_image_url, candy_name, category_name, d_day, reward_planned_at }) => (
+          <CandyCard
+            key={candy_id}
+            {...{
+              candy_id,
+              candy_image_url,
+              candy_name,
+              category_name,
+              d_day,
+              reward_planned_at,
+              waiting_date: d_day,
+              category_image_url: 'X',
+            }}
+          />
+        ))}
+>>>>>>> d02e273c9ad2352934979a49720c6c9a6cb40626
       </Slider>
     </Container>
   );
