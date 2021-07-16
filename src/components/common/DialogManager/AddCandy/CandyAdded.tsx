@@ -5,8 +5,8 @@ import { useAtom } from 'jotai';
 import { getIconSrc, getAddedSrc } from '../../../../utils/categoryIcons';
 import { openCandyModal } from '../../../../states';
 import Button from '../../Button';
+import { PostCandy } from '../../../../pages/api/usePosts/postNewCandy';
 import AddCandyDate from './AddCandyDate';
-
 const MainBox = styled.div`
   display: flex;
   flex-direction: column;
