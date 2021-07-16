@@ -2,15 +2,17 @@ import styled from 'styled-components';
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useAtom } from 'jotai';
 import { useQuery } from 'react-query';
 import { AddIcon } from '../../../../public/assets/icons';
-import CategoryCard from '../../../components/common/CategoryCard';
 import Navigation from '../../../components/common/Navigation';
+import CategoryCard from '../../../components/common/CategoryCard';
 import NavigationLayout from '../../../components/layout/NavigationLayout';
 import TopHeader from '../../../components/common/TopHeader';
 import { getCategoryList } from '../../../pages/api/useGets/getCategoryList';
+import { openCategoryModal } from '../../../states';
+import DialogManager from '../../../components/common/DialogManager';
 import ModifyCategoryModal from '../../../components/wish/ModifyCategoryModal';
-
 const Container = styled.div`
   padding-bottom: 80px;
 `;
@@ -39,6 +41,7 @@ const Header = styled.div`
   position: absolute;
   top: 20px;
   right: 30px;
+  cursor: pointer;
   padding-top: 52px;
 `;
 
@@ -55,6 +58,12 @@ const NavTapWrapper = styled.div`
 
 export default function CategoryCandy() {
   const router = useRouter();
+  const { isLoading, error, data: categoryList, status } = useQuery(['categoryList'], getCategoryList);
+  const [isAddCategoryModalOpen, setisAddCategoryModalOpen] = useAtom(openCategoryModal);
+
+  const onClickToOpenAddCategoryModal = () => {
+    setisAddCategoryModalOpen(true);
+  };
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [preview, setPreview] = useState<string[]>([]);
@@ -63,7 +72,6 @@ export default function CategoryCandy() {
     setIsOpen(false);
   };
 
-  const { isLoading, error, data: categoryList, status } = useQuery(['categoryList'], getCategoryList);
   return (
     <>
       <NavigationLayout
@@ -75,13 +83,12 @@ export default function CategoryCandy() {
           <TopHeaderWrapper>
             <TopHeader title='담은 캔디' subTitle='나만의 캔디들을 마음껏 담아보세요' />
           </TopHeaderWrapper>
-
           <BodyContainer>
             <NavTapWrapper>
               <Navigation tab={1} />
             </NavTapWrapper>
             <Header>
-              <AddButton src={AddIcon} />
+              <AddButton src={AddIcon} onClick={onClickToOpenAddCategoryModal} />
             </Header>
 
             <CandyContainer>
@@ -126,6 +133,7 @@ export default function CategoryCandy() {
           preview={preview}
         />
       )}
+      {isAddCategoryModalOpen && <DialogManager />}
     </>
   );
 }

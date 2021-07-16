@@ -9,16 +9,17 @@ export interface DetailCandyInfo {
   candy_name: string;
   // category_name: '짜릿한 나를 위한';
   // reward_planned_at: '2021-07-17T00:00:00.000Z';
-  reward_planned_at: string;
+  reward_planned_at: Date;
   // d_day: 1;
   message: string;
+  shopping_link: string;
 }
 
 export interface DetailCandy {
   banner: string;
   d_day: number;
   category_name: string;
-  candy_information: DetailCandyInfo[];
+  candy_information: DetailCandyInfo;
 }
 
 export const getDetailCandy = async (candy_id: string) => {
