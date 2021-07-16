@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useAtom } from 'jotai';
+import { useMutation, useQueryClient } from 'react-query';
+import { PutBodyProps, putCandyDate } from '../../../../pages/api/usePuts/putCandyDate';
 import { openCandyModal } from '../../../../states';
 import Button from '../../Button';
 import AddCandyDate from './AddCandyDate';
@@ -73,22 +75,37 @@ const ButtonBar = styled.div`
   align-items: center;
 `;
 
-export default function AddCandyMessage({ category, selectedCategory, candy }: CandyAddedProps) {
-  const [count, setCount] = useState(0);
+interface AddCandyProps {
+  year: number;
+  month: number;
+  date: number;
+}
+
+export interface AddCandyMessageProps extends CandyAddedProps {
+  body: AddCandyProps;
+}
+
+export default function AddCandyMessage({ category, selectedCategory, candy, body }: AddCandyMessageProps) {
+  const [script, setScript] = useState('');
   const [goBefore, setGoBefore] = useState(false);
   const [openModal, setOpenModal] = useAtom(openCandyModal);
+  const queryClient = useQueryClient();
+  const mutation = useMutation((data: PutBodyProps) => putCandyDate(data), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('waiting');
+    },
+  });
 
-  const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-    const script = e.target.value;
-    setCount(script.length);
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setScript(event.target.value);
   };
 
-  const handleFormerClick: React.MouseEventHandler<HTMLButtonElement> = () => {
+  const handleFormerClick = () => {
     setGoBefore(true);
   };
-  const handleEndClick: React.MouseEventHandler<HTMLButtonElement> = () => {
+  const handleEndClick = () => {
     setOpenModal(false);
-    // api POST
+    mutation.mutate({ category_id: category.category_id, body: { ...body, message: script } });
     alert('캔디 추가가 완료되었습니다.');
   };
 
@@ -99,7 +116,7 @@ export default function AddCandyMessage({ category, selectedCategory, candy }: C
           <Title>미래의 캔디데이에 남길 메시지</Title>
           <Desc>
             <TextBox placeholder='캔디를 받을 나에게 전할 메시지를 남겨주세요' onChange={handleChange} />
-            <CountChar>{count}/100자</CountChar>
+            <CountChar>{script.length}/100자</CountChar>
           </Desc>
           <ButtonBar>
             <Button text='뒤로가기' size='sm' buttonColor='gray' color='black' onClick={handleFormerClick} />

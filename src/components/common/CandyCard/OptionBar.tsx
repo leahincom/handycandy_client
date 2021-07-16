@@ -10,7 +10,7 @@ const OptionBarWrapper = styled.div<OptionBarProps>`
   left: ${(props) => (props.d_day === 0 ? '-5px' : '16px')};
   align-items: center;
   justify-content: flex-start;
-  z-index: 100;
+  z-index: 5;
   background-color: transparent;
   padding-top: 17px;
   width: 100%;

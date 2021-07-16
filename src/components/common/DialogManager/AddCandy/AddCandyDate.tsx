@@ -49,18 +49,20 @@ export default function AddCandyDate({ category, selectedCategory, candy }: Cand
   const [goBefore, setGoBefore] = useState(false);
   const [added, setAdded] = useState(false);
 
-  const handleFormerClick: React.MouseEventHandler<HTMLButtonElement> = () => {
-    setGoBefore(true);
-  };
-  const handleNextClick: React.MouseEventHandler<HTMLButtonElement> = () => {
-    setAdded(true);
-  };
-
   const date = new Date();
 
   const [year, setYear] = useState(date.getFullYear());
   const [month, setMonth] = useState(date.getMonth());
   const [day, setDay] = useState(date.getDate());
+  const [body, setBody] = useState({ year, month, date: day });
+
+  const handleFormerClick: React.MouseEventHandler<HTMLButtonElement> = () => {
+    setGoBefore(true);
+  };
+  const handleNextClick: React.MouseEventHandler<HTMLButtonElement> = () => {
+    setBody({ year, month, date: day });
+    setAdded(true);
+  };
 
   const yearList: number[] = [];
   const monthList: number[] = [];
@@ -97,7 +99,7 @@ export default function AddCandyDate({ category, selectedCategory, candy }: Cand
   }
 
   if (added) {
-    return <AddCandyMessage category={category} selectedCategory={selectedCategory} candy={candy} />;
+    return <AddCandyMessage category={category} selectedCategory={selectedCategory} candy={candy} body={body} />;
   }
 
   if (goBefore) {

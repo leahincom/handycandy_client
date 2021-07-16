@@ -12,7 +12,7 @@ const MainBox = styled.div`
   align-items: center;
 `;
 
-const CandyAnimation = styled(Image)``;
+const CandyAnimation = styled.div``;
 
 const Desc = styled.p`
   display: flex;
@@ -68,10 +68,16 @@ export interface CategoryAddedProps {
 export default function CategoryAdded({ category, candyList, selectedCandy }: CategoryAddedProps) {
   const [openModal, setOpenModal] = useAtom(openCategoryModal);
 
+  const handleButtonClick = () => {
+    setOpenModal(false);
+  };
+
   return (
     <>
       <MainBox>
-        <CandyAnimation src={candyList[selectedCandy].added} />
+        <CandyAnimation>
+          <Image src={candyList[selectedCandy].added} alt='' />
+        </CandyAnimation>
         <Desc>
           <Line>카테고리가 추가되었어요!</Line>
           <div style={{ marginBottom: '17px' }} />
@@ -79,11 +85,11 @@ export default function CategoryAdded({ category, candyList, selectedCandy }: Ca
         </Desc>
       </MainBox>
       <ButtonBar>
-        <Link href='/complete' passHref={true}>
-          <Button text='분류별 캔디 보러가기' size='sm' buttonColor='gray' color='black' />
+        <Link href='/wish/category' passHref={true}>
+          <Button text='분류별 캔디 보러가기' size='sm' buttonColor='gray' color='black' onClick={handleButtonClick} />
         </Link>
         <div style={{ margin: '9px' }} />
-        <Button text='확인' size='sm' buttonColor='peach' color='black' onClick={() => setOpenModal(false)} />
+        <Button text='확인' size='sm' buttonColor='peach' color='black' onClick={handleButtonClick} />
       </ButtonBar>
     </>
   );
