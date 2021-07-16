@@ -196,7 +196,7 @@ export default function EditModal() {
   };
   const putCompleteCandyMutation = useMutation(putCompletedCandy, {
     onSuccess: () => {
-      queryClient.invalidateQueries(['complete', candyId]);
+      queryClient.invalidateQueries('complete');
     },
   });
   const handleClickToComplete = () => {

@@ -68,6 +68,13 @@ const Date = styled.div`
   font-style: normal;
 `;
 
+const TempCandyImage = styled.img`
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+`;
 export interface CompleteCardProps extends CompletedCandy {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
@@ -85,7 +92,8 @@ export default function CompleteCard({
   return (
     <Container onClick={onClick}>
       <CandyImage>
-        <Image src={{ default: ComingCandyNull, src: candy_image_url }} alt='' />
+        <TempCandyImage src={candy_image_url || '/assets/images/ComingCandyNull.png'} alt='candy' />
+        {/* <Image src={{ default: ComingCandyNull, src: candy_image_url }} alt='' /> */}
       </CandyImage>
       <CandyEmoticonWrapper>
         <CandyEmoticon>

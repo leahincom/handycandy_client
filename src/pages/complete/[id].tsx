@@ -229,6 +229,16 @@ const ButtonWrapper = styled.div`
   margin-bottom: 36px;
 `;
 
+const TempCandyImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: filter 0.3s;
+  border-radius: 24px;
+  filter: drop-shadow(0px 0px 12px rgba(0, 0, 0, 0.09));
+`;
+
 interface InputForm {
   message?: string;
   history?: string;
@@ -298,12 +308,13 @@ export default function Detail() {
             <CandyWrapper>
               <CandyImageWrapper onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
                 <CandyHover isHover={isHover} />
-                <CandyImage
+                <TempCandyImage src={data.candy_image_url || '/assets/images/ComingCandyNull.png'} alt='candy' />
+                {/* <CandyImage
                   src={{ default: ComingCandyNull, src: data.candy_image_url }}
                   layout='fill'
                   objectFit='cover'
                   objectPosition='center'
-                />
+                /> */}
                 <CandyEditIconWrapper onClick={onClickToOpenImageEditModal}>
                   <CandyEditIcon src={EditIcon} layout='fill' objectFit='cover' objectPosition='center' />
                 </CandyEditIconWrapper>

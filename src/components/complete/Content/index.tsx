@@ -40,6 +40,8 @@ export default function CompleteContent() {
     router.push(`/complete/${candy_id}`);
   };
 
+  console.log('🚀 ~ file: index.tsx ~ line 40 ~ CompleteContent ~ data', data);
+
   return (
     <Container>
       <CandyGrid>
