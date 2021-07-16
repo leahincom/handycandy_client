@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import Image from 'next/image';
+import { useAtom } from 'jotai';
 import {
   Bottle0,
   Bottle1,
@@ -14,10 +15,27 @@ import {
   Bottle8,
   Bottle9,
 } from '../../../../public/assets/bottles';
+import { CurrentMonthAtom } from '../../../states';
 import PrevArrow from './PrevArrow';
 import NextArrow from './NextArrow';
 
-export const bottleList = [Bottle0, Bottle1, Bottle2, Bottle3, Bottle4, Bottle5, Bottle6, Bottle7, Bottle8, Bottle9];
+interface Bottle {
+  id: number;
+  src: any;
+}
+
+export const bottleList: Bottle[] = [
+  { id: 0, src: Bottle0 },
+  { id: 1, src: Bottle1 },
+  { id: 2, src: Bottle2 },
+  { id: 3, src: Bottle3 },
+  { id: 4, src: Bottle4 },
+  { id: 5, src: Bottle5 },
+  { id: 6, src: Bottle6 },
+  { id: 7, src: Bottle7 },
+  { id: 8, src: Bottle8 },
+  { id: 9, src: Bottle9 },
+];
 
 const Container = styled.div`
   width: 1275px;
@@ -39,10 +57,15 @@ const Container = styled.div`
 `;
 
 export interface CompleteSliderProps {
-  bottles: any[];
+  before: number;
+  current: number;
+  after: number;
 }
 
-export default function CompleteSlider({ bottles }: CompleteSliderProps) {
+export default function CompleteSlider({ before, current, after }: CompleteSliderProps) {
+  const [setCurrentMonth] = useAtom(CurrentMonthAtom);
+  const sliderList = [bottleList[before].src, bottleList[current].src, bottleList[after].src, bottleList[9].src];
+
   const settings = {
     arrows: true,
     adaptiveHeight: true,
@@ -56,7 +79,7 @@ export default function CompleteSlider({ bottles }: CompleteSliderProps) {
   return (
     <Container>
       <Slider {...settings}>
-        {bottles.map((bottle, index) => (
+        {sliderList.map((bottle, index) => (
           <Image key={index} src={bottle} alt='bottle' width={290} height={237} />
         ))}
       </Slider>

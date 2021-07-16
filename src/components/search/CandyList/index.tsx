@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/dist/client/image';
 import { useQuery } from 'react-query';
+import { useRouter } from 'next/router';
 import CandyCard from '../../../components/common/CandyCard/';
 import CompleteCard from '../../complete/Card/';
 import { getMatchedCandy } from '../../../pages/api/useGets/getMatchedCandy';
@@ -75,8 +76,12 @@ export interface CandyListProps {
 export default function CandyList({ type, searchValue }: CandyListProps) {
   // searchValue===data
   // searchValue="" 일 때 data===undefined
+  const router = useRouter();
   const { isLoading, data } = useQuery(['search', searchValue], () => getMatchedCandy(searchValue));
   const candies = data && (type === '담은 캔디' ? data.coming_list : data.completed_list);
+  const onClickCompleteCard = (candy_id: string) => {
+    router.push(`/complete/${candy_id}}`);
+  };
 
   return (
     <>
@@ -120,9 +125,14 @@ export default function CandyList({ type, searchValue }: CandyListProps) {
                 ) : (
                   <CompleteCard
                     key={idx}
-                    candy={candy.candy_image_url}
-                    category={candy.category_name}
-                    title={candy.candy_name}
+                    onClick={() => onClickCompleteCard(candy.candy_id)}
+                    candy_id={candy.candy_id}
+                    candy_name={candy.candy_name}
+                    candy_image_url={candy.candy_image_url}
+                    category_name={candy.category_name}
+                    category_image_url={candy.category_image_url}
+                    year={candy.year}
+                    month={candy.month}
                     date={candy.date}
                   />
                 );

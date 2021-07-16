@@ -93,17 +93,17 @@ const CheckWrapper = styled.div`
 `;
 
 export interface EmoticonProps {
-  candy: string;
+  candy_name: string;
   fullpageApi: fullpageApi;
 }
 
-export default function Emoticon({ candy = '필보이드 핸드크림', fullpageApi }: EmoticonProps) {
+export default function Emoticon({ candy_name = '필보이드 핸드크림', fullpageApi }: EmoticonProps) {
   const [checkedEmoId, setCheckedEmoId] = useAtom(CheckedEmoticon);
 
   return (
     <Container className='section'>
       <CandyTitle>
-        오늘 <Underlined style={{ fontWeight: '700' }}>{candy}</Underlined>을 주며
+        오늘 <Underlined style={{ fontWeight: '700' }}>{candy_name}</Underlined>을 주며
         <br />
         어떤 기분이셨나요?
       </CandyTitle>

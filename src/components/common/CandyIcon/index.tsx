@@ -7,8 +7,10 @@ export type CandyIconName = keyof typeof candyIcon;
 
 export interface CandyIconProps {
   name?: CandyIconName | string;
+  width?: number;
+  height?: number;
 }
 
-export default function CandyIcon({ name = 'X' }: CandyIconProps) {
-  return <Image src={{ src: candyIcon?.[name as CandyIconName]?.src ?? X.src, width: 60, height: 60 }} alt={name} />;
+export default function CandyIcon({ name = 'X', width = 44, height = 44 }: CandyIconProps) {
+  return <Image src={{ src: candyIcon?.[name as CandyIconName]?.src ?? X.src, width, height }} alt={name} />;
 }
