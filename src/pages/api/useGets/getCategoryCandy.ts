@@ -1,20 +1,22 @@
 import { instance } from '..';
 
 export interface CategoryCandy {
-  category_id: string;
-  name: string;
-  category_image_url: string;
-  category_candy_count: number;
-  recent_update_date: number;
-  image_url_one: string;
-  image_url_two: string;
-  image_url_three: string;
+  candy_id: string;
+  candy_name: string;
+  candy_image_url: string;
+  category_name: number;
+  reward_planned_at: number;
+  d_day: string;
 }
 
-export const getCategoryCandy = async (id: string) => {
+export const getCategoryCandy = async (candy_id: string, category_id: string) => {
   const candy = await instance.get(`/api/candies/category/`, {
-    data: {
-      category_id: id,
+    headers: {
+      'x-auth-token': localStorage.getItem('userToken'),
+    },
+    params: {
+      candy_id: `${candy_id}`,
+      category_id: `${category_id}`,
     },
   });
   return candy.data.result as CategoryCandy[];

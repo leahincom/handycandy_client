@@ -24,8 +24,6 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const ButtonStyle = styled(Button)``;
-
 const ToggleIcon = styled.div<{ open: boolean }>`
   display: flex;
   align-items: center;

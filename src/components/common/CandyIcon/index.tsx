@@ -10,5 +10,5 @@ export interface CandyIconProps {
 }
 
 export default function CandyIcon({ name = 'X' }: CandyIconProps) {
-  return <Image src={{ src: candyIcon?.[name as CandyIconName]?.src ?? X.src, width: 44, height: 44 }} alt={name} />;
+  return <Image src={{ src: candyIcon?.[name as CandyIconName]?.src ?? X.src, width: 60, height: 60 }} alt={name} />;
 }

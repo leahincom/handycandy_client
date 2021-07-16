@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { makeStyles, TextField } from '@material-ui/core';
-import { Donut, Ball } from '../../../../../public/assets/candy';
-import { DonutAdded, BallAdded } from '../../../../../public/assets/candyAdded';
+import { postNewCandy } from '../../../../pages/api/usePosts/postNewCandy';
+import { getCategoryList } from '../../../../pages/api/useGets/getCategoryList';
 import Button from '../../Button';
 import CategoryDropdown from './Dropdown/Category';
 import CandyAdded from './CandyAdded';
@@ -80,30 +81,45 @@ const LinkBox = styled.input`
 `;
 
 export default function AddCandy() {
-  const category = [
-    {
-      image: Donut,
-      added: DonutAdded,
-      name: '행복해지고 싶은 나',
+  const queryClient = useQueryClient();
+  const { isLoading, data } = useQuery('categoryList', getCategoryList);
+  const mutation = useMutation(postNewCandy, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('categoryList');
     },
-    {
-      image: Ball,
-      added: BallAdded,
-      name: '바쁜 일상이 끝난 후의 나',
-    },
-  ];
+  });
 
   const [selectedCategory, setSelectedCategory] = useState(0);
-  const [candy, setCandy] = useState('필보이드 핸드크림');
-  const [added, setAdded] = useState(false);
+  const [candy, setCandy] = useState({
+    candy_name: '',
+  });
   const [link, setLink] = useState('');
+  const [added, setAdded] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     e.preventDefault();
     if (e.target.id === 'standard-basic') {
-      setCandy(e.target.value);
+      setCandy({ ...candy, candy_name: e.target.value });
     } else {
       setLink(e.target.value);
+    }
+  };
+
+  const handleClick = async () => {
+    if (candy.candy_name && link) {
+      const category = data && data[selectedCategory];
+      console.log(candy, link);
+      category &&
+        mutation.mutate({
+          category_id: category.category_id,
+          candy_name: candy.candy_name,
+          shopping_link: link,
+          candy_image_url: '',
+          detail_info: '',
+        });
+      setAdded(true);
+    } else {
+      alert('링크를 입력하세요');
     }
   };
 
@@ -117,7 +133,7 @@ export default function AddCandy() {
           <Desc>
             <Line style={{ zIndex: 5 }}>
               <CategoryDropdown
-                category={category}
+                category={data}
                 selectedCategory={selectedCategory}
                 setSelectedCategory={setSelectedCategory}
               />
@@ -129,7 +145,7 @@ export default function AddCandy() {
                 <TextField
                   id='standard-basic'
                   style={{ width: '311px' }}
-                  value={candy}
+                  value={candy.candy_name}
                   onChange={handleChange}
                   inputProps={{
                     style: {
@@ -149,16 +165,10 @@ export default function AddCandy() {
             </Line>
           </Desc>
           <LinkBox placeholder='링크를 입력하세요' value={link} onChange={handleChange} />
-          <Button
-            text='다음'
-            size='sm'
-            buttonColor='peach'
-            color='black'
-            onClick={() => (link ? setAdded(true) : alert('링크를 입력하세요'))}
-          />
+          <Button text='다음' size='sm' buttonColor='peach' color='black' onClick={handleClick} />
         </>
       ) : (
-        <CandyAdded category={category} selectedCategory={selectedCategory} candy={candy} />
+        <CandyAdded category={data} selectedCategory={selectedCategory} candy={candy} />
       )}
     </>
   );

@@ -94,7 +94,7 @@ export default function CompleteCard({ candy, category, title, date, category_im
       </CandyEmoticonWrapper>
       <Category>{category}</Category>
       <Title>{title}</Title>
-      <Date>{getDateFormat(date)}</Date>
+      {/* <Date>{date}</Date> */}
     </Container>
   );
 }
