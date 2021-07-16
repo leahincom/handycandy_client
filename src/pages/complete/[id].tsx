@@ -6,8 +6,6 @@ import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
-import { Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
 import { EditIcon, LinkIcon, BackArrow } from '../../../public/assets/icons';
 import Button from '../../components/common/Button';
 import DeleteModal from '../../components/complete/Modal/DeleteModal';
@@ -247,14 +245,14 @@ export default function Detail({ link = 'https://www.naver.com' }: DetailProps) 
 
   return (
     <NavigationLayout>
-    {isLoading && <Spin />}
-    {isError && <p>Error! {console.log(error)}</p>}
-    {data && (
-      <Container>
-        <Banner>
-          <BackArrowWrapper onClick={onClickToGoBack}>
-            <Image src={BackArrow} layout='fill' objectFit='cover' objectPosition='center' alt='arrow' />
-          </BackArrowWrapper>
+      {isLoading && <p>Loading...</p>}
+      {isError && <p>Error! {console.log(error)}</p>}
+      {data && (
+        <Container>
+          <Banner>
+            <BackArrowWrapper onClick={onClickToGoBack}>
+              <Image src={BackArrow} layout='fill' objectFit='cover' objectPosition='center' alt='arrow' />
+            </BackArrowWrapper>
 
             <Title>
               저는 <Underline>{`${data.year}년 ${data.month}월 ${data.date}일`}</Underline>에
@@ -269,12 +267,7 @@ export default function Detail({ link = 'https://www.naver.com' }: DetailProps) 
             <CandyWrapper>
               <CandyImageWrapper onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
                 <CandyHover isHover={isHover} />
-                <CandyImage
-                  src='https://dummyimage.com/416x416/000/fff'
-                  layout='fill'
-                  objectFit='cover'
-                  objectPosition='center'
-                />
+                <CandyImage src={data.candy_image_url} layout='fill' objectFit='cover' objectPosition='center' />
                 <CandyEditIconWrapper onClick={onClickToOpenImageEditModal}>
                   <CandyEditIcon src={EditIcon} layout='fill' objectFit='cover' objectPosition='center' />
                 </CandyEditIconWrapper>
@@ -320,6 +313,7 @@ export default function Detail({ link = 'https://www.naver.com' }: DetailProps) 
         </Container>
       )}
 
+      {/* Todo: 서버에러 해결되면 이미지 서버에서 주는걸로 바꾸기 */}
       {isImgModalOpen && <ImageEditModal candy='https://dummyimage.com/221x221/000/fff' />}
       {isEditModalOpen && <EditModal />}
       {isDeleteModalOpen && <DeleteModal candy='https://dummyimage.com/100x100/000/fff' />}

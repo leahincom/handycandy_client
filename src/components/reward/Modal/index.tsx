@@ -4,7 +4,18 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { CompleteModalCategory, RewardModalAtom } from '../../../states';
 import Button from '../../common/Button';
-import { Ball } from '../../../../public/assets/completeCandy';
+import {
+  Ball,
+  Clover,
+  Donut,
+  Double,
+  Flower,
+  Fork,
+  Leaf,
+  Magnet,
+  WaterDrop,
+  X,
+} from '../../../../public/assets/completeCandy';
 
 interface CompleteCandyList {
   name: string;
