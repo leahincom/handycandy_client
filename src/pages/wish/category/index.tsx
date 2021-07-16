@@ -58,6 +58,7 @@ export default function CategoryCandy() {
   const router = useRouter();
   const { isLoading, error, data, status } = useQuery(['category'], () => getCategoryList());
   const categoryList = data;
+  console.log(categoryList);
   return (
     <NavigationLayout
       background={
