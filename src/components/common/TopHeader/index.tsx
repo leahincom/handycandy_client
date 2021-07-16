@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 const TopContainer = styled.div`
   margin-bottom: 40px;
+  z-index: 10;
 `;
 const TopTitle = styled.div`
   margin-bottom: 5px;

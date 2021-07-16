@@ -12,7 +12,7 @@ import checkByte from '../../../utils/checkBytes';
 import { EmoticonList } from './Emoticon';
 
 const Container = styled.div`
-  padding: 368px 241px 0px 241px;
+  padding: 250px 241px 0px 241px;
 `;
 
 const CandyTitle = styled.h1`

@@ -37,7 +37,7 @@ export const EmoticonList: IEmoticon[] = [
 
 const Container = styled.div`
   position: relative;
-  padding: 368px 241px 0px 241px;
+  padding: 250px 241px 0px 241px;
 `;
 
 const CandyTitle = styled.h1`

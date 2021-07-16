@@ -7,7 +7,7 @@ const SlideButtonWrapper = styled.div`
   display: flex;
   position: absolute;
   right: 0;
-  bottom: 45px;
+  bottom: 245px;
   left: 0;
   justify-content: center;
   width: 100vw;

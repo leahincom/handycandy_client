@@ -9,7 +9,7 @@ import DownArrowButton from './DownArrowButton';
 
 const Container = styled.div`
   position: relative;
-  padding: 368px 241px 0px 241px;
+  padding: 250px 241px 0px 241px;
 `;
 
 const CandyTitle = styled.h1`
@@ -140,9 +140,11 @@ export default function Body({
             <CandyText weight={700}>링크</CandyText>
             <CandyLink>
               <Image src={LinkIcon} alt='LinkIcon' />
-              <Link href={shopping_link} passHref>
-                <CandyLinkText>{shopping_link}</CandyLinkText>
-              </Link>
+              {shopping_link && (
+                <Link href={shopping_link} passHref>
+                  <CandyLinkText>{shopping_link}</CandyLinkText>
+                </Link>
+              )}
             </CandyLink>
           </CandyLinkWrapper>
 

@@ -5,6 +5,7 @@ import { CommonBanner } from '../../../../public/assets/banners';
 
 const Container = styled(Image)`
   position: relative;
+  width: 100%;
 `;
 
 const Contents = styled.div`
