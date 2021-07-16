@@ -2,6 +2,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
 import ComingCandyCard from '../../home/ComingCandyCard';
 import CandyCard from '../CandyCard';
 import 'slick-carousel/slick/slick.css';
@@ -10,7 +11,6 @@ import dayjs from 'dayjs';
 import { Coming } from '../../../pages/api/useGets/getMatchedCandy';
 
 import { PlannedCandy, getComingCandy } from '../../../pages/api/useGets/getComingCandy';
-import { useQuery } from 'react-query';
 
 const Container = styled.div`
   /* width: 1450px; */
@@ -90,46 +90,19 @@ export default function WishedCandySlider() {
       <Slider {...settings}>
         {comingList
           ?.slice(0, 6)
-          .map(({ candy_id, candy_image_url, candy_name, category_image_url, category_name, d_day }) => (
-            <ComingCandyCard
+          .map(({ candy_id, candy_image_url, candy_name, category_image_url, category_name, d_day, month, date }) => (
+            <CandyCard
               key={candy_id}
-              itemImage={candy_image_url}
-              category={category_name}
-              name={candy_name}
-              category_img={category_image_url}
-              plannedDate={new Date(dayjs().subtract(d_day, 'day').valueOf())}
+              candy_id={candy_id}
+              candy_image_url={candy_image_url}
+              candy_name={candy_name}
+              category_image_url={category_image_url}
+              category_name={category_name}
+              d_day={d_day}
+              month={month}
+              waiting_date={date}
             />
           ))}
-              candy_id={candy_id}
-        <CandyCard
-          candy_id='1'
-          candy_image_url=''
-          candy_name=''
-          category_image_url=''
-          category_name=''
-          d_day={0}
-          waiting_date={31}
-        />
-        <CandyCard
-          candy_id='1'
-          candy_image_url=''
-          candy_name=''
-          category_image_url=''
-          category_name=''
-          d_day={1}
-          day={0}
-          waiting_date={31}
-        />
-        <CandyCard
-          candy_id='1'
-          candy_image_url=''
-          candy_name=''
-          category_image_url=''
-          category_name=''
-          d_day={1}
-          day={0}
-          waiting_date={31}
-        />
       </Slider>
     </Container>
   );

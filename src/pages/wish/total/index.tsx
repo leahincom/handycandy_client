@@ -113,20 +113,16 @@ export default function TotalCandy() {
   const getComing = () => {
     const { isLoading, error, data, status } = useQuery(['coming'], () => getComingCandy());
     const ddayNum = data?.comming_candy_count;
-    console.log(ddayNum);
     return ddayNum;
   };
   const getWaiting = () => {
     const { isLoading, error, data, status } = useQuery(['waiting'], () => getWaitingCandy());
-    console.log(status);
-    console.log(data);
     const waitingList = data?.waiting_candy;
     return waitingList;
   };
   const ddayNum = getComing();
   const waitingList = getWaiting();
   const waitingNum = waitingList?.length;
-  // console.log(waitingList);
   const router = useRouter();
   return (
     <NavigationLayout
@@ -163,11 +159,15 @@ export default function TotalCandy() {
             <CandyContainer>
               {waitingList
                 ?.slice(0, 5)
-                .map(({ candy_id, candy_image_url, candy_name, category_image_url, waiting_date }) => (
+                .map(({ candy_id, category_name, candy_image_url, candy_name, category_image_url, waiting_date }) => (
                   <CandyCard
                     key={candy_id}
-                    candy={(candy_image_url, candy_name, candy_name, waiting_date, category_image_url)}
-                    onClick={() => router.push({ pathname: '/wish/detail/[cid]', query: { cid: 0 } })}
+                    candy_id={candy_id}
+                    candy_image_url={candy_image_url}
+                    candy_name={candy_name}
+                    category_image_url={category_image_url}
+                    waiting_date={waiting_date}
+                    category_name={category_name}
                   />
                 ))}
             </CandyContainer>
