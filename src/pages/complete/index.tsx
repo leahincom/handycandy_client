@@ -1,10 +1,10 @@
-import CompleteMain, { CompleteMainProps } from '../../components/complete/Main';
+import CompleteMain from '../../components/complete/Main';
 import NavigationLayout from '../../components/layout/NavigationLayout';
 
-export default function CompletePage({ ...restProps }: CompleteMainProps) {
+export default function CompletePage() {
   return (
     <NavigationLayout>
-      <CompleteMain {...restProps} />
+      <CompleteMain />
     </NavigationLayout>
   );
 }

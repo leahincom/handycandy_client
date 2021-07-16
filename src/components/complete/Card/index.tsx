@@ -1,8 +1,26 @@
 import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
+// import { Donut, Ball, Clover, Double, Flower, Fork, Leaf, Magnet, WaterDrop, X } from '../../../../public/assets/candy';
+import { CompletedCandy } from '../../../pages/api/useGets/getCompletedCandy';
 import { ComingCandyNull } from '../../../../public/assets/images';
 import CandyIcon from '../../common/CandyIcon';
+
+// export interface Category {
+//   name: string;
+//   src: any;
+// }
+
+// const categoryList: Category[] = [
+//   { name: 'Ball', src: Ball },
+//   { name: 'Donut', src: Donut },
+//   { name: 'Clover', src: Clover },
+//   { name: 'Double', src: Double },
+//   { name: 'Flower', src: Flower },
+//   { name: 'Fork', src: Fork },
+//   { name: 'Magnet', src: Magnet },
+//   { name: 'WaterDrop', src: WaterDrop },
+// ];
 
 const Container = styled.div`
   position: relative;
@@ -12,6 +30,7 @@ const Container = styled.div`
   padding: 18px 24px 27px 24px;
   width: 330px;
   height: 224px;
+  cursor: pointer;
 `;
 
 const CandyEmoticonWrapper = styled.div`
@@ -66,35 +85,33 @@ const Date = styled.div`
   font-style: normal;
 `;
 
-export interface CompleteCardProps {
-  candy?: string;
-  category: string;
-  title: string;
-  date: Date;
-  category_img?: string;
+export interface CompleteCardProps extends CompletedCandy {
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-export default function CompleteCard({ candy, category, title, date, category_img }: CompleteCardProps) {
-  const getDateFormat = (date: Date) => {
-    if (typeof date === 'number') {
-      return date;
-    }
-    return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDay()}일`;
-  };
-
+export default function CompleteCard({
+  candy_image_url,
+  category_name,
+  candy_name,
+  category_image_url,
+  year,
+  month,
+  date,
+  onClick,
+}: CompleteCardProps) {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <CandyImage>
-        <Image src={{ default: ComingCandyNull, src: candy }} alt='' />
+        <Image src={{ default: ComingCandyNull, src: candy_image_url }} alt='' />
       </CandyImage>
       <CandyEmoticonWrapper>
         <CandyEmoticon>
-          <CandyIcon name={category_img} />
+          <CandyIcon name={category_image_url} width={89} height={89} />
         </CandyEmoticon>
       </CandyEmoticonWrapper>
-      <Category>{category}</Category>
-      <Title>{title}</Title>
-      {/* <Date>{date}</Date> */}
+      <Category>{category_name}</Category>
+      <Title>{candy_name}</Title>
+      <Date>{`${year}년 ${month}월 ${date}일`}</Date>
     </Container>
   );
 }

@@ -1,36 +1,33 @@
 import { instance } from '..';
-import { WaitingCandy } from './getWaitingCandy';
 
-export interface Category {
-  category: string;
+export interface GetCompletedCandy {
+  status: number;
+  success: boolean;
+  result: GetCompletedCandyResult;
 }
 
-type WaitingCandyAdjusted = Omit<WaitingCandy, 'waiting_date'>;
+export interface GetCompletedCandyResult {
+  user_nickname: string;
+  month: string;
+  candy_count: number;
+  cur_categories: string[];
+  before_categoris: string[];
+  after_categoris: string[];
+  completed_candy: CompletedCandy[];
+}
 
-export interface CompleteCandy extends WaitingCandyAdjusted {
+export interface CompletedCandy {
+  candy_id: string;
+  candy_image_url: string;
+  candy_name: string;
+  category_image_url: string;
   category_name: string;
   year: number;
   month: number;
   date: number;
 }
 
-export interface CompleteCandyResult {
-  user_nickname: string;
-  month: number;
-  candy_count: number;
-  cur_categories: Category[];
-  before_categories: Category[];
-  after_categories: Category[];
-  completed_candy: CompleteCandy[];
-}
-
-export const getCompletedCandy = async (mon: number) => {
-  const cards = await instance.get(`/api/candies/completedCandy`, {
-    data: { month: mon },
-    headers: {
-      'x-auth-token': localStorage.getItem('userToken'),
-    },
-  });
-  console.log(cards);
-  return cards.data.result as CompleteCandyResult;
+export const getCompletedCandy = async (month: number) => {
+  const { data } = await instance.get(`api/candies/completedCandy/${month}`);
+  return data as GetCompletedCandy;
 };
