@@ -83,13 +83,13 @@ export interface RecommendCandyCardProps {
 export default function RecommendCandyCard({ title, content, image }: RecommendCandyCardProps) {
   const [, setOpenModal] = useAtom(openCandyModal);
   return (
-    <Container>
+    <Container onClick={() => setOpenModal(true)}>
       <CardImage src={image} />
       <CardDetail>
         <CardTitle>{title}</CardTitle>
         <CardContent>{content}</CardContent>
       </CardDetail>
-      <AddButton onClick={() => setOpenModal(true)}>+</AddButton>
+      <AddButton>+</AddButton>
     </Container>
   );
 }

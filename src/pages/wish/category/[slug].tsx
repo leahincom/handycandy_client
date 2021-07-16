@@ -7,6 +7,7 @@ import WishedCandySlider from '../../../components/common/WishedCandySlider';
 import NavigationLayout from '../../../components/layout/NavigationLayout';
 import TopHeader from '../../../components/common/TopHeader';
 import { getCategoryCandy } from '../../api/useGets/getCategoryCandy';
+import { getWaitingCandy } from '../../api/useGets/getWaitingCandy';
 const Container = styled.div`
   position: relative;
   padding-bottom: 160px;
@@ -153,6 +154,7 @@ export default function EachCategory() {
   const { data, status } = useQuery(['getCategoryCandy', slug], () => getCategoryCandy(slug), {
     enabled: slug.length > 0,
   });
+  const { data: waitingCandy } = useQuery('waitingCandy', getWaitingCandy);
   useEffect(() => {
     if (status === 'error') {
       alert('잘못된 페이지입니다.');
@@ -203,19 +205,20 @@ export default function EachCategory() {
             <Border></Border>
             <SubTitle>계획된 캔디가 당신을 기다리고 있어요!</SubTitle>
             <CandyContainer>
-              {data?.waiting_candy?.map((value) => {
-                return (
-                  <CandyCard
-                    key={value.candy_id}
-                    candy_id={value.candy_id}
-                    candy_image_url={value.candy_image_url}
-                    candy_name={value.candy_name}
-                    category_image_url={value.candy_image_url}
-                    category_name={value.candy_name}
-                    d_day={value.waiting_date}
-                  />
-                );
-              })}
+              {waitingCandy &&
+                waitingCandy.map((value) => {
+                  return (
+                    <CandyCard
+                      key={value.candy_id}
+                      candy_id={value.candy_id}
+                      candy_image_url={value.candy_image_url}
+                      candy_name={value.candy_name}
+                      category_image_url={value.candy_image_url}
+                      category_name={value.candy_name}
+                      waiting_date={value.waiting_date}
+                    />
+                  );
+                })}
             </CandyContainer>
           </WaitingContainer>
         </BodyContainer>

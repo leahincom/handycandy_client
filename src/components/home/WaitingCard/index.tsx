@@ -5,9 +5,11 @@ import CandyIcon from '../../common/CandyIcon';
 
 const Container = styled.div`
   position: relative;
+  margin: 0 10px;
   border-radius: 16px;
   width: 364px;
   height: 278px;
+
   &:hover {
     cursor: pointer;
   }
