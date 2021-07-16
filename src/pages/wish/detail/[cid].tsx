@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useAtom } from 'jotai';
 import Link from 'next/link';
+import { useQuery } from 'react-query';
 import { PrevArrow, LinkIcon, RightQuote, LeftQuote, EditBtn } from '../../../../public/assets/icons';
 import Button from '../../../components/common/Button';
 import ImageEditModal from '../../../components/common/CandyEdit/ImageEditModal';
@@ -11,6 +12,8 @@ import { DetailCandyEditModalAtom, ImageEditModalAtom } from '../../../states';
 import CandyEditModal from '../../../components/common/CandyEdit';
 import Footer from '../../../components/common/Footer';
 import NavigationLayout from '../../../components/layout/NavigationLayout';
+import { getCategoryCandy } from '../../api/useGets/getCategoryCandy';
+
 const Container = styled.div`
   margin: auto;
   padding-bottom: 160px;

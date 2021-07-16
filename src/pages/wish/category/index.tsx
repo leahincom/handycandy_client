@@ -3,12 +3,15 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
+import { useQuery } from 'react-query';
 import { AddIcon } from '../../../../public/assets/icons';
 
 import Navigation from '../../../components/common/Navigation';
 import CategoryCard from '../../../components/common/CategoryCard';
 import NavigationLayout from '../../../components/layout/NavigationLayout';
 import TopHeader from '../../../components/common/TopHeader';
+import { getCategoryList } from '../../../pages/api/useGets/getCategoryList';
+
 const Container = styled.div`
   padding-bottom: 80px;
 `;
@@ -16,29 +19,28 @@ const Container = styled.div`
 const AddButton = styled(Image)``;
 const BodyContainer = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
+  margin-top: 50px;
   border-radius: 50px;
   background: rgba(231, 231, 231, 0.2);
-  padding-top: 50px;
 `;
 const CandyContainer = styled.div`
   display: flex;
-  justify-content: center;
-  margin-top: 52px;
-  width: 1440px;
+  flex-wrap: wrap;
+  padding-top: 52px;
+  width: 1520px;
   > div {
-    margin-right: 43px;
+    margin-right: 40px;
     margin-bottom: 52px;
   }
 `;
 const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 1440px;
-  .empty {
-    width: 197px;
-  }
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  padding-top: 52px;
 `;
 
 const TopHeaderWrapper = styled.div`
@@ -49,10 +51,13 @@ const TopHeaderWrapper = styled.div`
 const NavTapWrapper = styled.div`
   display: flex;
   justify-content: center;
+  padding-top: 52px;
 `;
 
 export default function CategoryCandy() {
   const router = useRouter();
+  const { isLoading, error, data, status } = useQuery(['category'], () => getCategoryList());
+  const categoryList = data;
   return (
     <NavigationLayout
       background={
@@ -63,52 +68,40 @@ export default function CategoryCandy() {
         <TopHeaderWrapper>
           <TopHeader title='담은 캔디' subTitle='나만의 캔디들을 마음껏 담아보세요' />
         </TopHeaderWrapper>
-        <NavTapWrapper>
-          <Navigation tab={1} />
-        </NavTapWrapper>
+
         <BodyContainer>
+          <NavTapWrapper>
+            <Navigation tab={1} />
+          </NavTapWrapper>
           <Header>
-            <div className='empty'></div>
             <AddButton src={AddIcon} />
           </Header>
 
           <CandyContainer>
-            <CategoryCard
-              category='고생한 나를 위한 캔디'
-              candynum={20}
-              date='3'
-              firstImg='https://dummyimage.com/184x255/000/fff'
-              secondImg='https://dummyimage.com/151x127/000/fff'
-              thirdImg='https://dummyimage.com/151x127/000/fff'
-              onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
-            />
-            <CategoryCard
-              category='고생한 나를 위한 캔디'
-              candynum={20}
-              date='3'
-              firstImg='https://dummyimage.com/184x255/000/fff'
-              secondImg='https://dummyimage.com/151x127/000/fff'
-              thirdImg='https://dummyimage.com/151x127/000/fff'
-              onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
-            />
-            <CategoryCard
-              category='고생한 나를 위한 캔디'
-              candynum={20}
-              date='3'
-              firstImg='https://dummyimage.com/184x255/000/fff'
-              secondImg='https://dummyimage.com/151x127/000/fff'
-              thirdImg='https://dummyimage.com/151x127/000/fff'
-              onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
-            />
-            <CategoryCard
-              category='고생한 나를 위한 캔디'
-              candynum={20}
-              date='3'
-              firstImg='https://dummyimage.com/184x255/000/fff'
-              secondImg='https://dummyimage.com/151x127/000/fff'
-              thirdImg='https://dummyimage.com/151x127/000/fff'
-              onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
-            />
+            {categoryList?.map(
+              ({
+                category_id,
+                name,
+                recent_update_date,
+                category_image_url,
+                category_candy_count,
+                image_url_one,
+                image_url_two,
+                image_url_three,
+              }) => (
+                <CategoryCard
+                  key={category_id}
+                  candyImg={category_image_url}
+                  category={name}
+                  candynum={category_candy_count}
+                  date={recent_update_date}
+                  firstImg={image_url_one}
+                  secondImg={image_url_two}
+                  thirdImg={image_url_three}
+                  onClick={() => router.push({ pathname: '/wish/category/[slug]', query: { slug: 0 } })}
+                />
+              ),
+            )}
           </CandyContainer>
         </BodyContainer>
       </Container>

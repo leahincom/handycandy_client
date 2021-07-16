@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app';
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { Hydrate } from 'react-query/hydration';
 import GlobalStyle from '../styles/GlobalStyle';
 
@@ -15,6 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <GlobalStyle />
         <Component {...pageProps} />
       </Hydrate>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }

@@ -6,6 +6,7 @@ export interface WaitingCandy {
   candy_name: string;
   category_image_url: string;
   waiting_date: number;
+  category_name: string;
 }
 
 export interface GetWaitingCandyResult {
