@@ -109,6 +109,7 @@ const menus: NavMenu[] = [
 
 export default function Navbar() {
   const { pathname } = useRouter();
+  const router = useRouter();
   const [isNoticeOpen, setIsNoticeOpen] = React.useState(false);
 
   const [, setOpenModal] = useAtom(openCandyModal);
@@ -119,6 +120,10 @@ export default function Navbar() {
 
   const handleOpenModal = () => {
     setOpenModal(true);
+  };
+
+  const handleMoveToLogin = () => {
+    router.push('/signin');
   };
 
   const notices = {
@@ -171,7 +176,7 @@ export default function Navbar() {
           <SearchBar />
         </SearchArea>
         <Buttons>
-          <ProfileIcon src={Profile} />
+          <ProfileIcon onClick={handleMoveToLogin} src={Profile} />
           <RingIcon src={Ring} onClick={openNotice} />
           {isNoticeOpen && <NoticeModal notices={notices} />}
           <AddCandyButton onClick={handleOpenModal}>캔디추가하기</AddCandyButton>

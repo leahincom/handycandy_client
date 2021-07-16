@@ -13,16 +13,20 @@ const Container = styled.div`
   }
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<WrapperProps>`
   box-sizing: border-box;
   position: relative;
   border-radius: 16px;
-  background: linear-gradient(
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.09);
+  background: ${(props) =>
+    props.isNull
+      ? 'none'
+      : `linear-gradient(
     180deg,
     rgba(255, 208, 248, 0) 0%,
     rgba(239, 128, 222, 0.156771) 30.73%,
     rgba(255, 181, 243, 0.7) 85.42%
-  );
+  )`};
   padding: 33px 28px;
   width: 100%;
   height: 100%;
@@ -36,6 +40,8 @@ const BackgroundThumbnail = styled.img`
   border-radius: 16px;
   object-fit: cover;
   object-position: center;
+  width: 364px;
+  height: 278px;
 `;
 
 const CandyWrapper = styled.div`
@@ -75,28 +81,68 @@ const Decs = styled.div`
   line-height: 28px;
   font-size: 24px;
 `;
+
+const Notice = styled.div`
+  display: flex;
+  position: absolute;
+  bottom: 55px;
+  left: 0;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  line-height: 150%;
+  color: var(--gray-7);
+  font-family: var(--nanum);
+
+  & p:nth-of-type(1) {
+    color: var(--gray-7);
+    font-family: var(--nanum);
+    font-size: 21px;
+    font-weight: 800;
+  }
+
+  & p:nth-of-type(2) {
+    color: var(--gray-6);
+    font-family: var(--roboto);
+    font-size: 16px;
+  }
+`;
 export interface WaitingCardProps {
   id: string;
   thumbnail: string;
   candy: any;
-  date: number;
+  date?: number;
   title: string;
+  isNull?: boolean;
 }
 
-export default function WaitingCard({ candy, title, date, thumbnail, id }: WaitingCardProps) {
+export interface WrapperProps {
+  isNull?: boolean;
+}
+
+export default function WaitingCard({ candy, title, date, thumbnail, id, isNull }: WaitingCardProps) {
   return (
     <Link href={getRoutesName.wish.detail(id)} passHref>
       <Container>
-        <BackgroundThumbnail src={thumbnail} />
-        <Wrapper>
-          <CandyWrapper>
-            <CandyIcon name={candy} />
-          </CandyWrapper>
-          <Title>
-            <UnderLinedTitle>{title}</UnderLinedTitle>이
-          </Title>
-          <Date>{date}일째</Date>
-          <Decs>캔디함에서 기다리고 있습니다.</Decs>
+        <BackgroundThumbnail src={thumbnail === '' || isNull ? '/assets/images/WaitingCandyNull.png' : thumbnail} />
+        <Wrapper isNull={isNull}>
+          {isNull ? (
+            <Notice>
+              <p>아직 캔디가 없어요!</p>
+              <p>아직 캔디가 없어요!</p>
+            </Notice>
+          ) : (
+            <>
+              <CandyWrapper>
+                <CandyIcon name={candy} />
+              </CandyWrapper>
+              <Title>
+                <UnderLinedTitle>{title}</UnderLinedTitle>이
+              </Title>
+              <Date>{date}일째</Date>
+              <Decs>캔디함에서 기다리고 있습니다.</Decs>
+            </>
+          )}
         </Wrapper>
       </Container>
     </Link>

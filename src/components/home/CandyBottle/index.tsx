@@ -18,7 +18,7 @@ import bottle from '../../../../public/assets/home/bottle.svg';
 import random from '../../../utils/random';
 
 const WIDTH = 450;
-const HEIGHT = 650;
+const HEIGHT = 580;
 const BAR_MASS = 50;
 
 const leftBorder = Bodies.rectangle(0, HEIGHT / 2, BAR_MASS, HEIGHT, {
