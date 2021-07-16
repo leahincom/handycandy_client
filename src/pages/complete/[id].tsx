@@ -16,19 +16,7 @@ import { CandyEditModalAtom, DeleteModalAtom, ImageEditModalAtom } from '../../s
 import checkByte from '../../utils/checkBytes';
 import { getComletedCandyDetail } from '../api/useGets/getCompletedCandyDetail';
 import { ComingCandyNull } from '../../../public/assets/images';
-import {
-  Ball,
-  Clover,
-  CommonBanner,
-  Donut,
-  Double,
-  Flower,
-  Fork,
-  Leaf,
-  Magnet,
-  WaterDrop,
-  X,
-} from '../../../public/assets/banners';
+import { Ball, Clover, Donut, Double, Flower, Fork, Leaf, Magnet, WaterDrop, X } from '../../../public/assets/banners';
 import { CategoryImageUrl as BannerImageUrl } from '../api/useGets/getCompletedCandy';
 
 interface CompleteBannerList {
@@ -60,9 +48,6 @@ const Banner = styled.div`
   padding: 88px 269px 47px;
   width: 100%;
   height: 327px;
-  /* & > div {
-    width: 100%;
-  } */
 `;
 
 const BannerImage = styled.div`

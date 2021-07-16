@@ -1,13 +1,16 @@
 import { useAtom } from 'jotai';
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
 import { CandyEditModalAtom, CheckedEmoticon, DeleteModalAtom } from '../../../states';
 import checkByte from '../../../utils/checkBytes';
 import Button from '../../common/Button';
 import { EmoticonList } from '../../reward/Body/Emoticon';
 import { Check } from '../../../../public/assets/icons';
+import { getComletedCandyDetail } from '../../../pages/api/useGets/getCompletedCandyDetail';
 
 interface BackgroundProps {
   isOpen: boolean;
@@ -176,7 +179,14 @@ export default function EditModal() {
   const textLimitRef = useRef<HTMLSpanElement>(null);
   const [isOpen, setIsOpen] = useAtom(CandyEditModalAtom);
   const [, setIsOpenDeleteModal] = useAtom(DeleteModalAtom);
-  const [checkedEmoId, setCheckedEmoId] = useAtom(CheckedEmoticon);
+  const [checkedEmoId, setCheckedEmoId] = useState<string>('');
+  const router = useRouter();
+  const candyId = router.query.id as string;
+
+  const { data } = useQuery(['complete', candyId], () => getComletedCandyDetail(candyId));
+
+  console.log(data?.feeling_image_url);
+
   const handleClickToClose = () => {
     setIsOpen(false);
   };
@@ -191,6 +201,13 @@ export default function EditModal() {
     setIsOpen(false);
     setIsOpenDeleteModal(true);
   };
+
+  useEffect(() => {
+    const emoticonId = EmoticonList.find((emo) => emo.name === data?.feeling_image_url)?.id;
+    if (emoticonId) {
+      setCheckedEmoId(emoticonId);
+    }
+  }, []);
 
   return (
     <>
@@ -207,7 +224,7 @@ export default function EditModal() {
               onClick={() => handleClickEmoticon(emo.id)}
               isChecked={emo.id === checkedEmoId}
             >
-              {checkedEmoId === emo.id && (
+              {emo.id === checkedEmoId && (
                 <CheckWrapper>
                   <Image src={Check} width={27} height={17} alt='check' />
                 </CheckWrapper>
