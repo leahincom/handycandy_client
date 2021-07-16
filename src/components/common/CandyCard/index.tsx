@@ -41,7 +41,7 @@ const Metadata = styled.div<ContainerProps>`
   background-color: white;
   padding: 40px 0 23px 17px;
   width: 100%;
-  height: 130px;
+  height: ${(props) => (props.from === 'home' ? '78px' : '125px')};
   ${Container}:hover & {
     background-color: rgba(90, 90, 90, 0.1);
   }
@@ -75,7 +75,7 @@ const Candy = styled.div<ContainerProps>`
   position: absolute;
   right: 16px;
   bottom: ${(props) => (props.from === 'home' ? '69px' : '109px')};
-  z-index: 100;
+  z-index: 5;
 `;
 
 export interface CandyCardProps {
@@ -118,7 +118,7 @@ export default function CandyCard({
           alt=''
         />
         {!isNull && d_day !== undefined && <OptionBar d_day={d_day} />}
-        <Metadata>
+        <Metadata from={from}>
           <Category from={from}>{category_name}</Category>
           <Name from={from}>{candy_name}</Name>
           {from !== 'home' ? (

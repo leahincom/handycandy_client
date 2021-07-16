@@ -14,52 +14,52 @@ import {
 
 export const candyIconList = [
   {
-    name: 'leaf',
+    name: 'Leaf',
     added: LeafAdded,
     src: Leaf,
   },
   {
-    name: 'waterdrop',
+    name: 'WaterDrop',
     added: WaterDropAdded,
     src: WaterDrop,
   },
   {
-    name: 'clover',
+    name: 'Clover',
     added: CloverAdded,
     src: Clover,
   },
   {
-    name: 'x',
+    name: 'X',
     added: XAdded,
     src: X,
   },
   {
-    name: 'flower',
+    name: 'Flower',
     added: FlowerAdded,
     src: Flower,
   },
   {
-    name: 'donut',
+    name: 'Donut',
     added: DonutAdded,
     src: Donut,
   },
   {
-    name: 'fork',
+    name: 'Fork',
     added: ForkAdded,
     src: Fork,
   },
   {
-    name: 'ball',
+    name: 'Ball',
     added: BallAdded,
     src: Ball,
   },
   {
-    name: 'double',
+    name: 'Double',
     added: DoubleAdded,
     src: Double,
   },
   {
-    name: 'magnet',
+    name: 'Magnet',
     added: MagnetAdded,
     src: Magnet,
   },
