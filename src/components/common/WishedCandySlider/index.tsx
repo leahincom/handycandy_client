@@ -111,7 +111,7 @@ export default function WishedCandySlider({ candy_list }: WishedCandySliderProps
               category_name={category_name}
               d_day={d_day}
               month={month}
-              day={date}
+              date={date}
             />
           ))}
       </Slider>

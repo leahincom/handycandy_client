@@ -113,7 +113,7 @@ export default function CandyCard({
         <Thumbnail from={from}>
           <Image src={{ src: candy_image_url, default: ComingCandyNull }} alt='' layout='fill' />
         </Thumbnail>
-        {d_day && <OptionBar d_day={d_day} />}
+        {d_day >= 0 && <OptionBar d_day={d_day} />}
 
         <Metadata>
           <Category from={from}>{category_name}</Category>
