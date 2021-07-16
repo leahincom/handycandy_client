@@ -31,20 +31,15 @@ const Card = styled.div`
 const CardRow = styled.div`
   display: flex;
   flex-direction: column;
-  border-top-left-radius: 14px;
-  border-top-right-radius: 14px;
 `;
 const CandyImgDiv = styled.div`
   position: absolute;
   top: -10px;
   left: -10px;
-  border-top-left-radius: 14px;
-  border-top-right-radius: 14px;
 `;
 const Candy = styled(Image)`
   position: absolute;
-  border-top-left-radius: 14px;
-  border-top-right-radius: 14px;
+
   width: 72px;
   height: 72px;
   object-fit: contain;
@@ -56,14 +51,19 @@ const ThreeButton = styled(Image)`
   cursor: pointer;
 `;
 const FirstImg = styled.img`
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
   width: 184px;
   height: 254px;
 `;
 const SecondImg = styled.img`
+  border-top-right-radius: 14px;
+
   width: 152px;
   height: 127px;
 `;
 const ThirdImg = styled.img`
+  border-bottom-right-radius: 14px;
   width: 152px;
   height: 127px;
 `;
@@ -94,7 +94,26 @@ const Date = styled.span`
   font-weight: 400;
   font-style: normal;
 `;
+const FirstEmpty = styled.div`
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
+  background: rgba(231, 231, 231, 0.2);
+  width: 184px;
+  height: 254px;
+`;
+const SecondEmpty = styled.div`
+  border-top-right-radius: 14px;
 
+  background: rgba(231, 231, 231, 0.2);
+  width: 152px;
+  height: 127px;
+`;
+const ThirdEmpty = styled.div`
+  border-bottom-right-radius: 14px;
+  background: rgba(231, 231, 231, 0.2);
+  width: 152px;
+  height: 127px;
+`;
 export interface CategoryCardProps {
   onClick: any;
   candyImg: string;
@@ -125,12 +144,10 @@ export default function CategoryCard({
             <Candy src={candysrc} alt='' width='52px' height='52px' objectFit='contain' />
           </CandyImgDiv>
           <ThreeButton src='/assets/icons/ThreeButton.svg' alt='' width='15px' height='15px' objectFit='contain' />
+          <CardRow>{firstImg === '' ? <FirstEmpty /> : <FirstImg src={firstImg} />}</CardRow>
           <CardRow>
-            <FirstImg src={firstImg} />
-          </CardRow>
-          <CardRow>
-            <SecondImg src={secondImg} />
-            <ThirdImg src={thirdImg} />
+            {secondImg === '' ? <SecondEmpty /> : <SecondImg src={secondImg} />}
+            {thirdImg === '' ? <ThirdEmpty /> : <ThirdImg src={thirdImg} />}
           </CardRow>
         </Card>
       </CardContainer>
