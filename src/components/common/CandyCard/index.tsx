@@ -117,7 +117,7 @@ export default function CandyCard({
           src={candy_image_url !== '' ? candy_image_url : '/assets/images/ComingCandyNull.png'}
           alt=''
         />
-        {!isNull || d_day !== undefined ? <OptionBar d_day={d_day} /> : <></>}
+        {!isNull && d_day !== undefined && <OptionBar d_day={d_day} />}
         <Metadata>
           <Category from={from}>{category_name}</Category>
           <Name from={from}>{candy_name}</Name>
