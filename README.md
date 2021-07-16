@@ -19,6 +19,18 @@
 
 ## About Our Main Service
 
+### 홈 및 알림창
+![image](https://user-images.githubusercontent.com/49134038/125967312-7ae1f707-cf4b-45c8-a4ab-44b32e58e616.png)
+- 페이지 전반적인 레이아웃 구성
+- 공통 Navbar와 검색창
+- Candy Bottle 애니메이션
+- 사용자 정보와 한 줄 문구
+- 다가오는 캔디들
+- 추천캔디들
+- 기다리는 캔디 슬라이더
+- 지난 캔디와 선물한 캔디들에 대한 알림창
+- 캔디 카드 조절
+
 ### 캔디 추가
 ![image](https://user-images.githubusercontent.com/49134038/125964986-dcac0c9e-ee32-486a-9d75-9d82d25ce678.png)
 - 모달 레이아웃 구현
