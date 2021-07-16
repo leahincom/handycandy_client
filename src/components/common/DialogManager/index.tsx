@@ -5,18 +5,19 @@ import { openCandyModal, openCategoryModal } from '../../../states';
 import AddCandy from './AddCandy';
 import AddCategory from './AddCategory';
 
-const ModalControl = styled.div`
+export const ModalControl = styled.div`
   display: flex;
   position: fixed;
   top: 0;
   left: 0;
   align-items: center;
   justify-content: center;
+  z-index: 99;
   width: 100%;
   height: 100%;
 `;
 
-const Outside = styled.div`
+export const Outside = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -35,7 +36,7 @@ const Outside = styled.div`
   }
 `;
 
-const Dialog = styled.div`
+export const Dialog = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,7 +79,10 @@ export default function DialogManager() {
       {open && (
         <ModalControl>
           <Outside onClick={handleCloseModal} />
-          <Dialog>{candyModal ? <AddCandy /> : categoryModal && <AddCategory />}</Dialog>
+          <Dialog>
+            {candyModal && <AddCandy />}
+            {categoryModal && <AddCategory />}
+          </Dialog>
         </ModalControl>
       )}
     </>

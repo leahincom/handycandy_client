@@ -1,7 +1,10 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { QueryClient, useMutation } from 'react-query';
 import Button from '../../common/Button';
+import { candyIconList } from '../../../utils/categoryIcons';
+import { deleteCategory } from '../../../pages/api/useDeletes/deleteCategory';
 
 interface BackgroundProps {
   isOpen: boolean;
@@ -36,10 +39,7 @@ const Container = styled.div<BackgroundProps>`
   height: 398px;
 `;
 
-const Candy = styled(Image)`
-  width: 110px;
-  height: 110px;
-`;
+const Candy = styled.div``;
 
 const Title = styled.h1`
   margin-top: 26px;
@@ -75,11 +75,21 @@ const Empty = styled.div`
 
 export interface DeleteModalProps {
   candy: string;
+  setIsOpen: any;
+  isOpen: boolean;
+  selectedCategory: string;
 }
 
-export default function DeleteModal({ candy }: DeleteModalProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
-  const handleClickToClose = () => {
+export default function DeleteModal({ candy, setIsOpen, isOpen, selectedCategory }: DeleteModalProps) {
+  const queryClient = new QueryClient();
+  const mutation = useMutation('categoryList', (category_id: string) => deleteCategory(category_id), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('categoryList');
+    },
+  });
+
+  const handleDeleteButton = () => {
+    mutation.mutate(selectedCategory);
     setIsOpen(false);
   };
 
@@ -89,9 +99,16 @@ export default function DeleteModal({ candy }: DeleteModalProps) {
 
   return (
     <>
-      <Background isOpen={isOpen} onClick={handleClickToClose} />
+      <Background isOpen={isOpen} onClick={handleClose} />
       <Container isOpen={isOpen}>
-        <Candy src={candy} />
+        <Candy>
+          <Image
+            alt=''
+            src={candyIconList.filter((icon) => icon.name === candy)[0].src.src}
+            width='110px'
+            height='110px'
+          />
+        </Candy>
         <Title>캔디 카테고리 삭제</Title>
         <SubTitle>
           분류별 캔디와 그 안의 캔디들 모두 삭제한 후에는 <br />이 작업을 실행 취소할 수 없습니다!
@@ -99,7 +116,7 @@ export default function DeleteModal({ candy }: DeleteModalProps) {
         <ButtonWrapper>
           <Button buttonColor='gray' size='sm' text='취소하기' onClick={handleClose} />
           <Empty />
-          <Button buttonColor='peach' size='sm' text='삭제 완료' onClick={handleClose} />
+          <Button buttonColor='peach' size='sm' text='삭제 완료' onClick={handleDeleteButton} />
         </ButtonWrapper>
       </Container>
     </>

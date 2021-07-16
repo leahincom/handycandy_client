@@ -75,7 +75,7 @@ interface CandyImageProps {
   onMouseLeave: React.MouseEventHandler<HTMLImageElement>;
 }
 
-const CandyImage = styled(Image)<CandyImageProps>`
+const CandyImage = styled.img<CandyImageProps>`
   border-radius: 30px;
   cursor: pointer;
 `;

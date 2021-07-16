@@ -12,6 +12,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { useAtom } from 'jotai';
 import { openCandyModal, openCategoryModal } from '../../../../../states';
 import { CategoryAdd, ToggleButton } from '../../../../../../public/assets/icons';
+import { getIconSrc } from '../../../../../utils/categoryIcons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,7 +53,7 @@ export default function CategoryDropdown({ category, selectedCategory, setSelect
   const selectedItem = useMemo(() => category[selectedCategory], [category, selectedCategory]);
   const [candyModal, setCandyModal] = useAtom(openCandyModal);
 
-  const handleToggle = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
@@ -65,7 +66,7 @@ export default function CategoryDropdown({ category, selectedCategory, setSelect
     setOpen(false);
   };
 
-  const handleAddCategory = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+  const handleAddCategory = () => {
     setCandyModal(false);
     setCategoryModal(true);
   };
@@ -90,7 +91,7 @@ export default function CategoryDropdown({ category, selectedCategory, setSelect
   return (
     <>
       {!categoryModal && (
-        <div style={{ marginRight: '15px' }} className={classes.root}>
+        <div style={{ marginRight: '15px', zIndex: 5 }} className={classes.root}>
           <Button
             ref={anchorRef}
             aria-controls={open ? 'menu-list-grow' : undefined}
@@ -111,7 +112,7 @@ export default function CategoryDropdown({ category, selectedCategory, setSelect
             }}
           >
             <Icon>
-              <Image src={selectedItem.image} width='35px' height='35px' alt='' />
+              <Image src={getIconSrc(selectedItem.category_image_url)} width='35px' height='35px' alt='' />
             </Icon>
             {selectedItem.name}
             <ToggleIcon open={open}>
@@ -159,7 +160,7 @@ export default function CategoryDropdown({ category, selectedCategory, setSelect
                               }}
                             >
                               <Icon>
-                                <Image src={el.image} width='35px' height='35px' alt='' />
+                                <Image src={getIconSrc(el.category_image_url)} width='35px' height='35px' alt='' />
                               </Icon>
                               {el.name}
                             </MenuItem>

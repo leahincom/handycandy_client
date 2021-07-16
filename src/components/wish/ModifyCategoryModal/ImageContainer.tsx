@@ -6,11 +6,12 @@ const Container = styled.div`
   position: relative;
   flex-direction: row;
   border-radius: 13px;
+  box-shadow: 5px 5px 5px var(--gray-2);
   width: 262px;
   height: 205px;
 `;
 
-const Candy = styled(Image)`
+const Candy = styled.img`
   position: absolute;
   border-top-left-radius: 13px;
   width: 72px;
@@ -22,20 +23,20 @@ const CardRow = styled.div`
   flex-direction: column;
 `;
 
-const FirstImg = styled(Image)`
+const FirstImg = styled.img`
   border-top-left-radius: 13px;
   border-bottom-left-radius: 13px;
   width: 139px;
   height: 192px;
 `;
 
-const SecondImg = styled(Image)`
+const SecondImg = styled.img`
   border-top-right-radius: 13px;
   width: 114px;
   height: 96px;
 `;
 
-const ThirdImg = styled(Image)`
+const ThirdImg = styled.img`
   border-bottom-right-radius: 13px;
   width: 114px;
   height: 96px;
@@ -51,13 +52,13 @@ export interface ImageContainerProps {
 export default function ImageContainer({ candyImg, firstImg, secondImg, thirdImg }: ImageContainerProps) {
   return (
     <Container>
-      <Candy src={candyImg} />
+      <Candy src={candyImg} alt='' />
       <CardRow>
-        <FirstImg src={firstImg} />
+        <FirstImg src={firstImg} alt='' />
       </CardRow>
       <CardRow>
-        <SecondImg src={secondImg} />
-        <ThirdImg src={thirdImg} />
+        <SecondImg src={secondImg} alt='' />
+        <ThirdImg src={thirdImg} alt='' />
       </CardRow>
     </Container>
   );

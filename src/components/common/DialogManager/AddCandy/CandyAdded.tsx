@@ -2,10 +2,11 @@ import React, { useState, useMemo } from 'react';
 import Image from 'next/dist/client/image';
 import styled from 'styled-components';
 import { useAtom } from 'jotai';
+import { getIconSrc, getAddedSrc } from '../../../../utils/categoryIcons';
 import { openCandyModal } from '../../../../states';
 import Button from '../../Button';
+import { postNewCandy } from '../../../../pages/api/usePosts/postNewCandy';
 import AddCandyDate from './AddCandyDate';
-
 const MainBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -83,7 +84,7 @@ export default function CandyAdded({ category, selectedCategory, candy }: CandyA
       {!detailClicked ? (
         <>
           <MainBox>
-            <CandyAnimation src={selectedItem.added} />
+            <CandyAnimation src={getAddedSrc(selectedItem.category_image_url)} />
             <Desc>
               <UnderLine>{selectedItem.name}</UnderLine>
               <div style={{ marginBottom: '17px' }} />

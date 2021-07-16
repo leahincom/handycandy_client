@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useAtom } from 'jotai';
 import Link from 'next/link';
+import { useQuery } from 'react-query';
 import { PrevArrow, LinkIcon, RightQuote, LeftQuote, EditBtn } from '../../../../public/assets/icons';
 import Button from '../../../components/common/Button';
 import ImageEditModal from '../../../components/common/CandyEdit/ImageEditModal';
@@ -11,6 +12,8 @@ import { DetailCandyEditModalAtom, ImageEditModalAtom } from '../../../states';
 import CandyEditModal from '../../../components/common/CandyEdit';
 import Footer from '../../../components/common/Footer';
 import NavigationLayout from '../../../components/layout/NavigationLayout';
+import { getDetailCandy } from '../../api/useGets/getDetailCandy';
+
 const Container = styled.div`
   margin: auto;
   padding-bottom: 160px;
@@ -95,6 +98,7 @@ const Info = styled.div`
 `;
 const BodyImg = styled.div`
   position: relative;
+  margin-right: 94px;
   width: 440px;
   height: 440px;
   &:hover {
@@ -149,8 +153,6 @@ const MessageInfo = styled.div`
   position: relatvie;
   margin-bottom: 7px;
   border-radius: 30px;
-  /* handycandy/gray/1 */
-
   background: #f2f2f2;
   width: 774px;
   height: 180px;
@@ -176,19 +178,11 @@ const ButtonDiv = styled.div`
   margin-top: 66px;
 `;
 
-export interface DetailProps {
-  itemImg: string;
-  date: string;
-  category: string;
-  itemName: string;
-  link: string;
-  message: string;
-  info: string;
-}
 const MessageText = styled.div`
   position: absolute;
   top: 70px;
   left: 80px;
+  width: 615px;
   text-align: left;
   line-height: 30px;
   letter-spacing: -0.022em;
@@ -214,6 +208,8 @@ const ItemImg = styled.img`
   position: relative;
   border-radius: 24px;
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.09);
+  width: 440px;
+  height: 440px;
 `;
 const ImageEditButtonDiv = styled.div`
   display: none;
@@ -244,8 +240,8 @@ const CandyCompleteButtonDiv = styled.div`
   font-style: normal;
 `;
 const CandyLinkTitle = styled.div`
-  margin-right: 95px;
-  text-align: left;
+  margin-right: 52px;
+  width: 90px;
   line-height: 28px;
   letter-spacing: -0.022em;
   font-family: var(--roboto);
@@ -253,15 +249,20 @@ const CandyLinkTitle = styled.div`
   font-weight: 700;
   font-style: normal;
 `;
-export default function Detail({ itemImg, date, category, itemName, link, message, info }: DetailProps) {
+
+export default function Detail() {
   const router = useRouter();
-  itemImg = 'https://dummyimage.com/440X440/000/fff';
-  date = '2021년 7월 10일';
-  category = '회사생활로 지친 나를';
-  itemName = '필보이드 핸드크림';
-  link = 'https://www.naver.com';
-  message = 'aaaa';
-  info = 'aaaaa';
+
+  console.log('detail', router.query.cid);
+  const { data: detailCandy } = useQuery(['detail', router.query.cid], () =>
+    getDetailCandy(router.query.cid as string),
+  );
+  const candyInfo = detailCandy?.candy_information;
+  const dateStr = candyInfo?.reward_planned_at.toString();
+  const candyUrl = candyInfo?.candy_image_url;
+  const year = dateStr?.slice(0, 4);
+  const month = dateStr?.slice(5, 7);
+  const day = dateStr?.slice(8, 10);
   const [isImgModalOpen, setIsImgModalOpen] = useAtom(ImageEditModalAtom);
   const [isEditModalOpen, setIsEditModalOpen] = useAtom(DetailCandyEditModalAtom);
 
@@ -284,21 +285,23 @@ export default function Detail({ itemImg, date, category, itemName, link, messag
           <TopText>
             <Date>
               <span>저는 </span>
-              <span>{date}</span>
+              <span>
+                {year}년 {month}월 {day}일
+              </span>
               <span>에</span>
             </Date>
             <Category>
-              <span>{category} </span>
+              <span>{detailCandy?.category_name} </span>
               <span>위한,</span>
             </Category>
             <Title>
-              <span>{itemName}</span> <span>주기로 했어요.</span>
+              <span>{candyInfo?.candy_name}</span> <span>주기로 했어요.</span>
             </Title>
           </TopText>
         </TopContainer>
         <BodyContainer>
           <BodyImg>
-            <ItemImg src={itemImg} />
+            <ItemImg src={candyInfo?.candy_image_url} />
             <ImageEditButtonDiv onClick={onClickToOpenImageEditModal}>
               <EditButton src={EditBtn} />
             </ImageEditButtonDiv>
@@ -306,15 +309,19 @@ export default function Detail({ itemImg, date, category, itemName, link, messag
           <BodyInfo>
             <Info>
               <div>상세정보</div>
-              <div>{info}</div>
+              <div>{candyInfo?.candy_name}</div>
             </Info>
             <CandyLinkWrapper>
               <CandyLinkTitle>링크</CandyLinkTitle>
               <CandyLink>
                 <Image src={LinkIcon} alt='LinkIcon' />
-                <Link href={link} passHref>
-                  <CandyLinkText>{link}</CandyLinkText>
-                </Link>
+                <a href={candyInfo?.shopping_link} target='_blank' rel='noreferrer'>
+                  <CandyLinkText>
+                    {candyInfo?.shopping_link && candyInfo.shopping_link.length >= 10
+                      ? candyInfo?.shopping_link.slice(0, 10) + '...'
+                      : candyInfo?.shopping_link}
+                  </CandyLinkText>
+                </a>
               </CandyLink>
             </CandyLinkWrapper>
             <Message>
@@ -324,25 +331,27 @@ export default function Detail({ itemImg, date, category, itemName, link, messag
                   <LeftQuoteImg src={LeftQuote} />
                 </LeftQuoteImgDiv>
 
-                <MessageText>{message}</MessageText>
+                <MessageText>{candyInfo?.message}</MessageText>
                 <RightQuoteImgDiv>
                   <RightQuoteImg src={RightQuote} />
                 </RightQuoteImgDiv>
               </MessageInfo>
-              <MessageLength>{message.length}/100자</MessageLength>
+              <MessageLength>{candyInfo?.message.length}/100자</MessageLength>
             </Message>
             <ButtonDiv>
               <CandyEditButtonDiv onClick={onClickToOpenCandyEditModal}>
                 <Button buttonColor='gray' color='gray' text='수정하기' size='md' />
               </CandyEditButtonDiv>
-              <CandyCompleteButtonDiv onClick={() => router.push({ pathname: '/complete/[cid]', query: { cid: 0 } })}>
+              <CandyCompleteButtonDiv
+                onClick={() => router.push({ pathname: '/reward/[cid]', query: { cid: candyInfo?.candy_id } })}
+              >
                 <Button buttonColor='peach' color='gray' text='캔디 바로주기' size='md' />
               </CandyCompleteButtonDiv>
             </ButtonDiv>
           </BodyInfo>
         </BodyContainer>
       </Container>
-      {isImgModalOpen && <ImageEditModal candy='https://dummyimage.com/221x221/000/fff' />}
+      {isImgModalOpen && candyUrl && <ImageEditModal candy={candyUrl} />}
       {isEditModalOpen && (
         <CandyEditModal
           candyImg='https://dummyimage.com/100x100/000/fff'

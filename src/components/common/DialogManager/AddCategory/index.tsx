@@ -2,32 +2,11 @@ import React, { useState } from 'react';
 import Image from 'next/dist/client/image';
 import styled from 'styled-components';
 import { makeStyles, TextField } from '@material-ui/core';
+import { useMutation, QueryClient } from 'react-query';
 import Button from '../../Button';
-import {
-  Donut,
-  Clover,
-  Flower,
-  Fork,
-  Leaf,
-  Magnet,
-  WaterDrop,
-  X,
-  Ball,
-  Double,
-} from '../../../../../public/assets/candy';
-import {
-  DonutAdded,
-  CloverAdded,
-  FlowerAdded,
-  ForkAdded,
-  LeafAdded,
-  MagnetAdded,
-  WaterDropAdded,
-  XAdded,
-  BallAdded,
-  DoubleAdded,
-} from '../../../../../public/assets/candyAdded';
+import { candyIconList } from '../../../../utils/categoryIcons';
 import { Check } from '../../../../../public/assets/icons';
+import { Category, NewCategory, postNewCategory } from '../../../../pages/api/usePosts/postNewCategory';
 import CategoryAdded from './CategoryAdded';
 
 const useStyles = makeStyles({
@@ -126,62 +105,15 @@ const CheckIcon = styled.div<{ selectedCandy: number; idx: number }>`
 `;
 
 export default function AddCategory() {
-  const candyList = [
-    {
-      name: 'leaf',
-      added: LeafAdded,
-      src: Leaf,
-    },
-    {
-      name: 'waterdrop',
-      added: WaterDropAdded,
-      src: WaterDrop,
-    },
-    {
-      name: 'clover',
-      added: CloverAdded,
-      src: Clover,
-    },
-    {
-      name: 'x',
-      added: XAdded,
-      src: X,
-    },
-    {
-      name: 'flower',
-      added: FlowerAdded,
-      src: Flower,
-    },
-    {
-      name: 'donut',
-      added: DonutAdded,
-      src: Donut,
-    },
-    {
-      name: 'fork',
-      added: ForkAdded,
-      src: Fork,
-    },
-    {
-      name: 'ball',
-      added: BallAdded,
-      src: Ball,
-    },
-    {
-      name: 'double',
-      added: DoubleAdded,
-      src: Double,
-    },
-    {
-      name: 'magnet',
-      added: MagnetAdded,
-      src: Magnet,
-    },
-  ];
-
+  const queryClient = new QueryClient();
   const [selectedCandy, setSelectedCandy] = useState(-1);
-  const [category, setCategory] = useState('행복해지고 싶은 나');
+  const [category, setCategory] = useState('');
   const [added, setAdded] = useState(false);
+  const mutation = useMutation((data: Category) => postNewCategory(data), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('categoryList');
+    },
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     e.preventDefault();
@@ -193,20 +125,28 @@ export default function AddCategory() {
   };
 
   const handleNextClick = () => {
-    selectedCandy > -1 ? setAdded(true) : alert('아이콘을 선택하세요');
+    if (selectedCandy > -1) {
+      mutation.mutate({
+        category_image_url: candyIconList[selectedCandy].src.src,
+        name: category,
+      });
+      setAdded(true);
+    } else {
+      alert('아이콘을 선택하세요');
+    }
   };
 
   const classes = useStyles();
 
   return (
-    <Dialog>
+    <>
       {!added ? (
         <>
           <Title>캔디 카테고리 추가하기</Title>
           <Main>
             <Instruction>원하는 캔디 아이콘을 선택하세요</Instruction>
             <CandyBox>
-              {candyList.map((el, idx) => {
+              {candyIconList.map((el, idx) => {
                 return (
                   <Candy key={idx} onClick={handleCandyClick(idx)}>
                     <CandyIcon selectedCandy={selectedCandy} idx={idx}>
@@ -248,8 +188,8 @@ export default function AddCategory() {
           <Button text='추가하기' size='sm' buttonColor='peach' color='black' onClick={handleNextClick} />
         </>
       ) : (
-        <CategoryAdded category={category} candyList={candyList} selectedCandy={selectedCandy} />
+        <CategoryAdded category={category} candyList={candyIconList} selectedCandy={selectedCandy} />
       )}
-    </Dialog>
+    </>
   );
 }

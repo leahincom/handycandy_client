@@ -82,37 +82,35 @@ const LinkBox = styled.input`
 
 export default function AddCandy() {
   const queryClient = useQueryClient();
-  const { isLoading, data } = useQuery('categoryList', getCategoryList);
+  const { isLoading, data: categoryList } = useQuery('categoryList', getCategoryList);
   const mutation = useMutation(postNewCandy, {
     onSuccess: () => {
-      queryClient.invalidateQueries('categoryList');
+      queryClient.invalidateQueries('waiting');
     },
   });
 
   const [selectedCategory, setSelectedCategory] = useState(0);
-  const [candy, setCandy] = useState({
-    candy_name: '',
-  });
+  const [candy, setCandy] = useState('');
   const [link, setLink] = useState('');
   const [added, setAdded] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     e.preventDefault();
     if (e.target.id === 'standard-basic') {
-      setCandy({ ...candy, candy_name: e.target.value });
+      setCandy(e.target.value);
     } else {
       setLink(e.target.value);
     }
   };
 
   const handleClick = async () => {
-    if (candy.candy_name && link) {
-      const category = data && data[selectedCategory];
+    if (candy && link) {
+      const category = categoryList && categoryList[selectedCategory];
       console.log(candy, link);
       category &&
         mutation.mutate({
           category_id: category.category_id,
-          candy_name: candy.candy_name,
+          candy_name: candy,
           shopping_link: link,
           candy_image_url: '',
           detail_info: '',
@@ -127,49 +125,50 @@ export default function AddCandy() {
 
   return (
     <>
-      {!added ? (
-        <>
-          <Title>캔디 추가하기</Title>
-          <Desc>
-            <Line style={{ zIndex: 5 }}>
-              <CategoryDropdown
-                category={data}
-                selectedCategory={selectedCategory}
-                setSelectedCategory={setSelectedCategory}
-              />
-              를 위한 <br />
-            </Line>
-            <div style={{ marginBottom: '17px' }} />
-            <Line>
-              <form className={classes.root} noValidate autoComplete='off'>
-                <TextField
-                  id='standard-basic'
-                  style={{ width: '311px' }}
-                  value={candy.candy_name}
-                  onChange={handleChange}
-                  inputProps={{
-                    style: {
-                      fontFamily: 'var(--roboto)',
-                      fontStyle: 'normal',
-                      fontWeight: 'bold',
-                      fontSize: '28px',
-                      lineHeight: '33px',
-                      letterSpacing: '-0.022em',
-                      color: 'var(--black)',
-                      textAlign: 'center',
-                    },
-                  }}
+      {!isLoading &&
+        (!added ? (
+          <>
+            <Title>캔디 추가하기</Title>
+            <Desc>
+              <Line>
+                <CategoryDropdown
+                  category={categoryList}
+                  selectedCategory={selectedCategory}
+                  setSelectedCategory={setSelectedCategory}
                 />
-              </form>
-              캔디를 줄거예요.
-            </Line>
-          </Desc>
-          <LinkBox placeholder='링크를 입력하세요' value={link} onChange={handleChange} />
-          <Button text='다음' size='sm' buttonColor='peach' color='black' onClick={handleClick} />
-        </>
-      ) : (
-        <CandyAdded category={data} selectedCategory={selectedCategory} candy={candy} />
-      )}
+                를 위한 <br />
+              </Line>
+              <div style={{ marginBottom: '17px' }} />
+              <Line>
+                <form className={classes.root} noValidate autoComplete='off'>
+                  <TextField
+                    id='standard-basic'
+                    style={{ width: '311px' }}
+                    value={candy}
+                    onChange={handleChange}
+                    inputProps={{
+                      style: {
+                        fontFamily: 'var(--roboto)',
+                        fontStyle: 'normal',
+                        fontWeight: 'bold',
+                        fontSize: '28px',
+                        lineHeight: '33px',
+                        letterSpacing: '-0.022em',
+                        color: 'var(--black)',
+                        textAlign: 'center',
+                      },
+                    }}
+                  />
+                </form>
+                캔디를 줄거예요.
+              </Line>
+            </Desc>
+            <LinkBox placeholder='링크를 입력하세요' value={link} onChange={handleChange} />
+            <Button text='다음' size='sm' buttonColor='peach' color='black' onClick={handleClick} />
+          </>
+        ) : (
+          <CandyAdded category={categoryList} selectedCategory={selectedCategory} candy={candy} />
+        ))}
     </>
   );
 }
