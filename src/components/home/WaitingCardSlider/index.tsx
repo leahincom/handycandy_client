@@ -8,6 +8,7 @@ import 'slick-carousel/slick/slick-theme.css';
 const Container = styled.div`
   width: 380px;
   height: 278px;
+
   .slick-dots {
     .slick-active {
       button::before {

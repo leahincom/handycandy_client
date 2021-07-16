@@ -104,11 +104,11 @@ export default function Home() {
   const { data: userInfo } = useQuery(['userInfo'], getUserInfo, {
     enabled: isLoggedIn,
   });
-  const { data: recommendCandyList } = useQuery(['getRecommendCandy'], () => getRecommendCandy());
+  const { data: recommendCandyList } = useQuery('getRecommendCandy', getRecommendCandy);
   const { data: comingCandyList } = useQuery(['getComingCandy', userToken], getComingCandy, {
     enabled: isLoggedIn,
   });
-  const { data: waitingCandyList } = useQuery(['getWaitingCandy', userToken], getWaitingCandy, {
+  const { data: waitingCandyList } = useQuery('getWaitingCandy', getWaitingCandy, {
     enabled: isLoggedIn,
   });
   const candyInBottle = useMemo(() => {
