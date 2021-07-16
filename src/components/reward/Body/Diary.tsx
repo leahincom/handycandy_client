@@ -104,7 +104,6 @@ export default function Diary() {
       feeling: checkedEmoId,
       message,
     };
-    console.log('🚀 ~ file: Diary.tsx ~ line 90 ~ handleClickComplete ~ body', body);
 
     postRewardMutation.mutate(body, {
       onSuccess: (data) => {

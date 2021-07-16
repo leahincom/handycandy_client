@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
-import Image from 'next/image';
 import { useAtom } from 'jotai';
 import {
   Bottle0,
@@ -18,7 +17,7 @@ import {
 import { CurrentMonthAtom } from '../../../states';
 import PrevArrow from './PrevArrow';
 import NextArrow from './NextArrow';
-
+import Slide from './Slide';
 interface Bottle {
   id: number;
   src: any;
@@ -49,6 +48,11 @@ const Container = styled.div`
     transform: scale(1.5);
     transition: transform 0.3s;
   }
+  .slick-center h1 {
+    font-weight: 800;
+    line-height: 51px;
+  }
+
   .slick-slide > div {
     display: flex;
     align-items: center;
@@ -57,30 +61,35 @@ const Container = styled.div`
 `;
 
 export interface CompleteSliderProps {
-  before: number;
-  current: number;
-  after: number;
+  category_num: number[];
 }
 
-export default function CompleteSlider({ before, current, after }: CompleteSliderProps) {
-  const [setCurrentMonth] = useAtom(CurrentMonthAtom);
-  const sliderList = [bottleList[before].src, bottleList[current].src, bottleList[after].src, bottleList[9].src];
+export default function CompleteSlider({ category_num }: CompleteSliderProps) {
+  const sliderList = category_num.map((num, index) => ({
+    bottle: bottleList[num].src,
+    month: index + 1,
+  }));
+
+  const [curMonth] = useAtom(CurrentMonthAtom);
+  const sliderRef = useRef<Slider>(null);
 
   const settings = {
     arrows: true,
     adaptiveHeight: true,
     centerMode: true,
     infinite: true,
+    initialSlide: curMonth - 1,
     slidesToShow: 3,
+    draggable: false,
     centerPadding: '0px',
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow sliderRef={sliderRef} />,
+    prevArrow: <PrevArrow sliderRef={sliderRef} />,
   };
   return (
     <Container>
-      <Slider {...settings}>
-        {sliderList.map((bottle, index) => (
-          <Image key={index} src={bottle} alt='bottle' width={290} height={237} />
+      <Slider ref={sliderRef} {...settings}>
+        {sliderList.map((slider, index) => (
+          <Slide bottle={slider.bottle} month={slider.month} key={index} />
         ))}
       </Slider>
     </Container>

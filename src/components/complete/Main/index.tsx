@@ -89,11 +89,7 @@ const SliderWrapper = styled.div`
 export default function CompleteMain() {
   const [isOpenRewardModal] = useAtom(RewardModalAtom);
   const [curMonth] = useAtom(CurrentMonthAtom);
-  const { isLoading, isError, data, error } = useQuery('complete', () => getCompletedCandy(curMonth));
-  const curDirectory = new Set(data?.result.cur_categories).size;
-  const beforeDirectory = new Set(data?.result.before_categoris).size;
-  const afterDirectory = new Set(data?.result.after_categoris).size;
-  // TODO: 슬라이더 12개 받아오도록 api 바뀌는 대로 구현 새로하기
+  const { isLoading, isError, data, error } = useQuery('complete', () => getCompletedCandy());
 
   return (
     <>
@@ -106,24 +102,26 @@ export default function CompleteMain() {
           objectFit='cover'
           objectPosition='center'
         />
-        <Body>
-          <div style={{ margin: 'auto', maxWidth: '1440px' }}>
-            <BodyTitle>완료한 캔디</BodyTitle>
-            <BodyDesc>내가 선물했던 캔디들이 모인 병들을 모아보세요</BodyDesc>
-          </div>
-          <BubbleWrapper>
-            <Image src={Bubble} width={460} height={120} alt='bubble' />
-            {isLoading && <p>Loading...</p>}
-            {isError && <p>Error!{console.log(error)}</p>}
-            <BubbleText>
-              {data?.result.candy_count}개의 캔디
-              <BubbleUnderline />를 주었어요!
-            </BubbleText>
-          </BubbleWrapper>
-          <SliderWrapper>
-            <CompleteSlider before={beforeDirectory} current={curDirectory} after={afterDirectory} />
-          </SliderWrapper>
-        </Body>
+
+        {data && (
+          <Body>
+            <div style={{ margin: 'auto', maxWidth: '1440px' }}>
+              <BodyTitle>완료한 캔디</BodyTitle>
+              <BodyDesc>내가 선물했던 캔디들이 모인 병들을 모아보세요</BodyDesc>
+            </div>
+
+            <BubbleWrapper>
+              <Image src={Bubble} width={460} height={120} alt='bubble' />
+
+              <BubbleText>
+                {data?.monthly_candies[curMonth].length}개의 캔디
+                <BubbleUnderline />를 주었어요!
+              </BubbleText>
+            </BubbleWrapper>
+            <SliderWrapper>{data && <CompleteSlider category_num={data.category_num} />}</SliderWrapper>
+          </Body>
+        )}
+
         <CompleteContent />
         {isOpenRewardModal && <RewardModal />}
       </Container>

@@ -1,4 +1,5 @@
 import { instance } from '..';
+import { CategoryImageUrl as BannerImageUrl } from './getCompletedCandy';
 
 export interface GetCompletedCandyDetail {
   status: number;
@@ -18,6 +19,8 @@ export interface CompletedCandyDetail {
   message: string;
   candy_history: string;
   review_id: string;
+  banner: BannerImageUrl;
+  shopping_link: string;
 }
 
 export const getComletedCandyDetail = async (candy_id: string) => {

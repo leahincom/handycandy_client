@@ -26,8 +26,6 @@ export default function RewardMain({ bannerTitle, bannerDesc }: RewardMainProps)
 
   return (
     <>
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Error!</p>}
       {data && (
         <ReactFullpage
           verticalCentered={false}
