@@ -83,7 +83,7 @@ export default function DeleteModal({ candy }: DeleteModalProps) {
   const [isOpen, setIsOpen] = useAtom(DetailCandyEditModalAtom);
   const router = useRouter();
   const candyId = router.query.cid as string;
-  console.log(candyId);
+
   const handleClickToClose = () => {
     setIsOpen(false);
   };

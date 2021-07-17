@@ -60,7 +60,6 @@ export default function AddCandyDate({ candyId, category, selectedCategory, cand
     setGoBefore(true);
   };
   const handleNextClick: React.MouseEventHandler<HTMLButtonElement> = () => {
-    console.log(year, month, day);
     setBody({ year, month, date: day });
     setAdded(true);
   };

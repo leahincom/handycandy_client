@@ -7,7 +7,6 @@ export const login = async (email: string, password: string) => {
     email: `${email}`,
     password: `${password}`,
   });
-  console.log(userToken);
   if (check) {
     localStorage.setItem('userToken', userToken.data.token);
   }

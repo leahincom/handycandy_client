@@ -17,6 +17,5 @@ export const getCategoryList = async () => {
       'x-auth-token': localStorage.getItem('userToken'),
     },
   });
-  console.log('candy', candy);
   return candy.data.result as CategoryList[];
 };

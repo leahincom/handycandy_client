@@ -108,7 +108,6 @@ export default function AddCandy() {
   const handleClick = async () => {
     if (candy && link) {
       const category = categoryList && categoryList[selectedCategory];
-      console.log(candy, link);
       category &&
         mutation.mutate({
           category_id: category.category_id,

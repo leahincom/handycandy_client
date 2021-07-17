@@ -29,6 +29,5 @@ export const getMatchedCandy = async (item?: string | string[]) => {
       item: `${item}`,
     },
   });
-  console.log(cards);
   return cards.data.result;
 };

@@ -20,7 +20,5 @@ export const getWaitingCandy = async () => {
       'x-auth-token': localStorage.getItem('userToken'),
     },
   });
-  console.log(cards);
-
   return cards.data.result.waiting_candy as WaitingCandy[];
 };

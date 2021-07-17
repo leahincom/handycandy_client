@@ -22,6 +22,5 @@ export const postNewCategory = async (category: Category) => {
       },
     },
   );
-  console.log(data);
   return data.result as NewCategory;
 };

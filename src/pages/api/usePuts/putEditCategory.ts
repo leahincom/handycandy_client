@@ -23,6 +23,5 @@ export const putEditCategory = async (body: BodyProps) => {
       'x-auth-token': localStorage.getItem('userToken'),
     },
   });
-  console.log(data);
   return data as PutEditCategory;
 };

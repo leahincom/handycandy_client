@@ -15,6 +15,5 @@ export const getUserInfo = async () => {
       'x-auth-token': localStorage.getItem('userToken'),
     },
   });
-  console.log(user);
   return user.data.result as UserInfo;
 };

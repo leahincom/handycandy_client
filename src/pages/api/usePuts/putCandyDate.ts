@@ -24,6 +24,5 @@ export const putCandyDate = async (body: PutBodyProps) => {
       'x-auth-token': localStorage.getItem('userToken'),
     },
   });
-  console.log(data);
   return data.data as PutCandyDate;
 };
