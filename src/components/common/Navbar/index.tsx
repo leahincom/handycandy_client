@@ -17,8 +17,10 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
+  box-sizing: border-box;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin: auto;
   width: 1440px;
   height: 106px;
@@ -53,9 +55,9 @@ const Menu = styled.a<{ active?: boolean }>`
 
 const SearchArea = styled.div`
   display: flex;
-  justify-content: flex-end;
-  margin-right: 54px;
-  margin-left: 40px;
+  justify-content: center;
+  /* margin-right: 54px;
+  margin-left: 40px; */
 `;
 
 const Buttons = styled.div`
@@ -64,13 +66,15 @@ const Buttons = styled.div`
   justify-content: space-between;
 `;
 
-const ProfileIcon = styled(Image)`
+const ProfileIcon = styled.div`
+  margin-right: 16px;
   cursor: pointer;
   width: 28px;
   height: 28px;
 `;
 
-const RingIcon = styled(Image)`
+const RingIcon = styled.div`
+  margin-right: 16px;
   cursor: pointer;
   width: 48px;
   height: 48px;
@@ -176,8 +180,12 @@ export default function Navbar() {
           <SearchBar />
         </SearchArea>
         <Buttons>
-          <ProfileIcon onClick={handleMoveToLogin} src={Profile} />
-          <RingIcon src={Ring} onClick={openNotice} />
+          <ProfileIcon>
+            <Image onClick={handleMoveToLogin} src={Profile} alt='' />
+          </ProfileIcon>
+          <RingIcon>
+            <Image src={Ring} onClick={openNotice} alt='' />
+          </RingIcon>
           {isNoticeOpen && <NoticeModal notices={notices} />}
           <AddCandyButton onClick={handleOpenModal}>캔디추가하기</AddCandyButton>
         </Buttons>

@@ -61,7 +61,6 @@ const AddButton = styled.div`
   border-radius: 50%;
   background-color: var(--gray-3);
   cursor: pointer;
-  padding-bottom: 4px;
   width: 23px;
   height: 23px;
   color: var(--white);
