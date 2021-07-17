@@ -384,9 +384,9 @@ export default function Detail() {
       )}
 
       {/* Todo: 서버에러 해결되면 이미지 서버에서 주는걸로 바꾸기 */}
-      {isImgModalOpen && <ImageEditModal candy='https://dummyimage.com/221x221/000/fff' />}
+      {isImgModalOpen && <ImageEditModal candy={data?.candy_image_url || '/assets/images/ComingCandyNull.png'} />}
       {isEditModalOpen && <EditModal />}
-      {isDeleteModalOpen && <DeleteModal candy='https://dummyimage.com/100x100/000/fff' />}
+      {isDeleteModalOpen && <DeleteModal candy={data?.candy_image_url || '/assets/images/ComingCandyNull.png'} />}
     </NavigationLayout>
   );
 }

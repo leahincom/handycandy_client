@@ -101,10 +101,11 @@ const ButtonWrap = styled.div`
 export default function RewardModal() {
   const [isOpen, setIsOpen] = useAtom(RewardModalAtom);
   const [completeModalCategory] = useAtom(CompleteModalCategory);
-  const categoryImage = completeCandyList.find((c) => c.name === completeModalCategory)?.src;
+  const categoryImage = completeCandyList.find((c) => c.name === completeModalCategory)?.src.src;
   const handleClickClose = () => {
     setIsOpen(false);
   };
+  console.log('[category 이미지]', categoryImage);
 
   return (
     <>

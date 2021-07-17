@@ -31,5 +31,6 @@ export const postNewCandy = async (data: Candy) => {
       },
     },
   );
+
   return cards.data.result as NewCandy;
 };

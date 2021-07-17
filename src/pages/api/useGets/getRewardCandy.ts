@@ -7,6 +7,7 @@ export interface GetRewardCandy {
 }
 
 export interface RewardCandy {
+  candy_image_url: string;
   category_name: string;
   candy_name: string;
   detail_info: string;

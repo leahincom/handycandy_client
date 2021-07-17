@@ -88,6 +88,7 @@ const bgColorList = [
   { color: 'rgba(251, 239, 196, 0.2)', category: 'Fork' },
   { color: 'rgba(255, 191, 191, 0.2)', category: 'Donut' },
   { color: 'rgba(164, 226, 251, 0.2)', category: 'X' },
+  { color: 'rgba(255,217,190,0.2)', category: 'Flower' },
 ];
 
 export default function CompleteCard({

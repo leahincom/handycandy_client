@@ -32,6 +32,13 @@ const Candy = styled(Image)`
   filter: drop-shadow(0px 0px 17px rgba(0, 0, 0, 0.09));
 `;
 
+const TempCandyImage = styled.img`
+  border-radius: 24px;
+  filter: drop-shadow(0px 0px 17px rgba(0, 0, 0, 0.09));
+  width: 325px;
+  height: 325px;
+`;
+
 const CandyContentWrapper = styled.div`
   display: flex;
   margin-top: 45px;
@@ -112,6 +119,7 @@ export interface BodyProps extends RewardCandy {
 }
 
 export default function Body({
+  candy_image_url,
   category_name,
   candy_name,
   detail_info,
@@ -129,7 +137,8 @@ export default function Body({
         <Underlined style={{ fontWeight: '700' }}>{candy_name}</Underlined>을 선물할거에요.
       </CandyTitle>
       <CandyContentWrapper>
-        <Candy src={HandCream} width='325px' height='325px' />
+        <TempCandyImage src={candy_image_url || '/assets/images/ComingCandyNull.png'} alt='' />
+        {/* <Candy src={candy_image_url || '/assets/images/ComingCandyNull.png'} width='325px' height='325px' /> */}
         <CandyContent>
           <CandyInfo>
             <CandyText weight={700}>상세정보</CandyText>

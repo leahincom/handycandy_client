@@ -107,7 +107,7 @@ export default function Diary() {
 
     postRewardMutation.mutate(body, {
       onSuccess: (data) => {
-        setCompleteModalCategory(data.category_image_url);
+        setCompleteModalCategory(data);
         router.push('/complete');
         setIsCompleteModalOpen(true);
       },

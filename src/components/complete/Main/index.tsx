@@ -92,17 +92,17 @@ export default function CompleteMain() {
 
   return (
     <>
-      <Container>
-        <Image
-          className='background'
-          src={CompleteBackground}
-          alt='background'
-          layout='fill'
-          objectFit='cover'
-          objectPosition='center'
-        />
+      {data && (
+        <Container>
+          <Image
+            className='background'
+            src={CompleteBackground}
+            alt='background'
+            layout='fill'
+            objectFit='cover'
+            objectPosition='center'
+          />
 
-        {data && (
           <Body>
             <div style={{ margin: 'auto', maxWidth: '1440px' }}>
               <BodyTitle>완료한 캔디</BodyTitle>
@@ -119,11 +119,11 @@ export default function CompleteMain() {
             </BubbleWrapper>
             <SliderWrapper>{data && <CompleteSlider category_num={data.category_num} />}</SliderWrapper>
           </Body>
-        )}
 
-        <CompleteContent />
-        {isOpenRewardModal && <RewardModal />}
-      </Container>
+          <CompleteContent />
+        </Container>
+      )}
+      {isOpenRewardModal && <RewardModal />}
     </>
   );
 }

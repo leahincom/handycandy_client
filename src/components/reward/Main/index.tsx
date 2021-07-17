@@ -33,6 +33,7 @@ export default function RewardMain({ bannerTitle, bannerDesc }: RewardMainProps)
             return (
               <ReactFullpage.Wrapper>
                 <Body
+                  candy_image_url={data.result.candy_image_url}
                   category_name={data.result.category_name}
                   candy_name={data.result.candy_name}
                   detail_info={data.result.detail_info}

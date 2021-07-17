@@ -93,6 +93,7 @@ export default function DeleteModal({ candy }: DeleteModalProps) {
   });
   const handleClickDelete = () => {
     deleteCandyMutation.mutate();
+    setIsOpen(false);
     router.push('/complete');
   };
 

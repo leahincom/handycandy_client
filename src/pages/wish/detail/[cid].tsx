@@ -252,7 +252,6 @@ const CandyLinkTitle = styled.div`
 
 export default function Detail() {
   const router = useRouter();
-
   const { data: detailCandy } = useQuery(['detail', router.query.cid], () =>
     getDetailCandy(router.query.cid as string),
   );
