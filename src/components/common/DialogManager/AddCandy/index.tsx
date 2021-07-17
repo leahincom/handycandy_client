@@ -81,18 +81,20 @@ const LinkBox = styled.input`
 `;
 
 export default function AddCandy() {
-  const queryClient = useQueryClient();
-  const { isLoading, data: categoryList } = useQuery('categoryList', getCategoryList);
-  const mutation = useMutation(postNewCandy, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('waiting');
-    },
-  });
-
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [candy, setCandy] = useState('');
   const [link, setLink] = useState('');
   const [added, setAdded] = useState(false);
+  const [candyId, setCandyId] = useState('');
+
+  const queryClient = useQueryClient();
+  const { isLoading, data: categoryList } = useQuery('categoryList', getCategoryList);
+  const mutation = useMutation(postNewCandy, {
+    onSuccess: (data) => {
+      setCandyId(data.candy_id);
+      queryClient.invalidateQueries('waiting');
+    },
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     e.preventDefault();
@@ -167,7 +169,7 @@ export default function AddCandy() {
             <Button text='다음' size='sm' buttonColor='peach' color='black' onClick={handleClick} />
           </>
         ) : (
-          <CandyAdded category={categoryList} selectedCategory={selectedCategory} candy={candy} />
+          <CandyAdded candyId={candyId} category={categoryList} selectedCategory={selectedCategory} candy={candy} />
         ))}
     </>
   );

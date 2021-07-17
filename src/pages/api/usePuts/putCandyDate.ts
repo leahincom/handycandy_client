@@ -8,7 +8,7 @@ interface BodyProps {
 }
 
 export interface PutBodyProps {
-  category_id: string;
+  candy_id: string;
   body: BodyProps;
 }
 
@@ -19,14 +19,11 @@ export interface PutCandyDate {
 }
 
 export const putCandyDate = async (body: PutBodyProps) => {
-  const { data } = await instance.put('/api/candies/completedCandy', body.body, {
+  const data = await instance.put(`/api/candies/date/${body.candy_id}`, body.body, {
     headers: {
       'x-auth-token': localStorage.getItem('userToken'),
     },
-    params: {
-      candy_id: body.category_id,
-    },
   });
   console.log(data);
-  return data as PutCandyDate;
+  return data.data as PutCandyDate;
 };

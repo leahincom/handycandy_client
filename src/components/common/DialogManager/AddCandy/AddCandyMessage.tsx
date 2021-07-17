@@ -85,7 +85,7 @@ export interface AddCandyMessageProps extends CandyAddedProps {
   body: AddCandyProps;
 }
 
-export default function AddCandyMessage({ category, selectedCategory, candy, body }: AddCandyMessageProps) {
+export default function AddCandyMessage({ candyId, category, selectedCategory, candy, body }: AddCandyMessageProps) {
   const [script, setScript] = useState('');
   const [goBefore, setGoBefore] = useState(false);
   const [openModal, setOpenModal] = useAtom(openCandyModal);
@@ -104,9 +104,9 @@ export default function AddCandyMessage({ category, selectedCategory, candy, bod
     setGoBefore(true);
   };
   const handleEndClick = () => {
-    setOpenModal(false);
-    mutation.mutate({ category_id: category.category_id, body: { ...body, message: script } });
+    mutation.mutate({ candy_id: candyId, body: { ...body, message: script } });
     alert('캔디 추가가 완료되었습니다.');
+    setOpenModal(false);
   };
 
   return (
@@ -125,7 +125,7 @@ export default function AddCandyMessage({ category, selectedCategory, candy, bod
           </ButtonBar>
         </>
       ) : (
-        <AddCandyDate category={category} selectedCategory={selectedCategory} candy={candy} />
+        <AddCandyDate candyId={candyId} category={category} selectedCategory={selectedCategory} candy={candy} />
       )}
     </>
   );

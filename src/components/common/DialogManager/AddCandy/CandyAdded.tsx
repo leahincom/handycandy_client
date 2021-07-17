@@ -62,9 +62,10 @@ export interface CandyAddedProps {
   category: any;
   selectedCategory: number;
   candy: any;
+  candyId: string;
 }
 
-export default function CandyAdded({ category, selectedCategory, candy }: CandyAddedProps) {
+export default function CandyAdded({ candyId, category, selectedCategory, candy }: CandyAddedProps) {
   const [openModal, setOpenModal] = useAtom(openCandyModal);
 
   const [detailClicked, setDetailClicked] = useState(false);
@@ -107,7 +108,7 @@ export default function CandyAdded({ category, selectedCategory, candy }: CandyA
           </ButtonBar>
         </>
       ) : (
-        <AddCandyDate category={category} selectedCategory={selectedCategory} candy={candy} />
+        <AddCandyDate candyId={candyId} category={category} selectedCategory={selectedCategory} candy={candy} />
       )}
     </>
   );

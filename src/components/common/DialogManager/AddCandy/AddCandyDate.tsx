@@ -45,7 +45,7 @@ const ButtonBar = styled.div`
   align-items: center;
 `;
 
-export default function AddCandyDate({ category, selectedCategory, candy }: CandyAddedProps) {
+export default function AddCandyDate({ candyId, category, selectedCategory, candy }: CandyAddedProps) {
   const [goBefore, setGoBefore] = useState(false);
   const [added, setAdded] = useState(false);
 
@@ -60,6 +60,7 @@ export default function AddCandyDate({ category, selectedCategory, candy }: Cand
     setGoBefore(true);
   };
   const handleNextClick: React.MouseEventHandler<HTMLButtonElement> = () => {
+    console.log(year, month, day);
     setBody({ year, month, date: day });
     setAdded(true);
   };
@@ -99,11 +100,19 @@ export default function AddCandyDate({ category, selectedCategory, candy }: Cand
   }
 
   if (added) {
-    return <AddCandyMessage category={category} selectedCategory={selectedCategory} candy={candy} body={body} />;
+    return (
+      <AddCandyMessage
+        candyId={candyId}
+        category={category}
+        selectedCategory={selectedCategory}
+        candy={candy}
+        body={body}
+      />
+    );
   }
 
   if (goBefore) {
-    return <CandyAdded category={category} selectedCategory={selectedCategory} candy={candy} />;
+    return <CandyAdded candyId={candyId} category={category} selectedCategory={selectedCategory} candy={candy} />;
   }
 
   return (
