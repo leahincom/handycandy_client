@@ -46,6 +46,7 @@ const TextBox = styled.textarea`
   font-size: 18px;
   font-weight: normal;
   font-style: normal;
+  resize: none;
 
   &::placeholder {
     color: var(--gray-5);

@@ -113,8 +113,8 @@ const CandyContainer = styled.div`
 `;
 
 export default function TotalCandy() {
-  const { data: comingList } = useQuery(['coming'], () => getComingCandy());
-  const { data: waitingList } = useQuery(['waiting'], () => getWaitingCandy());
+  const { data: comingList } = useQuery('coming', () => getComingCandy());
+  const { data: waitingList } = useQuery('waiting', () => getWaitingCandy());
 
   return (
     <NavigationLayout

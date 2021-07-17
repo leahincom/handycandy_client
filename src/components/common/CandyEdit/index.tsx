@@ -141,6 +141,7 @@ const TextBox = styled.textarea`
   font-size: 14px;
   font-weight: normal;
   font-style: normal;
+  resize: none;
 
   &::placeholder {
     color: var(--gray-5);
