@@ -7,12 +7,9 @@ export interface DeleteCandy {
 }
 
 export const deleteCategory = async (category_id: string) => {
-  const { data } = await instance.delete(`api/candies`, {
+  const { data } = await instance.delete(`api/candies/${category_id}`, {
     headers: {
       'x-auth-token': localStorage.getItem('userToken'),
-    },
-    params: {
-      category_id,
     },
   });
   return data as DeleteCandy;

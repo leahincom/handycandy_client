@@ -1,6 +1,11 @@
+import { useAtom } from 'jotai';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
+import { deleteCandy } from '../../../pages/api/useDeletes/deleteCandy';
+import { DetailCandyEditModalAtom } from '../../../states';
 import Button from '../../common/Button';
 
 interface BackgroundProps {
@@ -75,9 +80,24 @@ export interface DeleteModalProps {
 }
 
 export default function DeleteModal({ candy }: DeleteModalProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useAtom(DetailCandyEditModalAtom);
+  const router = useRouter();
+  const candyId = router.query.cid as string;
+  console.log(candyId);
   const handleClickToClose = () => {
     setIsOpen(false);
+  };
+
+  const queryClient = useQueryClient();
+  const deleteCandyMutation = useMutation(() => deleteCandy(candyId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('coming');
+    },
+  });
+
+  const handleClickDelete = () => {
+    deleteCandyMutation.mutate();
+    router.push('/wish/total');
   };
 
   return (
@@ -90,9 +110,9 @@ export default function DeleteModal({ candy }: DeleteModalProps) {
           캔디를 영구 삭제한 후에는 <br />이 작업을 실행 취소할 수 없습니다!
         </SubTitle>
         <ButtonWrapper>
-          <Button buttonColor='gray' size='sm' text='취소하기' />
+          <Button buttonColor='gray' size='sm' text='취소하기' onClick={handleClickToClose} />
           <Empty />
-          <Button buttonColor='peach' size='sm' text='삭제 완료' />
+          <Button buttonColor='peach' size='sm' text='삭제 완료' onClick={handleClickDelete} />
         </ButtonWrapper>
       </Container>
     </>

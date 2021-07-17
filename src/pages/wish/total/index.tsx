@@ -115,7 +115,7 @@ const CandyContainer = styled.div`
 export default function TotalCandy() {
   const { data: comingList } = useQuery(['coming'], () => getComingCandy());
   const { data: waitingList } = useQuery(['waiting'], () => getWaitingCandy());
-  const router = useRouter();
+
   return (
     <NavigationLayout
       background={

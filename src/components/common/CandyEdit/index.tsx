@@ -93,7 +93,12 @@ const InfoTitle = styled.div`
   font-size: 24px;
   font-weight: 700;
   font-style: normal;
-  //styleName: cardview/title;
+  /* //styleName: cardview/title; */
+
+  :hover {
+    cursor: pointer;
+    color: var(--gray-4);
+  }
 `;
 const InfoSubTitle = styled.div`
   text-align: left;
@@ -102,7 +107,8 @@ const InfoSubTitle = styled.div`
   font-family: var(--roboto);
   font-size: 18px;
   font-weight: 400;
-  font-style: normal; //styleName: main/sub;
+  font-style: normal;
+  /* //styleName: main/sub; */
 `;
 const CandyName = styled.div``;
 const Category = styled.div`
@@ -211,7 +217,7 @@ export interface CandyEditProps {
   candyMessage: string;
 }
 
-export default function CandyEdit({ candyImg, candyCategory, candyMessage }: CandyEditProps) {
+export default function CandyEditModal({ candyImg, candyCategory, candyMessage }: CandyEditProps) {
   const category = [
     {
       image: Donut,
@@ -288,6 +294,10 @@ export default function CandyEdit({ candyImg, candyCategory, candyMessage }: Can
     setIsOpen(false);
   };
 
+  const handleClickToDeleteCandy = () => {
+    setAdded(true);
+  };
+
   return (
     <>
       {!added ? (
@@ -347,7 +357,7 @@ export default function CandyEdit({ candyImg, candyCategory, candyMessage }: Can
             </Message>
             <BorderLine />
             <InfoText>
-              <InfoTitle>캔디 삭제</InfoTitle>
+              <InfoTitle onClick={handleClickToDeleteCandy}>캔디 삭제</InfoTitle>
               <InfoSubTitle>캔디가 영구적으로 삭제됩니다.</InfoSubTitle>
             </InfoText>
             <ButtonDiv>
