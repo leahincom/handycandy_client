@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
+import DialogManager from '../common/DialogManager';
 import Footer from '../common/Footer';
 import Navbar from '../common/Navbar';
 
@@ -23,6 +24,7 @@ export default function NavigationLayout({ children, background }: NavigationLay
       <Navbar />
       <PageContent bg={background}>{children}</PageContent>
       <Footer />
+      <DialogManager />
     </>
   );
 }
