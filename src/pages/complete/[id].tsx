@@ -2,7 +2,7 @@ import { useAtom } from 'jotai';
 import { useRouter } from 'next/dist/client/router';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
@@ -278,9 +278,17 @@ export default function Detail() {
   const [isDeleteModalOpen] = useAtom(DeleteModalAtom);
   const router = useRouter();
   const candyId = router.query.id;
+
   const { isLoading, isError, data, error } = useQuery(['complete', candyId], () =>
     getComletedCandyDetail(candyId as string),
   );
+  useEffect(() => {
+    if (data) {
+      setValue(HISTORY, data.candy_history);
+      setValue(MESSAGE, data.message);
+    }
+  }, [data]);
+
   const banner = completeBannerList.find((banner) => banner.name === data?.banner)?.src;
 
   const onClickToGoBack = () => {
@@ -359,7 +367,7 @@ export default function Detail() {
                 {...register(MESSAGE)}
                 rows={3}
                 onChange={(e) => checkByte(e, messageTextLimitRef, MESSAGE, setValue)}
-                defaultValue={data.message}
+                // defaultValue={data.message}
               />
               <TextLimitNumber>
                 <TextCurrentNumber ref={messageTextLimitRef}>0</TextCurrentNumber>/200Byte
@@ -369,7 +377,7 @@ export default function Detail() {
                 {...register(HISTORY)}
                 rows={3}
                 onChange={(e) => checkByte(e, historyTextLimitRef, HISTORY, setValue)}
-                defaultValue={data.candy_history}
+                // defaultValue={data.candy_history}
               />
               <TextLimitNumber>
                 <TextCurrentNumber ref={historyTextLimitRef}>0</TextCurrentNumber>/200Byte
